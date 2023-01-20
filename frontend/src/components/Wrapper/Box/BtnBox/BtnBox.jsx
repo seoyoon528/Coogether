@@ -1,6 +1,6 @@
 import React from 'react'
 
-function StreamHistoryModal() {
+function BtnBox() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function StreamHistoryModal() {
   )
 }
 
-export default StreamHistoryModal
+export default BtnBox
