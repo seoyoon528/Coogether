@@ -2,8 +2,10 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>HELLO WORLD</h1>
+    <div>
+      <p className="test">테스트</p>
+      <p>테스트</p>
+      {/* <p style={{ fontStyle: 'bold' }}>테스트</p> */}
     </div>
   );
 }
