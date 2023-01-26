@@ -15,9 +15,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    private static final String API_NAME = "UMJJAL Project API";
+    private static final String API_NAME = "쿠게더 Project API";
     private static final String API_VERSION = "0.0.1";
-    private static final String API_DESCRIPTION = "UMJJAL 프로젝트 명세서";
+    private static final String API_DESCRIPTION = "쿠게더 기능 명세서";
 
     @Bean
     public Docket api() {
@@ -34,7 +34,7 @@ public class SwaggerConfig {
                 .title(API_NAME)
                 .version(API_VERSION)
                 .description(API_DESCRIPTION)
-                .contact(new Contact("Leeh9", "https://github.com/Leeh9/", "gusrnas@gmail.com"))
+                .contact(new Contact("Notion", "https://obsidian-caution-650.notion.site/413d4eca2d46491c83f0c4543bee066c", "gusrnas@gmail.com"))
                 .build();
     }
 }
