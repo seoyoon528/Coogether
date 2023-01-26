@@ -23,24 +23,24 @@ public class Report {
     @Id
     @GeneratedValue
     @Column(name = "report_id", nullable = false)
-    private int id;
+    private int reportId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "reporter_id")
-    private User reporter_id;
+    private User reporterId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "reported_id")
-    private User reported_id;
+    private User reportedId;
 
-    @Column(length = 200, nullable = true)
-    private String report_content;
+    @Column(name = "report_content", length = 200, nullable = true)
+    private String reportContent;
 
     @CreatedDate // 신고 등록 일자
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime report_date;
+    @Column(name = "report_date", updatable = false, nullable = false)
+    private LocalDateTime reportDate;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private EnumReportCategory report_category;
+    @Column(name = "report_category", nullable = false)
+    private EnumReportCategory reportCategory;
 }
