@@ -24,70 +24,73 @@ import java.util.List;
 @Table(name = "user")
 public class User {
 
-    @OneToMany(mappedBy = "following_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "followingUserId", cascade = CascadeType.ALL)
     private List<Follow> followingList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "follower_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "followerUserId", cascade = CascadeType.ALL)
     private List<Follow> followerList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "reporter_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reporterId", cascade = CascadeType.ALL)
     private List<Report> reporterList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "reported_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reportedId", cascade = CascadeType.ALL)
     private List<Report> reportedList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<MyIngredientManage> myIngredientManageList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<IngredientFav> ingredientFavList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cooking_room_host_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cookingRoomHostId", cascade = CascadeType.ALL)
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<CookingRoomHistory> cookingRoomHistoryList = new ArrayList<>();
 
     @Id
     @Column(name = "user_id", length = 200, nullable = false)
-    private String id;
+    private String userId;
 
-    @Column(length = 30, nullable = false)
-    private String user_name;
+    @Column(name = "user_name", length = 30, nullable = false)
+    private String userName;
 
-    @Column(length = 30, nullable = false)
-    private String user_nickname;
+    @Column(name = "user_nickname", length = 30, nullable = false)
+    private String userNickname;
 
-    @Column(length = 50, nullable = false)
-    private String user_email;
+    @Column(name = "user_email", length = 50, nullable = false)
+    private String userEmail;
 
-    @Column(length = 100, nullable = true)
-    private String user_img;
+    @Column(name = "user_img", length = 100, nullable = true)
+    private String userImg;
 
-    @Column(length = 300, nullable = true)
-    private String user_introduce;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private EnumUserCookCategory user_cook_category;
+    @Column(name = "user_introduce", length = 300, nullable = true)
+    private String userIntroduce;
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name="user_cook_category")
+    private EnumUserCookCategory userCookCategory;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_account_status")
     private EnumUserAccountStatus user_account_status;
 
 
-    @NotNull
-    private int user_temp;
+    @Column(name = "user_temp", nullable = false)
+    private int userTemp;
 
     @CreatedDate // 최초 생성 시간
-    @Column(updatable = false, nullable = false)
+    @Column(name = "user_create_date", updatable = false, nullable = false)
     private LocalDateTime user_create_date;
 
-    @Column(updatable = false, nullable = false)
     @LastModifiedDate // 최종 수정 시간
+    @Column(name = "user_last_login_date", updatable = false, nullable = false)
     private LocalDateTime user_last_login_date;
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_sns_type")
     private EnumSnsType user_sns_type;
 }
