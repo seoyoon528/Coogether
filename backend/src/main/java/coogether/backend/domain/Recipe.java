@@ -1,5 +1,7 @@
 package coogether.backend.domain;
 
+import coogether.backend.domain.status.EnumIngredientCategory;
+import coogether.backend.domain.status.EnumRecipeCategory;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,20 +18,24 @@ import java.util.List;
 @Table(name = "recipe")
 public class Recipe {
 
-    @OneToMany(mappedBy = "recipe_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipeId", cascade = CascadeType.ALL)
     private List<IngredientList> ingredientList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipeId", cascade = CascadeType.ALL)
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
     @Id
     @GeneratedValue
     @Column(name = "recipe_id", nullable = false)
-    private int id;
+    private int recipeId;
 
-    @Column(length = 2000, nullable = false)
-    private String recipe_content;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "recipe_category", nullable = false)
+    private EnumRecipeCategory recipeCategory;
 
-    @Column(length = 50, nullable = false)
-    private String recipe_name;
+    @Column(name = "recipe_content", length = 2000, nullable = false)
+    private String recipeContent;
+
+    @Column(name = "recipe_name", length = 50, nullable = false)
+    private String recipeName;
 }

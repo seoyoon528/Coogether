@@ -18,16 +18,16 @@ public class IngredientList {
     @Id
     @GeneratedValue
     @Column(name = "ingredient_list_id", nullable = false)
-    private int id;
+    private int ingredientListId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredient_id;
+    private Ingredient ingredientId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "recipe_id")
-    private Recipe recipe_id;
+    private Recipe recipeId;
 
-    @Column(length = 30, nullable = true)
-    private String ingredient_amount;
+    @Column(name = "ingredient_amount", length = 30, nullable = true)
+    private String ingredientAmount;
 }

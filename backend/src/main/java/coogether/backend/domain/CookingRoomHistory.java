@@ -18,17 +18,17 @@ public class CookingRoomHistory {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User userId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_id")
-    private CookingRoom cooking_room_id;
+    private CookingRoom cookingRoomId;
 
     @Id
     @GeneratedValue
     @Column(name = "cooking_room_history_id", nullable = false)
-    private int id;
+    private int cookingRoomHistoryId;
 
-    @Column(length = 100, nullable = true)
-    private String cooking_room_history_img;
+    @Column(name = "cooking_room_history_img", length = 100, nullable = true)
+    private String cookingRoomHistoryImg;
 }

@@ -26,36 +26,36 @@ public class CookingRoom {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_host_id")
-    private User cooking_room_host_id;
+    private User cookingRoomHostId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "recipe_id")
-    private Recipe recipe_id;
+    private Recipe recipeId;
 
-    @OneToMany(mappedBy = "cooking_room_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cookingRoomId", cascade = CascadeType.ALL)
     private List<CookingRoomHistory> cookingRoomHistoryList = new ArrayList<>();
 
     @Id
     @GeneratedValue
     @Column(name = "cooking_room_id", nullable = false)
-    private int id;
+    private int cookingRoomId;
 
-    @Column(length = 30, nullable = false)
-    private String cooking_room_name;
+    @Column(name = "cooking_room_name", length = 30, nullable = false)
+    private String cookingRoomName;
 
-    @Column(length = 100, nullable = false)
-    private String cooking_room_img;
+    @Column(name = "cooking_room_img", length = 100, nullable = false)
+    private String cookingRoomImg;
 
 
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
-    @Column(updatable = false, nullable = false)
     @LastModifiedDate // 요리 시작 시간
-    private LocalDateTime cooking_room_start_time;
+    @Column(name = "cooking_room_start_time", updatable = false, nullable = false)
+    private LocalDateTime cookingRoomStartTime;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private EnumCookingRoomStatus cooking_room_status;
+    @Column(name = "cooking_room_status", nullable = false)
+    private EnumCookingRoomStatus cookingRoomStatus;
 
-    @Column(length = 200, nullable = false)
-    private String cooking_room_notice;
+    @Column(name = "cooking_room_notice", length = 200, nullable = false)
+    private String cookingRoomNotice;
 }

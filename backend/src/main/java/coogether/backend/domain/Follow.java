@@ -24,21 +24,21 @@ public class Follow {
     @Id
     @GeneratedValue
     @Column(name = "follow_id", nullable = false)
-    private int id;
+    private int followId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "follower_user_id")
-    private User follower_id;
+    private User followerUserId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "following_user_id")
-    private User following_id;
+    private User followingUserId;
 
     @CreatedDate // 팔로우 최초 등록 일자
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime follow_date;
+    @Column(name = "follow_date", updatable = false, nullable = false)
+    private LocalDateTime followDate;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private EnumFollowFlag follow_flag;
+    @Column(name = "follow_flag", nullable = false)
+    private EnumFollowFlag followFlag;
 }

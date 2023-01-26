@@ -20,19 +20,19 @@ import static javax.persistence.FetchType.LAZY;
 public class UserJoinList {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_id")
-    private CookingRoom cooking_room_id;
+    private CookingRoom cookingRoomId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User userId;
 
     @Id
     @GeneratedValue
     @Column(name = "user_join_list_id", nullable = false)
-    private int id;
+    private int userJoinListId;
 
     @CreatedDate // 참여자 입장 시간
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime user_join_reg_time;
+    @Column(name = "user_join_reg_time", updatable = false, nullable = false)
+    private LocalDateTime userJoinRegTime;
 
 }
