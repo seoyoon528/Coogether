@@ -19,21 +19,20 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "ingredient_fav")
 public class IngredientFav {
-
     @Id
     @GeneratedValue
     @Column(name = "ingredient_fav_id", nullable = false)
-    private int id;
+    private int ingredientFavId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredient_id;
+    private Ingredient ingredientId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User userId;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "ingredient_fav_flag", nullable = false)
     private EnumIngredientFavFlag ingredient_fav_flag;
 }
