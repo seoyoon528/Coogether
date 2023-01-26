@@ -5,12 +5,10 @@ import com.sun.istack.NotNull;
 import coogether.backend.domain.status.EnumSnsType;
 import coogether.backend.domain.status.EnumUserAccountStatus;
 import coogether.backend.domain.status.EnumUserCookCategory;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,6 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "user")
 public class User {
 
@@ -77,20 +76,32 @@ public class User {
     @Column(name = "user_account_status")
     private EnumUserAccountStatus user_account_status;
 
-
     @Column(name = "user_temp", nullable = false)
     private int userTemp;
 
     @CreatedDate // 최초 생성 시간
     @Column(name = "user_create_date", updatable = false, nullable = false)
-    private LocalDateTime user_create_date;
+    private LocalDateTime userCreateDate;
 
     @LastModifiedDate // 최종 수정 시간
     @Column(name = "user_last_login_date", updatable = false, nullable = false)
-    private LocalDateTime user_last_login_date;
+    private LocalDateTime userLastLoginDate;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_sns_type")
-    private EnumSnsType user_sns_type;
+    @Column(name = "user_sns_type", nullable = false)
+    private EnumSnsType userSnsType;
+
+    @Builder
+    public User(String userId, String userName, String userNickname, String userEmail, String userImg, String userIntroduce, EnumUserCookCategory userCookCategory, EnumUserAccountStatus user_account_status, int userTemp, EnumSnsType userSnsType) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userNickname = userNickname;
+        this.userEmail = userEmail;
+        this.userImg = userImg;
+        this.userIntroduce = userIntroduce;
+        this.userCookCategory = userCookCategory;
+        this.user_account_status = user_account_status;
+        this.userTemp = userTemp;
+        this.userSnsType = userSnsType;
+    }
 }
