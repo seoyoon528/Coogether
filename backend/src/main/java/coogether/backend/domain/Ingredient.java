@@ -18,25 +18,25 @@ import java.util.List;
 @Table(name = "ingredient")
 public class Ingredient {
 
-    @OneToMany(mappedBy = "ingredient_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredientId", cascade = CascadeType.ALL)
     private List<MyIngredientManage> myIngredientManageList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "ingredient_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredientId", cascade = CascadeType.ALL)
     private List<IngredientFav> ingredientFavList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "ingredient_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredientId", cascade = CascadeType.ALL)
     private List<IngredientList> ingredientList = new ArrayList<>();
 
 
     @Id
     @GeneratedValue
     @Column(name = "ingredient_id", nullable = false)
-    private int id;
+    private int ingredientId;
 
-    @Column(length = 30, nullable = false)
-    private String ingredient_name;
+    @Column(name = "ingredient_name", length = 30, nullable = false)
+    private String ingredientName;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private EnumIngredientCategory ingredient_category;
+    @Column(name = "ingredient_category", nullable = false)
+    private EnumIngredientCategory ingredientCategory;
 }
