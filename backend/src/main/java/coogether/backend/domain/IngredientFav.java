@@ -34,5 +34,5 @@ public class IngredientFav {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ingredient_fav_flag", nullable = false)
-    private EnumIngredientFavFlag ingredient_fav_flag;
+    private EnumIngredientFavFlag ingredientFavFlag;
 }
