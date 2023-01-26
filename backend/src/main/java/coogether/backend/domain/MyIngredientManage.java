@@ -23,21 +23,21 @@ public class MyIngredientManage {
     @Id
     @GeneratedValue
     @Column(name = "my_ingredient_manage_id", nullable = false)
-    private int id;
+    private int myIngredientManageId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User userId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredient_id;
+    private Ingredient ingredientId;
 
-    @Column(updatable = false, nullable = false)
     @LastModifiedDate // 최종 수정 시간
-    private LocalDateTime my_ingredient_manage_date;
+    @Column(name = "my_ingredient_manage_date", updatable = false, nullable = false)
+    private LocalDateTime myIngredientManageDate;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private EnumMyIngredientManageFlag my_ingredient_manage_flag;
+    @Column(name = "my_ingredient_manage_flag", nullable = false)
+    private EnumMyIngredientManageFlag myIngredientManageFlag;
 }
