@@ -36,9 +36,14 @@ public class UserController {
     @ApiOperation(value = "유저 1명의 상세 정보를 반환하는 메소드")
     @ApiImplicitParam(name = "userId", value = "유저의 식별 코드인 ID", dataType = "String")
     @GetMapping("/user/{userId}")
-    public User userInfo(@PathVariable("userId") String Id) {
-
+    public User userInfoById(@PathVariable("userId") String Id) {
         return userRepository.findByUserId(Id);
     }
 
+    @ApiOperation(value = "유저 이름으로 유저 정보 검색")
+    @ApiImplicitParam(name = "userName", value = "유저 이름", dataType = "String")
+    @GetMapping("/user/search/{userName}")
+    public List<User> userInfoByName(@PathVariable("userName") String name) {
+        return userRepository.findByUserName(name);
+    }
 }
