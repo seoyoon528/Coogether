@@ -66,15 +66,13 @@ public class User {
     @Column(name = "user_introduce", length = 300, nullable = true)
     private String userIntroduce;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name="user_cook_category")
+    @Column(name="user_cook_category", nullable = false)
     private EnumUserCookCategory userCookCategory;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_account_status")
-    private EnumUserAccountStatus user_account_status;
+    @Column(name = "user_account_status", nullable = false)
+    private EnumUserAccountStatus userAccountStatus;
 
     @Column(name = "user_temp", nullable = false)
     private int userTemp;
@@ -100,7 +98,7 @@ public class User {
         this.userImg = userImg;
         this.userIntroduce = userIntroduce;
         this.userCookCategory = userCookCategory;
-        this.user_account_status = user_account_status;
+        this.userAccountStatus = user_account_status;
         this.userTemp = userTemp;
         this.userSnsType = userSnsType;
     }

@@ -8,4 +8,8 @@ import java.util.List;
 public interface UserRepositoryCustom {
     public User findByUserId(String id);
     public List<User> findByUserName(String name);
+
+//    public void updateByUserId(String Id);
+
+    public void deleteByUserId(String Id);
 }
