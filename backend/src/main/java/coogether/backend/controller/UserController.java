@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,5 +46,19 @@ public class UserController {
     @GetMapping("/user/search/{userName}")
     public List<User> userInfoByName(@PathVariable("userName") String name) {
         return userRepository.findByUserName(name);
+    }
+
+//    @ApiOperation(value = "유저 정보 수정")
+//    @ApiImplicitParam(name = "userId", value = "유저의 식별 코드인 ID", dataType = "String")
+//    @PatchMapping("/user/update/{userId}")
+//    public void userUpdate(@PathVariable("userId") String Id) {
+//        userRepository.updateByUserId(Id);
+//    }
+
+    @ApiOperation(value = "유저 회원 탈퇴")
+    @ApiImplicitParam(name = "userId", value = "유저의 식별 코드인 ID", dataType = "String")
+    @PatchMapping("/user/delete/{userId}")
+    public void userDelete(@PathVariable("userId") String Id) {
+        userRepository.deleteByUserId(Id);
     }
 }
