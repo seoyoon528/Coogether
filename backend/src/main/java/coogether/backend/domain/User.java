@@ -47,6 +47,9 @@ public class User {
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<CookingRoomHistory> cookingRoomHistoryList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    private List<Recipe> recipeList = new ArrayList<>();
+
     @Id
     @Column(name = "user_id", length = 200, nullable = false)
     private String userId;
