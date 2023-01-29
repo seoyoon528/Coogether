@@ -1,12 +1,10 @@
 package coogether.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import coogether.backend.domain.status.EnumIngredientCategory;
 import coogether.backend.domain.status.EnumRecipeCategory;
 import coogether.backend.domain.status.EnumRecipeType;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -23,12 +21,15 @@ import static javax.persistence.FetchType.LAZY;
 @Table(name = "recipe")
 public class Recipe {
 
+    @JsonIgnore
     @OneToMany(mappedBy = "recipeId", cascade = CascadeType.ALL)
     private List<IngredientList> ingredientList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "recipeId", cascade = CascadeType.ALL)
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User userId;

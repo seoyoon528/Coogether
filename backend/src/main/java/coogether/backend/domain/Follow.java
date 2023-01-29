@@ -1,5 +1,6 @@
 package coogether.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import coogether.backend.domain.status.EnumFollowFlag;
 import lombok.AccessLevel;
@@ -28,10 +29,12 @@ public class Follow {
     @Column(name = "follow_id", nullable = false)
     private int followId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "follower_user_id")
     private User followerUserId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "following_user_id")
     private User followingUserId;
