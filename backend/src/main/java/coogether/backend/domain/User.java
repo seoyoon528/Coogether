@@ -1,7 +1,7 @@
 package coogether.backend.domain;
 
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import coogether.backend.domain.status.EnumSnsType;
 import coogether.backend.domain.status.EnumUserAccountStatus;
 import coogether.backend.domain.status.EnumUserCookCategory;
@@ -23,30 +23,39 @@ import java.util.List;
 @Table(name = "user")
 public class User {
 
+    @JsonIgnore
     @OneToMany(mappedBy = "followingUserId", cascade = CascadeType.ALL)
     private List<Follow> followingList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "followerUserId", cascade = CascadeType.ALL)
     private List<Follow> followerList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "reporterId", cascade = CascadeType.ALL)
     private List<Report> reporterList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "reportedId", cascade = CascadeType.ALL)
     private List<Report> reportedList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<MyIngredientManage> myIngredientManageList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<IngredientFav> ingredientFavList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cookingRoomHostId", cascade = CascadeType.ALL)
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-    private List<CookingRoomHistory> cookingRoomHistoryList = new ArrayList<>();
+    private List<History> historyList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<Recipe> recipeList = new ArrayList<>();
 
@@ -70,7 +79,7 @@ public class User {
     private String userIntroduce;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="user_cook_category", nullable = false)
+    @Column(name = "user_cook_category", nullable = false)
     private EnumUserCookCategory userCookCategory;
 
     @Enumerated(EnumType.STRING)

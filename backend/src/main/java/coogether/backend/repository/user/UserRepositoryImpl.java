@@ -4,6 +4,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import coogether.backend.domain.QUser;
 import coogether.backend.domain.User;
 import coogether.backend.domain.status.EnumUserAccountStatus;
+import coogether.backend.domain.status.EnumUserCookCategory;
 import coogether.backend.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 import static coogether.backend.domain.QUser.*;
+import static coogether.backend.domain.status.EnumUserAccountStatus.INACTIVE;
 
 public class UserRepositoryImpl implements UserRepositoryCustom{
     EntityManager em;
@@ -36,28 +38,16 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
                 .fetch();
     }
 
-//    @Override
-//    public void updateByUserId(String Id){
-//        queryFactory
-//                .update(user)
-//                .set(user.userId, "비회원")
-//                .where(user.age.lt(28))
-//                .execute();
-//
-//        em.flush();
-//    }
-
     @Transactional
     @Override
     public void deleteByUserId(String Id){
-        queryFactory
-                .update(user)
-                .set(user.userAccountStatus, EnumUserAccountStatus.INACTIVE)
-                .where(user.userId.eq(Id))
-                .execute();
-
-        em.flush();
-        em.clear();
-
+//        queryFactory
+//                .update(user)
+//                .set(user.userAccountStatus, INACTIVE)
+//                .where(user.userId.eq(Id))
+//                .execute();
+//
+//        em.flush();
+//        em.clear();
     }
 }
