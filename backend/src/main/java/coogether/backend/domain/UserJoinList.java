@@ -1,5 +1,6 @@
 package coogether.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,13 @@ import static javax.persistence.FetchType.LAZY;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "user_join_list")
 public class UserJoinList {
+
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_id")
     private CookingRoom cookingRoomId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User userId;

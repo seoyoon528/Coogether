@@ -1,5 +1,6 @@
 package coogether.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,12 @@ public class IngredientList {
     @Column(name = "ingredient_list_id", nullable = false)
     private int ingredientListId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredientId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipeId;

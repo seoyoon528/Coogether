@@ -1,5 +1,6 @@
 package coogether.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,22 +14,24 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "cooking_room_history")
-public class CookingRoomHistory {
+@Table(name = "history")
+public class History {
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User userId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_id")
     private CookingRoom cookingRoomId;
 
     @Id
     @GeneratedValue
-    @Column(name = "cooking_room_history_id", nullable = false)
-    private int cookingRoomHistoryId;
+    @Column(name = "history_id", nullable = false)
+    private int historyId;
 
-    @Column(name = "cooking_room_history_img", length = 100, nullable = true)
-    private String cookingRoomHistoryImg;
+    @Column(name = "history_img", length = 100, nullable = true)
+    private String historyImg;
 }

@@ -1,5 +1,6 @@
 package coogether.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import coogether.backend.domain.status.EnumReportCategory;
 import lombok.AccessLevel;
@@ -27,10 +28,12 @@ public class Report {
     @Column(name = "report_id", nullable = false)
     private int reportId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "reporter_id")
     private User reporterId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "reported_id")
     private User reportedId;

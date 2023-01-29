@@ -1,5 +1,6 @@
 package coogether.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import coogether.backend.domain.status.EnumMyIngredientManageFlag;
 import lombok.AccessLevel;
@@ -27,10 +28,12 @@ public class MyIngredientManage {
     @Column(name = "my_ingredient_manage_id", nullable = false)
     private int myIngredientManageId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User userId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredientId;

@@ -1,12 +1,9 @@
 package coogether.backend.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import coogether.backend.domain.status.EnumCookingRoomStatus;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -26,16 +23,19 @@ import static javax.persistence.FetchType.LAZY;
 @Table(name = "cooking_room")
 public class CookingRoom {
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_host_id")
     private User cookingRoomHostId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipeId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cookingRoomId", cascade = CascadeType.ALL)
-    private List<CookingRoomHistory> cookingRoomHistoryList = new ArrayList<>();
+    private List<History> historyList = new ArrayList<>();
 
     @Id
     @GeneratedValue
