@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { SvgIcon } from '@mui/material';
+import { SvgIcon, Grid, Button } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 import RecipeRegisterModal from './RecipeRegisterModal';
@@ -83,105 +83,112 @@ function RecipeRegisterForm() {
 
   return (
     <form onSubmit={recipeSubmitHandler}>
-      <section>
-        <label htmlFor="cook-name">요리 제목</label>
-        <input
-          ref={cookNameRef}
-          type="text"
-          id="cook-name"
-          placeholder="요리 제목을 입력해주세요"
-        />
-      </section>
-      <br />
-      <section>
-        <label htmlFor="cook-image">
-          사진 등록
-          <ImageSampleDiv>
-            {cookImage !== '' ? (
-              <img src={cookImage} alt="food" width="250px" />
-            ) : (
-              <SvgIcon
-                sx={{ fontSize: 100 }}
-                component={AddPhotoAlternateIcon}
-              />
-            )}
-          </ImageSampleDiv>
-        </label>
-        <input
-          onChange={inputImageHandler}
-          className="image-input"
-          type="file"
-          accept="image/*"
-          id="cook-image"
-        />
-      </section>
-      <br />
-      <section>
-        <label>재료 등록</label>
-        <div>
-          {isModalOpened && (
-            <RecipeRegisterModal onConfirm={openIngredientModal} />
-          )}
-          {isModalOpened || (
-            <button type="button" onClick={openIngredientModal}>
-              한 번에 등록
-            </button>
-          )}
-        </div>
-        <div>
-          {ingredients.map((ingredient, idx) => {
-            return (
-              <div key={`regiser-ingredients-${idx + 1}`}>
-                <input
-                  onChange={event => {
-                    const inputIngredientName = event.target.value;
-                    ingredientNameHandler(idx, inputIngredientName);
-                  }}
-                  type="text"
-                  className="ingredient-name"
+      <Grid container spacing={2}>
+        <Grid item xs={12} className="recipe-register-form__title">
+          <label htmlFor="cook-name">요리 제목</label>
+          <input
+            ref={cookNameRef}
+            type="text"
+            id="cook-name"
+            placeholder="요리 제목을 입력해주세요"
+          />
+        </Grid>
+        <Grid item xs={12} className="recipe-register-form__image">
+          <label
+            htmlFor="cook-image"
+            className="recipe-register-form__image__label"
+          >
+            사진 등록
+            <ImageSampleDiv>
+              {cookImage !== '' ? (
+                <img src={cookImage} alt="food" width="250px" />
+              ) : (
+                <SvgIcon
+                  sx={{ fontSize: 100 }}
+                  component={AddPhotoAlternateIcon}
                 />
-                <input
-                  type="text"
-                  onChange={event => {
-                    const inputIngredientAmount = event.target.value;
-                    ingredientAmountHandler(idx, inputIngredientAmount);
-                  }}
-                  className="ingredient-amount"
-                />
-              </div>
-            );
-          })}
-        </div>
-        <button type="button" onClick={addIngredientHandler}>
-          추가
-        </button>
-      </section>
-      <br />
-      <section>
-        <label>요리 순서</label>
-        <div>
-          {cookOrder.map((order, idx) => {
-            return (
-              <div key={`cook-orders-${idx + 1}`}>
-                <textarea
-                  onChange={event => {
-                    const inputCookOrder = event.target.value;
-                    inputCookOrderHandler(idx, inputCookOrder);
-                  }}
-                  id={`cook-order-${idx + 1}`}
-                  rows="5"
-                  cols="80"
-                />
-              </div>
-            );
-          })}
-        </div>
-        <button type="button" onClick={addCookOrderHandler}>
-          추가
-        </button>
-      </section>
-      <br />
-      <button type="submit">등록</button>
+              )}
+            </ImageSampleDiv>
+          </label>
+          <input
+            onChange={inputImageHandler}
+            type="file"
+            accept="image/*"
+            id="cook-image"
+            hidden="true"
+          />
+        </Grid>
+        <Grid item xs={12} className="recipe-register-form__ingredient">
+          <div>
+            <label>재료 등록</label>
+            <div>
+              {isModalOpened && (
+                <RecipeRegisterModal onConfirm={openIngredientModal} />
+              )}
+              {isModalOpened || (
+                <Button variant="contained" onClick={openIngredientModal}>
+                  <p>한번에 등록</p>
+                </Button>
+              )}
+            </div>
+          </div>
+          <div className="recipe-register-form__ingredient__input">
+            {ingredients.map((ingredient, idx) => {
+              return (
+                <div key={`regiser-ingredients-${idx + 1}`}>
+                  <input
+                    onChange={event => {
+                      const inputIngredientName = event.target.value;
+                      ingredientNameHandler(idx, inputIngredientName);
+                    }}
+                    type="text"
+                    className="ingredient-name"
+                  />
+                  <input
+                    type="text"
+                    onChange={event => {
+                      const inputIngredientAmount = event.target.value;
+                      ingredientAmountHandler(idx, inputIngredientAmount);
+                    }}
+                    className="ingredient-amount"
+                  />
+                </div>
+              );
+            })}
+            <Button variant="contained" onClick={addIngredientHandler}>
+              <p>추가</p>
+            </Button>
+          </div>
+        </Grid>
+        <Grid item xs={12} className="recipe-register-form__order">
+          <label>요리 순서</label>
+          <div className="recipe-register-form__order__input">
+            {cookOrder.map((order, idx) => {
+              return (
+                <div key={`cook-orders-${idx + 1}`}>
+                  <textarea
+                    onChange={event => {
+                      const inputCookOrder = event.target.value;
+                      inputCookOrderHandler(idx, inputCookOrder);
+                    }}
+                    id={`cook-order-${idx + 1}`}
+                    rows="5"
+                    cols="80"
+                  />
+                </div>
+              );
+            })}
+            <Button variant="contained" onClick={addCookOrderHandler}>
+              <p>추가</p>
+            </Button>
+          </div>
+        </Grid>
+        <Grid item xs={12} className="recipe-register-form__submit-button">
+          <Button variant="contained" onClick={recipeSubmitHandler}>
+            <p>등록</p>
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 }
