@@ -26,17 +26,20 @@ public class CookingRoom {
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_host_id")
-    private User cookingRoomHostId;
+    private User cookingRoomHost;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "recipe_id")
-    private Recipe recipeId;
+    private Recipe recipe;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cookingRoomId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cookingRoom", cascade = CascadeType.ALL)
     private List<History> historyList = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "cookingRoom", cascade = CascadeType.ALL)
+    private List<UserJoinList> userJoinLists = new ArrayList<>();
     @Id
     @GeneratedValue
     @Column(name = "cooking_room_id", nullable = false)

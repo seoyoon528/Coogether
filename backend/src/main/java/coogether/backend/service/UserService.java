@@ -1,4 +1,4 @@
-package coogether.backend.service.user;
+package coogether.backend.service;
 
 import coogether.backend.domain.History;
 import coogether.backend.domain.User;
@@ -22,8 +22,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserInfoById(String id){
-        return userRepository.findByUserId(id);
+    public User getUserInfoById(Long userseq){
+        return userRepository.findByUserId(userseq);
     }
 
     public List<User> getUserListByName(String name){
@@ -31,8 +31,8 @@ public class UserService {
     }
 
     @Transactional
-    public void patchUserUpdate(String id, String nickname, String img, String introduce, EnumUserCookCategory userCookCategory) {
-        User user = userRepository.findByUserId(id);
+    public void patchUserUpdate(Long userseq, String nickname, String img, String introduce, EnumUserCookCategory userCookCategory) {
+        User user = userRepository.findByUserId(userseq);
         if(nickname != null){
             user.setUserNickname(nickname);
         }
@@ -54,7 +54,7 @@ public class UserService {
     }
 
     @Transactional
-    public void patchUserDelete(String id) {
+    public void patchUserDelete(Long id) {
         userRepository.deleteByUserId(id);
     }
 }

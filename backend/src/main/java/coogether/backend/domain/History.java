@@ -20,12 +20,12 @@ public class History {
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_id")
-    private CookingRoom cookingRoomId;
+    private CookingRoom cookingRoom;
 
     @Id
     @GeneratedValue

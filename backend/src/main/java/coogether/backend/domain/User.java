@@ -24,42 +24,47 @@ import java.util.List;
 public class User {
 
     @JsonIgnore
-    @OneToMany(mappedBy = "followingUserId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "followingUser", cascade = CascadeType.ALL)
     private List<Follow> followingList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "followerUserId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "followerUser", cascade = CascadeType.ALL)
     private List<Follow> followerList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "reporterId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reporter", cascade = CascadeType.ALL)
     private List<Report> reporterList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "reportedId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reported", cascade = CascadeType.ALL)
     private List<Report> reportedList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MyIngredientManage> myIngredientManageList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<IngredientFav> ingredientFavList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cookingRoomHostId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cookingRoomHost", cascade = CascadeType.ALL)
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<History> historyList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Recipe> recipeList = new ArrayList<>();
 
+    @JsonIgnore
     @Id
+    @GeneratedValue
+    @Column(name = "user_seq")
+    private Long userSeq;
+
     @Column(name = "user_id", length = 200, nullable = false)
     private String userId;
 
@@ -101,17 +106,17 @@ public class User {
     @Column(name = "user_sns_type", nullable = false)
     private EnumSnsType userSnsType;
 
-    @Builder
-    public User(String userId, String userName, String userNickname, String userEmail, String userImg, String userIntroduce, EnumUserCookCategory userCookCategory, EnumUserAccountStatus user_account_status, int userTemp, EnumSnsType userSnsType) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userNickname = userNickname;
-        this.userEmail = userEmail;
-        this.userImg = userImg;
-        this.userIntroduce = userIntroduce;
-        this.userCookCategory = userCookCategory;
-        this.userAccountStatus = user_account_status;
-        this.userTemp = userTemp;
-        this.userSnsType = userSnsType;
-    }
+//    @Builder
+//    public User(String userId, String userName, String userNickname, String userEmail, String userImg, String userIntroduce, EnumUserCookCategory userCookCategory, EnumUserAccountStatus user_account_status, int userTemp, EnumSnsType userSnsType) {
+//        this.userId = userId;
+//        this.userName = userName;
+//        this.userNickname = userNickname;
+//        this.userEmail = userEmail;
+//        this.userImg = userImg;
+//        this.userIntroduce = userIntroduce;
+//        this.userCookCategory = userCookCategory;
+//        this.userAccountStatus = user_account_status;
+//        this.userTemp = userTemp;
+//        this.userSnsType = userSnsType;
+//    }
 }

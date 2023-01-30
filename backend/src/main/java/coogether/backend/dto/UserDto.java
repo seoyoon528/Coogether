@@ -32,9 +32,7 @@ public class UserDto {
     ////////////////////////////////////
 //    private List<Follow> followingList;
 
-    public UserDto() {
-    }
-
+    @QueryProjection
     public UserDto(User user){
         this.userId = user.getUserId();
         this.userName = user.getUserName();

@@ -31,12 +31,12 @@ public class MyIngredientManage {
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredientId;
+    private Ingredient ingredient;
 
     @LastModifiedDate // 최종 수정 시간
     @Column(name = "my_ingredient_manage_date", updatable = false, nullable = false)
