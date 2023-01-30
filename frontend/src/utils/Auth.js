@@ -10,7 +10,6 @@ function Auth() {
   // calllback으로 받은 인가코드
   const code = new URL(window.location.href).searchParams.get('code');
   console.log(code);
-  const history = useHistory();
   const getToken = async () => {
     const payload = qs.stringify({
       grant_type: 'authorization_code',
@@ -31,11 +30,17 @@ function Auth() {
       window.Kakao.init(REST_API_KEY);
       // access token 설정
       window.Kakao.Auth.setAccessToken(res.data.access_token);
-      history.replace('/profile');
+      // history.replace('/');
+      const data = await window.Kakao.API.request({
+        url: '/v2/user/me',
+      });
+      console.log(data);
+      // 여기서의 data를 백엔드에 post로 보내서 회원 여부를 확인
     } catch (err) {
       console.log(err);
     }
   };
+
   useEffect(() => {
     getToken();
   }, []);
