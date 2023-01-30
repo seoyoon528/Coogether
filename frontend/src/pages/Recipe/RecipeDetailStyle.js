@@ -17,4 +17,14 @@ export const RecipeDetailStyle = styled.div`
     display: flex;
     justify-content: space-evenly;
   }
+
+  .recipe-detail {
+    margin-left: 2.4rem;
+    margin-right: 2.4rem;
+  }
+
+  .recipe-detail__information {
+    display: flex;
+    flex-direction: column;
+  }
 `;

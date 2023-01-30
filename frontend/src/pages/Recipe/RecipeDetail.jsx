@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Grid from '@mui/material/Grid';
+
 import { RecipeDetailStyle } from './RecipeDetailStyle';
 
 const DUMMY_DATA = {
@@ -34,58 +36,61 @@ function RecipeDetail() {
 
   return (
     <RecipeDetailStyle>
-      <h2>{DUMMY_DATA.name}</h2>
-      <ul className="top">
-        <li>
-          <p>재료</p>
-          <p>{ingredientsNum}</p>
-        </li>
-        <li>
-          <p>과정</p>
-          <p>{recipeContentNum}</p>
-        </li>
-        <li>
-          <p>출처</p>
-          <p>{DUMMY_DATA.author}</p>
-        </li>
-        <li>
-          <img
-            src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-            alt="food"
-            width="200px"
-            height="auto"
-          />
-        </li>
-      </ul>
-      <hr />
-      <div>
-        <section>
-          <h2>재료</h2>
-          <ul>
-            {DUMMY_DATA.ingredients.map((ingredient, idx) => {
-              return (
-                <li className="ingredient" key={`ingredients-${idx + 1}`}>
-                  <p>{ingredient.name}</p>
-                  <p>{ingredient.amount}</p>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-        <section>
-          <h2>레시피</h2>
-          <ul>
-            {DUMMY_DATA.contents.map((content, idx) => {
-              return (
-                <li key={`contents-${idx + 1}`}>
-                  <h4>{idx + 1}</h4>
-                  <p>{content}</p>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      </div>
+      <section className="recipe-detail">
+        <Grid container spacing={2} columns={10}>
+          <Grid item xs={5} className="recipe-detail__information">
+            <h2>{DUMMY_DATA.name}</h2>
+            <ul className="top">
+              <li>
+                <p>재료</p>
+                <p>{ingredientsNum}</p>
+              </li>
+              <li>
+                <p>과정</p>
+                <p>{recipeContentNum}</p>
+              </li>
+              <li>
+                <p>출처</p>
+                <p>{DUMMY_DATA.author}</p>
+              </li>
+            </ul>
+          </Grid>
+          <Grid item xs={5}>
+            <img
+              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+              alt="food"
+              width="200px"
+              height="auto"
+            />
+          </Grid>
+          <Grid item xs={5} className="recipe-detail__information">
+            <h2>재료</h2>
+            <ul>
+              {DUMMY_DATA.ingredients.map((ingredient, idx) => {
+                return (
+                  <li className="ingredient" key={`ingredients-${idx + 1}`}>
+                    <p>{ingredient.name}</p>
+                    <p>{ingredient.amount}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </Grid>
+          <Grid item xs={5} className="recipe-detail__information">
+            <h2>레시피</h2>
+            <ul>
+              {DUMMY_DATA.contents.map((content, idx) => {
+                return (
+                  <li key={`contents-${idx + 1}`}>
+                    <h4>{idx + 1}</h4>
+                    <p>{content}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </Grid>
+        </Grid>
+      </section>
     </RecipeDetailStyle>
   );
 }
