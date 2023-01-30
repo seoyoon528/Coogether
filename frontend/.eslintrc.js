@@ -21,5 +21,7 @@ module.exports = {
     'no-unused-vars': ['warn'], // 사용 안한것 경고창 띄워줌
     'arrow-body-style': 0, // 화살표 함수 사용할 때 중괄호 {} 사용할 수 있음
     'no-console': 0, // console 오류 제거 => 개발중일땐 오류 안뜨게 설정해두고 개발 끝나면 켜서 log 지우기
+    'import/prefer-default-export': 'off', // export default 없으면 생기는 오류를 꺼줌
+    'jsx-a11y/label-has-associated-control': 'off', // label 사용시 input을 label 안에 작성하도록 하는 기능 off
   },
 };
