@@ -1,25 +1,48 @@
 import styled from 'styled-components';
 
 export const ModalOverlayStyle = styled.div`
-  position: fixed;
+  position: relative;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 2;
-  width: 50vw;
-  height: 50vh;
+  width: 70vw;
+  height: 70vh;
 
+  h1 {
+    color: white;
+    text-align: center;
+  }
   p {
-    color: #505050;
+    color: white;
+    margin: 1rem;
+  }
+
+  form {
+    border: 1px solid white;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  form div {
+    display: flex;
+    justify-content: center;
+  }
+
+  button {
+    background-color: white;
   }
 `;
 
 export const BackdropStyle = styled.div`
   position: fixed;
-  z-index: auto;
+  z-index: 1;
   width: 100vw;
   height: 100vh;
-  background-color: #505050;
+  background-color: black;
   opacity: 90%;
 `;

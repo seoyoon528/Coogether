@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import { BackdropStyle, ModalOverlayStyle } from './RecipeRegisterModalStyle';
 
+import exampleImg from '../../../assets/img/한번에 넣기 이미지.png';
+
 function Backdrop() {
   return <BackdropStyle />;
 }
@@ -19,8 +21,15 @@ function ModalOveray() {
       </header>
       <form>
         <div>
+          <img src={exampleImg} alt="example-img" width="80%" />
+        </div>
+        <p>
+          각 식재료는 쉼표(,)로 구분하고 재료 및 양념, 소스 등을 구분할 경우
+          대괄호([]) 사용해주세요.
+        </p>
+        <div>
           <label htmlFor="ingredients-input" />
-          <input type="text" id="ingredients-input" />
+          <textarea id="ingredients-input" rows="10" cols="80" />
         </div>
         <div>
           <button>확인</button>
