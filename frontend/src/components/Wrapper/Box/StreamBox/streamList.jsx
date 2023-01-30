@@ -13,6 +13,7 @@ function StreamList(props) {
           roomName={room.title}
           recipe={room.recipe}
           startTime={room.startTime}
+          targetTime={room.targetTime}
           thumbnail={room.thumbnail}
           anounce={room.anounce}
           king={room.king}

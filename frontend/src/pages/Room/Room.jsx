@@ -2,8 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
 function Room() {
+  // 남은 시간을 체크해주는 타이머
   let changeTimer;
+  // 남은 시간
   let remainingTime;
+
   const [isStart, setIsStart] = useState(false);
   const params = useParams();
   const location = useLocation();
@@ -20,8 +23,7 @@ function Room() {
   const minute = startTime.getMinutes();
   const START = `${hour}시: ${minute}분`;
 
-  // console.log(targetTime);
-
+  // 시간 계산
   const calculateTime = () => {
     const currentTime = new Date().getTime();
     const remainingDuration = targetTime - currentTime;
@@ -41,7 +43,11 @@ function Room() {
   }, []);
 
   useEffect(() => {
-    changeTimer = setTimeout(changeCheck, remainingTime);
+    // changeTimer = setTimeout(changeCheck, remainingTime);
+    changeCheck();
+    // return () => {
+    //   clearTimeout(changeTimer);
+    // };
   }, []);
   console.log(isStart);
 

@@ -2,8 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function StreamItem(props) {
-  const { roomId, roomName, recipe, startTime, thumbnail, anounce, king } =
-    props;
+  const {
+    roomId,
+    roomName,
+    recipe,
+    startTime,
+    thumbnail,
+    anounce,
+    king,
+    targetTime,
+  } = props;
+
   return (
     <div>
       {/* <Link to={`/Room/${id}`}>{roomName}</Link> */}
@@ -16,6 +25,7 @@ function StreamItem(props) {
             roomName: { roomName },
             recipe: { recipe },
             startTime: { startTime },
+            targetTime: { targetTime },
             thumbnail: { thumbnail },
             anounce: { anounce },
             king: { king },
