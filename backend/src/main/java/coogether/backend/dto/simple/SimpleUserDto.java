@@ -1,4 +1,4 @@
-package coogether.backend.dto;
+package coogether.backend.dto.simple;
 
 
 import com.querydsl.core.annotations.QueryProjection;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-public class UserDto {
+public class SimpleUserDto {
 
     private String userId;
     private String userName;
@@ -29,12 +29,10 @@ public class UserDto {
     private LocalDateTime userCreateDate;
     private LocalDateTime userLastLoginDate;
     private EnumSnsType userSnsType;
-    ////////////////////////////////////
-    private List<Follow> followingList;
-    private List<Follow> followerList;
+
 
     @QueryProjection
-    public UserDto(User user){
+    public SimpleUserDto(User user){
         this.userId = user.getUserId();
         this.userName = user.getUserName();
         this.userNickname = user.getUserNickname();
@@ -47,10 +45,6 @@ public class UserDto {
         this.userCreateDate = user.getUserCreateDate();
         this.userLastLoginDate = user.getUserLastLoginDate();
         this.userSnsType = user.getUserSnsType();
-
-        ////////////////////////////////////
-        this.followingList = user.getFollowingList();
-        this.followerList = user.getFollowerList();
 
     }
 
