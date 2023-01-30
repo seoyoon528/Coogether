@@ -1,5 +1,6 @@
 // 구현 코드
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function NaverLogin() {
   const [user, setUser] = useState(null);
@@ -30,9 +31,13 @@ function NaverLogin() {
     naverLogin.init();
     getUser();
   }, []);
+  const history = useHistory();
   const naverLogout = () => {
     localStorage.removeItem('com.naver.nid.access_token');
-    window.location.reload();
+    localStorage.removeItem('com.naver.nid.oauth.state_token');
+    setUser(null);
+    // getUser();
+    history.replace('/');
   };
 
   return (
