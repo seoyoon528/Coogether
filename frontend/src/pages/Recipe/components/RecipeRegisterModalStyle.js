@@ -1,16 +1,25 @@
 import styled from 'styled-components';
 
-export const RecipeRegisterModal = styled.div`
-  .modal {
-    z-index: 2;
-    width: 50vw;
-    height: 50vh;
+export const ModalOverlayStyle = styled.div`
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  width: 50vw;
+  height: 50vh;
+
+  p {
+    color: #505050;
   }
 `;
 
 export const BackdropStyle = styled.div`
-  z-index: 1;
+  position: fixed;
+  z-index: auto;
   width: 100vw;
   height: 100vh;
-  background-color: black;
+  background-color: #505050;
+  opacity: 90%;
 `;

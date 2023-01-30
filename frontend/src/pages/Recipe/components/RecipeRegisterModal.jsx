@@ -1,50 +1,51 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import styled from 'styled-components';
-import RecipeRegisterModalStyle from './RecipeRegisterModalStyle';
-
-const BackdropStyle = styled.div`
-  z-index: 1;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-`;
+import { BackdropStyle, ModalOverlayStyle } from './RecipeRegisterModalStyle';
 
 function Backdrop() {
-  return (
-    <BackdropStyle>
-      <h1>활성화됨</h1>
-    </BackdropStyle>
-  );
+  return <BackdropStyle />;
 }
 
 function ModalOveray() {
   return (
-    <div className="modal">
+    <ModalOverlayStyle>
       <header>
-        <h1>여기는 모달 자리</h1>
+        <h1>한번에 넣기</h1>
+        <p>
+          요리에 들어갈 재료, 양념을 작성 또는 이미 작성된 것을 복사/붙여넣기
+          해주세요.
+        </p>
       </header>
-      <div>여기가 콘텐츠 구역</div>
+      <form>
+        <div>
+          <label htmlFor="ingredients-input" />
+          <input type="text" id="ingredients-input" />
+        </div>
+        <div>
+          <button>확인</button>
+          <button>취소</button>
+        </div>
+      </form>
       <footer>
         <button type="button">누르면 종료</button>
       </footer>
-    </div>
+    </ModalOverlayStyle>
   );
 }
 
 function RecipeRegisterModal() {
   return (
-    <RecipeRegisterModalStyle>
+    <>
       {ReactDOM.createPortal(
         <Backdrop />,
         document.querySelector('#backdrop-root1')
       )}
-      {/* {ReactDOM.createPortal(
+      {ReactDOM.createPortal(
         <ModalOveray />,
         document.querySelector('#modal-root1')
-      )} */}
-    </RecipeRegisterModalStyle>
+      )}
+    </>
   );
 }
 
