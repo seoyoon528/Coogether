@@ -43,10 +43,10 @@ public class UserController {
 
 
     @ApiOperation(value = "유저 1명의 상세 정보를 반환하는 메소드")
-    @ApiImplicitParam(name = "userseq", value = "유저의 식별 코드", dataType = "Long")
-    @GetMapping("/user/{userseq}")
-    public ResponseEntity userInfoById(@PathVariable("userseq") Long userseq) {
-        User user = userService.getUserInfoById(userseq);
+    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long")
+    @GetMapping("/user/{userSeq}")
+    public ResponseEntity userInfoById(@PathVariable("userSeq") Long userSeq) {
+        User user = userService.getUserInfoById(userSeq);
         return ResponseEntity.ok().body(new UserDto(user));
     }
 
@@ -62,24 +62,24 @@ public class UserController {
     }
 
     @ApiOperation(value = "유저 정보 수정")
-    @PatchMapping("/user/update/{userseq}")
+    @PatchMapping("/user/update/{userSeq}")
     public ResponseEntity userUpdate(
-            @PathVariable("userseq") Long userseq,
+            @PathVariable("userSeq") Long userSeq,
             @RequestParam(value = "nickname", required = false) String nickname,
             @RequestParam(value = "img", required = false) String img,
             @RequestParam(value = "introduce", required = false) String introduce,
             @RequestParam(value = "cookCategory", required = false) EnumUserCookCategory userCookCategory
             ) {
-        userService.patchUserUpdate(userseq, nickname, img, introduce, userCookCategory);
+        userService.patchUserUpdate(userSeq, nickname, img, introduce, userCookCategory);
         UserUpdateDto userUpdateDto = new UserUpdateDto(nickname,img,introduce,userCookCategory);
         System.out.println("userUpdateDto = " + userUpdateDto);
         return ResponseEntity.status(HttpStatus.OK).body(userUpdateDto);
     }
     @ApiOperation(value = "유저 회원 탈퇴")
-    @ApiImplicitParam(name = "userseq", value = "유저의 식별 코드", dataType = "Long")
-    @PatchMapping("/user/delete/{userseq}")
-    public ResponseEntity userDelete(@PathVariable("userseq") Long userseq) {
-        userService.patchUserDelete(userseq);
+    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long")
+    @PatchMapping("/user/delete/{userSeq}")
+    public ResponseEntity userDelete(@PathVariable("userSeq") Long userSeq) {
+        userService.patchUserDelete(userSeq);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 }

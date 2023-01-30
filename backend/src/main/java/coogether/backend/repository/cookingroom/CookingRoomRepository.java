@@ -14,7 +14,7 @@ public interface CookingRoomRepository extends JpaRepository<CookingRoom, Long>{
     List<CookingRoom> findAll();
 
 
-    @Query("select cr from CookingRoom cr where cr.recipe.recipeName like %:recipeName% ")
+    @Query("select cr from CookingRoom cr where TIMEDIFF(cr.cookingRoomStartTime ,now()) > 0 and cr.recipe.recipeName like %:recipeName% ")
     List<CookingRoom> findByRecipeName(@Param("recipeName") String recipeName);
 
     @Query("select cr from CookingRoom cr where cr.cookingRoomId = :cookingRoomId ")

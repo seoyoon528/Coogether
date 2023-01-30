@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 @Table(name = "recipe")
 public class Recipe {
 
@@ -55,6 +55,6 @@ public class Recipe {
     private String recipeName;
 
     @CreatedDate // 최초 생성 시간
-    @Column(name = "recipe_created_date", updatable = false, nullable = false)
+    @Column(name = "recipe_created_date", updatable = false)
     private LocalDateTime recipeCreatedDate;
 }
