@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import qs from 'qs';
 
-function Auth() {
-  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+function KAKAOAuth() {
+  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
   const REDIRECT_URI = 'http://localhost:3000/oauth/kakao/callback';
-  const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET_KEY;
+  const CLIENT_SECRET = process.env.REACT_APP_KAKAO_CLIENT_SECRET_KEY;
   // calllback으로 받은 인가코드
   const code = new URL(window.location.href).searchParams.get('code');
   console.log(code);
@@ -46,4 +45,4 @@ function Auth() {
   }, []);
   return null;
 }
-export default Auth;
+export default KAKAOAuth;

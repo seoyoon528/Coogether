@@ -12,7 +12,7 @@ import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
 import RecipeRegister from './pages/Recipe/RecipeRegister';
-import Auth from './utils/Auth';
+import KAKAOAuth from './utils/KAKAOAuth';
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} />
         <Route path="/oauth/kakao/callback">
-          <Auth />
+          <KAKAOAuth />
         </Route>
         <Route path="/Signin" component={Signin} />
         <Route path="/Profile/:userId" component={Profile} />
