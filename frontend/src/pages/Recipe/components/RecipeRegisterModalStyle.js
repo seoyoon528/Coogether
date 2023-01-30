@@ -15,6 +15,7 @@ export const ModalOverlayStyle = styled.div`
     color: white;
     text-align: center;
   }
+
   p {
     color: white;
     margin: 1rem;

@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react';
+import { SvgIcon } from '@mui/material';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+
 import RecipeRegisterModal from './RecipeRegisterModal';
+import { ImageSampleDiv } from './RecipeRegisterFormStyle';
 
 function RecipeRegisterForm() {
   // 요리 이름
   const cookNameRef = useRef();
 
   // 요리 이미지
-  const [cookImage, setCookImage] = useState(
-    'https://cdn-icons-png.flaticon.com/512/7734/7734301.png'
-  );
+  const [cookImage, setCookImage] = useState('');
   // 재료
   const [ingredients, setIngredients] = useState([{}, {}, {}]);
   // 요리 수선
@@ -94,9 +96,16 @@ function RecipeRegisterForm() {
       <section>
         <label htmlFor="cook-image">
           사진 등록
-          <div>
-            <img src={cookImage} alt="food" width="250px" />
-          </div>
+          <ImageSampleDiv>
+            {cookImage !== '' ? (
+              <img src={cookImage} alt="food" width="250px" />
+            ) : (
+              <SvgIcon
+                sx={{ fontSize: 100 }}
+                component={AddPhotoAlternateIcon}
+              />
+            )}
+          </ImageSampleDiv>
         </label>
         <input
           onChange={inputImageHandler}
@@ -129,7 +138,7 @@ function RecipeRegisterForm() {
                     ingredientNameHandler(idx, inputIngredientName);
                   }}
                   type="text"
-                  id={`ingredient-name-add${idx + 1}`}
+                  className="ingredient-name"
                 />
                 <input
                   type="text"
@@ -137,7 +146,7 @@ function RecipeRegisterForm() {
                     const inputIngredientAmount = event.target.value;
                     ingredientAmountHandler(idx, inputIngredientAmount);
                   }}
-                  id={`ingredient-amount-add${idx + 1}`}
+                  className="ingredient-amount"
                 />
               </div>
             );
@@ -161,7 +170,7 @@ function RecipeRegisterForm() {
                   }}
                   id={`cook-order-${idx + 1}`}
                   rows="5"
-                  cols="50"
+                  cols="80"
                 />
               </div>
             );
