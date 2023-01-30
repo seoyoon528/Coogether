@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
+
+import { Button } from '@mui/material';
 
 import { BackdropStyle, ModalOverlayStyle } from './RecipeRegisterModalStyle';
 
 import exampleImg from '../../../assets/img/한번에 넣기 이미지.png';
 
-function Backdrop({ onClick }) {
-  return <BackdropStyle onClick={onClick} />;
+function Backdrop({ onClose }) {
+  return <BackdropStyle onClick={onClose} />;
 }
 
-function ModalOveray({ onClick }) {
+function ModalOveray({ onClose, onConfirm }) {
+  const ingredientInputRef = useRef();
+
   return (
     <ModalOverlayStyle>
       <header>
@@ -29,30 +33,47 @@ function ModalOveray({ onClick }) {
         </p>
         <div>
           <label htmlFor="ingredients-input" />
-          <textarea id="ingredients-input" rows="10" cols="80" />
+          <textarea
+            id="ingredients-input"
+            rows="10"
+            cols="80"
+            ref={ingredientInputRef}
+          />
         </div>
         <div>
-          <button type="button" id="confirm">
-            확인
-          </button>
-          <button type="button" id="cancel" onClick={onClick}>
-            취소
-          </button>
+          <Button
+            variant="contained"
+            id="confirm"
+            onClick={() => {
+              onConfirm(ingredientInputRef.current.value);
+              onClose();
+            }}
+          >
+            <p>확인</p>
+          </Button>
+          <Button
+            variant="contained"
+            id="cancel"
+            onClick={onClose}
+            color="error"
+          >
+            <p>취소</p>
+          </Button>
         </div>
       </form>
     </ModalOverlayStyle>
   );
 }
 
-function RecipeRegisterModal({ onConfirm }) {
+function RecipeRegisterModal({ onClose, onConfirm }) {
   return (
     <>
       {ReactDOM.createPortal(
-        <Backdrop onClick={onConfirm} />,
+        <Backdrop onClose={onClose} />,
         document.querySelector('#backdrop-root1')
       )}
       {ReactDOM.createPortal(
-        <ModalOveray onClick={onConfirm} />,
+        <ModalOveray onClose={onClose} onConfirm={onConfirm} />,
         document.querySelector('#modal-root1')
       )}
     </>

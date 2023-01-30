@@ -74,6 +74,10 @@ function RecipeRegisterForm() {
     });
   };
 
+  const modalConfirmHandler = data => {
+    console.log(data);
+  };
+
   // form 제출
   const recipeSubmitHandler = event => {
     event.preventDefault();
@@ -115,7 +119,7 @@ function RecipeRegisterForm() {
             type="file"
             accept="image/*"
             id="cook-image"
-            hidden="true"
+            hidden
           />
         </Grid>
         <Grid item xs={12} className="recipe-register-form__ingredient">
@@ -123,7 +127,10 @@ function RecipeRegisterForm() {
             <label>재료 등록</label>
             <div>
               {isModalOpened && (
-                <RecipeRegisterModal onConfirm={openIngredientModal} />
+                <RecipeRegisterModal
+                  onClose={openIngredientModal}
+                  onConfirm={modalConfirmHandler}
+                />
               )}
               {isModalOpened || (
                 <Button variant="contained" onClick={openIngredientModal}>
