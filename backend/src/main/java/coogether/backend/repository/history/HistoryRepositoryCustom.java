@@ -7,11 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface HistoryRepositoryCustom {
 
-    List<History> findByUserId(String id);
-    History findByCookingRoomId(String userId, int cookingRoomId);
-
+//    List<History> findByUserId(String id);
+    History findByCookingRoomId(Long userSeq, int cookingRoomId);
 
 }

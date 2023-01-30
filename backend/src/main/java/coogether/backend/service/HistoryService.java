@@ -1,4 +1,4 @@
-package coogether.backend.service.history;
+package coogether.backend.service;
 
 import coogether.backend.domain.History;
 import coogether.backend.domain.User;
@@ -19,11 +19,11 @@ public class HistoryService {
     private final HistoryRepository historyRepository;
 
 
-    public List<History> getHistoryByUserId(String userId){
-        return historyRepository.findByUserId(userId);
+    public List<History> getHistoryByUserId(Long userSeq){
+        return historyRepository.findByUserId(userSeq);
     }
-    public History getHistoryInfoByCookingRoomId(String userId, int cookingRoomId){
-        return historyRepository.findByCookingRoomId(userId, cookingRoomId);
+    public History getHistoryInfoByCookingRoomId(Long userSeq, int cookingRoomId){
+        return historyRepository.findByCookingRoomId(userSeq, cookingRoomId);
     }
 
 }
