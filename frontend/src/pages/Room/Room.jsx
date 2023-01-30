@@ -24,11 +24,11 @@ function Room() {
   const START = `${hour}시: ${minute}분`;
 
   // 시간 계산
-  const calculateTime = () => {
+  const calculateTime = useCallback(() => {
     const currentTime = new Date().getTime();
     const remainingDuration = targetTime - currentTime;
     return remainingDuration;
-  };
+  }, []);
 
   const changeCheck = useCallback(() => {
     remainingTime = calculateTime(targetTime);
@@ -43,11 +43,7 @@ function Room() {
   }, []);
 
   useEffect(() => {
-    // changeTimer = setTimeout(changeCheck, remainingTime);
     changeCheck();
-    // return () => {
-    //   clearTimeout(changeTimer);
-    // };
   }, []);
   console.log(isStart);
 
@@ -72,8 +68,8 @@ function Room() {
   );
   return (
     <div>
-      {!isStart && test}
-      {isStart && test2}
+      {test}
+      {/* {!isStart ? test : test2} */}
     </div>
   );
 }

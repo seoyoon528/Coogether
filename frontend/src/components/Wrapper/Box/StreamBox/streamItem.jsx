@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import * as S from './streamItemStyle';
+
 function StreamItem(props) {
   const {
     roomId,
@@ -13,11 +15,20 @@ function StreamItem(props) {
     targetTime,
   } = props;
 
+  const hour = startTime.getHours();
+  const minute = startTime.getMinutes();
+  const START = `${hour}: ${minute}`;
+
   return (
-    <div>
+    <S.CookRoomItemWrapper>
       {/* <Link to={`/Room/${id}`}>{roomName}</Link> */}
       {/* to 프롭을 객체로 묶어서 보낼 수 있음 이때 주소를 입력하려면 pathname 으로 사용 */}
-      <img src={thumbnail} alt="이미지 오류" />
+      <S.CookRoomItemImg src={thumbnail} alt="이미지 오류" />
+      <S.StartTimeWrapper>
+        <div>
+          <p>{START} 시작</p>
+        </div>
+      </S.StartTimeWrapper>
       <Link
         to={{
           pathname: `/Room/${roomId}`,
@@ -32,11 +43,17 @@ function StreamItem(props) {
           },
         }}
       >
-        <h4>제목 : {roomName}</h4>
+        <S.roomTitle>{roomName}</S.roomTitle>
       </Link>
-      <p>요리대장 : {king}</p>
-      <p>#{recipe}</p>
-    </div>
+      <S.KingWrapper>
+        <p>{king}</p>
+      </S.KingWrapper>
+      <S.TagWrapper>
+        <div>
+          <span>#{recipe}</span>
+        </div>
+      </S.TagWrapper>
+    </S.CookRoomItemWrapper>
   );
 }
 
