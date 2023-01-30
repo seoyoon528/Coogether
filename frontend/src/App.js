@@ -3,13 +3,15 @@ import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 
 import Main from './pages/Main/Main';
 import Room from './pages/Room/Room';
-
+import SearchCookRoom from './pages/Search/SearchCookRoom';
+import SearchRecipe from './pages/Search/SearchRecipe';
 import TemperatureRank from './pages/Rank/TemperatureRank';
 import RecipeDetail from './pages/Recipe/RecipeDetail';
 import MyIngredientsManage from './pages/MyIngredientsManage/MyIngredientsManage';
 import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
+import RecipeRegister from './pages/Recipe/RecipeRegister';
 
 function App() {
   return (
@@ -30,9 +32,10 @@ function App() {
         </Route>
         <Route path="/Main" component={Main} exact />
         <Route path="/Room/:roomId" component={Room} />
-
+        <Route path="/SearchCookRoom" component={SearchCookRoom} />
+        <Route path="/SearchRecipe" component={SearchRecipe} />
         <Route path="/Recipe/:recipeId" component={RecipeDetail} />
-
+        <Route path="/RecipeRegister" component={RecipeRegister} />
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} />
         <Route path="/Signin" component={Signin} />

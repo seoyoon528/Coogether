@@ -1,6 +1,7 @@
 package coogether.backend.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import coogether.backend.domain.status.EnumIngredientFavFlag;
 import coogether.backend.domain.status.EnumReportCategory;
@@ -24,10 +25,12 @@ public class IngredientFav {
     @Column(name = "ingredient_fav_id", nullable = false)
     private int ingredientFavId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredientId;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User userId;
