@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Api(tags = {"쿠킹룸 히스토리 정보를 제공하는 Controller"})
+@Api(tags = {"히스토리 정보를 제공하는 Controller"})
 @RestController
 @RequiredArgsConstructor
 public class HistoryController {

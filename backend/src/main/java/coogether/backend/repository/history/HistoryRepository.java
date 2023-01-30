@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface HistoryRepository extends JpaRepository<History, String>, HistoryRepositoryCustom{
+public interface HistoryRepository extends JpaRepository<History, Long>, HistoryRepositoryCustom{
 
     @Query("select h from History h where h.user.userSeq = :userSeq")
     List<History> findByUserId(@Param("userSeq") Long userSeq);
