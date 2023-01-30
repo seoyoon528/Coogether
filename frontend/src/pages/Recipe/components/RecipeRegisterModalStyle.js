@@ -33,8 +33,12 @@ export const ModalOverlayStyle = styled.div`
     justify-content: center;
   }
 
-  button {
-    background-color: white;
+  button#confirm {
+    background-color: #ffd88d;
+  }
+
+  button#cancel {
+    background-color: #ababab;
   }
 `;
 

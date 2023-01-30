@@ -65,7 +65,7 @@ function RecipeRegisterForm() {
     });
   };
 
-  // modal 열기
+  // modal 상태 변경
   const openIngredientModal = () => {
     setIsModalOpened(prev => {
       return !prev;
@@ -110,7 +110,9 @@ function RecipeRegisterForm() {
       <section>
         <label>재료 등록</label>
         <div>
-          {isModalOpened && <RecipeRegisterModal />}
+          {isModalOpened && (
+            <RecipeRegisterModal onConfirm={openIngredientModal} />
+          )}
           {isModalOpened || (
             <button type="button" onClick={openIngredientModal}>
               한 번에 등록

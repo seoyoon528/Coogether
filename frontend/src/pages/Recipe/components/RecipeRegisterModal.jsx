@@ -5,11 +5,11 @@ import { BackdropStyle, ModalOverlayStyle } from './RecipeRegisterModalStyle';
 
 import exampleImg from '../../../assets/img/한번에 넣기 이미지.png';
 
-function Backdrop() {
-  return <BackdropStyle />;
+function Backdrop({ onClick }) {
+  return <BackdropStyle onClick={onClick} />;
 }
 
-function ModalOveray() {
+function ModalOveray({ onClick }) {
   return (
     <ModalOverlayStyle>
       <header>
@@ -32,26 +32,27 @@ function ModalOveray() {
           <textarea id="ingredients-input" rows="10" cols="80" />
         </div>
         <div>
-          <button>확인</button>
-          <button>취소</button>
+          <button type="button" id="confirm">
+            확인
+          </button>
+          <button type="button" id="cancel" onClick={onClick}>
+            취소
+          </button>
         </div>
       </form>
-      <footer>
-        <button type="button">누르면 종료</button>
-      </footer>
     </ModalOverlayStyle>
   );
 }
 
-function RecipeRegisterModal() {
+function RecipeRegisterModal({ onConfirm }) {
   return (
     <>
       {ReactDOM.createPortal(
-        <Backdrop />,
+        <Backdrop onClick={onConfirm} />,
         document.querySelector('#backdrop-root1')
       )}
       {ReactDOM.createPortal(
-        <ModalOveray />,
+        <ModalOveray onClick={onConfirm} />,
         document.querySelector('#modal-root1')
       )}
     </>
