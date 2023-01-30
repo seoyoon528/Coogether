@@ -22,8 +22,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserInfoById(Long userseq){
-        return userRepository.findByUserId(userseq);
+    public User getUserInfoById(Long userSeq){
+        return userRepository.findByUserId(userSeq);
     }
 
     public List<User> getUserListByName(String name){
@@ -31,8 +31,8 @@ public class UserService {
     }
 
     @Transactional
-    public void patchUserUpdate(Long userseq, String nickname, String img, String introduce, EnumUserCookCategory userCookCategory) {
-        User user = userRepository.findByUserId(userseq);
+    public void patchUserUpdate(Long userSeq, String nickname, String img, String introduce, EnumUserCookCategory userCookCategory) {
+        User user = userRepository.findByUserId(userSeq);
         if(nickname != null){
             user.setUserNickname(nickname);
         }

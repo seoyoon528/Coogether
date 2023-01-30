@@ -12,6 +12,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Query("update User u set u.userAccountStatus = 'INACTIVE' where u.userSeq = :userseq")
-    void deleteByUserId(@Param("userseq") Long userseq);
+    @Query("update User u set u.userAccountStatus = 'INACTIVE' where u.userSeq = :userSeq")
+    void deleteByUserId(@Param("userSeq") Long userSeq);
 }

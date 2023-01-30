@@ -26,10 +26,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public User findByUserId(Long userseq) {
+    public User findByUserId(Long userSeq) {
         return queryFactory
                 .selectFrom(user)
-                .where(user.userSeq.eq(userseq))
+                .where(user.userSeq.eq(userSeq))
                 .fetchOne();
     }
 
