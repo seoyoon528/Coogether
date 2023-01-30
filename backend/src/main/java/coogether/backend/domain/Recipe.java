@@ -22,17 +22,17 @@ import static javax.persistence.FetchType.LAZY;
 public class Recipe {
 
     @JsonIgnore
-    @OneToMany(mappedBy = "recipeId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<IngredientList> ingredientList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "recipeId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
 
     @Id
