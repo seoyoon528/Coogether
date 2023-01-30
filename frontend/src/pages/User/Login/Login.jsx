@@ -1,4 +1,5 @@
 import React from 'react';
+import GoogleLogIn from '../../../utils/GOOGLEAuth';
 import NaverLogin from '../../../utils/NAVERAuth';
 
 function Login() {
@@ -9,6 +10,7 @@ function Login() {
     <>
       <a href={KAKAO_AUTH_URL}>Kakao Login</a>
       <NaverLogin />
+      <GoogleLogIn />
     </>
   );
 }
