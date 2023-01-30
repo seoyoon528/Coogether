@@ -5,7 +5,6 @@ function App() {
     <div>
       <p className="test">테스트</p>
       <p>테스트</p>
-      {/* <p style={{ fontStyle: 'bold' }}>테스트</p> */}
     </div>
   );
 }
