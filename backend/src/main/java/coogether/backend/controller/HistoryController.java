@@ -31,10 +31,7 @@ public class HistoryController {
     @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long")
     @GetMapping("/history/{userSeq}")
     public ResponseEntity HistoryListById(@PathVariable("userSeq") Long userSeq) {
-//        List<HistoryDto> result = new ArrayList<>();
         List<History> historyList = historyService.getHistoryByUserId(userSeq);
-//        for (History h : historyList)
-//            result.add(new HistoryDto(h));
         List<HistoryDto> result = historyList.stream().map(x -> new HistoryDto(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(result);
     }

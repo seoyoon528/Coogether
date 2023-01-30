@@ -5,6 +5,8 @@ import com.querydsl.core.annotations.QueryProjection;
 import coogether.backend.domain.CookingRoom;
 import coogether.backend.domain.History;
 import coogether.backend.domain.User;
+import coogether.backend.dto.simple.SimpleCookingRoomDto;
+import coogether.backend.dto.simple.SimpleUserDto;
 import lombok.Data;
 
 import java.util.List;
@@ -17,16 +19,14 @@ public class HistoryDto {
     private String historyImg;
 
     ///////////////////////////
-    private UserDto user;
-
-    @JsonIgnore
+//    private SimpleUserDto user;
     private CookingRoomDto cookingRoom;
 
     @QueryProjection
     public HistoryDto(History history){
         this.historyId = history.getHistoryId();
         this.historyImg = history.getHistoryImg();
-        this.user = new UserDto(history.getUser());
+//        this.user = new SimpleUserDto(history.getUser());
         this.cookingRoom =  new CookingRoomDto(history.getCookingRoom());
     }
 
