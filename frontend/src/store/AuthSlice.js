@@ -6,13 +6,21 @@ const initialStateValue = {
 };
 
 export const AuthSlice = createSlice({
-  name: 'auth',
+  name: 'user',
   initialState: initialStateValue,
   reducers: {
     login: (state, action) => {
       const changeState = state;
       changeState.authenticated = action.result;
       changeState.token = action.token;
+    },
+    logout: (state, action) => {
+      const changeState = state;
+      changeState.authenticated = action.payload;
+    },
+    register: (state, action) => {
+      const changeState = state;
+      changeState.authenticated = action.payload;
     },
   },
 });
