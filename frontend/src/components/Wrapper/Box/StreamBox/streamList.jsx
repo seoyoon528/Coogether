@@ -7,7 +7,16 @@ function StreamList(props) {
   return (
     <div>
       {DUMMY_ROOM.map(room => (
-        <StreamItem key={room.id} roomId={room.id} roomName={room.name} />
+        <StreamItem
+          key={room.id}
+          roomId={room.id}
+          roomName={room.title}
+          recipe={room.recipe}
+          startTime={room.startTime}
+          thumbnail={room.thumbnail}
+          anounce={room.anounce}
+          king={room.king}
+        />
       ))}
     </div>
   );
