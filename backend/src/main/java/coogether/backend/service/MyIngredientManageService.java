@@ -3,6 +3,7 @@ package coogether.backend.service;
 import coogether.backend.domain.Ingredient;
 import coogether.backend.domain.MyIngredientManage;
 import coogether.backend.domain.User;
+import coogether.backend.domain.status.EnumIngredientCategory;
 import coogether.backend.domain.status.EnumMyIngredientManageFlag;
 import coogether.backend.dto.request.MyIngredientManageRequest;
 import coogether.backend.repository.ingredient.IngredientRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -80,5 +82,9 @@ public class MyIngredientManageService {
 
             return myIngredientManage;
         }
+    }
+
+    public List<MyIngredientManage> myIngredientTotalListByUserSeq(Long userSeq) {
+        return myIngredientManageRepository.findByUserSeq(userSeq);
     }
 }

@@ -5,7 +5,6 @@ import coogether.backend.domain.IngredientList;
 import coogether.backend.domain.Recipe;
 import coogether.backend.repository.ingredientlist.IngredientListRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IngredientListService {
     private final IngredientListRepository ingredientListRepository;
+
     public List<IngredientList> getIngredientListByRecipeName(int recipeId){
         return ingredientListRepository.findByRecipeName(recipeId);
     }
