@@ -4,11 +4,29 @@ import dummy from '../ingredients.json';
 function AllIngredients({ category }) {
   const categoryList = dummy.ingredients;
   const [visible, setVisible] = useState(false);
+  const [selectIngredientId, setselectIngredientId] = useState('');
+  const handleClick = i => {
+    setselectIngredientId(i.name);
+    setVisible(!visible);
+  };
   const AllIngredient = categoryList.map(e => {
     console.log(e.name);
     return (
       <span>
-        <button key={e.id}>{e.name}</button>
+        <button
+          key={e.name}
+          onClick={() => {
+            handleClick(e);
+          }}
+        >
+          {e.name}
+          {selectIngredientId === e.name && visible && (
+            <div>
+              <button>즐겨찾기</button>
+              <button>내 냉장고로</button>
+            </div>
+          )}
+        </button>
       </span>
     );
   });
@@ -19,13 +37,13 @@ function AllIngredients({ category }) {
         <span>
           <div>{i.text} 전체</div>
           <button
-            key={i.id}
+            key={i.name}
             onClick={() => {
-              setVisible(!visible);
+              handleClick(i);
             }}
           >
             {i.name}
-            {visible && (
+            {selectIngredientId === i.name && visible && (
               <div>
                 <button>즐겨찾기</button>
                 <button>내 냉장고로</button>
