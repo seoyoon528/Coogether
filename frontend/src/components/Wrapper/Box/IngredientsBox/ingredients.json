@@ -1,0 +1,128 @@
+{
+  "categories": [
+    {
+      "id": "all",
+      "text": "전체보기"
+    },
+    {
+      "id": "MEAT",
+      "text": "육류"
+    },
+    {
+      "id": "VEGETABLE",
+      "text": "채소류"
+    },
+    {
+      "id": "GRAIN",
+      "text": "곡류/견과류/콩류/가루"
+    },
+    {
+      "id": "DAIRY",
+      "text": "우유/유제품/달걀류"
+    },
+    {
+      "id": "SEASONING",
+      "text": "장류/조미료/향신료/양념"
+    },
+    {
+      "id": "FRUIT",
+      "text": "과일"
+    },
+    {
+      "id": "BREAD",
+      "text": "빵류/잼"
+    },
+    {
+      "id": "NOODLE",
+      "text": "면류"
+    },
+    {
+      "id": "PROCESSED FOOD",
+      "text": "가공식품"
+    },
+    {
+      "id": "OIL",
+      "text": "오일"
+    },
+    {
+      "id": "DRINK",
+      "text": "물/음료/주류"
+    },
+    {
+      "id": "KIMCHI",
+      "text": "젓갈"
+    },
+    {
+      "id": "ETC",
+      "text": "기타"
+    }
+  ],
+
+  "ingredients": [
+    {
+      "id": "MEAT",
+      "text": "육류",
+      "name": "소고기"
+    },
+    {
+      "id": "VEGETABLE",
+      "text": "채소류",
+      "name": "청경채"
+    },
+    {
+      "id": "GRAIN",
+      "text": "곡류/견과류/콩류/가루",
+      "name": "밀가루"
+    },
+    {
+      "id": "DAIRY",
+      "text": "우유/유제품/달걀류",
+      "name": "저지방 우유"
+    },
+    {
+      "id": "SEASONING",
+      "text": "장류/조미류/향신료/양념",
+      "name": "후추"
+    },
+    {
+      "id": "FRUIT",
+      "text": "과일",
+      "name": "사과"
+    },
+    {
+      "id": "BREAD",
+      "text": "빵류/잼",
+      "name": "딸기잼"
+    },
+    {
+      "id": "NOODLE",
+      "text": "면류",
+      "name": "소면"
+    },
+    {
+      "id": "PROCESSED FOOD",
+      "text": "가공식품",
+      "name": "햇반"
+    },
+    {
+      "id": "OIL",
+      "text": "오일",
+      "name": "올리브유"
+    },
+    {
+      "id": "DRINK",
+      "text": "물/음료/주류",
+      "name": "와인"
+    },
+    {
+      "id": "KIMCHI",
+      "text": "김치/젓갈",
+      "name": "갓김치"
+    },
+    {
+      "id": "ETC",
+      "text": "기타",
+      "name": "도토리묵"
+    }
+  ]
+}
