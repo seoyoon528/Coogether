@@ -21,4 +21,13 @@ public class IngredientService {
     public List<Ingredient> myIngredientTotalListByCategoryId(EnumIngredientCategory categoryId) {
         return ingredientRepository.findByCategoryId(categoryId);
     }
+
+    public List<Ingredient> ingredientTotalListByUserSeqAndCategoryId(Long userSeq, EnumIngredientCategory categoryId) {
+
+        return ingredientRepository.findByUserSeqAndCategoryId(userSeq,categoryId);
+    }
+
+    public List<Ingredient> ingredientListByIngredientName(String ingredientName) {
+        return ingredientRepository.findByIngredientName(ingredientName);
+    }
 }
