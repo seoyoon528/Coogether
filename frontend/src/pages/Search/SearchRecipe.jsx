@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import RecipeBox from '../../components/Wrapper/Box/RecipeBox/RecipeBoxList ';
 import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
+import * as S from './SearchRecipeStyle';
 
 // 테스트용
 import gim from '../../assets/img/김찌.jpg';
@@ -16,6 +17,26 @@ const DUMMY_RECIPE = [
   },
   {
     id: '2',
+    name: '김치찌개',
+    thumbnail: gim,
+  },
+  {
+    id: '3',
+    name: '김치찌개',
+    thumbnail: gim,
+  },
+  {
+    id: '4',
+    name: '찜닭',
+    thumbnail: dack,
+  },
+  {
+    id: '5',
+    name: '김치찌개',
+    thumbnail: gim,
+  },
+  {
+    id: '6',
     name: '김치찌개',
     thumbnail: gim,
   },
@@ -41,10 +62,10 @@ function SearchRecipe() {
 
   return (
     <div>
-      <p>레시피 검색 페이지 입니다</p>
-      <h2>원하는 요리 레시피를 찾아보세요</h2>
-      <h5>재료부터 요리 순서까지 레시피를 보고 요리를 따라할 수 있어요</h5>
-      <span>wrapper 의 서치박스로 변경중</span>
+      <S.SearchMainHeader>원하는 요리 레시피를 찾아보세요</S.SearchMainHeader>
+      <S.SearchSubHeader>
+        재료부터 요리 순서까지 레시피를 보고 요리를 따라할 수 있어요
+      </S.SearchSubHeader>
       <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
       <br />
       <RecipeBox DUMMY_RECIPE={DUMMY_RECIPE} />
