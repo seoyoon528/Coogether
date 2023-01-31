@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Grid } from '@mui/material';
 
 import StreamList from '../../components/Wrapper/Box/StreamBox/streamList';
 import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
@@ -14,7 +15,7 @@ const DUMMY_ROOM = [
     id: '1',
     king: '내가 요리왕',
     recipe: '찜닭',
-    title: '서치 찜닭해먹기',
+    roomName: '서치 찜닭해먹기',
     thumbnail: dack,
     startTime: new Date(),
     targetTime: new Date().getTime() + 10000,
@@ -22,10 +23,76 @@ const DUMMY_ROOM = [
     anounce: null,
   },
   {
-    id: '2',
+    id: '3',
     king: '내가 진짜 요리왕',
     recipe: '김치찌개',
-    title: '서치 김치찌개해먹기',
+    roomName: '서치 김치찌개해먹기',
+    thumbnail: gim,
+    startTime: new Date(),
+    targetTime: new Date().getTime() + 10000,
+    roomStatus: false,
+    anounce: null,
+  },
+  {
+    id: '4',
+    king: '내가 요리왕',
+    recipe: '찜닭',
+    roomName: '서치 찜닭해먹기',
+    thumbnail: dack,
+    startTime: new Date(),
+    targetTime: new Date().getTime() + 10000,
+    roomStatus: false,
+    anounce: null,
+  },
+  {
+    id: '',
+    king: '내가 진짜 요리왕',
+    recipe: '김치찌개',
+    roomName: '서치 김치찌개해먹기',
+    thumbnail: gim,
+    startTime: new Date(),
+    targetTime: new Date().getTime() + 10000,
+    roomStatus: false,
+    anounce: null,
+  },
+  {
+    id: '10',
+    king: '내가 요리왕',
+    recipe: '찜닭',
+    roomName: '서치 찜닭해먹기',
+    thumbnail: dack,
+    startTime: new Date(),
+    targetTime: new Date().getTime() + 10000,
+    roomStatus: false,
+    anounce: null,
+  },
+  {
+    id: '33',
+    king: '내가 진짜 요리왕',
+    recipe: '김치찌개',
+    roomName: '서치 김치찌개해먹기',
+    thumbnail: gim,
+    startTime: new Date(),
+    targetTime: new Date().getTime() + 10000,
+    roomStatus: false,
+    anounce: null,
+  },
+  {
+    id: '42',
+    king: '내가 요리왕',
+    recipe: '찜닭',
+    roomName: '서치 찜닭해먹기',
+    thumbnail: dack,
+    startTime: new Date(),
+    targetTime: new Date().getTime() + 10000,
+    roomStatus: false,
+    anounce: null,
+  },
+  {
+    id: '123',
+    king: '내가 진짜 요리왕',
+    recipe: '김치찌개',
+    roomName: '서치 김치찌개해먹기',
     thumbnail: gim,
     startTime: new Date(),
     targetTime: new Date().getTime() + 10000,
@@ -54,15 +121,17 @@ function SearchCookRoom() {
   // }, [enterdItme]);
 
   return (
-    <>
+    <div>
       <h2>참여하고 싶은 요리방을 찾아보세요</h2>
       <h5>다양한 사람들과 함께 요리를 해보고 기록을 남겨보세요</h5>
       <span>wrapper 의 서치박스로 변경중</span>
       {/* 레시피 서치 페이지에도 추가해주기 */}
       <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
       <br />
-      <StreamList DUMMY_ROOM={DUMMY_ROOM} />
-    </>
+      <Grid container justifyContent="space-evenly">
+        <StreamList DUMMY_ROOM={DUMMY_ROOM} />
+      </Grid>
+    </div>
   );
 }
 
