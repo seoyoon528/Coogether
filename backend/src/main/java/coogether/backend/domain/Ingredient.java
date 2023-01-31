@@ -40,4 +40,7 @@ public class Ingredient {
     @Enumerated(EnumType.STRING)
     @Column(name = "ingredient_category", nullable = false)
     private EnumIngredientCategory ingredientCategory;
+
+    @Column(name = "ingredient_icon", length = 100, nullable = true)
+    private String ingredientIcon;
 }
