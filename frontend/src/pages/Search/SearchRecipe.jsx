@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RecipeBox from '../../components/Wrapper/Box/RecipeBox/RecipeBox ';
+import RecipeBox from '../../components/Wrapper/Box/RecipeBox/RecipeBoxList ';
 
 /** 해당 위치에서 api 요청(레시피 get) 보내면 될 것 같음 */
 const DUMMY_RECIPE = [
