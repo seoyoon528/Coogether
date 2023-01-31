@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 
 export const RecipeRegisterStyle = styled.section`
-  .recipe-register {
-    margin-left: 2.4rem;
-    margin-right: 2.4rem;
-  }
+  margin-left: 2.4rem;
+  margin-right: 2.4rem;
 
   .recipe-register__title {
+    margin-top: 4.8rem;
     text-align: center;
+  }
+
+  .recipe-register__title__subtext {
+    color: #505050;
+    font-size: 1.4rem;
+    margin-top: 0.8rem;
+    margin-bottom: 4rem;
   }
 
   .recipe-register-form__ingredient {

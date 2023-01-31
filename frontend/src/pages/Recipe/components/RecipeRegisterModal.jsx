@@ -1,46 +1,45 @@
 import React, { useRef } from 'react';
-import ReactDOM from 'react-dom';
 
-import { Button } from '@mui/material';
+import { Button, Dialog, IconButton } from '@mui/material';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
-import { BackdropStyle, ModalOverlayStyle } from './RecipeRegisterModalStyle';
+import { ModalOverlayStyle } from './RecipeRegisterModalStyle';
 
 import exampleImg from '../../../assets/img/한번에 넣기 이미지.png';
 
-function Backdrop({ onClose }) {
-  return <BackdropStyle onClick={onClose} />;
-}
-
-function ModalOveray({ onClose, onConfirm }) {
+function ModalOveray({ onClose, onConfirm, open }) {
   const ingredientInputRef = useRef();
 
   return (
-    <ModalOverlayStyle>
-      <header>
-        <h1>한번에 넣기</h1>
-        <p>
-          요리에 들어갈 재료, 양념을 작성 또는 이미 작성된 것을 복사/붙여넣기
-          해주세요.
-        </p>
-      </header>
-      <form>
-        <div>
-          <img src={exampleImg} alt="example-img" width="80%" />
+    <Dialog open={open} onClose={onClose}>
+      <ModalOverlayStyle>
+        <div className="modal-button__top">
+          <IconButton onClick={onClose}>
+            <CancelPresentationIcon fontSize="large" />
+          </IconButton>
         </div>
-        <p>
-          각 식재료는 쉼표(,)로 구분하고 재료 및 양념, 소스 등을 구분할 경우
-          대괄호([]) 사용해주세요.
-        </p>
-        <div>
-          <label htmlFor="ingredients-input" />
+        <header>
+          <h2>한번에 넣기</h2>
+          <p>
+            요리에 들어갈 재료, 양념을 작성 또는 이미 작성된 것을 복사/붙여넣기
+            해주세요.
+          </p>
+        </header>
+        <section>
+          <div className="modal-form__img">
+            <img src={exampleImg} alt="example-img" />
+          </div>
+          <p className="modal-form__info">
+            각 식재료는 쉼표(,)로 구분하고 재료 및 양념, 소스 등을 구분할 경우
+            대괄호([]) 사용해주세요.
+          </p>
           <textarea
             id="ingredients-input"
-            rows="10"
-            cols="80"
             ref={ingredientInputRef}
+            placeholder="대파 2개, 고춧가루 1숟가락, 식초 3숟가락"
           />
-        </div>
-        <div>
+        </section>
+        <div className="modal-button__bottom">
           <Button
             variant="contained"
             id="confirm"
@@ -60,23 +59,16 @@ function ModalOveray({ onClose, onConfirm }) {
             <p>취소</p>
           </Button>
         </div>
-      </form>
-    </ModalOverlayStyle>
+      </ModalOverlayStyle>
+    </Dialog>
   );
 }
 
-function RecipeRegisterModal({ onClose, onConfirm }) {
+function RecipeRegisterModal({ onClose, onConfirm, open }) {
   return (
-    <>
-      {ReactDOM.createPortal(
-        <Backdrop onClose={onClose} />,
-        document.querySelector('#backdrop-root1')
-      )}
-      {ReactDOM.createPortal(
-        <ModalOveray onClose={onClose} onConfirm={onConfirm} />,
-        document.querySelector('#modal-root1')
-      )}
-    </>
+    <div>
+      <ModalOveray onClose={onClose} onConfirm={onConfirm} open={open} />
+    </div>
   );
 }
 
