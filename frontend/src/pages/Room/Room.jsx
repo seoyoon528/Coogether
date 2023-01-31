@@ -43,7 +43,11 @@ function Room() {
   }, []);
 
   useEffect(() => {
+    // changeTimer = setTimeout(changeCheck, remainingTime);
     changeCheck();
+    return () => {
+      clearTimeout(changeTimer);
+    };
   }, []);
   console.log(isStart);
 

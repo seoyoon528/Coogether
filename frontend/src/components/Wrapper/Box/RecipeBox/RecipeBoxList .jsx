@@ -6,12 +6,11 @@ import RecipeBoxItem from './RecipeBoxItem ';
 
 function RecipeBoxList(props) {
   const { DUMMY_RECIPE } = props;
-
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} justifyContent="space-evenly">
       {DUMMY_RECIPE.map(recipe => {
         return (
-          <Grid item xs={4} key={recipe.id}>
+          <Grid item key={recipe.id}>
             <RecipeBoxItem recipe={recipe} />
           </Grid>
         );

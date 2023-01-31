@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import * as S from './streamItemStyle';
 
-function StreamItem(props) {
+function StreamItem({ room }) {
   const {
     roomId,
     roomName,
@@ -14,7 +14,7 @@ function StreamItem(props) {
     king,
     targetTime,
     users,
-  } = props;
+  } = room;
 
   const hour = startTime.getHours();
   const minute = startTime.getMinutes();
