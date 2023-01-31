@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function NaverLogin() {
+function naverAuth() {
   const [user, setUser] = useState(null);
   // SDK 네이버 선언
   const { naver } = window;
@@ -66,4 +66,4 @@ function NaverLogin() {
     </div>
   );
 }
-export default NaverLogin;
+export default naverAuth;

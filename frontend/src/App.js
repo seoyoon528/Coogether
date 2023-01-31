@@ -12,7 +12,7 @@ import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
 import RecipeRegister from './pages/Recipe/RecipeRegister';
-import KAKAOAuth from './utils/KAKAOAuth';
+import KAKAOAuth from './utils/kakaoAuth';
 
 function App() {
   return (

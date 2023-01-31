@@ -24,27 +24,29 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-function GoogleLogIn() {
+function googleAuth() {
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.authenticated);
   return (
-    <div style={{ opacity: '0' }}>
-      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-        <GoogleLogin
-          buttonText="google login"
-          onSuccess={credentialResponse => {
-            dispatch(login({ authenticated: true }));
-            console.log(credentialResponse);
-            parseJwt(credentialResponse.credential);
-          }}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-        />
-      </GoogleOAuthProvider>
-      {isLogin ? <div>맞아요</div> : <div>틀려요</div>}
+    <div>
+      <div style={{ opacity: '0' }}>
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+          <GoogleLogin
+            buttonText="google login"
+            onSuccess={credentialResponse => {
+              dispatch(login({ authenticated: true }));
+              console.log(credentialResponse);
+              parseJwt(credentialResponse.credential);
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+        </GoogleOAuthProvider>
+        {isLogin ? <div>맞아요</div> : <div>틀려요</div>}
+      </div>
     </div>
   );
 }
 
-export default GoogleLogIn;
+export default googleAuth;
