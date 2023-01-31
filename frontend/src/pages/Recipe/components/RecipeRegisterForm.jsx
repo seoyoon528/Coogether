@@ -13,7 +13,7 @@ function RecipeRegisterForm() {
   const [cookImage, setCookImage] = useState('');
   // 재료
   const [ingredients, setIngredients] = useState([{}, {}, {}]);
-  // 요리 수선
+  // 요리 순서
   const [cookOrder, setCookOrder] = useState(['', '']);
 
   // 모달 오픈
@@ -74,8 +74,17 @@ function RecipeRegisterForm() {
     });
   };
 
+  // 한번에 입력하기
   const modalConfirmHandler = data => {
-    console.log(data);
+    const enteredIngredients = data.trim().split(',');
+    setIngredients(prev => {
+      const ingredients = prev;
+      enteredIngredients.forEach(ingredient => {
+        const [name, amount] = ingredient.trim().split(' ');
+        ingredients.push({ name, amount });
+      });
+      return [...ingredients];
+    });
   };
 
   // form 제출
@@ -130,6 +139,7 @@ function RecipeRegisterForm() {
                 <RecipeRegisterModal
                   onClose={openIngredientModal}
                   onConfirm={modalConfirmHandler}
+                  open={isModalOpened}
                 />
               )}
               {isModalOpened || (
@@ -150,6 +160,7 @@ function RecipeRegisterForm() {
                     }}
                     type="text"
                     className="ingredient-name"
+                    value={ingredient.name}
                   />
                   <input
                     type="text"
@@ -158,6 +169,7 @@ function RecipeRegisterForm() {
                       ingredientAmountHandler(idx, inputIngredientAmount);
                     }}
                     className="ingredient-amount"
+                    value={ingredient.amount}
                   />
                 </div>
               );
