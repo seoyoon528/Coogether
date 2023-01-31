@@ -6,11 +6,11 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import userReducer from './AuthSlice';
-
+// getDefaultMiddleware 는 persistReducer에러를 없애기 위해 적용
 const reducers = combineReducers({
   user: userReducer,
 });
-
+// persisit 설정
 const persistConfig = {
   key: 'root',
   storage,
