@@ -4,8 +4,12 @@ export const SearchFormWrapper = styled.form`
   display: flex;
   justify-content: center;
   height: auto;
+`;
 
-  & input {
+export const SearchFormLabel = styled.label`
+  position: relative;
+
+  input {
     border-radius: 1rem;
     height: 5rem;
     width: 45rem;
@@ -14,5 +18,10 @@ export const SearchFormWrapper = styled.form`
     font-size: 1.8rem;
     line-height: auto;
     color: #4f4f4f;
+  }
+  button {
+    position: absolute;
+    top: 1.4rem;
+    right: 0.5rem;
   }
 `;
