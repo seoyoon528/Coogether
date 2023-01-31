@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import { useLocation } from 'react-router-dom';
+import kakaoLogin from '../assets/icon/kakaoLogin.svg';
 
 function kakaoAuth() {
   const REDIRECT_URI = 'http://localhost:3000/oauth/kakao/callback';
@@ -48,6 +49,10 @@ function kakaoAuth() {
   useEffect(() => {
     getToken();
   }, []);
-  return <a href={KAKAO_AUTH_URL}>Kakao Login</a>;
+  return (
+    <a href={KAKAO_AUTH_URL}>
+      <img src={kakaoLogin} alt="카카오 로그인" />
+    </a>
+  );
 }
 export default kakaoAuth;
