@@ -26,7 +26,7 @@ public class MyIngredientManageController {
     private final MyIngredientManageService myIngredientManageService;
 
     @ApiOperation(value = "------------ PATCH로 통합 ------------")
-    @PostMapping("/myingredient/create/{userSeq}/{ingredientId}")
+    @PostMapping("/myIngredient/create/{userSeq}/{ingredientId}")
     public ResponseEntity addMyIngredientByIngredientId(@PathVariable("userSeq") Long userSeq, @PathVariable("ingredientId") int ingredientId) {
 
         MyIngredientManage result = myIngredientManageService.addMyIngredientByIngredientId(userSeq,ingredientId);
@@ -35,7 +35,7 @@ public class MyIngredientManageController {
     }
 
     @ApiOperation(value = "내 냉장고에 재료 추가하는 메소드 (최초등록/재등록/제거) * flag : {IN, OUT}")
-    @PatchMapping("/myingredient/update/{userSeq}/{ingredientId}")
+    @PatchMapping("/myIngredient/update/{userSeq}/{ingredientId}")
     public ResponseEntity updateMyIngredientByIngredientId(@PathVariable("userSeq") Long userSeq, @PathVariable("ingredientId") int ingredientId) {
 
         MyIngredientManage result = myIngredientManageService.updateMyIngredientByIngredientId(userSeq,ingredientId);
@@ -44,7 +44,7 @@ public class MyIngredientManageController {
     }
 
     @ApiOperation(value = "내 냉장고에 있는 전체 재료 목록을 반환하는 메소드")
-    @GetMapping("/myingredient/list/total/{userSeq}")
+    @GetMapping("/myIngredient/list/total/{userSeq}")
     public ResponseEntity myIngredientTotalListByUserSeq(@PathVariable("userSeq") Long userSeq)  {
         List<MyIngredientManageDto> result = new ArrayList<>();
         List<MyIngredientManage> myIngredientManages = myIngredientManageService.myIngredientTotalListByUserSeq(userSeq);

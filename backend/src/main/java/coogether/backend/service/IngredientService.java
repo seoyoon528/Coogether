@@ -26,4 +26,8 @@ public class IngredientService {
 
         return ingredientRepository.findByUserSeqAndCategoryId(userSeq,categoryId);
     }
+
+    public List<Ingredient> ingredientListByIngredientName(String ingredientName) {
+        return ingredientRepository.findByIngredientName(ingredientName);
+    }
 }

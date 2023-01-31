@@ -25,7 +25,7 @@ public class IngredientFavController {
     private final IngredientFavService ingredientFavService;
 
     @ApiOperation(value = "내 즐겨찾기 재료 목록 반환하는 메소드")
-    @GetMapping("/myingredient/list/fav/{userSeq}/{categoryId}")
+    @GetMapping("/myIngredient/list/fav/{userSeq}/{categoryId}")
     public ResponseEntity myIngredientFavListByCategoryId(@PathVariable("userSeq") Long userSeq, @PathVariable("categoryId") EnumIngredientCategory categoryId)  {
         List<SimpleIngredientFavDto> result = new ArrayList<>();
         List<IngredientFav> ingredientFavs = ingredientFavService.myIngredientTotalListByCategoryId(userSeq,categoryId);

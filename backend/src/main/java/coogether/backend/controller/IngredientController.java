@@ -3,10 +3,12 @@ package coogether.backend.controller;
 
 import coogether.backend.domain.Ingredient;
 import coogether.backend.domain.MyIngredientManage;
+import coogether.backend.domain.Recipe;
 import coogether.backend.domain.status.EnumIngredientCategory;
 import coogether.backend.dto.IngredientDto;
 import coogether.backend.dto.MyIngredientManageDto;
 import coogether.backend.dto.simple.SimpleIngredientDto;
+import coogether.backend.dto.simple.SimpleRecipeDto;
 import coogether.backend.service.IngredientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,6 +43,17 @@ public class IngredientController {
     public ResponseEntity ingredientTotalListByUserSeqAndCategoryId(@PathVariable("userSeq") Long userSeq,@PathVariable("categoryId") EnumIngredientCategory categoryId)  {
         List<SimpleIngredientDto> result = new ArrayList<>();
         List<Ingredient> ingredients = ingredientService.ingredientTotalListByUserSeqAndCategoryId(userSeq,categoryId);
+        for (Ingredient i : ingredients)
+            result.add(new SimpleIngredientDto(i));
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    @ApiOperation(value = "내 냉장고에서 재료 이름으로 재료 검색하는 메소드")
+    @GetMapping("/myIngredient/search/{ingredientName}")
+    public ResponseEntity ingredientListByIngredientName(@PathVariable("ingredientName") String ingredientName)  {
+        List<SimpleIngredientDto> result = new ArrayList<>();
+        List<Ingredient> ingredients = ingredientService.ingredientListByIngredientName(ingredientName);
         for (Ingredient i : ingredients)
             result.add(new SimpleIngredientDto(i));
 
