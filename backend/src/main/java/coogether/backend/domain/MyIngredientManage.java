@@ -19,7 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "my_ingredient_manage")
 public class MyIngredientManage {

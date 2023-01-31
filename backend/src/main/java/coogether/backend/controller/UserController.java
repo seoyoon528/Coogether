@@ -43,7 +43,7 @@ public class UserController {
 
 
     @ApiOperation(value = "유저 1명의 상세 정보를 반환하는 메소드")
-    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long")
+    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long" , example="1")
     @GetMapping("/user/{userSeq}")
     public ResponseEntity userInfoById(@PathVariable("userSeq") Long userSeq) {
         User user = userService.getUserInfoById(userSeq);
@@ -75,8 +75,9 @@ public class UserController {
         System.out.println("userUpdateDto = " + userUpdateDto);
         return ResponseEntity.status(HttpStatus.OK).body(userUpdateDto);
     }
+
     @ApiOperation(value = "유저 회원 탈퇴")
-    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long")
+    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long", example="1")
     @PatchMapping("/user/delete/{userSeq}")
     public ResponseEntity userDelete(@PathVariable("userSeq") Long userSeq) {
         userService.patchUserDelete(userSeq);
