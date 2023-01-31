@@ -13,6 +13,7 @@ function StreamItem(props) {
     anounce,
     king,
     targetTime,
+    users,
   } = props;
 
   const hour = startTime.getHours();
@@ -24,11 +25,14 @@ function StreamItem(props) {
       {/* <Link to={`/Room/${id}`}>{roomName}</Link> */}
       {/* to 프롭을 객체로 묶어서 보낼 수 있음 이때 주소를 입력하려면 pathname 으로 사용 */}
       <S.CookRoomItemImg src={thumbnail} alt="이미지 오류" />
-      <S.StartTimeWrapper>
-        <div>
+      <S.StartUserWrapper>
+        <S.JoinUserWrapper>
+          <p>{users}명</p>
+        </S.JoinUserWrapper>
+        <S.StartTimeWrapper>
           <p>{START} 시작</p>
-        </div>
-      </S.StartTimeWrapper>
+        </S.StartTimeWrapper>
+      </S.StartUserWrapper>
       <Link
         to={{
           pathname: `/Room/${roomId}`,
@@ -49,9 +53,7 @@ function StreamItem(props) {
         <p>{king}</p>
       </S.KingWrapper>
       <S.TagWrapper>
-        <div>
-          <span>#{recipe}</span>
-        </div>
+        <span>#{recipe}</span>
       </S.TagWrapper>
     </S.CookRoomItemWrapper>
   );

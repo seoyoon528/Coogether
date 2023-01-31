@@ -18,6 +18,7 @@ function StreamList(props) {
           thumbnail={room.thumbnail}
           anounce={room.anounce}
           king={room.king}
+          users={room.users}
         />
       ))}
     </streamListStyle.CookRoomListWrapper>

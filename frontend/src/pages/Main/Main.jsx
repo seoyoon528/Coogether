@@ -19,6 +19,7 @@ const DUMMY_ROOM = [
     targetTime: new Date().getTime() + 10000,
     roomStatus: false,
     anounce: null,
+    users: 3,
   },
   {
     id: '2',
@@ -30,6 +31,7 @@ const DUMMY_ROOM = [
     targetTime: new Date().getTime() + 10000,
     roomStatus: false,
     anounce: null,
+    users: 3,
   },
 ];
 

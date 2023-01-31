@@ -61,11 +61,11 @@ function Room() {
   );
 
   // 실제 방송방이라고 가정할 것
-  const test2 = (
-    <div>
-      <p>지금 방송중</p>
-    </div>
-  );
+  // const test2 = (
+  //   <div>
+  //     <p>지금 방송중</p>
+  //   </div>
+  // );
   return (
     <div>
       {test}

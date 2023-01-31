@@ -29,16 +29,21 @@ export const roomTitle = styled.h4`
   color: #000000;
 `;
 
+export const StartUserWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const StartTimeWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 20px;
   width: 75px;
-
-  & div {
-    border-radius: 0.2rem;
-    height: 20px;
-    width: 68px;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
+  border-radius: 0.2rem;
+  height: 20px;
+  width: 68px;
+  background-color: rgba(0, 0, 0, 0.5);
   & p {
     text-align: center;
     vertical-align: middle;
@@ -48,42 +53,38 @@ export const StartTimeWrapper = styled.div`
   }
 `;
 
-export const TagWrapper = styled.div`
-  /* height: 19px;
-  width: 38px; */
-  border-radius: 0.95rem;
-  height: 19px;
-  width: 4rem;
-  background-color: #febd2f;
+export const JoinUserWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 3rem;
+  border-radius: 0.2rem;
+  background-color: rgba(0, 0, 0, 0.5);
 
-  & div {
-  }
-
-  & span {
+  & p {
+    /* position: relative; */
     text-align: center;
     vertical-align: middle;
-    /* font-size: 12px; */
-    /* font-family: Pretendard Variable; */
+    font-size: 14px;
     line-height: auto;
     color: #ffffff;
   }
 `;
 
-// export const ItemRectangle = styled.div`
-//   border-radius: 0.2rem;
-//   height: 20px;
-//   width: 68px;
-//   background-color: rgba(0, 0, 0, 0.5);
-// `;
+export const TagWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.95rem;
+  height: 19px;
+  width: 4rem;
+  background-color: #febd2f;
 
-// export const Tag = styled.p`
-//   text-align: center;
-//   vertical-align: middle;
-//   font-size: 5px;
-//   line-height: auto;
-//   color: #ffffff;
-//   border-radius: 0.95rem;
-//   height: 19px;
-//   width: 5rem;
-//   background-color: #febd2f;
-// `;
+  & span {
+    text-align: center;
+    vertical-align: middle;
+    line-height: auto;
+    color: #ffffff;
+  }
+`;
