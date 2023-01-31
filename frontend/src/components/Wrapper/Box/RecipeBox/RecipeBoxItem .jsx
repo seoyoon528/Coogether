@@ -1,13 +1,15 @@
 import React from 'react';
 
+import { RecipeBoxItemStyle } from './RecipeBoxItemStyle ';
+
 function RecipeBoxItem({ recipe }) {
-  const { name, content } = recipe;
+  const { name, image } = recipe;
 
   return (
-    <div>
+    <RecipeBoxItemStyle>
       <p>{name}</p>
-      <p>{content}</p>
-    </div>
+      <img src={image} alt={`${name} 이미지`} />
+    </RecipeBoxItemStyle>
   );
 }
 
