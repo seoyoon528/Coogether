@@ -117,6 +117,7 @@ const Door = styled.div`
     left: 10px;
     top: 10px;
   }
+  
 `;
 
 const Bottom = styled.div`
