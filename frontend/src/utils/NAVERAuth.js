@@ -56,7 +56,11 @@ function NaverLogin() {
       ) : (
         // 네이버 로그인 버튼
         <div>
-          <div id="naverIdLogin">네이버 로그인</div>
+          <div>
+            <div id="naverIdLogin" style={{ opacity: '0' }}>
+              네이버 로그인
+            </div>
+          </div>
         </div>
       )}
     </div>
