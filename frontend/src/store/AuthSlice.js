@@ -18,13 +18,15 @@ export const AuthSlice = createSlice({
     },
     logout: (state, action) => {
       const changeState = state;
-      changeState.authenticated = changeState.user_name =
-        action.payload.user_name;
-      changeState.user_id = action.payload.user_id;
+      changeState.authenticated = false;
+      changeState.user_name = null;
+      changeState.user_id = null;
     },
     register: (state, action) => {
       const changeState = state;
       changeState.authenticated = action.payload;
+      changeState.user_name = action.payload.user_name;
+      changeState.user_id = action.payload.user_id;
     },
   },
 });
