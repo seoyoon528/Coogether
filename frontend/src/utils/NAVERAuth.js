@@ -1,9 +1,16 @@
 // 구현 코드
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import naverIcon from '../assets/icon/naverLogin.svg';
 
 function naverAuth() {
+  const naverRef = useRef();
   const [user, setUser] = useState(null);
+  // id=naverIdLogin_loginButton
+  const naverIconHandler = () => {
+    document.getElementById('naverIdLogin_loginButton').click();
+  };
+
   // SDK 네이버 선언
   const { naver } = window;
   // 네이버 로그인 기능 및 버튼 구현
@@ -56,11 +63,21 @@ function naverAuth() {
       ) : (
         // 네이버 로그인 버튼
         <div>
-          <div>
-            <div id="naverIdLogin" style={{ opacity: '0' }}>
+          <image src={naverIcon} alt="네이버 아이콘" />
+          <button
+            onClick={naverIconHandler}
+            style={{
+              width: '312px',
+              height: '55px',
+              backgroundImage: `url(${naverIcon})`,
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            <div id="naverIdLogin" style={{ display: 'none' }}>
               네이버 로그인
             </div>
-          </div>
+          </button>
         </div>
       )}
     </div>

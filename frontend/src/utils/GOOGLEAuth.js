@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../store/AuthSlice';
@@ -26,30 +26,49 @@ function parseJwt(token) {
 }
 
 function googleAuth() {
+  // id = container
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.authenticated);
+
+  const googleIconHandler = () => {
+    console.log(document.getElementsByTagName('iframe')[0]);
+    // document.getElementsByTagName('iframe')[0].click();
+  };
+
   return (
     <div>
-      <div style={{ position: 'relative' }}>
-        <img src={googleLogin} alt="구글 로그인" style={{ zIndex: '-1' }} />
-        <div style={{ position: 'absolute', top: '0px', left: '110px' }}>
-          <GoogleOAuthProvider
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-          >
-            <GoogleLogin
-              buttonText="google login"
-              onSuccess={credentialResponse => {
-                dispatch(login({ authenticated: true }));
-                console.log(credentialResponse);
-                parseJwt(credentialResponse.credential);
-              }}
-              onError={() => {
-                console.log('Login Failed');
-              }}
-            />
-          </GoogleOAuthProvider>
-          {isLogin ? <div>맞아요</div> : <div>틀려요</div>}
-        </div>
+      <div>
+        <button
+          onClick={googleIconHandler}
+          style={{
+            width: '312px',
+            height: '55px',
+            backgroundImage: `url(${googleLogin})`,
+            border: 'none',
+            cursor: 'pointer',
+            padding: '0px',
+          }}
+        >
+          <div style={{ opacity: '0' }}>
+            <GoogleOAuthProvider
+              style={{ margin: '0px' }}
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            >
+              <GoogleLogin
+                buttonText="google login"
+                style={{ margin: '0px' }}
+                onSuccess={credentialResponse => {
+                  dispatch(login({ authenticated: true }));
+                  console.log(credentialResponse);
+                  parseJwt(credentialResponse.credential);
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+              />
+            </GoogleOAuthProvider>
+          </div>
+        </button>
       </div>
     </div>
   );
