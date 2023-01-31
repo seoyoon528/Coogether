@@ -96,7 +96,6 @@ const Shelves = styled.div`
   &::after {
     top: 35%;
   }
-}
 `;
 
 const Door = styled.div`
@@ -117,7 +116,6 @@ const Door = styled.div`
     left: 10px;
     top: 10px;
   }
-  
 `;
 
 const Bottom = styled.div`
@@ -126,17 +124,15 @@ const Bottom = styled.div`
   cursor: pointer;
 
   &:active {
-  transform: rotateY(120deg);
-  transform-origin: right;
-  transition: 0.6s;
-  transform-style: preserve-3d;
-
+    transform: rotateY(120deg);
+    transform-origin: right;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+  }
   *::before {
     display: none;
   }
-  
 `;
-
 
 function AllMyIngredientsModal({ onClose }) {
   const handleClose = () => {
