@@ -16,4 +16,7 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Integer>
 
     @Query("select i from Ingredient i where i.ingredientCategory = :categoryId")
     List<Ingredient> findByCategoryId(@Param("categoryId") EnumIngredientCategory categoryId);
+    @Query("select i from Ingredient i join MyIngredientManage mm on i.ingredientId = mm.ingredient.ingredientId " +
+            "where mm.user.userSeq = :userSeq and i.ingredientCategory = :categoryId")
+    List<Ingredient> findByUserSeqAndCategoryId(@Param("userSeq") Long userSeq, @Param("categoryId") EnumIngredientCategory categoryId);
 }
