@@ -11,9 +11,7 @@ function Nav() {
         </Imgstyle>
         <Navstyle to="/SearchCookRoom">요리방</Navstyle>
         <Navstyle to="/SearchRecipe">레시피</Navstyle>
-        <Navstyle to="/MyIngredients" active="">
-          냉장고
-        </Navstyle>
+        <Navstyle to="/MyIngredients">냉장고</Navstyle>
         <Navstyle to="/Rank">랭킹</Navstyle>
         <Loginstyle to="/Login">Login</Loginstyle>
       </NavbarBlock>
