@@ -13,7 +13,7 @@ import dack from '../../assets/img/찜닭.jpg';
 
 const DUMMY_ROOM = [
   {
-    id: '1',
+    roomId: '1',
     king: '내가 요리왕',
     recipe: '찜닭',
     roomName: '서치 찜닭해먹기',
@@ -24,7 +24,7 @@ const DUMMY_ROOM = [
     anounce: null,
   },
   {
-    id: '3',
+    roomId: '3',
     king: '내가 진짜 요리왕',
     recipe: '김치찌개',
     roomName: '서치 김치찌개해먹기',
@@ -35,7 +35,7 @@ const DUMMY_ROOM = [
     anounce: null,
   },
   {
-    id: '4',
+    roomId: '4',
     king: '내가 요리왕',
     recipe: '찜닭',
     roomName: '서치 찜닭해먹기',
@@ -46,7 +46,7 @@ const DUMMY_ROOM = [
     anounce: null,
   },
   {
-    id: '',
+    roomId: '12311',
     king: '내가 진짜 요리왕',
     recipe: '김치찌개',
     roomName: '서치 김치찌개해먹기',
@@ -57,7 +57,7 @@ const DUMMY_ROOM = [
     anounce: null,
   },
   {
-    id: '10',
+    roomId: '10',
     king: '내가 요리왕',
     recipe: '찜닭',
     roomName: '서치 찜닭해먹기',
@@ -68,7 +68,7 @@ const DUMMY_ROOM = [
     anounce: null,
   },
   {
-    id: '33',
+    roomId: '33',
     king: '내가 진짜 요리왕',
     recipe: '김치찌개',
     roomName: '서치 김치찌개해먹기',
@@ -79,7 +79,7 @@ const DUMMY_ROOM = [
     anounce: null,
   },
   {
-    id: '42',
+    roomId: '42',
     king: '내가 요리왕',
     recipe: '찜닭',
     roomName: '서치 찜닭해먹기',
@@ -90,7 +90,7 @@ const DUMMY_ROOM = [
     anounce: null,
   },
   {
-    id: '123',
+    roomId: '123',
     king: '내가 진짜 요리왕',
     recipe: '김치찌개',
     roomName: '서치 김치찌개해먹기',

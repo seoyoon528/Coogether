@@ -10,7 +10,7 @@ import dack from '../../assets/img/찜닭.jpg';
 
 const DUMMY_ROOM = [
   {
-    id: '1',
+    roomId: '1',
     king: '내가 요리왕',
     recipe: '찜닭',
     roomName: '메인 찜닭해먹기',
@@ -22,7 +22,7 @@ const DUMMY_ROOM = [
     users: 3,
   },
   {
-    id: '2',
+    roomId: '2',
     king: '내가 진짜 요리왕',
     recipe: '김치찌개',
     roomName: '메인 김치찌개해먹기',

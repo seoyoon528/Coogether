@@ -1,5 +1,5 @@
 import React from 'react';
-import Mainlogo from '../../assets/img/Mainlogo.png';
+import Mainlogo from '../../assets/img/mainlogo.png';
 import { Navstyle, NavbarBlock, Line, Imgstyle, Loginstyle } from './NavStyle';
 
 function Nav() {

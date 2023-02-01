@@ -8,7 +8,7 @@ function StreamList(props) {
   return (
     <>
       {DUMMY_ROOM.map(room => (
-        <StreamItem key={room.id} room={room} />
+        <StreamItem key={room.roomId} room={room} />
       ))}
     </>
   );
