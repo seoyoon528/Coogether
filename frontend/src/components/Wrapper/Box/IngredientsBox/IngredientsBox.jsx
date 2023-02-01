@@ -1,20 +1,27 @@
 import React from 'react';
 import dummy from './ingredients.json';
-import { CategoriesBlock, Categories } from './IngredientsBoxStyle';
+import {
+  CategoriesBlock,
+  Categories,
+  Contents,
+  H4,
+} from './IngredientsBoxStyle';
 
 function IngredientsBox({ onSelect, category }) {
   return (
-    <CategoriesBlock>
-      {dummy.categories.map(v => (
-        <Categories
-          key={v.id}
-          active={category === v.id}
-          onClick={() => onSelect(v.id)}
-        >
-          {v.text}
-        </Categories>
-      ))}
-    </CategoriesBlock>
+    <Contents>
+      <CategoriesBlock>
+        {dummy.categories.map(v => (
+          <Categories
+            key={v.id}
+            active={category === v.id}
+            onClick={() => onSelect(v.id)}
+          >
+            <H4>{v.text}</H4>
+          </Categories>
+        ))}
+      </CategoriesBlock>
+    </Contents>
   );
 }
 // }
