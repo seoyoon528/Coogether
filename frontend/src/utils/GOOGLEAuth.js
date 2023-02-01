@@ -25,7 +25,7 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-function googleAuth() {
+function GoogleAuth() {
   // id = container
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.authenticated);
@@ -74,4 +74,4 @@ function googleAuth() {
   );
 }
 
-export default googleAuth;
+export default GoogleAuth;

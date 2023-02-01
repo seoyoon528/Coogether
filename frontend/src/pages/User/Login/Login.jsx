@@ -1,7 +1,7 @@
 import React from 'react';
-import GoogleAuth from '../../../utils/googleAuth';
-import NaverAuth from '../../../utils/naverAuth';
-import KakaoAuth from '../../../utils/kakaoAuth';
+import GoogleAuth from '../../../utils/GoogleAuth';
+import NaverAuth from '../../../utils/NaverAuth';
+import KakaoAuth from '../../../utils/KakaoAuth';
 import * as L from './LoginStyle';
 
 function Login() {

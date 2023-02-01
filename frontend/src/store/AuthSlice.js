@@ -6,6 +6,7 @@ const initialStateValue = {
   authenticated: false,
   user_name: null,
   user_id: null,
+  accessToken: null,
 };
 // slice 이름을 user로 함
 // login, logout, register로 구분하여 각각 해당하는 값을 action에서 전달

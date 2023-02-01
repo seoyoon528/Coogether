@@ -4,7 +4,7 @@ import qs from 'qs';
 import { useLocation } from 'react-router-dom';
 import kakaoLogin from '../assets/icon/kakaoLogin.svg';
 
-function kakaoAuth() {
+function KakaoAuth() {
   const REDIRECT_URI = 'http://localhost:3000/oauth/kakao/callback';
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -55,4 +55,4 @@ function kakaoAuth() {
     </a>
   );
 }
-export default kakaoAuth;
+export default KakaoAuth;

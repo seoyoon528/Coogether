@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import naverIcon from '../assets/icon/naverLogin.svg';
 
-function naverAuth() {
+function NaverAuth() {
   const naverRef = useRef();
   const [user, setUser] = useState(null);
   // id=naverIdLogin_loginButton
@@ -83,4 +83,4 @@ function naverAuth() {
     </div>
   );
 }
-export default naverAuth;
+export default NaverAuth;
