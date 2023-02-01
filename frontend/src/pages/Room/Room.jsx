@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
+import CookRoom from '../../components/Room/CookRoom';
+
 function Room() {
+  const params = useParams();
+  const location = useLocation();
+
+  // 시작시간 체크
+  const [isStart, setIsStart] = useState(false);
   // 남은 시간을 체크해주는 타이머
   let changeTimer;
   // 남은 시간
   let remainingTime;
-
-  const [isStart, setIsStart] = useState(false);
-  const params = useParams();
-  const location = useLocation();
 
   const { roomName } = location.state.roomName;
   const { king } = location.state.king;
@@ -35,7 +38,7 @@ function Room() {
 
     changeTimer = setTimeout(changeCheck, remainingTime);
 
-    // ms 로 5분(300000) 아래면 값을 변경하게 변경
+    // 밀리초 로 5분(300000) 아래면 값을 변경하게 변경
     if (remainingTime < 0) {
       setIsStart(true);
       clearTimeout(changeTimer);
@@ -51,7 +54,7 @@ function Room() {
   }, []);
   console.log(isStart);
 
-  // 방송대기방 컴포넌트라고 가정
+  // WaitRoom 이라고 가정
   const test = (
     <div>
       <p>제목 : {roomName}</p>
@@ -64,16 +67,17 @@ function Room() {
     </div>
   );
 
-  // 실제 방송방이라고 가정할 것
-  // const test2 = (
-  //   <div>
-  //     <p>지금 방송중</p>
-  //   </div>
-  // );
+  // CookRoom 이라고 가정
+  const test2 = (
+    <div>
+      <p>지금 방송중</p>
+    </div>
+  );
   return (
     <div>
-      {test}
-      {/* {!isStart ? test : test2} */}
+      {/* {test} */}
+      {!isStart ? test : test2}
+      {isStart && <CookRoom />}
     </div>
   );
 }
