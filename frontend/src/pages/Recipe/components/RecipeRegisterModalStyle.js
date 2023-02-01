@@ -5,6 +5,7 @@ export const ModalOverlayStyle = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 1.6rem;
+  max-height: 70vh;
 
   .modal-button__top {
     align-self: flex-end;
