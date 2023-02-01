@@ -19,18 +19,21 @@ export const AuthSlice = createSlice({
       changeState.authenticated = action.payload.authenticated;
       changeState.user_name = action.payload.user_name;
       changeState.user_id = action.payload.user_id;
+      changeState.accessToken = action.payload.accessToken;
     },
     logout: (state, action) => {
       const changeState = state;
       changeState.authenticated = false;
       changeState.user_name = null;
       changeState.user_id = null;
+      changeState.accessToken = null;
     },
     register: (state, action) => {
       const changeState = state;
       changeState.authenticated = action.payload;
       changeState.user_name = action.payload.user_name;
       changeState.user_id = action.payload.user_id;
+      changeState.accessToken = action.payload.accessToken;
     },
   },
 });

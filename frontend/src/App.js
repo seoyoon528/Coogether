@@ -13,6 +13,7 @@ import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
 import RecipeRegister from './pages/Recipe/RecipeRegister';
 import KAKAOAuth from './utils/KakaoAuth';
+import RedirectPage from './utils/RedirectPage';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/RecipeRegister" component={RecipeRegister} />
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} />
+        <Route path="/oauth/:redirect" component={RedirectPage} />
         <Route path="/oauth/kakao/callback">
           <KAKAOAuth />
         </Route>
