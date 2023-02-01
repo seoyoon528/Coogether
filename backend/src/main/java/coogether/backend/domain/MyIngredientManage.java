@@ -26,7 +26,7 @@ public class MyIngredientManage {
     @Id
     @GeneratedValue
     @Column(name = "my_ingredient_manage_id", nullable = false)
-    private int myIngredientManageId;
+    private Long myIngredientManageId;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)

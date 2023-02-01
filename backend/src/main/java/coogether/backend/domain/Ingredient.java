@@ -32,7 +32,7 @@ public class Ingredient {
     @Id
     @GeneratedValue
     @Column(name = "ingredient_id", nullable = false)
-    private int ingredientId;
+    private Long ingredientId;
 
     @Column(name = "ingredient_name", length = 30, nullable = false)
     private String ingredientName;

@@ -22,7 +22,7 @@ public class HistoryService {
     public List<History> getHistoryByUserId(Long userSeq){
         return historyRepository.findByUserId(userSeq);
     }
-    public History getHistoryInfoByCookingRoomId(Long userSeq, int cookingRoomId){
+    public History getHistoryInfoByCookingRoomId(Long userSeq, Long cookingRoomId){
         return historyRepository.findByCookingRoomId(userSeq, cookingRoomId);
     }
 

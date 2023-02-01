@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class SimpleHistoryDto {
-    private int historyId;
+    private Long historyId;
     private String historyImg;
 
     @QueryProjection

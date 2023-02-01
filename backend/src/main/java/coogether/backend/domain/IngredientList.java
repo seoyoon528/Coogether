@@ -19,7 +19,7 @@ public class IngredientList {
     @Id
     @GeneratedValue
     @Column(name = "ingredient_list_id", nullable = false)
-    private int ingredientListId;
+    private Long ingredientListId;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)

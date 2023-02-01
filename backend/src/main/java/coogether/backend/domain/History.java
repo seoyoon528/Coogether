@@ -30,7 +30,7 @@ public class History {
     @Id
     @GeneratedValue
     @Column(name = "history_id", nullable = false)
-    private int historyId;
+    private Long historyId;
 
     @Column(name = "history_img", length = 100, nullable = true)
     private String historyImg;

@@ -20,7 +20,7 @@ public class UserJoinListDto {
 
 //    private SimpleCookingRoomDto cookingRoom;
 //    private SimpleUserDto user;
-    private int userJoinListId;
+    private Long userJoinListId;
     private LocalDateTime userJoinRegTime;
 
     ///////////////////////////

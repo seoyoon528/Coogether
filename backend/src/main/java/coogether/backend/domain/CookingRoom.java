@@ -43,7 +43,7 @@ public class CookingRoom {
     @Id
     @GeneratedValue
     @Column(name = "cooking_room_id", nullable = false)
-    private int cookingRoomId;
+    private Long cookingRoomId;
 
     @Column(name = "cooking_room_name", length = 30, nullable = false)
     private String cookingRoomName;

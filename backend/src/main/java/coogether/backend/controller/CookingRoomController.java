@@ -49,7 +49,7 @@ public class CookingRoomController {
 
     @ApiOperation(value = "요리방 ID로 요리방 정보를 반환하는 메소드")
     @GetMapping("/room/{cookingRoomId}")
-    public ResponseEntity roomInfoByCookingRoomId(@PathVariable("cookingRoomId") int cookingRoomId)  {
+    public ResponseEntity roomInfoByCookingRoomId(@PathVariable("cookingRoomId") Long cookingRoomId)  {
         CookingRoom cookingRoom = cookingRoomService.getCookingRoomByCookingRoomId(cookingRoomId);
         return ResponseEntity.ok().body(new CookingRoomDto(cookingRoom));
     }

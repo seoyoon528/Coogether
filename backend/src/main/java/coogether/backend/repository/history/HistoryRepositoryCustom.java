@@ -10,6 +10,6 @@ import java.util.List;
 public interface HistoryRepositoryCustom {
 
 //    List<History> findByUserId(String id);
-    History findByCookingRoomId(Long userSeq, int cookingRoomId);
+    History findByCookingRoomId(Long userSeq, Long cookingRoomId);
 
 }

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class SimpleCookingRoomDto {
-    private int cookingRoomId;
+    private Long cookingRoomId;
     private String cookingRoomName;
     private String cookingRoomImg;
 

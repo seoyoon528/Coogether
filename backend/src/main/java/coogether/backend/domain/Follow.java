@@ -27,7 +27,7 @@ public class Follow {
     @Id
     @GeneratedValue
     @Column(name = "follow_id", nullable = false)
-    private int followId;
+    private Long followId;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)

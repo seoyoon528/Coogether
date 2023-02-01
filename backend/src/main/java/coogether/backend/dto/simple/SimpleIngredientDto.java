@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class SimpleIngredientDto {
-    private int ingredientId;
+    private Long ingredientId;
     private String ingredientName;
     private EnumIngredientCategory ingredientCategory;
     private String ingredientIcon;

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class SimpleMyIngredientManageDto {
-    private int myIngredientManageId;
+    private Long myIngredientManageId;
     private LocalDateTime myIngredientManageDate;
     private EnumMyIngredientManageFlag myIngredientManageFlag;
 

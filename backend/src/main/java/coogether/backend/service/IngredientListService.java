@@ -16,7 +16,7 @@ import java.util.List;
 public class IngredientListService {
     private final IngredientListRepository ingredientListRepository;
 
-    public List<IngredientList> getIngredientListByRecipeName(int recipeId){
+    public List<IngredientList> getIngredientListByRecipeName(Long recipeId){
         return ingredientListRepository.findByRecipeName(recipeId);
     }
 }
