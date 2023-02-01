@@ -5,6 +5,7 @@ import coogether.backend.domain.MyIngredientManage;
 import coogether.backend.domain.User;
 import coogether.backend.domain.status.EnumIngredientCategory;
 import coogether.backend.domain.status.EnumMyIngredientManageFlag;
+import coogether.backend.dto.MyIngredientManageDto;
 import coogether.backend.dto.request.MyIngredientManageRequest;
 import coogether.backend.repository.ingredient.IngredientRepository;
 import coogether.backend.repository.myingredientmanage.MyIngredientManageRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -56,12 +58,12 @@ public class MyIngredientManageService {
 
             //user 없으면 탈출
             User user = userRepository.findByUserId(userSeq);
-            if(user == null)  return myIngredientManage;
+            if (user == null) return myIngredientManage;
             myIngredientManage.setUser(user);
 
             //ingredient 없으면 탈출
             Ingredient ingredient = ingredientRepository.findByIngredientId(ingredientId);
-            if(ingredient == null)  return myIngredientManage;
+            if (ingredient == null) return myIngredientManage;
             myIngredientManage.setIngredient(ingredient);
 
             // 현재 시간, Enum Type IN 등록
@@ -71,6 +73,7 @@ public class MyIngredientManageService {
             myIngredientManageRepository.save(myIngredientManage);
             return myIngredientManage;
         } else {
+            System.out.println("히히 ");
             if (myIngredientManage.getMyIngredientManageFlag().equals(EnumMyIngredientManageFlag.IN)) {
                 myIngredientManage.setMyIngredientManageFlag(EnumMyIngredientManageFlag.OUT);
             } else {
@@ -86,5 +89,34 @@ public class MyIngredientManageService {
 
     public List<MyIngredientManage> myIngredientTotalListByUserSeq(Long userSeq) {
         return myIngredientManageRepository.findByUserSeq(userSeq);
+    }
+
+    public List<MyIngredientManage> myIngredientListByUserSeqAndRecipeId(Long userSeq, int recipeId) {
+        return myIngredientManageRepository.findByUserSeqAndRecipeId(userSeq, recipeId);
+    }
+
+    @Transactional
+    public List<MyIngredientManage> deleteMyIngredientByIngredientId(Long userSeq, String deleteIngredientList) {
+
+        // 재료 번호 리스트 분리해서 배열에 담기
+        String line = deleteIngredientList;
+        String[] arr = line.split(",");
+        int[] array = new int[arr.length];
+        List<MyIngredientManage> result = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = Integer.parseInt(arr[i]);
+
+            // 레시피에 있는 재료인지 확인하는 로직 짜야하나? 프론트에서 정확하게 넘어온다고 가정하면 안 짜도 됨 / 짜야되면 추가할 것
+            MyIngredientManage myIngredientManage = myIngredientManageRepository.findByUserSeqAndMyIngredientManageId
+                    (userSeq, array[i]);
+            if (myIngredientManage.getMyIngredientManageFlag().equals(EnumMyIngredientManageFlag.IN)) {
+                myIngredientManage.setMyIngredientManageFlag(EnumMyIngredientManageFlag.OUT);
+            }
+            myIngredientManageRepository.save(myIngredientManage);
+            result.add(myIngredientManage);
+        }
+        ///////////////////////////
+
+        return result;
     }
 }

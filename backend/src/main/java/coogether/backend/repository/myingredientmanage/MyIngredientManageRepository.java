@@ -16,4 +16,8 @@ public interface MyIngredientManageRepository extends JpaRepository<MyIngredient
 
     @Query("select mm from MyIngredientManage mm where mm.user.userSeq = :userSeq and mm.myIngredientManageFlag = 'IN' order by mm.myIngredientManageDate DESC ")
     List<MyIngredientManage> findByUserSeq(@Param("userSeq") Long userSeq);
+
+    @Query("select mm from MyIngredientManage mm join Ingredient i on mm.ingredient.ingredientId = i.ingredientId " +
+            " join IngredientList il on i.ingredientId = il.ingredient.ingredientId where mm.user.userSeq = :userSeq and mm.myIngredientManageFlag = 'IN' and il.recipe.recipeId = :recipeId ")
+    List<MyIngredientManage> findByUserSeqAndRecipeId(@Param("userSeq")Long userSeq, @Param("recipeId")Integer recipeId);
 }
