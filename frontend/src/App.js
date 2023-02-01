@@ -11,12 +11,12 @@ import MyIngredientsManage from './pages/MyIngredientsManage/MyIngredientsManage
 import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
-import RecipeRegister from './pages/Recipe/RecipeRegister';
+// import RecipeRegister from './pages/Recipe/RecipeRegister';
 
 function App() {
   return (
     <div>
-      <ul>
+      {/* <ul>
         <li>
           [nav바 로 변경해야 합니다 검색페이지로 이동하는 위치 입니다.]
           <NavLink to="/Main">쿠게더</NavLink>
@@ -24,7 +24,7 @@ function App() {
           <NavLink to="/SearchRecipe"> 레시피</NavLink>
         </li>
       </ul>
-      <br />
+      <br /> */}
 
       <Switch>
         <Route path="/" exact>
@@ -35,7 +35,7 @@ function App() {
         <Route path="/SearchCookRoom" component={SearchCookRoom} />
         <Route path="/SearchRecipe" component={SearchRecipe} />
         <Route path="/Recipe/:recipeId" component={RecipeDetail} />
-        <Route path="/RecipeRegister" component={RecipeRegister} />
+        {/* <Route path="/RecipeRegister" component={RecipeRegister} /> */}
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} />
         <Route path="/Signin" component={Signin} />
