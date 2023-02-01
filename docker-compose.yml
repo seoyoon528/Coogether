@@ -20,6 +20,8 @@ services:
       - "--collation-server=utf8mb4_unicode_ci"
 
   spring:
+    depends_on:
+      - database
     container_name: docker-spring-test
     restart: on-failure
     build:
@@ -31,5 +33,3 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://i8b206.p.ssafy.io/:3306/coogether?useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: "1234"
-    depends_on:
-      - database
