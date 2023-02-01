@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
-
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Nav from './components/Nav/Nav';
 import Main from './pages/Main/Main';
 import Room from './pages/Room/Room';
 import SearchCookRoom from './pages/Search/SearchCookRoom';
@@ -16,16 +16,7 @@ import Profile from './pages/User/Profile/Profile';
 function App() {
   return (
     <div>
-      {/* <ul>
-        <li>
-          [nav바 로 변경해야 합니다 검색페이지로 이동하는 위치 입니다.]
-          <NavLink to="/Main">쿠게더</NavLink>
-          <NavLink to="/SearchCookRoom"> 요리방</NavLink>
-          <NavLink to="/SearchRecipe"> 레시피</NavLink>
-        </li>
-      </ul>
-      <br /> */}
-
+      <Nav />
       <Switch>
         <Route path="/" exact>
           <Redirect to="/Main" />

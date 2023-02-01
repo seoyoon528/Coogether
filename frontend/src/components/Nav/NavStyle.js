@@ -6,7 +6,6 @@ export const NavbarBlock = styled.div`
   /* padding: 1rem; */
   width: 768px;
   margin-top: 0.7rem;
-  /* margin-bottom: 1.5rem; */
   margin-left: 5.5rem;
   @media screen and (max-width: 1180px) {
     width: 100%;
@@ -50,7 +49,7 @@ export const Line = styled.hr`
   margin: -1.5px;
 `;
 
-export const Imgstyle = styled.div`
+export const Imgstyle = styled(NavLink)`
   margin-top: 0px;
   margin-bottom: 0px;
   padding-right: 2rem;
