@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import IngredientsBox from '../../components/Wrapper/Box/IngredientsBox/IngredientsBox';
-import Nav from '../../components/Nav/Nav';
 import FavoriteIngredients from '../../components/Wrapper/Box/IngredientsBox/FavoriteIngredients/FavoriteIngredients';
 import MyIngredients from '../../components/Wrapper/Box/IngredientsBox/MyIngredients/MyIngredients';
 import AllIngredients from '../../components/Wrapper/Box/IngredientsBox/AllIngredients/AllIngredients';
@@ -10,7 +9,6 @@ function MyIngredientsManage() {
   const onSelect = useCallback(Category => setCategory(Category), []);
   return (
     <>
-      <Nav />
       <IngredientsBox category={category} onSelect={onSelect} />
       <FavoriteIngredients category={category} />
       <MyIngredients category={category} />
