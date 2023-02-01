@@ -39,7 +39,7 @@ public class MyIngredientManage {
     private Ingredient ingredient;
 
     @LastModifiedDate // 최종 수정 시간
-    @Column(name = "my_ingredient_manage_date", updatable = false, nullable = false)
+    @Column(name = "my_ingredient_manage_date", nullable = false)
     private LocalDateTime myIngredientManageDate;
 
     @Enumerated(EnumType.STRING)

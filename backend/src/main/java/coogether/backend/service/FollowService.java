@@ -26,6 +26,10 @@ public class FollowService {
     public Follow updateFollowById(Long followerId, Long followingId) {
         Follow follow = followRepository.findByFollowId(followerId, followingId);
 
+        // 팔로워와 팔로잉한 사람이 같으면 null 리턴
+        if(followerId.equals(followingId))
+            return follow;
+
         //기존에 없으면 생성
         if (follow == null) {
             follow = new Follow();
