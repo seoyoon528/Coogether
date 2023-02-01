@@ -54,14 +54,25 @@ public class MyIngredientManageController {
         return ResponseEntity.ok().body(result);
     }
 
-//    @ApiOperation(value = "내 냉장고와 진행한 요리 레시피에 같이 있는 재료 목록을 반환 (이후 삭제에 사용)")
-//    @GetMapping("/myIngredient/list/cooking/{userSeq}/{recipeId}")
-//    public ResponseEntity myIngredientTotalListByUserSeq(@PathVariable("userSeq") Long userSeq, @PathVariable("recipeId") Inte recipeId)  {
-//        List<MyIngredientManageDto> result = new ArrayList<>();
-//        List<MyIngredientManage> myIngredientManages = myIngredientManageService.myIngredientTotalListByUserSeq(userSeq);
-//        for (MyIngredientManage mm : myIngredientManages)
-//            result.add(new MyIngredientManageDto(mm));
-//
-//        return ResponseEntity.ok().body(result);
-//    }
+    @ApiOperation(value = "내 냉장고와 진행한 요리 레시피에 같이 있는 재료 목록을 반환 (이후 삭제에 사용)")
+    @GetMapping("/myIngredient/list/cooking/{userSeq}/{recipeId}")
+    public ResponseEntity myIngredientListByUserSeqAndRecipeId(@PathVariable("userSeq") Long userSeq, @PathVariable("recipeId") Integer recipeId)  {
+        List<MyIngredientManageDto> result = new ArrayList<>();
+        List<MyIngredientManage> myIngredientManages = myIngredientManageService.myIngredientListByUserSeqAndRecipeId(userSeq,recipeId);
+        for (MyIngredientManage mm : myIngredientManages)
+            result.add(new MyIngredientManageDto(mm));
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    @ApiOperation(value = "사용한 재료 냉장고에서 일괄 제거 * flag : {OUT} 처리")
+    @PatchMapping("/myIngredient/delete/{userSeq}/{deleteIngredientList}")
+    public ResponseEntity deleteMyIngredientByIngredientId(@PathVariable("userSeq") Long userSeq,@PathVariable("deleteIngredientList") String deleteIngredientList) {
+        List<MyIngredientManageDto> result = new ArrayList<>();
+        List<MyIngredientManage> myIngredientManages = myIngredientManageService.deleteMyIngredientByIngredientId(userSeq,deleteIngredientList);
+        for (MyIngredientManage mm : myIngredientManages)
+            result.add(new MyIngredientManageDto(mm));
+
+        return ResponseEntity.ok().body(result);
+    }
 }
