@@ -23,7 +23,7 @@ services:
     container_name: docker-spring-test
     restart: on-failure
     build:
-      context: ./
+      context: ./backend
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
