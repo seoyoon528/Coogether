@@ -15,7 +15,7 @@ public class MyIngredientManageRequest {
 //    private SimpleUserDto user;
 //    private SimpleIngredientDto ingredient;
     private Long userSeq;
-    private int ingredientId;
+    private Long ingredientId;
     private LocalDateTime myIngredientManageDate;
     private EnumMyIngredientManageFlag myIngredientManageFlag;
 

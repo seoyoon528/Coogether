@@ -15,7 +15,7 @@ public class IngredientDto {
     private List<MyIngredientManage> myIngredientManageList;
     private List<IngredientFav> ingredientFavList;
     private List<IngredientList> ingredientList;
-    private int ingredientId;
+    private Long ingredientId;
     private String ingredientName;
     private EnumIngredientCategory ingredientCategory;
     private String ingredientIcon;

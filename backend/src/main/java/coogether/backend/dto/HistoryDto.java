@@ -15,7 +15,7 @@ import java.util.List;
 public class HistoryDto {
 
 
-    private int historyId;
+    private Long historyId;
     private String historyImg;
 
     ///////////////////////////

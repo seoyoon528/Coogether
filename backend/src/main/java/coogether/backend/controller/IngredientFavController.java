@@ -25,8 +25,8 @@ public class IngredientFavController {
     private final IngredientFavService ingredientFavService;
 
     @ApiOperation(value = "즐겨찾기에 재료 추가")
-    @PostMapping("/myIngredient/create/fav/{userSeq}/{ingredientId}")
-    public ResponseEntity addFavIngredient(@PathVariable("userSeq") Long userSeq, @PathVariable("ingredientId") int ingredientId)  {
+    @PatchMapping("/myIngredient/create/fav/{userSeq}/{ingredientId}")
+    public ResponseEntity addFavIngredient(@PathVariable("userSeq") Long userSeq, @PathVariable("ingredientId") Long ingredientId)  {
 
         ingredientFavService.addFavIngredient(userSeq,ingredientId);
 

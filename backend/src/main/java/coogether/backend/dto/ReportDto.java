@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class ReportDto {
-    private int reportId;
+    private Long reportId;
     private SimpleUserDto reporter;
     private SimpleUserDto reported;
     private String reportContent;

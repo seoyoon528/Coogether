@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class SimpleReportDto {
-    private int reportId;
+    private Long reportId;
     private UserReportDto reporter;
     private UserReportDto reported;
     private String reportContent;

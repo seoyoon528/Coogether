@@ -8,11 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface IngredientFavRepository extends JpaRepository<IngredientFav, Integer> {
+public interface IngredientFavRepository extends JpaRepository<IngredientFav, Long> {
 
-    @Query("select i from IngredientFav i where i.user.userSeq= :userSeq and i.ingredientFavFlag = 'YES' ")
+    @Query("select i from IngredientFav i where i.user.userSeq= :userSeq and i.ingredientFavFlag = 'YES' order by i.ingredientFavCreatedDate DESC ")
     List<IngredientFav> findListByUserSeq(@Param("userSeq")Long userSeq);
 
     @Query("select i from IngredientFav i where i.user.userSeq= :userSeq and i.ingredient.ingredientId = :ingredientId")
-    IngredientFav findById(@Param("userSeq") Long userSeq, @Param("ingredientId") int ingredientId);
+    IngredientFav findById(@Param("userSeq") Long userSeq, @Param("ingredientId") Long ingredientId);
 }

@@ -23,7 +23,7 @@ public class CookingRoomDto {
 //    private RecipeDto recipe;
 //    private List<History> historyList;
     private List<UserJoinListDto> userJoinLists;
-    private int cookingRoomId;
+    private Long cookingRoomId;
     private String cookingRoomName;
     private String cookingRoomImg;
     private LocalDateTime cookingRoomStartTime;

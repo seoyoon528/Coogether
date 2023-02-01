@@ -26,28 +26,30 @@ public class IngredientFavService {
     }
 
     @Transactional
-    public void addFavIngredient(Long userSeq, int ingredientId) {
+    public void addFavIngredient(Long userSeq, Long ingredientId) {
         IngredientFav ingredientFav = ingredientFavRepository.findById(userSeq, ingredientId);
 
         if (ingredientFav == null) {
             ingredientFav = new IngredientFav();
 
             ingredientFav.setIngredientFavFlag(EnumIngredientFavFlag.YES);
-
+            ingredientFav.setIngredientFavCreatedDate(LocalDateTime.now());
             User user = userRepository.findByUserId(userSeq);
             ingredientFav.setUser(user);
 
             Ingredient ingredient = ingredientRepository.findByIngredientId(ingredientId);
             ingredientFav.setIngredient(ingredient);
 
-            ingredientFavRepository.save(ingredientFav);
         } else {
-            if (ingredientFav.getIngredientFavFlag().equals(EnumIngredientFavFlag.YES))
+            if (ingredientFav.getIngredientFavFlag().equals(EnumIngredientFavFlag.YES)){
                 ingredientFav.setIngredientFavFlag((EnumIngredientFavFlag.NO));
-            else
+                ingredientFav.setIngredientFavCreatedDate(LocalDateTime.now());
+            }
+            else{
                 ingredientFav.setIngredientFavFlag((EnumIngredientFavFlag.YES));
+                ingredientFav.setIngredientFavCreatedDate(LocalDateTime.now());
+            }
 
-            ingredientFavRepository.save(ingredientFav);
         }
 
         ingredientFavRepository.save(ingredientFav);

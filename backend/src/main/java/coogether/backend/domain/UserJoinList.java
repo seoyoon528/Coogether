@@ -35,7 +35,7 @@ public class UserJoinList {
     @Id
     @GeneratedValue
     @Column(name = "user_join_list_id", nullable = false)
-    private int userJoinListId;
+    private Long userJoinListId;
 
     @CreatedDate // 참여자 입장 시간
     @Column(name = "user_join_reg_time", updatable = false, nullable = false)

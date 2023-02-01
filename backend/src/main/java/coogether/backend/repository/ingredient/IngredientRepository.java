@@ -11,8 +11,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface IngredientRepository extends JpaRepository<Ingredient, Integer> {
-    Ingredient findByIngredientId(@Param("ingredientId")int ingredientId);
+public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
+    Ingredient findByIngredientId(@Param("ingredientId")Long ingredientId);
 
     @Query("select i from Ingredient i where i.ingredientCategory = :categoryId")
     List<Ingredient> findByCategoryId(@Param("categoryId") EnumIngredientCategory categoryId);

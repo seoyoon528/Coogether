@@ -18,5 +18,5 @@ public interface CookingRoomRepository extends JpaRepository<CookingRoom, Long>{
     List<CookingRoom> findByRecipeName(@Param("recipeName") String recipeName);
 
     @Query("select cr from CookingRoom cr where cr.cookingRoomId = :cookingRoomId ")
-    CookingRoom findByCookingRoomId(@Param("cookingRoomId") int cookingRoomId);
+    CookingRoom findByCookingRoomId(@Param("cookingRoomId") Long cookingRoomId);
 }

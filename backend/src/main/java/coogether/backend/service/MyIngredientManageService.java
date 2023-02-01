@@ -28,7 +28,7 @@ public class MyIngredientManageService {
     private final IngredientRepository ingredientRepository;
 
     @Transactional
-    public MyIngredientManage addMyIngredientByIngredientId(Long userSeq, int ingredientId) {
+    public MyIngredientManage addMyIngredientByIngredientId(Long userSeq, Long ingredientId) {
         MyIngredientManage myIngredientManage = new MyIngredientManage();
 
         //user
@@ -49,7 +49,7 @@ public class MyIngredientManageService {
     }
 
     @Transactional
-    public MyIngredientManage updateMyIngredientByIngredientId(Long userSeq, int ingredientId) {
+    public MyIngredientManage updateMyIngredientByIngredientId(Long userSeq, Long ingredientId) {
         MyIngredientManage myIngredientManage = myIngredientManageRepository.findByUserSeqAndMyIngredientManageId
                 (userSeq, ingredientId);
 
@@ -90,7 +90,7 @@ public class MyIngredientManageService {
         return myIngredientManageRepository.findByUserSeq(userSeq);
     }
 
-    public List<MyIngredientManage> myIngredientListByUserSeqAndRecipeId(Long userSeq, int recipeId) {
+    public List<MyIngredientManage> myIngredientListByUserSeqAndRecipeId(Long userSeq, Long recipeId) {
         return myIngredientManageRepository.findByUserSeqAndRecipeId(userSeq, recipeId);
     }
 
@@ -100,10 +100,10 @@ public class MyIngredientManageService {
         // 재료 번호 리스트 분리해서 배열에 담기
         String line = deleteIngredientList;
         String[] arr = line.split(",");
-        int[] array = new int[arr.length];
+        Long[] array = new Long[arr.length];
         List<MyIngredientManage> result = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
-            array[i] = Integer.parseInt(arr[i]);
+            array[i] = Long.parseLong(arr[i]);
 
             // 레시피에 있는 재료인지 확인하는 로직 짜야하나? 프론트에서 정확하게 넘어온다고 가정하면 안 짜도 됨 / 짜야되면 추가할 것
             MyIngredientManage myIngredientManage = myIngredientManageRepository.findByUserSeqAndMyIngredientManageId

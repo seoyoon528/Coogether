@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class SimpleUserJoinListDto {
-    private int userJoinListId;
+    private Long userJoinListId;
     private LocalDateTime userJoinRegTime;
 
     public SimpleUserJoinListDto(UserJoinList userJoinList) {

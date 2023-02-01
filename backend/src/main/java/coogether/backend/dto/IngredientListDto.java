@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 
 @Data
 public class IngredientListDto {
-    private int ingredientListId;
+    private Long ingredientListId;
     private String ingredientAmount;
 
     /////////////////////
