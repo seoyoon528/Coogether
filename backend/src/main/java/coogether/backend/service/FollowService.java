@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)  // 트랜잭션 안에서만 데이터 변경하게 설정
@@ -25,6 +26,7 @@ public class FollowService {
     public Follow updateFollowById(Long followerId, Long followingId) {
         Follow follow = followRepository.findByFollowId(followerId, followingId);
 
+        //기존에 없으면 생성
         if (follow == null) {
             follow = new Follow();
 
@@ -49,6 +51,7 @@ public class FollowService {
                 follow.setFollowFlag(EnumFollowFlag.DISCONNECT);
             } else {
                 follow.setFollowFlag(EnumFollowFlag.CONNECT);
+                follow.setFollowDate(LocalDateTime.now());
             }
             System.out.println("getFollowFlag = " + follow);
 
@@ -57,4 +60,13 @@ public class FollowService {
             return follow;
         }
     }
+
+    public List<Follow> getFollowerById(Long userSeq) {
+        return followRepository.findFollowerByUserSeq(userSeq);
+    }
+
+    public List<Follow> getFollowingById(Long userSeq) {
+        return followRepository.findFollowingByUserSeq(userSeq);
+    }
+
 }

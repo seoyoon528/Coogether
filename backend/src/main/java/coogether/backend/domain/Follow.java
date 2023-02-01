@@ -40,7 +40,7 @@ public class Follow {
     private User followingUser;
 
     @CreatedDate // 팔로우 최초 등록 일자
-    @Column(name = "follow_date", updatable = false, nullable = false)
+    @Column(name = "follow_date", nullable = false)
     private LocalDateTime followDate;
 
     @Enumerated(EnumType.STRING)

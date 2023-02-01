@@ -6,7 +6,9 @@ import coogether.backend.domain.status.EnumSnsType;
 import coogether.backend.domain.status.EnumUserAccountStatus;
 import coogether.backend.domain.status.EnumUserCookCategory;
 import coogether.backend.dto.UserDto;
+import coogether.backend.dto.UserRankDto;
 import coogether.backend.dto.UserUpdateDto;
+import coogether.backend.dto.simple.SimpleUserDto;
 import coogether.backend.repository.user.UserRepository;
 import coogether.backend.service.UserService;
 import io.swagger.annotations.Api;
@@ -82,5 +84,15 @@ public class UserController {
     public ResponseEntity userDelete(@PathVariable("userSeq") Long userSeq) {
         userService.patchUserDelete(userSeq);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @ApiOperation(value = "유저 랭킹 온도순으로 반환")
+    @GetMapping("/rank")
+    public ResponseEntity userRank() {
+        List<UserRankDto> result = new ArrayList<>();
+        List<User> user = userService.getUserRank();
+        for (User u : user)
+            result.add(new UserRankDto(u));
+        return ResponseEntity.ok().body(result);
     }
 }

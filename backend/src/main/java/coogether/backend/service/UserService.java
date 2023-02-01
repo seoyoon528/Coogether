@@ -57,4 +57,8 @@ public class UserService {
     public void patchUserDelete(Long id) {
         userRepository.deleteByUserId(id);
     }
+
+    public List<User> getUserRank() {
+        return userRepository.findUserRank();
+    }
 }
