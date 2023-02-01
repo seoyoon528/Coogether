@@ -10,6 +10,9 @@ import java.util.List;
 
 public interface IngredientFavRepository extends JpaRepository<IngredientFav, Integer> {
 
-    @Query("select i from IngredientFav i where i.user.userSeq= :userSeq and i.ingredient.ingredientCategory = :categoryId")
-    List<IngredientFav> findByRCategoryId(@Param("userSeq")Long userSeq, @Param("categoryId")EnumIngredientCategory categoryId);
+    @Query("select i from IngredientFav i where i.user.userSeq= :userSeq and i.ingredientFavFlag = 'YES' ")
+    List<IngredientFav> findListByUserSeq(@Param("userSeq")Long userSeq);
+
+    @Query("select i from IngredientFav i where i.user.userSeq= :userSeq and i.ingredient.ingredientId = :ingredientId")
+    IngredientFav findById(@Param("userSeq") Long userSeq, @Param("ingredientId") int ingredientId);
 }
