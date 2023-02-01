@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import SearchIcon from '@mui/icons-material/Search';
 
 import * as S from './SearchBoxStyle';
 
@@ -19,8 +20,12 @@ function SearchBox(props) {
 
   return (
     <S.SearchFormWrapper onSubmit={formSubmitHandler}>
-      <input type="text" ref={inputRef} placeholder={TEXT.props.children} />
-      <button>click</button>
+      <S.SearchFormLabel>
+        <input type="text" ref={inputRef} placeholder={TEXT.props.children} />
+        <button>
+          <SearchIcon fontSize="large" />
+        </button>
+      </S.SearchFormLabel>
     </S.SearchFormWrapper>
   );
 }

@@ -19,7 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "follow")
 public class Follow {
@@ -40,7 +40,7 @@ public class Follow {
     private User followingUser;
 
     @CreatedDate // 팔로우 최초 등록 일자
-    @Column(name = "follow_date", updatable = false, nullable = false)
+    @Column(name = "follow_date", nullable = false)
     private LocalDateTime followDate;
 
     @Enumerated(EnumType.STRING)

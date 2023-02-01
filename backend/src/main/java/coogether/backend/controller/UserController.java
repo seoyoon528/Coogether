@@ -6,7 +6,9 @@ import coogether.backend.domain.status.EnumSnsType;
 import coogether.backend.domain.status.EnumUserAccountStatus;
 import coogether.backend.domain.status.EnumUserCookCategory;
 import coogether.backend.dto.UserDto;
+import coogether.backend.dto.UserRankDto;
 import coogether.backend.dto.UserUpdateDto;
+import coogether.backend.dto.simple.SimpleUserDto;
 import coogether.backend.repository.user.UserRepository;
 import coogether.backend.service.UserService;
 import io.swagger.annotations.Api;
@@ -43,7 +45,7 @@ public class UserController {
 
 
     @ApiOperation(value = "유저 1명의 상세 정보를 반환하는 메소드")
-    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long")
+    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long" , example="1")
     @GetMapping("/user/{userSeq}")
     public ResponseEntity userInfoById(@PathVariable("userSeq") Long userSeq) {
         User user = userService.getUserInfoById(userSeq);
@@ -75,11 +77,22 @@ public class UserController {
         System.out.println("userUpdateDto = " + userUpdateDto);
         return ResponseEntity.status(HttpStatus.OK).body(userUpdateDto);
     }
+
     @ApiOperation(value = "유저 회원 탈퇴")
-    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long")
+    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long", example="1")
     @PatchMapping("/user/delete/{userSeq}")
     public ResponseEntity userDelete(@PathVariable("userSeq") Long userSeq) {
         userService.patchUserDelete(userSeq);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @ApiOperation(value = "유저 랭킹 온도순으로 반환")
+    @GetMapping("/rank")
+    public ResponseEntity userRank() {
+        List<UserRankDto> result = new ArrayList<>();
+        List<User> user = userService.getUserRank();
+        for (User u : user)
+            result.add(new UserRankDto(u));
+        return ResponseEntity.ok().body(result);
     }
 }

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Data
 public class UserDto {
 
+    private Long userSeq;
     private String userId;
     private String userName;
     private String userNickname;
@@ -35,6 +36,7 @@ public class UserDto {
 
     @QueryProjection
     public UserDto(User user){
+        this.userSeq = user.getUserSeq();
         this.userId = user.getUserId();
         this.userName = user.getUserName();
         this.userNickname = user.getUserNickname();

@@ -28,7 +28,7 @@ public class HistoryController {
     private final HistoryService historyService;
 
     @ApiOperation(value = "유저 식별 정보로 히스토리 리스트를 반환")
-    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long")
+    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long", example="1")
     @GetMapping("/history/{userSeq}")
     public ResponseEntity HistoryListById(@PathVariable("userSeq") Long userSeq) {
         List<History> historyList = historyService.getHistoryByUserId(userSeq);

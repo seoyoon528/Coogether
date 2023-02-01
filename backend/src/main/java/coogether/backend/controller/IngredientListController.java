@@ -25,7 +25,7 @@ public class IngredientListController {
 
 
     @ApiOperation(value = "레시피 ID로 재료 리스트를 반환하는 메소드")
-    @GetMapping("/ingredientlist/{recipeId}")
+    @GetMapping("/ingredient/list/{recipeId}")
     public ResponseEntity ingredientListByRecipeName(@PathVariable("recipeId") int recipeId)  {
         List<IngredientListDto> result = new ArrayList<>();
         List<IngredientList> ingredientLists = ingredientListService.getIngredientListByRecipeName(recipeId);
