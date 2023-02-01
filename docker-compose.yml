@@ -18,8 +18,6 @@ services:
       - "mysqld"
       - "--character-set-server=utf8mb4"
       - "--collation-server=utf8mb4_unicode_ci"
-    networks:
-      - test_network
 
   spring:
     container_name: docker-spring-test
@@ -35,5 +33,3 @@ services:
       SPRING_DATASOURCE_PASSWORD: "1234"
     depends_on:
       - database
-    networks:
-      - test_network
