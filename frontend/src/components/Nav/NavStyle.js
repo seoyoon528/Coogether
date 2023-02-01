@@ -50,7 +50,7 @@ export const Line = styled.hr`
   margin: -1.5px;
 `;
 
-export const Imgstyle = styled.div`
+export const Imgstyle = styled(NavLink)`
   margin-top: 0px;
   margin-bottom: 0px;
   padding-right: 2rem;
