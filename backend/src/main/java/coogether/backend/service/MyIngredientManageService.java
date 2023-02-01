@@ -71,7 +71,6 @@ public class MyIngredientManageService {
             myIngredientManage.setMyIngredientManageFlag(EnumMyIngredientManageFlag.IN);
 
             myIngredientManageRepository.save(myIngredientManage);
-            return myIngredientManage;
         } else {
             System.out.println("히히 ");
             if (myIngredientManage.getMyIngredientManageFlag().equals(EnumMyIngredientManageFlag.IN)) {
@@ -79,12 +78,12 @@ public class MyIngredientManageService {
             } else {
                 myIngredientManage.setMyIngredientManageFlag(EnumMyIngredientManageFlag.IN);
             }
-            System.out.println("myIngredientManage = " + myIngredientManage);
+            //System.out.println("myIngredientManage = " + myIngredientManage);
 
             myIngredientManageRepository.save(myIngredientManage);
 
-            return myIngredientManage;
         }
+            return myIngredientManage;
     }
 
     public List<MyIngredientManage> myIngredientTotalListByUserSeq(Long userSeq) {
