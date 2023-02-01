@@ -11,7 +11,6 @@ function MyIngredientsManage() {
   return (
     <>
       <Nav />
-      <hr />
       <IngredientsBox category={category} onSelect={onSelect} />
       <FavoriteIngredients category={category} />
       <MyIngredients category={category} />

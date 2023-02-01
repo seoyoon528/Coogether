@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
-
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Nav from './components/Nav/Nav';
 import Main from './pages/Main/Main';
 import Room from './pages/Room/Room';
 import SearchCookRoom from './pages/Search/SearchCookRoom';
@@ -11,21 +11,12 @@ import MyIngredientsManage from './pages/MyIngredientsManage/MyIngredientsManage
 import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
-import RecipeRegister from './pages/Recipe/RecipeRegister';
+// import RecipeRegister from './pages/Recipe/RecipeRegister';
 
 function App() {
   return (
     <div>
-      <ul>
-        <li>
-          [nav바 로 변경해야 합니다 검색페이지로 이동하는 위치 입니다.]
-          <NavLink to="/Main">쿠게더</NavLink>
-          <NavLink to="/SearchCookRoom"> 요리방</NavLink>
-          <NavLink to="/SearchRecipe"> 레시피</NavLink>
-        </li>
-      </ul>
-      <br />
-
+      <Nav />
       <Switch>
         <Route path="/" exact>
           <Redirect to="/Main" />
@@ -35,7 +26,7 @@ function App() {
         <Route path="/SearchCookRoom" component={SearchCookRoom} />
         <Route path="/SearchRecipe" component={SearchRecipe} />
         <Route path="/Recipe/:recipeId" component={RecipeDetail} />
-        <Route path="/RecipeRegister" component={RecipeRegister} />
+        {/* <Route path="/RecipeRegister" component={RecipeRegister} /> */}
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} />
         <Route path="/Signin" component={Signin} />
