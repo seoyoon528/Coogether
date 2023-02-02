@@ -24,7 +24,7 @@ public class CookingRoomService {
         return cookingRoomRepository.findByRecipeName(recipeName);
     }
 
-    public CookingRoom getCookingRoomByCookingRoomId(int cookingRoomId){
+    public CookingRoom getCookingRoomByCookingRoomId(Long cookingRoomId){
         return cookingRoomRepository.findByCookingRoomId(cookingRoomId);
     }
 }

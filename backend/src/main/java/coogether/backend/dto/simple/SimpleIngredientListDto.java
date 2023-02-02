@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class SimpleIngredientListDto {
-    private int ingredientListId;
+    private Long ingredientListId;
     private String ingredientAmount;
 
     @QueryProjection

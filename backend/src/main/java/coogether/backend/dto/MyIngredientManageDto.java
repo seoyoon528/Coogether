@@ -18,7 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Data
 public class MyIngredientManageDto {
-    private int myIngredientManageId;
+    private Long myIngredientManageId;
 
 //    private SimpleUserDto user;
     private SimpleIngredientDto ingredient;

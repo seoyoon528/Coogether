@@ -38,7 +38,7 @@ public class Recipe {
     @Id
     @GeneratedValue
     @Column(name = "recipe_id", nullable = false)
-    private int recipeId;
+    private Long recipeId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "recipe_category", nullable = false)

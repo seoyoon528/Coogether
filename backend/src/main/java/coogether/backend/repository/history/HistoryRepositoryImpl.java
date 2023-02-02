@@ -27,11 +27,12 @@ public class HistoryRepositoryImpl implements HistoryRepositoryCustom{
 //    }
 
     @Override
-    public History findByCookingRoomId(Long userSeq, int cookingRoomId) {
-        return queryFactory
-                .selectFrom(history)
-                .where(history.user.userSeq.eq(userSeq).and(history.cookingRoom.cookingRoomId.eq(cookingRoomId)))
-                .fetchOne();
+    public History findByCookingRoomId(Long userSeq, Long cookingRoomId) {
+//        return queryFactory
+//                .selectFrom(history)
+//                .where(history.user.userSeq.eq(userSeq).and(history.cookingRoom.cookingRoomId.eq(cookingRoomId)))
+//                .fetchOne();
+        return null;
     }
 
 }

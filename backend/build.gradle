@@ -11,6 +11,9 @@ plugins {
 
 	//querydsl 추가
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+
+	//docker-compose
+	id 'com.palantir.docker-compose' version '0.33.0'
 }
 
 group = 'coogether'
@@ -73,6 +76,10 @@ configurations {
 }
 //querydsl 추가 끝
 
+// gradle 시 꼭 해주어야 됨
+jar {
+	enabled = false
+}
 
 
 

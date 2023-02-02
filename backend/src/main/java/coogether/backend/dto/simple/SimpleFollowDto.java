@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class SimpleFollowDto {
-    private int followId;
+    private Long followId;
 
     private LocalDateTime followDate;
     private EnumFollowFlag followFlag;

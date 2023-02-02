@@ -14,7 +14,7 @@ import java.util.List;
 
 @Data
 public class SimpleRecipeDto {
-    private int recipeId;
+    private Long recipeId;
     private EnumRecipeCategory recipeCategory;
     private EnumRecipeType recipeType;
     private String recipeContent;

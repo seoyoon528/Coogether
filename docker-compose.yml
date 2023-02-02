@@ -1,0 +1,28 @@
+version: "3"
+services:
+  database:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: coogether
+      MYSQL_USER: i8b206      
+      MYSQL_PASSWORD: i8b206
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - ./db/data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    restart: always
+  application:
+    depends_on:
+      - database
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://i8b206.p.ssafy.io:3306/coogether
+      SPRING_DATASOURCE_USERNAME: i8b206
+      SPRING_DATASOURCE_PASSWORD: i8b206
+    restart: always

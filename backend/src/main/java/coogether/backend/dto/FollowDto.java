@@ -16,7 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 @Data
 public class FollowDto {
 
-    private int followId;
+    private Long followId;
 
     private SimpleUserDto followerUser;
     private SimpleUserDto followingUser;

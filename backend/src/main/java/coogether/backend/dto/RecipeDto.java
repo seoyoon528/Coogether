@@ -23,7 +23,7 @@ public class RecipeDto {
     private List<IngredientList> ingredientList;
     private List<CookingRoom> cookingRoomList;
     private UserDto user;
-    private int recipeId;
+    private Long recipeId;
     private EnumRecipeCategory recipeCategory;
     private EnumRecipeType recipeType;
     private String recipeContent;

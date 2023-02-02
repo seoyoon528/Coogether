@@ -19,14 +19,14 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "report")
 public class Report {
     @Id
     @GeneratedValue
     @Column(name = "report_id", nullable = false)
-    private int reportId;
+    private Long reportId;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
