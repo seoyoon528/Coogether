@@ -15,7 +15,7 @@ import Profile from './pages/User/Profile/Profile';
 
 function App() {
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <Nav />
       <Switch>
         <Route path="/" exact>
