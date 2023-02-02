@@ -43,7 +43,7 @@ public class IngredientFavService {
         } else {
             if (ingredientFav.getIngredientFavFlag().equals(EnumIngredientFavFlag.YES)){
                 ingredientFav.setIngredientFavFlag((EnumIngredientFavFlag.NO));
-                ingredientFav.setIngredientFavCreatedDate(LocalDateTime.now());
+                                                 ingredientFav.setIngredientFavCreatedDate(LocalDateTime.now());
             }
             else{
                 ingredientFav.setIngredientFavFlag((EnumIngredientFavFlag.YES));
