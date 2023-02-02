@@ -4,12 +4,15 @@ import StreamItem from './streamItem';
 import * as S from './streamListStyle';
 
 function StreamList(props) {
-  const { DUMMY_ROOM } = props;
+  const { cookRoom } = props;
+  console.log(cookRoom);
   return (
     <>
-      {DUMMY_ROOM.map(room => (
-        <StreamItem key={room.roomId} room={room} />
-      ))}
+      {cookRoom
+        ? cookRoom.map(room => (
+            <StreamItem key={room.cookingRoomId} room={room} />
+          ))
+        : ''}
     </>
   );
 }

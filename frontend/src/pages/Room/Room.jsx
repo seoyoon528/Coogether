@@ -22,9 +22,9 @@ function Room() {
   const { startTime } = location.state.startTime;
   const { targetTime } = location.state.targetTime;
 
-  const hour = startTime.getHours();
-  const minute = startTime.getMinutes();
-  const START = `${hour}시: ${minute}분`;
+  // const hour = startTime.getHours();
+  // const minute = startTime.getMinutes();
+  // const START = `${hour}시: ${minute}분`;
 
   // 시간 계산
   const calculateTime = useCallback(() => {
@@ -60,7 +60,7 @@ function Room() {
       <p>제목 : {roomName}</p>
       <p>{params.roomId} 번 요리방 입니다</p>
       <img src={thumbnail} alt="" />
-      <p>{START} 시작</p>
+      {/* <p>{START} 시작</p> */}
       <p>요리대장 : {king}</p>
       <p>레시피 : {recipe}</p>
       {anounce && <p>공지사항 : {anounce}</p>}
