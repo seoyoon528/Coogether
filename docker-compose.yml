@@ -4,10 +4,11 @@ services:
     image: mysql
     environment:
       MYSQL_DATABASE: coogether
-      MYSQL_USER: i8b206      
+      MYSQL_USER: i8b206
       MYSQL_PASSWORD: i8b206
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_HOST: "%"
       MYSQL_ROOT_PASSWORD: 1234
+      TZ: Asia/Seoul
     volumes:
       - ./db/data:/var/lib/mysql
     ports:
@@ -22,7 +23,8 @@ services:
     ports:
       - "9000:9000"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://i8b206.p.ssafy.io:3306/coogether?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true&useLegacyDatetimeCode=false
+      TZ: Asia/Seoul
+      SPRING_DATASOURCE_URL: jdbc:mysql://i8b206.p.ssafy.io:3306/coogether?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
       SPRING_DATASOURCE_USERNAME: i8b206
       SPRING_DATASOURCE_PASSWORD: i8b206
     restart: always
