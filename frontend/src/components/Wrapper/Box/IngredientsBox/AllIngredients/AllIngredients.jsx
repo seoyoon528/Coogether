@@ -36,7 +36,7 @@ function AllIngredients({ category }) {
     .map(i => {
       return (
         <span>
-          <div>{i.text} 전체</div>
+          <h4>{i.text} 전체</h4>
           <button
             key={i.name}
             onClick={() => {

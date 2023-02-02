@@ -42,7 +42,7 @@ export const Categories = styled.div`
 
 export const Contents = styled.div`
   width: 227px;
-  height: 517px;
+  height: 520px;
   background: #fff8ea;
   margin-left: 2.25rem;
   padding: 10px;

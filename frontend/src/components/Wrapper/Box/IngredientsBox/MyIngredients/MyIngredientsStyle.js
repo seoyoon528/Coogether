@@ -22,7 +22,7 @@ export const AppWrap = styled.div`
 export const Contents = styled.div`
   background: #fff8ea;
   width: 640px;
-  height: 162px;
+  height: 160px;
   margin: 20px;
   padding: 20px;
   margin-left: 16rem;
