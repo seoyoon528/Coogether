@@ -21,9 +21,9 @@ export const AppWrap = styled.div`
 
 export const Contents = styled.div`
   background: #fff8ea;
-  width: 640px;
-  height: 160px;
-  margin: 20px;
+  width: 624px;
+  height: 164px;
+  margin-bottom: 20px;
   padding: 20px;
-  margin-left: 16rem;
+  /* margin-left: 16rem; */
 `;

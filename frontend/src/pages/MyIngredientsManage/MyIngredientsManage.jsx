@@ -34,23 +34,29 @@ function MyIngredientsManage() {
   // }, [enterdItme]);
 
   return (
-    <Contents>
+    <>
       <br />
       <br />
       <br />
       <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
       <br />
-      <Box display="grid" gridTemplateColumns="repeat(12, 4fr)" gap={1}>
-        <Box gridColumn="span 2">
-          <IngredientsBox category={category} onSelect={onSelect} />
+      <Contents>
+        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1}>
+          <Box gridColumn="span 2" />
+          <Box gridColumn="span 1">
+            <IngredientsBox category={category} onSelect={onSelect} />
+          </Box>
+          <Box gridColumn="span 1" />
+          <Box gridColumn="span 6">
+            {components.map(component => {
+              return component;
+            })}
+          </Box>
+          <Box gridColumn="span 1" />
+          {/* <Box gridColumn="span 1" /> */}
         </Box>
-        <Box gridColumn="span 10">
-          {components.map(component => {
-            return component;
-          })}
-        </Box>
-      </Box>
-    </Contents>
+      </Contents>
+    </>
   );
 }
 

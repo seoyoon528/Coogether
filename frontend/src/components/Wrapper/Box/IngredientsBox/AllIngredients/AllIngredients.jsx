@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+// import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
+// import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import dummy from '../ingredients.json';
-import { Contents } from './AllIngredientsStyle';
+import { Contents, Circle, Button, Wrapper } from './AllIngredientsStyle';
 
 function AllIngredients({ category }) {
   const categoryList = dummy.ingredients;
@@ -14,20 +16,26 @@ function AllIngredients({ category }) {
     console.log(e.name);
     return (
       <span>
-        <button
+        <Circle
           key={e.name}
           onClick={() => {
             handleClick(e);
           }}
         >
+          {/* {selectIngredientId === e.name && visible && (
+            <>
+              <Button>즐겨찾기</Button>
+              <Button>내 냉장고</Button>
+            </>
+          )} */}
           {e.name}
           {selectIngredientId === e.name && visible && (
-            <div>
-              <button>즐겨찾기</button>
-              <button>내 냉장고로</button>
-            </div>
+            <Wrapper>
+              <Button>즐겨찾기</Button>
+              <Button>내 냉장고</Button>
+            </Wrapper>
           )}
-        </button>
+        </Circle>
       </span>
     );
   });
@@ -37,7 +45,7 @@ function AllIngredients({ category }) {
       return (
         <span>
           <h4>{i.text} 전체</h4>
-          <button
+          <Circle
             key={i.name}
             onClick={() => {
               handleClick(i);
@@ -45,12 +53,12 @@ function AllIngredients({ category }) {
           >
             {i.name}
             {selectIngredientId === i.name && visible && (
-              <div>
-                <button>즐겨찾기</button>
-                <button>내 냉장고로</button>
-              </div>
+              <>
+                <Button>즐겨찾기</Button>
+                <Button>내 냉장고</Button>
+              </>
             )}
-          </button>
+          </Circle>
         </span>
       );
     });
