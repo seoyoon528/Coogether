@@ -8,14 +8,14 @@ services:
       MYSQL_PASSWORD: i8b206
       MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: 1234
-    volumns:
+    volumes:
       - ./db/data:/var/lib/mysql
     ports:
       - 3306:3306
     restart: always
   application:
     build: .
-    depands_on:
+    depends_on:
       - database
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://i8b206.p.ssafy.io:3306/userdb
