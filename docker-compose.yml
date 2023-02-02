@@ -19,7 +19,7 @@ services:
       - database
     build:
       context: ./backend/
-      dockerfile: ./backend/Dockerfile
+      dockerfile: Dockerfile
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://i8b206.p.ssafy.io:3306/coogether
       SPRING_DATASOURCE_USERNAME: i8b206
