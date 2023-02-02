@@ -17,8 +17,8 @@ function RedirectPage() {
       dispatch(
         login({ ...isLogin, authenticated: true, accessToken: getToken })
       );
-    } // 토큰이 없는 경우 에러 처리 추후 수정하기
-    history.push('/main');
+      history.push('/main');
+    } // 토큰이 없는 경우 register로 이동
   }, []);
 
   //   const token = searchParams.get('token');

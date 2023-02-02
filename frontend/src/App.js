@@ -41,9 +41,9 @@ function App() {
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} />
         <Route path="/oauth/:redirect" component={RedirectPage} />
-        <Route path="/oauth/kakao/callback">
+        {/* <Route path="/oauth/kakao/callback">
           <KAKAOAuth />
-        </Route>
+        </Route> */}
         <Route path="/Signin" component={Signin} />
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage} />
