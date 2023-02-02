@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import dummy from '../ingredients.json';
+import { Contents } from './AllIngredientsStyle';
 
 function AllIngredients({ category }) {
   const categoryList = dummy.ingredients;
@@ -62,15 +63,19 @@ function AllIngredients({ category }) {
   // <h3>{categoryName} 전체</h3>;
   if (category === 'all') {
     return (
-      <span>
-        재료 전체 <div>{AllIngredient}</div>
-      </span>
+      <div>
+        <Contents>
+          <h4>재료 전체</h4> <div>{AllIngredient}</div>
+        </Contents>
+      </div>
     );
   }
   return (
-    <span>
-      <div>{ingredient}</div>
-    </span>
+    <div>
+      <Contents>
+        <div>{ingredient}</div>
+      </Contents>
+    </div>
   );
 }
 
