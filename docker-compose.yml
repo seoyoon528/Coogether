@@ -18,8 +18,8 @@ services:
     depends_on:
       - database
     build:
-      context: ${PWD}/backend/
-      dockerfile: ${PWD}/backend/Dockerfile
+      context: ./backend/
+      dockerfile: ./backend/Dockerfile
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://i8b206.p.ssafy.io:3306/coogether
       SPRING_DATASOURCE_USERNAME: i8b206
