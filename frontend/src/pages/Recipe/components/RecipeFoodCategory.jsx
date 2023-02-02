@@ -1,48 +1,89 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // MUI
-import { Box, TextField, MenuItem } from '@mui/material';
+import {
+  Box,
+  FormControl,
+  Select,
+  MenuItem,
+  Autocomplete,
+  TextField,
+} from '@mui/material';
 
 export default function RecipeFoodCategory(props) {
+  console.log(1);
   const foodCategories = [
-    { label: 'no-select', name: '요리분류를 선택해주세요' },
-    { label: 'korean', name: '한식' },
-    { label: 'chinese', name: '중식' },
-    { label: 'western', name: '양식' },
-    { label: 'japanese', name: '일식' },
-    { label: 'dessert', name: '베이킹/디저트' },
-    { label: 'asian', name: '아시안' },
-    { label: 'bunsik', name: '분식' },
-    { label: 'etc', name: '기타' },
-    { label: 'none', name: '없음' },
+    { value: 'korean', label: '한식' },
+    { value: 'chinese', label: '중식' },
+    { value: 'western', label: '양식' },
+    { value: 'japanese', label: '일식' },
+    { value: 'dessert', label: '베이킹/디저트' },
+    { value: 'asian', label: '아시안' },
+    { value: 'bunsik', label: '분식' },
+    { value: 'etc', label: '기타' },
+    { value: 'none', label: '없음' },
   ];
-
-  const { cookCategoryRef } = props;
 
   return (
     <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
       <Box gridColumn="span 2">
-        <label htmlFor="recipe-cook-category">요리 분류</label>
+        <label htmlFor="recipe-food-category">요리 분류</label>
       </Box>
       <Box gridColumn="span 9">
-        <TextField
-          select
-          fullWidth
-          defaultValue="no-select"
-          sx={{ backgroundColor: 'white' }}
+        <Autocomplete
+          id="recipe-food-category-autocomplete"
+          disablePortal
+          ListboxProps
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '4',
+              padding: '1.6rem',
+              backgroundColor: 'white',
+            },
+            '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+              border: '0.5px solid #505050',
+            },
+            '& .MuiInputBase-root': {
+              height: '5.6rem',
+            },
+          }}
+          options={foodCategories.map(option => option.label)}
+          renderInput={params => (
+            <TextField
+              {...params}
+              placeholder="요리 분류를 선택해주세요"
+              sx={{}}
+            />
+          )}
+        />
+
+        {/* <div
+          className="recipe-food-category__select"
+          onClick={openOptionHandler}
+          aria-hidden="true"
+        >
+          <p>{selectedCategory || '요리 분류를 선택해주세요'}</p>
+        </div>
+        <ul
+          className={`recipe-food-category__option ${
+            isOptionOpened ? 'active' : ''
+          }`}
         >
           {foodCategories.map(category => {
             return (
-              <MenuItem
-                key={category.label}
-                value={category.label}
-                disabled={category.label === 'no-select'}
+              <li
+                key={category.value}
+                onClick={() => {
+                  selectOptionHandler(category.label);
+                  closeOptionHandler();
+                }}
+                aria-hidden="true"
               >
-                {category.name}
-              </MenuItem>
+                {category.label}
+              </li>
             );
           })}
-        </TextField>
+        </ul> */}
       </Box>
     </Box>
   );

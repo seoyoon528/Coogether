@@ -5,12 +5,16 @@ import { Box, Button, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
 export default function RecipeOrders(props) {
+  console.log(1);
   const { recipeOrders, onClick: setRecipeOrders } = props;
 
   // 순서 추가
   const addRecipeOrder = () => {
     setRecipeOrders(prev => {
-      return [prev, { id: `order-${prev[prev.length - 1].id + 1}` }];
+      return [
+        ...prev,
+        { id: `order-${prev.length !== 0 ? prev[prev.length - 1].id + 1 : 1}` },
+      ];
     });
   };
 
@@ -19,6 +23,15 @@ export default function RecipeOrders(props) {
     setRecipeOrders(prev => {
       const orders = prev;
       orders[idx].content = order;
+      return [...orders];
+    });
+  };
+
+  // 순서 삭제
+  const deleteOrderInput = idx => {
+    setRecipeOrders(prev => {
+      const orders = prev;
+      orders.splice(idx, 1);
       return [...orders];
     });
   };
@@ -53,8 +66,15 @@ export default function RecipeOrders(props) {
                 sx={{ pb: 2 }}
                 className="recipe-cook-button__delete"
               >
-                <IconButton>
-                  <CancelPresentationIcon fontSize="large" color="warning" />
+                <IconButton
+                  onClick={() => {
+                    deleteOrderInput(idx);
+                  }}
+                >
+                  <CancelPresentationIcon
+                    fontSize="large"
+                    sx={{ color: '#ffcc5e' }}
+                  />
                 </IconButton>
               </Box>
             </Box>

@@ -14,7 +14,7 @@ function RecipeRegisterForm() {
   // 요리 이름
   const cookNameRef = useRef();
   // 요리 분류
-  const foodCategoryRef = useRef();
+  const [selectedCategory, setSelectedCategory] = useState('');
   // 요리 이미지
   const [cookImage, setCookImage] = useState('');
   // 요리 재료
@@ -48,23 +48,27 @@ function RecipeRegisterForm() {
 
     console.log(
       cookNameRef.current.value,
+      selectedCategory,
       cookImage,
       recipeIngredients,
-      recipeOrders,
-      foodCategoryRef.current.value
+      recipeOrders
     );
   };
 
   return (
-    <div className="recipe-register__form">
+    <form className="recipe-register__form">
       <Stack spacing={5}>
         <RecipeCookName cookNameRef={cookNameRef} />
-        <RecipeFoodCategory cookCategoryRef={foodCategoryRef} />
+        <RecipeFoodCategory
+          selectedCategory={selectedCategory}
+          onChange={setSelectedCategory}
+        />
         <RecipeCookImage cookImage={cookImage} onChange={setCookImage} />
         <RecipeIngredients
           recipeIngredients={recipeIngredients}
           onClick={setRecipeIngredients}
         />
+        <hr color="#ffcc5e" />
         <RecipeOrders recipeOrders={recipeOrders} onClick={setRecipeOrders} />
         <hr color="#ffcc5e" />
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
@@ -76,7 +80,7 @@ function RecipeRegisterForm() {
           </Box>
         </Box>
       </Stack>
-    </div>
+    </form>
   );
 }
 
