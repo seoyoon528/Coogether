@@ -12,7 +12,7 @@ export const RecipeRegisterStyle = styled.section`
     font-family: 'Pretendard Bold';
   }
 
-  input {
+  .recipe-register-form__input {
     width: 100%;
     height: 5.6rem;
     padding: 1.6rem;
@@ -52,6 +52,11 @@ export const RecipeRegisterStyle = styled.section`
     border-radius: 60px;
   }
 
+  .recipe-register-form__submit-button {
+    display: flex;
+    justify-content: center;
+  }
+
   .recipe-cook-button__add {
     display: flex;
     justify-content: center;
@@ -65,17 +70,6 @@ export const RecipeRegisterStyle = styled.section`
   /* 레시피 요리 제목 */
 
   /* 레시피 요리 분류 */
-  #recipe-food-category-autocomplete {
-    padding: 0;
-    border: none;
-    height: auto;
-
-    ::placeholder {
-      font-family: 'Pretendard Regular';
-      font-size: 1.6rem;
-      opacity: 1;
-    }
-  }
 
   /* .recipe-food-category__select-category.active {
     color: black;
@@ -160,8 +154,64 @@ export const RecipeRegisterStyle = styled.section`
   }
 
   /* 레시피 요리 재료 */
-  #recipe-register-ingredient__search {
+  .recipe-register-ingredient__backdrop {
+    display: none;
+
+    position: absolute;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 1;
+  }
+
+  .recipe-register-ingredient__backdrop.active {
+    display: block;
+  }
+
+  .recipe-register__search-box {
+    position: relative;
     margin-bottom: 1.6rem;
+  }
+
+  #recipe-register-ingredient__search {
+  }
+
+  .recipe-register-ingredient__option {
+    display: none;
+
+    position: absolute;
+    z-index: 2;
+
+    width: 100%;
+    max-height: 30vh;
+
+    background-color: white;
+
+    border: 0.5px solid #505050;
+    border-radius: 4px;
+
+    overflow-y: scroll;
+
+    box-shadow: 0px 10px 10px 0 #505050;
+
+    cursor: pointer;
+  }
+
+  .recipe-register-ingredient__option.active {
+    display: block;
+  }
+
+  .recipe-register-ingredient__option li {
+    padding: 1.6rem;
+
+    font-family: 'Pretendard Medium';
+    font-size: 1.6rem;
+    color: #000;
+  }
+
+  .recipe-register-ingredient__option li:hover {
+    background-color: orange;
   }
 
   .recipe-cook-ingredient__input {
@@ -170,7 +220,7 @@ export const RecipeRegisterStyle = styled.section`
   }
 
   .recipe-cook-ingredient__input input {
-    width: 45%;
+    width: 48%;
     margin-bottom: 1.6rem;
   }
 
@@ -188,6 +238,8 @@ export const RecipeRegisterStyle = styled.section`
     padding: 1.6rem;
     font-size: 1.6rem;
     color: black;
+    resize: none;
+    font-family: 'Pretendard Regular';
 
     ::placeholder {
       font-size: 1.8rem;

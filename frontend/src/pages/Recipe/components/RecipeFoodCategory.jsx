@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
-
 // MUI
-import {
-  Box,
-  FormControl,
-  Select,
-  MenuItem,
-  Autocomplete,
-  TextField,
-} from '@mui/material';
+import { Box, Select, MenuItem, styled, InputBase } from '@mui/material';
+
+const CategoryInput = styled(InputBase)(({ theme }) => ({
+  '& .MuiInputBase-input': {
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: 'white',
+    border: '0.5px solid #505050',
+    fontSize: '1.6rem',
+    padding: '1.6rem',
+    // Use the system font instead of the default Roboto font.
+    fontFamily: 'Pretendard Regular',
+    '&:focus': {
+      borderRadius: 4,
+      borderColor: 'black',
+    },
+  },
+}));
 
 export default function RecipeFoodCategory(props) {
-  console.log(1);
+  const { selectedCategory, onChange: setSelectedCategory } = props;
   const foodCategories = [
     { value: 'korean', label: '한식' },
     { value: 'chinese', label: '중식' },
@@ -30,60 +40,45 @@ export default function RecipeFoodCategory(props) {
         <label htmlFor="recipe-food-category">요리 분류</label>
       </Box>
       <Box gridColumn="span 9">
-        <Autocomplete
-          id="recipe-food-category-autocomplete"
-          disablePortal
-          ListboxProps
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '4',
-              padding: '1.6rem',
-              backgroundColor: 'white',
-            },
-            '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-              border: '0.5px solid #505050',
-            },
-            '& .MuiInputBase-root': {
-              height: '5.6rem',
-            },
+        <Select
+          fullWidth
+          value={selectedCategory}
+          onChange={event => {
+            setSelectedCategory(event.target.value);
           }}
-          options={foodCategories.map(option => option.label)}
-          renderInput={params => (
-            <TextField
-              {...params}
-              placeholder="요리 분류를 선택해주세요"
-              sx={{}}
-            />
-          )}
-        />
-
-        {/* <div
-          className="recipe-food-category__select"
-          onClick={openOptionHandler}
-          aria-hidden="true"
+          id="recipe-food-category"
+          input={<CategoryInput />}
         >
-          <p>{selectedCategory || '요리 분류를 선택해주세요'}</p>
-        </div>
-        <ul
-          className={`recipe-food-category__option ${
-            isOptionOpened ? 'active' : ''
-          }`}
-        >
+          <MenuItem
+            disabled
+            value="no-select"
+            sx={{
+              display: 'none',
+              padding: '1.6rem',
+              fontFamily: 'Pretendard Regular',
+              fontSize: '1.6rem',
+            }}
+          >
+            요리 분류를 선택해주세요
+          </MenuItem>
           {foodCategories.map(category => {
             return (
-              <li
-                key={category.value}
-                onClick={() => {
-                  selectOptionHandler(category.label);
-                  closeOptionHandler();
+              <MenuItem
+                key={category.label}
+                value={category.label}
+                sx={{
+                  padding: '1.6rem',
+                  fontFamily: 'Pretendard Regular',
+                  fontSize: '1.6rem',
+                  opacity: 1,
+                  color: 'black',
                 }}
-                aria-hidden="true"
               >
                 {category.label}
-              </li>
+              </MenuItem>
             );
           })}
-        </ul> */}
+        </Select>
       </Box>
     </Box>
   );

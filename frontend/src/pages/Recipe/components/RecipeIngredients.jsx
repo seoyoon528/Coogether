@@ -4,10 +4,29 @@ import React, { useState } from 'react';
 import { Box, Button, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
-// Component
-// import RecipeRegisterModal from './RecipeRegisterModal';
+function IngredientInput(props) {
+  const {
+    onChange,
+    data: { action, idx, className, value },
+  } = props;
+
+  return (
+    <input
+      type="text"
+      placeholder={action === '재료명' ? '재료명' : '계량'}
+      value={value}
+      onChange={event => {
+        const inputIngredientName = event.target.value;
+        onChange(idx, inputIngredientName);
+      }}
+      className={className}
+    />
+  );
+}
 
 export default function RecipeIngredients(props) {
+  const [isOptionOpened, setIsOptionOpened] = useState(false);
+
   // ingredients
   const { recipeIngredients, onClick: setRecipeIngredients } = props;
 
@@ -39,7 +58,8 @@ export default function RecipeIngredients(props) {
   };
 
   // ingredient 입력 항목 추가
-  const addInputBoxHnadler = () => {
+  const addInputBoxHnadler = payload => {
+    const name = payload || '';
     setRecipeIngredients(prev => {
       return [
         ...prev,
@@ -47,41 +67,63 @@ export default function RecipeIngredients(props) {
           id: `ingredient-${
             prev.length !== 0 ? prev[prev.length - 1].id + 1 : 1
           }`,
+          name,
         },
       ];
     });
   };
 
-  // modal
-  const [isModalOpened, setIsModalOpened] = useState(false);
-  // Modal 여는 함수
-  const openModal = () => {
-    setIsModalOpened(true);
-  };
-  // Modal 닫는 함수
-  const closeModal = () => {
-    setIsModalOpened(false);
+  const openOptionHandler = () => {
+    setIsOptionOpened(true);
   };
 
-  //
-
-  // 모달에서 폼 제출시 실행되는 함수
-  const modalSubmitHandler = () => {};
+  const closeOptionHandler = () => {
+    setIsOptionOpened(false);
+  };
 
   return (
     <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+      <div
+        className={`recipe-register-ingredient__backdrop ${
+          isOptionOpened ? 'active' : ''
+        }`}
+        onClick={closeOptionHandler}
+        aria-hidden="true"
+      />
       <Box gridColumn="span 2">
         <label htmlFor="recipe-register-ingredient__search">재료 등록</label>
       </Box>
       <Box gridColumn="span 10">
         <Box display="grid" gridTemplateColumns="repeat(10, 1fr)" gap={2}>
-          <Box gridColumn="span 9">
+          <Box gridColumn="span 9" className="recipe-register__search-box">
             <input
               type="text"
               name=""
               id="recipe-register-ingredient__search"
-              placeholder="재료를 검색하세요"
+              className="recipe-register-form__input"
+              placeholder="재료를 입력해주세요"
+              onFocus={openOptionHandler}
             />
+            <ul
+              className={`recipe-register-ingredient__option ${
+                isOptionOpened ? 'active' : ''
+              }`}
+            >
+              {recipeIngredients.map(ingredient => {
+                return (
+                  <li
+                    key={ingredient.id}
+                    onClick={() => {
+                      addInputBoxHnadler(ingredient.name);
+                      closeOptionHandler();
+                    }}
+                    aria-hidden="true"
+                  >
+                    {ingredient.name}
+                  </li>
+                );
+              })}
+            </ul>
           </Box>
         </Box>
         {recipeIngredients.map((ingredient, idx) => {
@@ -96,25 +138,25 @@ export default function RecipeIngredients(props) {
                 gridColumn="span 9"
                 className="recipe-cook-ingredient__input"
               >
-                <input
-                  onChange={event => {
-                    const inputIngredientName = event.target.value;
-                    nameInputHandler(idx, inputIngredientName);
+                <IngredientInput
+                  onChange={nameInputHandler}
+                  data={{
+                    action: '재료명',
+                    idx,
+                    className:
+                      'recipe-register-form__input recipe-cook-ingredient__name',
+                    value: `${ingredient.name || ''}`,
                   }}
-                  type="text"
-                  className="recipe-cook-ingredient__name"
-                  value={ingredient.name || ''}
-                  placeholder="재료명"
                 />
-                <input
-                  type="text"
-                  onChange={event => {
-                    const inputIngredientAmount = event.target.value;
-                    amountInputHandler(idx, inputIngredientAmount);
+                <IngredientInput
+                  onChange={amountInputHandler}
+                  data={{
+                    action: '계량',
+                    idx,
+                    className:
+                      'recipe-register-form__input recipe-cook-ingredient__amount',
+                    value: `${ingredient.amount || ''}`,
                   }}
-                  className="recipe-cook-ingredient__amount"
-                  value={ingredient.amount || ''}
-                  placeholder="계량"
                 />
               </Box>
               <Box
@@ -137,20 +179,7 @@ export default function RecipeIngredients(props) {
           );
         })}
       </Box>
-      <Box gridColumn="span 2">
-        {/* <div>
-          {isModalOpened && (
-            <RecipeRegisterModal
-              onClose={closeModal}
-              onConfirm={modalSubmitHandler}
-              open={isModalOpened}
-            />
-          )}
-          <Button variant="contained" onClick={openModal}>
-            <p>한번에 등록</p>
-          </Button>
-        </div> */}
-      </Box>
+      <Box gridColumn="span 2" />
       <Box gridColumn="span 9" sx={{ mx: 'auto' }}>
         <Button variant="contained" onClick={addInputBoxHnadler}>
           <p>추가</p>

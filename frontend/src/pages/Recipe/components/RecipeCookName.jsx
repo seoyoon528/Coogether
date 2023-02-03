@@ -15,6 +15,7 @@ export default function RecipeCookName(props) {
           type="text"
           name=""
           id="recipe-cook-name__input"
+          className="recipe-register-form__input"
           ref={cookNameRef}
           placeholder="예) 순두부 김치찌개"
         />

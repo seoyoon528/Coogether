@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 // MUI
-import { Button, Stack, Box } from '@mui/material';
+import { Button, Stack, Grid } from '@mui/material';
 
 // Component
 import RecipeCookName from './RecipeCookName';
@@ -14,33 +14,20 @@ function RecipeRegisterForm() {
   // 요리 이름
   const cookNameRef = useRef();
   // 요리 분류
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('no-select');
   // 요리 이미지
   const [cookImage, setCookImage] = useState('');
   // 요리 재료
   const [recipeIngredients, setRecipeIngredients] = useState([
-    { id: 'ingredient-1' },
-    { id: 'ingredient-2' },
-    { id: 'ingredient-3' },
+    { id: 'ingredient-1', name: '요리명' },
+    { id: 'ingredient-2', name: '요리명' },
+    { id: 'ingredient-3', name: '요리명' },
   ]);
   // 요리 순서
   const [recipeOrders, setRecipeOrders] = useState([
     { id: 'order-1' },
     { id: 'order-2' },
   ]);
-
-  // 한번에 입력하기
-  // const modalConfirmHandler = data => {
-  //   const enteredIngredients = data.trim().split(',');
-  //   setIngredients(prev => {
-  //     const ingredients = prev;
-  //     enteredIngredients.forEach(ingredient => {
-  //       const [name, amount] = ingredient.trim().split(' ');
-  //       ingredients.push({ name, amount });
-  //     });
-  //     return [...ingredients];
-  //   });
-  // };
 
   // form 제출
   const recipeSubmitHandler = event => {
@@ -71,14 +58,14 @@ function RecipeRegisterForm() {
         <hr color="#ffcc5e" />
         <RecipeOrders recipeOrders={recipeOrders} onClick={setRecipeOrders} />
         <hr color="#ffcc5e" />
-        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
-          <Box gridColumn="span 2" />
-          <Box gridColumn="span 9" sx={{ mx: 'auto' }}>
+        <Grid container columnSpacin={2}>
+          <Grid item xs={2} />
+          <Grid item xs={9} className="recipe-register-form__submit-button">
             <Button variant="contained" onClick={recipeSubmitHandler}>
               <p>등록</p>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </Stack>
     </form>
   );
