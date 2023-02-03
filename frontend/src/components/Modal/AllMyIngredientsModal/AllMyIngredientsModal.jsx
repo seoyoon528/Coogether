@@ -30,8 +30,8 @@ function AllMyIngredientsModal({ onClose }) {
             </Door>
             <Shelves />
           </Fridge>
-          <Button>확인</Button>
         </Contents>
+        <Button>확인</Button>
       </ModalWrap>
     </Overlay>
   );
