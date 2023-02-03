@@ -26,21 +26,24 @@ public class CookingRoom {
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_host_id")
-    private User cookingRoomHostId;
+    private User cookingRoomHost;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "recipe_id")
-    private Recipe recipeId;
+    private Recipe recipe;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cookingRoomId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cookingRoom", cascade = CascadeType.ALL)
     private List<History> historyList = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "cookingRoom", cascade = CascadeType.ALL)
+    private List<UserJoinList> userJoinLists = new ArrayList<>();
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cooking_room_id", nullable = false)
-    private int cookingRoomId;
+    private Long cookingRoomId;
 
     @Column(name = "cooking_room_name", length = 30, nullable = false)
     private String cookingRoomName;
@@ -48,9 +51,6 @@ public class CookingRoom {
     @Column(name = "cooking_room_img", length = 100, nullable = false)
     private String cookingRoomImg;
 
-
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
-    @LastModifiedDate // 요리 시작 시간
     @Column(name = "cooking_room_start_time", updatable = false, nullable = false)
     private LocalDateTime cookingRoomStartTime;
 

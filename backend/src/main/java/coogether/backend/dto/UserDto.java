@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Data
 public class UserDto {
 
+    private Long userSeq;
     private String userId;
     private String userName;
     private String userNickname;
@@ -30,12 +31,12 @@ public class UserDto {
     private LocalDateTime userLastLoginDate;
     private EnumSnsType userSnsType;
     ////////////////////////////////////
-//    private List<Follow> followingList;
+    private List<Follow> followingList;
+    private List<Follow> followerList;
 
-    public UserDto() {
-    }
-
+    @QueryProjection
     public UserDto(User user){
+        this.userSeq = user.getUserSeq();
         this.userId = user.getUserId();
         this.userName = user.getUserName();
         this.userNickname = user.getUserNickname();
@@ -50,7 +51,8 @@ public class UserDto {
         this.userSnsType = user.getUserSnsType();
 
         ////////////////////////////////////
-//        this.followingList = user.getFollowingList();
+        this.followingList = user.getFollowingList();
+        this.followerList = user.getFollowerList();
 
     }
 

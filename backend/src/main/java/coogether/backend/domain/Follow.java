@@ -19,28 +19,28 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "follow")
 public class Follow {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "follow_id", nullable = false)
-    private int followId;
+    private Long followId;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "follower_user_id")
-    private User followerUserId;
+    private User followerUser;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "following_user_id")
-    private User followingUserId;
+    private User followingUser;
 
     @CreatedDate // 팔로우 최초 등록 일자
-    @Column(name = "follow_date", updatable = false, nullable = false)
+    @Column(name = "follow_date", nullable = false)
     private LocalDateTime followDate;
 
     @Enumerated(EnumType.STRING)

@@ -1,11 +1,29 @@
-import React from 'react'
+import React from 'react';
+import dummy from './ingredients.json';
+import {
+  CategoriesBlock,
+  Categories,
+  Contents,
+  H4,
+} from './IngredientsBoxStyle';
 
-function IngredientsBox() {
+function IngredientsBox({ onSelect, category }) {
   return (
-    <div>
-      
-    </div>
-  )
+    <Contents>
+      <CategoriesBlock>
+        {dummy.categories.map(v => (
+          <Categories
+            key={v.id}
+            active={category === v.id}
+            onClick={() => onSelect(v.id)}
+          >
+            <H4>{v.text}</H4>
+          </Categories>
+        ))}
+      </CategoriesBlock>
+    </Contents>
+  );
 }
+// }
 
-export default IngredientsBox
+export default IngredientsBox;

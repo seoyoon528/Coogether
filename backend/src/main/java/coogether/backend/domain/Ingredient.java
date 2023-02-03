@@ -17,22 +17,22 @@ import java.util.List;
 public class Ingredient {
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ingredientId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
     private List<MyIngredientManage> myIngredientManageList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ingredientId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
     private List<IngredientFav> ingredientFavList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ingredientId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
     private List<IngredientList> ingredientList = new ArrayList<>();
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ingredient_id", nullable = false)
-    private int ingredientId;
+    private Long ingredientId;
 
     @Column(name = "ingredient_name", length = 30, nullable = false)
     private String ingredientName;
@@ -40,4 +40,7 @@ public class Ingredient {
     @Enumerated(EnumType.STRING)
     @Column(name = "ingredient_category", nullable = false)
     private EnumIngredientCategory ingredientCategory;
+
+    @Column(name = "ingredient_icon", length = 100, nullable = true)
+    private String ingredientIcon;
 }

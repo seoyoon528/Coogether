@@ -1,10 +1,16 @@
+
+server:
+  port: 9000
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/coogether?serverTimezone=Asia/Seoul
-    username: ssafy
-    password: ssafy
-
+    url: jdbc:mysql://i8b206.p.ssafy.io:3306/coogether?serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+    username: i8b206
+    password: i8b206
+#    url: jdbc:mysql://localhost:3306/coogether?serverTimezone=Asia/Seoul
+#    username: ssafy
+#    password: ssafy
   jpa:
     hibernate:
       ddl-auto: create
@@ -13,6 +19,7 @@ spring:
         #        show_sql: true
         format_sql: true
         use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
   mvc:
     pathmatch:

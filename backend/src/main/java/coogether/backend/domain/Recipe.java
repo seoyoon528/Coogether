@@ -17,28 +17,28 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 @Table(name = "recipe")
 public class Recipe {
 
     @JsonIgnore
-    @OneToMany(mappedBy = "recipeId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<IngredientList> ingredientList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "recipeId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipe_id", nullable = false)
-    private int recipeId;
+    private Long recipeId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "recipe_category", nullable = false)
@@ -55,6 +55,6 @@ public class Recipe {
     private String recipeName;
 
     @CreatedDate // 최초 생성 시간
-    @Column(name = "recipe_created_date", updatable = false, nullable = false)
+    @Column(name = "recipe_created_date", updatable = false)
     private LocalDateTime recipeCreatedDate;
 }

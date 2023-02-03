@@ -1,7 +1,10 @@
 import React from 'react';
 
-function UserInfoBox() {
-  return <div />;
+import { UserInfoBoxStyle } from './UserInfoBoxStyle ';
+
+function UserInfoBox(props) {
+  const { children } = props;
+  return <UserInfoBoxStyle>{children}</UserInfoBoxStyle>;
 }
 
 export default UserInfoBox;

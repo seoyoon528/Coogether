@@ -6,9 +6,11 @@ import coogether.backend.domain.status.EnumSnsType;
 import coogether.backend.domain.status.EnumUserAccountStatus;
 import coogether.backend.domain.status.EnumUserCookCategory;
 import coogether.backend.dto.UserDto;
+import coogether.backend.dto.UserRankDto;
 import coogether.backend.dto.UserUpdateDto;
+import coogether.backend.dto.simple.SimpleUserDto;
 import coogether.backend.repository.user.UserRepository;
-import coogether.backend.service.user.UserService;
+import coogether.backend.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -28,25 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserRepository userRepository;
     private final UserService userService;
-
-
-    @Data
-    static class CreateUserRequest {
-        private String id;
-        private String user_name;
-        private String user_nickname;
-        private String user_email;
-        private String user_img;
-        private String user_introduce;
-        private EnumUserCookCategory user_cook_category;
-        private EnumUserAccountStatus user_account_status;
-        private int user_temp;
-        LocalDateTime user_create_date;
-        LocalDateTime user_last_login_date;
-        private EnumSnsType user_sns_type;
-    }
 
     @ApiOperation(value = "유저 전체 목록을 반환하는 메소드")
     @GetMapping("/user/list")
@@ -61,10 +45,10 @@ public class UserController {
 
 
     @ApiOperation(value = "유저 1명의 상세 정보를 반환하는 메소드")
-    @ApiImplicitParam(name = "userId", value = "유저의 식별 코드인 ID", dataType = "String")
-    @GetMapping("/user/{userId}")
-    public ResponseEntity userInfoById(@PathVariable("userId") String Id) {
-        User user = userService.getUserInfoById(Id);
+    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long" , example="1")
+    @GetMapping("/user/{userSeq}")
+    public ResponseEntity userInfoById(@PathVariable("userSeq") Long userSeq) {
+        User user = userService.getUserInfoById(userSeq);
         return ResponseEntity.ok().body(new UserDto(user));
     }
 
@@ -80,24 +64,35 @@ public class UserController {
     }
 
     @ApiOperation(value = "유저 정보 수정")
-    @PatchMapping("/user/update/{userid}")
+    @PatchMapping("/user/update/{userSeq}")
     public ResponseEntity userUpdate(
-            @PathVariable("userid") String id,
+            @PathVariable("userSeq") Long userSeq,
             @RequestParam(value = "nickname", required = false) String nickname,
             @RequestParam(value = "img", required = false) String img,
             @RequestParam(value = "introduce", required = false) String introduce,
             @RequestParam(value = "cookCategory", required = false) EnumUserCookCategory userCookCategory
             ) {
-        userService.patchUserUpdate(id, nickname, img, introduce, userCookCategory);
+        userService.patchUserUpdate(userSeq, nickname, img, introduce, userCookCategory);
         UserUpdateDto userUpdateDto = new UserUpdateDto(nickname,img,introduce,userCookCategory);
+        System.out.println("userUpdateDto = " + userUpdateDto);
         return ResponseEntity.status(HttpStatus.OK).body(userUpdateDto);
     }
 
     @ApiOperation(value = "유저 회원 탈퇴")
-    @ApiImplicitParam(name = "userId", value = "유저의 식별 코드인 ID", dataType = "String")
-    @PatchMapping("/user/delete/{userId}")
-    public ResponseEntity userDelete(@PathVariable("userId") String Id) {
-        userService.patchUserDelete(Id);
+    @ApiImplicitParam(name = "userSeq", value = "유저의 식별 코드", dataType = "Long", example="1")
+    @PatchMapping("/user/delete/{userSeq}")
+    public ResponseEntity userDelete(@PathVariable("userSeq") Long userSeq) {
+        userService.patchUserDelete(userSeq);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @ApiOperation(value = "유저 랭킹 온도순으로 반환")
+    @GetMapping("/rank")
+    public ResponseEntity userRank() {
+        List<UserRankDto> result = new ArrayList<>();
+        List<User> user = userService.getUserRank();
+        for (User u : user)
+            result.add(new UserRankDto(u));
+        return ResponseEntity.ok().body(result);
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
-
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Nav from './components/Nav/Nav';
 import Main from './pages/Main/Main';
 import Room from './pages/Room/Room';
 import SearchCookRoom from './pages/Search/SearchCookRoom';
@@ -12,22 +12,14 @@ import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
 import RecipeRegister from './pages/Recipe/RecipeRegister';
-import KAKAOAuth from './utils/KakaoAuth';
+
 import RedirectPage from './utils/RedirectPage';
+import Footer from './components/Nav/Footer';
 
 function App() {
   return (
-    <div>
-      <ul>
-        <li>
-          [nav바 로 변경해야 합니다 검색페이지로 이동하는 위치 입니다.]
-          <NavLink to="/Main">쿠게더</NavLink>
-          <NavLink to="/SearchCookRoom"> 요리방</NavLink>
-          <NavLink to="/SearchRecipe"> 레시피</NavLink>
-        </li>
-      </ul>
-      <br />
-
+    <div style={{ position: 'relative' }}>
+      <Nav />
       <Switch>
         <Route path="/" exact>
           <Redirect to="/Main" />
@@ -48,6 +40,7 @@ function App() {
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage} />
       </Switch>
+      <Footer />
     </div>
   );
 }

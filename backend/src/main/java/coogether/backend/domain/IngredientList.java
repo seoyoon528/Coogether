@@ -17,19 +17,19 @@ import static javax.persistence.FetchType.LAZY;
 @Table(name = "ingredient_list")
 public class IngredientList {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ingredient_list_id", nullable = false)
-    private int ingredientListId;
+    private Long ingredientListId;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredientId;
+    private Ingredient ingredient;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "recipe_id")
-    private Recipe recipeId;
+    private Recipe recipe;
 
     @Column(name = "ingredient_amount", length = 30, nullable = true)
     private String ingredientAmount;

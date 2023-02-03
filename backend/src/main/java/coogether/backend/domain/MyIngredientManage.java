@@ -19,27 +19,27 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "my_ingredient_manage")
 public class MyIngredientManage {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "my_ingredient_manage_id", nullable = false)
-    private int myIngredientManageId;
+    private Long myIngredientManageId;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredientId;
+    private Ingredient ingredient;
 
     @LastModifiedDate // 최종 수정 시간
-    @Column(name = "my_ingredient_manage_date", updatable = false, nullable = false)
+    @Column(name = "my_ingredient_manage_date", nullable = false)
     private LocalDateTime myIngredientManageDate;
 
     @Enumerated(EnumType.STRING)

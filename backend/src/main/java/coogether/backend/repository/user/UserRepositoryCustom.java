@@ -5,15 +5,12 @@ import coogether.backend.domain.status.EnumUserCookCategory;
 import coogether.backend.dto.UserDto;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface UserRepositoryCustom {
-    public User findByUserId(String id);
-    public List<User> findByUserName(String name);
+    User findByUserId(Long userSeq);
+    List<User> findByUserName(String name);
 
-
-    @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Query("update User u set u.userAccountStatus = 'INACTIVE' where u.userId = :Id")
-    void deleteByUserId(String Id);
 }

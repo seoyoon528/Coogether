@@ -20,17 +20,17 @@ public class History {
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_id")
-    private CookingRoom cookingRoomId;
+    private CookingRoom cookingRoom;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "history_id", nullable = false)
-    private int historyId;
+    private Long historyId;
 
     @Column(name = "history_img", length = 100, nullable = true)
     private String historyImg;

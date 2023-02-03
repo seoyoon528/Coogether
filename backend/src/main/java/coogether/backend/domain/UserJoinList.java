@@ -25,17 +25,17 @@ public class UserJoinList {
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "cooking_room_id")
-    private CookingRoom cookingRoomId;
+    private CookingRoom cookingRoom;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_join_list_id", nullable = false)
-    private int userJoinListId;
+    private Long userJoinListId;
 
     @CreatedDate // 참여자 입장 시간
     @Column(name = "user_join_reg_time", updatable = false, nullable = false)
