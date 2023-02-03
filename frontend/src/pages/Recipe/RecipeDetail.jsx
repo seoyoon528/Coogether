@@ -4,8 +4,8 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 
 // Components
-import RecipeIngredients from './detailComponents/RecipeIngredients';
-import RecipeOrders from './detailComponents/RecipeOrders';
+import RecipeIngredients from '../../components/Recipe/RecipeIngredients';
+import RecipeOrders from '../../components/Recipe/RecipeOrders';
 
 // Style
 import { RecipeDetailStyle } from './RecipeDetailStyle';

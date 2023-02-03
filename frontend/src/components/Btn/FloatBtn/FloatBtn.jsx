@@ -22,8 +22,8 @@ function FloatBtn() {
         ariaLabel="SpeedDial"
         sx={{
           position: 'fixed',
-          bottom: 20,
-          right: 100,
+          bottom: 48,
+          right: 48,
           // '.MuiButtonBase-root': { backgroundColor: '#FEBD2F' },
           '.MuiFab-root': { backgroundColor: '#FEBD2F' },
           '.MuiFab-sizeLarge': {

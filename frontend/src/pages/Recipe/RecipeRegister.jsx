@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Component
-import RecipeRegisterForm from './components/RecipeRegisterForm';
+import RecipeRegisterForm from '../../components/Recipe/Register/RecipeRegisterForm';
 
 // Style
 import { RecipeRegisterStyle } from './RecipeRegisterStyle';
