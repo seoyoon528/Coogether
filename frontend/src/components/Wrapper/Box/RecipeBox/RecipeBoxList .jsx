@@ -5,12 +5,12 @@ import { Grid } from '@mui/material';
 import RecipeBoxItem from './RecipeBoxItem ';
 
 function RecipeBoxList(props) {
-  const { DUMMY_RECIPE } = props;
+  const { recepi } = props;
   return (
     <Grid container spacing={2} justifyContent="space-evenly">
-      {DUMMY_RECIPE.map(recipe => {
+      {recepi.map(recipe => {
         return (
-          <Grid item key={recipe.id}>
+          <Grid item key={recipe.recipeId}>
             <RecipeBoxItem recipe={recipe} />
           </Grid>
         );

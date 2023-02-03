@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
 import CookRoom from '../../components/Room/CookRoom';
+import WaitRoom from '../../components/Room/WaitRoom';
 
 function Room() {
   const params = useParams();
@@ -14,18 +15,13 @@ function Room() {
   // 남은 시간
   let remainingTime;
 
-  const { roomName } = location.state.roomName;
-  const { king } = location.state.king;
-  const { thumbnail } = location.state.thumbnail;
-  const { anounce } = location.state.anounce;
-  const { recipe } = location.state.recipe;
-  const { startTime } = location.state.startTime;
-  const { targetTime } = location.state.targetTime;
+  const { roomId } = params;
 
-  const hour = startTime.getHours();
-  const minute = startTime.getMinutes();
-  const START = `${hour}시: ${minute}분`;
+  // console.log(roomId);
 
+  const cookingRoomStartTime = location.state.targetTime;
+  const targetTime = new Date(cookingRoomStartTime).getTime();
+  // console.log(targetTime);
   // 시간 계산
   const calculateTime = useCallback(() => {
     const currentTime = new Date().getTime();
@@ -37,50 +33,27 @@ function Room() {
     remainingTime = calculateTime(targetTime);
 
     changeTimer = setTimeout(changeCheck, remainingTime);
-
+    console.log(remainingTime);
     // 밀리초 로 5분(300000) 아래면 값을 변경하게 변경
-    if (remainingTime < 0) {
+    if (remainingTime < 300000) {
       setIsStart(true);
       clearTimeout(changeTimer);
     }
   }, []);
 
   useEffect(() => {
-    // changeTimer = setTimeout(changeCheck, remainingTime);
-    changeCheck();
+    changeTimer = setTimeout(changeCheck, remainingTime);
+    // changeCheck();
     return () => {
       clearTimeout(changeTimer);
     };
   }, []);
-  console.log(isStart);
 
-  // WaitRoom 이라고 가정
-  const test = (
-    <div>
-      <p>제목 : {roomName}</p>
-      <p>{params.roomId} 번 요리방 입니다</p>
-      <img src={thumbnail} alt="" />
-      <p>{START} 시작</p>
-      <p>요리대장 : {king}</p>
-      <p>레시피 : {recipe}</p>
-      {anounce && <p>공지사항 : {anounce}</p>}
-    </div>
-  );
-
-  // CookRoom 이라고 가정
-  const test2 = (
-    <div>
-      <p>지금 방송중</p>
-    </div>
-  );
   return (
     <div>
-      {/* {test} */}
-      {!isStart ? test : test2}
-      {isStart && <CookRoom />}
+      {isStart ? <CookRoom roomId={roomId} /> : <WaitRoom roomId={roomId} />}
     </div>
   );
 }
-//  {/* 요리 대기방, 요리 진행방 컴포넌트를 넣고 time 아웃으로 자동으로 넘어가게하기 */}
 
 export default Room;

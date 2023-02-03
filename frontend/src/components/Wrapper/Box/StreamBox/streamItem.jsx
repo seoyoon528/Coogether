@@ -5,29 +5,24 @@ import * as S from './streamItemStyle';
 
 function StreamItem({ room }) {
   const {
-    roomId,
-    roomName,
+    cookingRoomId,
+    cookingRoomImg,
+    cookingRoomName,
+    cookingRoomStartTime,
+    cookingRoomHost,
+    userJoinLists,
     recipe,
-    startTime,
-    thumbnail,
-    anounce,
-    king,
-    targetTime,
-    users,
   } = room;
-
-  const hour = startTime.getHours();
-  const minute = startTime.getMinutes();
+  const StartTime = new Date(cookingRoomStartTime);
+  const hour = StartTime.getHours();
+  const minute = StartTime.getMinutes();
   const START = `${hour}: ${minute}`;
-
   return (
     <S.CookRoomItemWrapper>
-      {/* <Link to={`/Room/${id}`}>{roomName}</Link> */}
-      {/* to 프롭을 객체로 묶어서 보낼 수 있음 이때 주소를 입력하려면 pathname 으로 사용 */}
-      <S.CookRoomItemImg src={thumbnail} alt="이미지 오류" />
+      <S.CookRoomItemImg src={cookingRoomImg} alt="img" />
       <S.StartUserWrapper>
         <S.JoinUserWrapper>
-          <p>{users}명</p>
+          <p>{userJoinLists ? userJoinLists.length : 0}명</p>
         </S.JoinUserWrapper>
         <S.StartTimeWrapper>
           <p>{START} 시작</p>
@@ -35,25 +30,17 @@ function StreamItem({ room }) {
       </S.StartUserWrapper>
       <Link
         to={{
-          pathname: `/Room/${roomId}`,
-          state: {
-            roomName: { roomName },
-            recipe: { recipe },
-            startTime: { startTime },
-            targetTime: { targetTime },
-            thumbnail: { thumbnail },
-            anounce: { anounce },
-            king: { king },
-          },
+          pathname: `/Room/${cookingRoomId}`,
+          state: { targetTime: cookingRoomStartTime },
         }}
       >
-        <S.roomTitle>{roomName}</S.roomTitle>
+        <S.roomTitle>{cookingRoomName}</S.roomTitle>
       </Link>
       <S.KingWrapper>
-        <p>{king}</p>
+        <p>{cookingRoomHost}</p>
       </S.KingWrapper>
       <S.TagWrapper>
-        <span>#{recipe}</span>
+        <span>#{recipe.recipeName}</span>
       </S.TagWrapper>
     </S.CookRoomItemWrapper>
   );
