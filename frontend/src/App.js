@@ -12,8 +12,11 @@ import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
 import RecipeRegister from './pages/Recipe/RecipeRegister';
+import Footer from './components/Nav/Footer';
 
 function App() {
+  console.log(new Date(Date.now()).getTimezoneOffset());
+
   return (
     <div style={{ position: 'relative' }}>
       <Nav />
@@ -33,6 +36,7 @@ function App() {
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage} />
       </Switch>
+      <Footer />
     </div>
   );
 }
