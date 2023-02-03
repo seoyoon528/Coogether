@@ -24,5 +24,6 @@ module.exports = {
     'import/prefer-default-export': 'off', // export default 없으면 생기는 오류를 꺼줌
     'jsx-a11y/label-has-associated-control': 'off', // label 사용시 input을 label 안에 작성하도록 하는 기능 off,
     'react/jsx-no-useless-fragment': 'off', // 불필요한 프래그먼트 사용에 경고
+    'react/jsx-props-no-spreading': 'off', // props spread 오류를 꺼둠
   },
 };
