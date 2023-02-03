@@ -15,8 +15,6 @@ import RecipeRegister from './pages/Recipe/RecipeRegister';
 import Footer from './components/Nav/Footer';
 
 function App() {
-  console.log(new Date(Date.now()).getTimezoneOffset());
-
   return (
     <div style={{ position: 'relative' }}>
       <Nav />
