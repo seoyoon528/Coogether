@@ -27,11 +27,23 @@ import java.util.List;
 public class IngredientController {
 
     private final IngredientService ingredientService;
+
+    @ApiOperation(value = " 전체 재료 목록을 반환하는 메소드")
+    @GetMapping("/ingredient/list/total")
+    public ResponseEntity ingredientTotalList()  {
+        List<SimpleIngredientDto> result = new ArrayList<>();
+        List<Ingredient> ingredients = ingredientService.ingredientTotalList();
+        for (Ingredient i : ingredients)
+            result.add(new SimpleIngredientDto(i));
+
+        return ResponseEntity.ok().body(result);
+    }
+
     @ApiOperation(value = "카테고리별 전체 재료 목록 반환하는 메소드")
     @GetMapping("/ingredient/list/total/{categoryId}")
     public ResponseEntity ingredientTotalListByCategoryId(@PathVariable("categoryId") EnumIngredientCategory categoryId)  {
         List<SimpleIngredientDto> result = new ArrayList<>();
-        List<Ingredient> ingredients = ingredientService.myIngredientTotalListByCategoryId(categoryId);
+        List<Ingredient> ingredients = ingredientService.ingredientTotalListByCategoryId(categoryId);
         for (Ingredient i : ingredients)
             result.add(new SimpleIngredientDto(i));
 

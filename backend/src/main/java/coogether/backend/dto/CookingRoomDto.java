@@ -30,7 +30,6 @@ public class CookingRoomDto {
     private LocalDateTime cookingRoomStartTime;
     private EnumCookingRoomStatus cookingRoomStatus;
     private String cookingRoomNotice;
-    private String cookingHostName;
 
     //////////////////////////////////////
 
@@ -56,7 +55,6 @@ public class CookingRoomDto {
         this.cookingRoomStartTime = cookingRoom.getCookingRoomStartTime();
         this.cookingRoomStatus = cookingRoom.getCookingRoomStatus();
         this.cookingRoomNotice = cookingRoom.getCookingRoomNotice();
-        this.cookingHostName = cookingRoom.getCookingRoomHost().getUserNickname();
 
 //        this.recipeHostName = cookingRoom.getRecipe().getUser().getUserNickname();
 //        this.recipeType = cookingRoom.getRecipe().getRecipeType();

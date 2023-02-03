@@ -30,7 +30,7 @@ public class Ingredient {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ingredient_id", nullable = false)
     private Long ingredientId;
 
