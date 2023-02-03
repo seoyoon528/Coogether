@@ -1,7 +1,13 @@
 import React from 'react';
 
+// MUI
 import Grid from '@mui/material/Grid';
 
+// Components
+import RecipeIngredients from './detailComponents/RecipeIngredients';
+import RecipeOrders from './detailComponents/RecipeOrders';
+
+// Style
 import { RecipeDetailStyle } from './RecipeDetailStyle';
 
 const DUMMY_DATA = {
@@ -37,33 +43,61 @@ function RecipeDetail() {
   return (
     <RecipeDetailStyle>
       <section className="recipe-detail">
-        <Grid container spacing={2} columns={10}>
+        <Grid container columnSpacing={2} rowSpacing={5} columns={12}>
           <Grid item xs={5} className="recipe-detail__information">
-            <h2>{DUMMY_DATA.name}</h2>
-            <ul className="top">
-              <li>
-                <p>재료</p>
-                <p>{ingredientsNum}</p>
-              </li>
-              <li>
-                <p>과정</p>
-                <p>{recipeContentNum}</p>
-              </li>
-              <li>
-                <p>출처</p>
-                <p>{DUMMY_DATA.author}</p>
-              </li>
+            <h2 className="information__name">{DUMMY_DATA.name}</h2>
+            <ul className="information__list">
+              <Grid container spacing={2} columns={12}>
+                <Grid item xs={4}>
+                  <li className="information__item">
+                    <div className="information__item__category">
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/2940/2940816.png"
+                        alt="재료 아이콘"
+                      />
+                      <p>재료</p>
+                    </div>
+                    <p>{ingredientsNum}</p>
+                  </li>
+                </Grid>
+                <Grid item xs={4}>
+                  <li className="information__item">
+                    <div className="information__item__category">
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/3078/3078984.png"
+                        alt="과정 아이콘"
+                      />
+                      <p>과정</p>
+                    </div>
+                    <p>{recipeContentNum}</p>
+                  </li>
+                </Grid>
+                <Grid item xs={4}>
+                  <li className="information__item">
+                    <div className="information__item__category">
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/2088/2088619.png"
+                        alt="출처 아이콘"
+                      />
+                      <p>출처</p>
+                    </div>
+                    <p>{DUMMY_DATA.author}</p>
+                  </li>
+                </Grid>
+              </Grid>
             </ul>
           </Grid>
-          <Grid item xs={5}>
-            <img
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-              alt="food"
-              width="200px"
-              height="auto"
-            />
+          <Grid item xs={1} />
+          <Grid item xs={6}>
+            <div className="information__image">
+              <img
+                src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                alt="food"
+              />
+            </div>
           </Grid>
           <Grid item xs={5} className="recipe-detail__information">
+            <RecipeIngredients />
             <h2>재료</h2>
             <ul>
               {DUMMY_DATA.ingredients.map((ingredient, idx) => {
@@ -77,6 +111,7 @@ function RecipeDetail() {
             </ul>
           </Grid>
           <Grid item xs={5} className="recipe-detail__information">
+            <RecipeOrders />
             <h2>레시피</h2>
             <ul>
               {DUMMY_DATA.contents.map((content, idx) => {
