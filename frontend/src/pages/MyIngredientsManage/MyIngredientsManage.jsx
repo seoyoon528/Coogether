@@ -8,7 +8,7 @@ import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
 import { Contents } from './MyIngredientsManageStyle';
 
 function MyIngredientsManage() {
-  const [category, setCategory] = useState('all');
+  const [category, setCategory] = useState('ALL');
   const onSelect = useCallback(Category => setCategory(Category), []);
   const components = [
     <FavoriteIngredients category={category} />,
