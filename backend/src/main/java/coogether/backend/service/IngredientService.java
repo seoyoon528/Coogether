@@ -18,7 +18,7 @@ import java.util.List;
 public class IngredientService {
     private final IngredientRepository ingredientRepository;
 
-    public List<Ingredient> myIngredientTotalListByCategoryId(EnumIngredientCategory categoryId) {
+    public List<Ingredient> ingredientTotalListByCategoryId(EnumIngredientCategory categoryId) {
         return ingredientRepository.findByCategoryId(categoryId);
     }
 
@@ -29,5 +29,9 @@ public class IngredientService {
 
     public List<Ingredient> ingredientListByIngredientName(String ingredientName) {
         return ingredientRepository.findByIngredientName(ingredientName);
+    }
+
+    public List<Ingredient> ingredientTotalList() {
+        return ingredientRepository.findAll();
     }
 }

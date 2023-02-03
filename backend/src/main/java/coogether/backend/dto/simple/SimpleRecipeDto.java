@@ -31,4 +31,14 @@ public class SimpleRecipeDto {
         this.recipeCreatedDate = recipe.getRecipeCreatedDate();
 
     }
+
+    @QueryProjection
+    public SimpleRecipeDto(Long recipeId, EnumRecipeCategory recipeCategory, EnumRecipeType recipeType, String recipeContent, String recipeName, LocalDateTime recipeCreatedDate) {
+        this.recipeId = recipeId;
+        this.recipeCategory = recipeCategory;
+        this.recipeType = recipeType;
+        this.recipeContent = recipeContent;
+        this.recipeName = recipeName;
+        this.recipeCreatedDate = recipeCreatedDate;
+    }
 }

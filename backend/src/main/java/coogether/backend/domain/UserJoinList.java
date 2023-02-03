@@ -33,7 +33,7 @@ public class UserJoinList {
     private User user;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_join_list_id", nullable = false)
     private Long userJoinListId;
 

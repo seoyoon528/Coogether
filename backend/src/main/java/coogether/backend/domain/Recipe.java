@@ -36,7 +36,7 @@ public class Recipe {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipe_id", nullable = false)
     private Long recipeId;
 

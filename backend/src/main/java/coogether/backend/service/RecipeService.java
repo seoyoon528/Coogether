@@ -1,9 +1,15 @@
 package coogether.backend.service;
 
 import coogether.backend.domain.Recipe;
+import coogether.backend.domain.User;
 import coogether.backend.dto.request.RecipeRequest;
+import coogether.backend.dto.simple.SimpleRecipeDto;
+import coogether.backend.dto.simple.SimpleUserDto;
 import coogether.backend.repository.recipe.RecipeRepository;
+import coogether.backend.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,17 +22,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecipeService {
     private final RecipeRepository recipeRepository;
+    private final UserRepository userRepository;
 
     public List<Recipe> getRecipeAll(){
         return recipeRepository.findAll();
     }
-
+    public Page<SimpleRecipeDto> getRecipeAllPaging(Pageable pageable){
+        return recipeRepository.allRecipePage(pageable);
+    }
     public List<Recipe> getRecipeListByRecipeName(String recipeName){
         return recipeRepository.findByRecipeName(recipeName);
     }
 
     @Transactional
-    public Recipe addCustomRecipe(RecipeRequest recipeRequest) {
+    public Recipe addCustomRecipe(RecipeRequest recipeRequest, Long userSeq) {
         // 기본 정보
         Recipe recipe = new Recipe();
         recipe.setRecipeCategory(recipeRequest.getRecipeCategory());
@@ -34,9 +43,16 @@ public class RecipeService {
         recipe.setRecipeName(recipeRequest.getRecipeName());
         recipe.setRecipeType(recipeRequest.getRecipeType());
         recipe.setRecipeCreatedDate(LocalDateTime.now());
+
+        User user = userRepository.findByUserId(userSeq);
+        recipe.setUser(user);
         recipeRepository.save(recipe);
 
 
         return recipe;
+    }
+
+    public Page<SimpleRecipeDto> getRecipeListPagingByRecipeName(String recipeName, Pageable pageable) {
+        return recipeRepository.getRecipeListPagingByRecipeName(recipeName,pageable);
     }
 }

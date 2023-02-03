@@ -41,7 +41,7 @@ public class CookingRoom {
     @OneToMany(mappedBy = "cookingRoom", cascade = CascadeType.ALL)
     private List<UserJoinList> userJoinLists = new ArrayList<>();
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cooking_room_id", nullable = false)
     private Long cookingRoomId;
 
@@ -51,9 +51,6 @@ public class CookingRoom {
     @Column(name = "cooking_room_img", length = 100, nullable = false)
     private String cookingRoomImg;
 
-
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
-    @LastModifiedDate // 요리 시작 시간
     @Column(name = "cooking_room_start_time", updatable = false, nullable = false)
     private LocalDateTime cookingRoomStartTime;
 
