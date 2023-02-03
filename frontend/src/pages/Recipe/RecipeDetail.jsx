@@ -1,9 +1,10 @@
 import React from 'react';
 
 // MUI
-import Grid from '@mui/material/Grid';
+import { Grid } from '@mui/material';
 
 // Components
+import RecipeInformations from '../../components/Recipe/RecipeInformations';
 import RecipeIngredients from '../../components/Recipe/RecipeIngredients';
 import RecipeOrders from '../../components/Recipe/RecipeOrders';
 
@@ -14,7 +15,7 @@ const DUMMY_DATA = {
   name: '레시피 이름',
   category: '한식',
   author: '사람',
-  contents: [
+  orders: [
     '닭고기는 씻어서 우유에 재워 잡내를 제거해준다.',
     '된장 2T, 고추장 1.5T, 다진마늘 1.5T, 맛술 1.5T, 꿀 2T, 고춧가루 1.5T, 참기름 1/2T, 후추 약간을 넣고 쌈장소스를 만든다.',
     '고구마는 스틱형으로 썰고, 양배추는 고구마스틱보다는 조금 큰 사이즈로 썰어서 준비해둔다.',
@@ -37,55 +38,23 @@ const DUMMY_DATA = {
 };
 
 function RecipeDetail() {
-  const ingredientsNum = DUMMY_DATA.ingredients.length;
-  const recipeContentNum = DUMMY_DATA.contents.length;
+  const { name, category, author, orders, ingredients, date } = DUMMY_DATA;
+  const orderCount = ingredients.length;
+  const contentCount = orders.length;
 
   return (
     <RecipeDetailStyle>
       <section className="recipe-detail">
-        <Grid container columnSpacing={2} rowSpacing={5} columns={12}>
+        <Grid container columnSpacing={2} rowSpacing={8} columns={12}>
           <Grid item xs={5} className="recipe-detail__information">
-            <h2 className="information__name">{DUMMY_DATA.name}</h2>
-            <ul className="information__list">
-              <Grid container spacing={2} columns={12}>
-                <Grid item xs={4}>
-                  <li className="information__item">
-                    <div className="information__item__category">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/2940/2940816.png"
-                        alt="재료 아이콘"
-                      />
-                      <p>재료</p>
-                    </div>
-                    <p>{ingredientsNum}</p>
-                  </li>
-                </Grid>
-                <Grid item xs={4}>
-                  <li className="information__item">
-                    <div className="information__item__category">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/3078/3078984.png"
-                        alt="과정 아이콘"
-                      />
-                      <p>과정</p>
-                    </div>
-                    <p>{recipeContentNum}</p>
-                  </li>
-                </Grid>
-                <Grid item xs={4}>
-                  <li className="information__item">
-                    <div className="information__item__category">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/2088/2088619.png"
-                        alt="출처 아이콘"
-                      />
-                      <p>출처</p>
-                    </div>
-                    <p>{DUMMY_DATA.author}</p>
-                  </li>
-                </Grid>
-              </Grid>
-            </ul>
+            <RecipeInformations
+              name={name}
+              category={category}
+              author={author}
+              orderCount={orderCount}
+              contentCount={contentCount}
+              date={date}
+            />
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={6}>
@@ -96,33 +65,15 @@ function RecipeDetail() {
               />
             </div>
           </Grid>
-          <Grid item xs={5} className="recipe-detail__information">
-            <RecipeIngredients />
-            <h2>재료</h2>
-            <ul>
-              {DUMMY_DATA.ingredients.map((ingredient, idx) => {
-                return (
-                  <li className="ingredient" key={`ingredients-${idx + 1}`}>
-                    <p>{ingredient.name}</p>
-                    <p>{ingredient.amount}</p>
-                  </li>
-                );
-              })}
-            </ul>
+          <Grid item xs={12}>
+            <hr color="#ffcc5e" />
           </Grid>
           <Grid item xs={5} className="recipe-detail__information">
-            <RecipeOrders />
-            <h2>레시피</h2>
-            <ul>
-              {DUMMY_DATA.contents.map((content, idx) => {
-                return (
-                  <li key={`contents-${idx + 1}`}>
-                    <h4>{idx + 1}</h4>
-                    <p>{content}</p>
-                  </li>
-                );
-              })}
-            </ul>
+            <RecipeIngredients ingredients={ingredients} />
+          </Grid>
+          <Grid item xs={2} />
+          <Grid item xs={5} className="recipe-detail__information">
+            <RecipeOrders orders={orders} />
           </Grid>
         </Grid>
       </section>
