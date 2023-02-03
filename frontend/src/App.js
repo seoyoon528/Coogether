@@ -13,6 +13,7 @@ import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
 import RecipeRegister from './pages/Recipe/RecipeRegister';
 import Footer from './components/Nav/Footer';
+import FloatBtn from './components/Btn/FloatBtn/FloatBtn';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage} />
       </Switch>
+      <FloatBtn />
       <Footer />
     </div>
   );
