@@ -5,7 +5,6 @@ import * as S from './streamListStyle';
 
 function StreamList(props) {
   const { cookRoom } = props;
-  console.log(cookRoom);
   return (
     <>
       {cookRoom

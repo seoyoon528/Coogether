@@ -27,7 +27,7 @@ function SearchCookRoom() {
             : `http://i8b206.p.ssafy.io:9000/room/search/${enterdItme}`
         }`,
       });
-      console.log(allCookRoom.data);
+      // console.log(allCookRoom.data);
       if (enterdItme) {
         setCookRoom([]);
       }
