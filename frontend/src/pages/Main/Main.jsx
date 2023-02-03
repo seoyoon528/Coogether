@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 import StreamList from '../../components/Wrapper/Box/StreamBox/streamList';
-import FloatBtn from '../../components/Btn/FloatBtn/FloatBtn';
 
 // 테스트용
 import gim from '../../assets/img/김찌.jpg';
@@ -47,7 +46,6 @@ function Main() {
         변경해야합니다]
       </p>
       {/* <StreamList DUMMY_ROOM={DUMMY_ROOM} /> */}
-      <FloatBtn />
     </div>
   );
 }
