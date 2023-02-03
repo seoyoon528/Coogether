@@ -1,7 +1,7 @@
 {
   "categories": [
     {
-      "id": "all",
+      "id": "ALL",
       "text": "전체보기"
     },
     {
@@ -15,6 +15,10 @@
     {
       "id": "GRAIN",
       "text": "곡류/견과류/콩류/가루"
+    },
+    {
+      "id": "SEAFOOD",
+      "text": "해산물"
     },
     {
       "id": "DAIRY",
@@ -37,20 +41,8 @@
       "text": "면류"
     },
     {
-      "id": "PROCESSED FOOD",
+      "id": "PROCESSEDFOOD",
       "text": "가공식품"
-    },
-    {
-      "id": "OIL",
-      "text": "오일"
-    },
-    {
-      "id": "DRINK",
-      "text": "물/음료/주류"
-    },
-    {
-      "id": "KIMCHI",
-      "text": "젓갈"
     },
     {
       "id": "ETC",

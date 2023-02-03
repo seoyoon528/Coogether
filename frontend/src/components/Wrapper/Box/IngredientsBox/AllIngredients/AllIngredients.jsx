@@ -1,71 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import dummy from '../ingredients.json';
-import { Contents } from './AllIngredientsStyle';
+import { Contents, Circle, Button, Wrapper } from './AllIngredientsStyle';
 
 function AllIngredients({ category }) {
-  const categoryList = dummy.ingredients;
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
+  const [ingredients, setIngredients] = useState([]);
   const handleClick = i => {
     setselectIngredientId(i.name);
     setVisible(!visible);
   };
-  const AllIngredient = categoryList.map(e => {
-    console.log(e.name);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const query = category;
+        const response = await axios.get(
+          `http://i8b206.p.ssafy.io:9000/ingredient/list/total/${query}`
+        );
+
+        setIngredients([...response.data.map((v, a) => v.ingredientName)]);
+        console.log(ingredients);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData();
+  }, [category]);
+
+  const ingredient = ingredients.map(i => {
     return (
       <span>
-        <button
-          key={e.name}
+        <Circle
+          key={i}
           onClick={() => {
-            handleClick(e);
+            handleClick(i);
           }}
         >
-          {e.name}
-          {selectIngredientId === e.name && visible && (
-            <div>
-              <button>즐겨찾기</button>
-              <button>내 냉장고로</button>
-            </div>
+          {i}
+          {selectIngredientId === i && visible && (
+            <>
+              <Button>즐겨찾기</Button>
+              <Button>내 냉장고</Button>
+            </>
           )}
-        </button>
+        </Circle>
       </span>
     );
   });
-  const ingredient = categoryList
-    .filter(i => i.id === category)
-    .map(i => {
-      return (
-        <span>
-          <div>{i.text} 전체</div>
-          <button
-            key={i.name}
-            onClick={() => {
-              handleClick(i);
-            }}
-          >
-            {i.name}
-            {selectIngredientId === i.name && visible && (
-              <div>
-                <button>즐겨찾기</button>
-                <button>내 냉장고로</button>
-              </div>
-            )}
-          </button>
-        </span>
-      );
-    });
-  // const categoryName = categoryList
-  //   .filter(i => i.id === category)
-  //   .map(i => {
-  //     return <div key={i.id}>{i.text}</div>;
-  //   });
 
-  // <h3>{categoryName} 전체</h3>;
-  if (category === 'all') {
+  // const AllIngredient = ingredients.map(e => {
+  //   console.log(e.name);
+  //   return (
+  //     <span>
+  //       <Circle
+  //         key={e.name}
+  //         onClick={() => {
+  //           handleClick(e);
+  //         }}
+  //       >
+  //         {/* {selectIngredientId === e.name && visible && (
+  //             <>
+  //               <Button>즐겨찾기</Button>
+  //               <Button>내 냉장고</Button>
+  //             </>
+  //           )} */}
+  //         {e.name}
+  //         {selectIngredientId === e.name && visible && (
+  //           <Wrapper>
+  //             <Button>즐겨찾기</Button>
+  //             <Button>내 냉장고</Button>
+  //           </Wrapper>
+  //         )}
+  //       </Circle>
+  //     </span>
+  //   );
+  // });
+
+  if (category === 'ALL') {
     return (
       <div>
         <Contents>
-          <h4>재료 전체</h4> <div>{AllIngredient}</div>
+          전체{/* <h4>재료 전체</h4> <div>{AllIngredient}</div> */}
         </Contents>
       </div>
     );
@@ -73,7 +89,8 @@ function AllIngredients({ category }) {
   return (
     <div>
       <Contents>
-        <div>{ingredient}</div>
+        <h4>{category} 전체</h4>
+        {ingredient}
       </Contents>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import StreamList from '../../components/Wrapper/Box/StreamBox/streamList';
 import FloatBtn from '../../components/Btn/FloatBtn/FloatBtn';
@@ -45,11 +46,9 @@ function Main() {
         [추천요리방 테스트 입니다 알고리즘을 적용한 요리방 리스트로
         변경해야합니다]
       </p>
-
-      <StreamList DUMMY_ROOM={DUMMY_ROOM} />
+      {/* <StreamList DUMMY_ROOM={DUMMY_ROOM} /> */}
       <FloatBtn />
     </div>
   );
 }
-
 export default Main;
