@@ -28,6 +28,9 @@ function SearchCookRoom() {
         }`,
       });
       console.log(allCookRoom.data);
+      if (enterdItme) {
+        setCookRoom([]);
+      }
       setCookRoom(prev => [...prev, ...allCookRoom.data]);
     } catch (error) {
       console.log(error);

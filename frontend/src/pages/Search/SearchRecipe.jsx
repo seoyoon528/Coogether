@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import RecipeBox from '../../components/Wrapper/Box/RecipeBox/RecipeBoxList ';
+import RecipeBoxList from '../../components/Wrapper/Box/RecipeBox/RecipeBoxList ';
 import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
 import * as S from './SearchRecipeStyle';
 
@@ -44,6 +45,7 @@ const DUMMY_RECIPE = [
 
 function SearchRecipe() {
   const [enterdItme, setEnterdItme] = useState('');
+  const [recepi, setRecepi] = useState([]);
 
   const TEXT = <p>원하는 레시피를 입력해주세요</p>;
 
@@ -54,11 +56,28 @@ function SearchRecipe() {
   // HTTP 요청 보내야 함
   // 비동기 요청 보내기
   // enterdItme 이 비어있으면 전체 (/room/list)
-  // enterdItme 값이 있으면 검색어 기반 (/room/search/{recipeName})
-
-  // useEffect(() => {
-  //   console.log(enterdItme);
-  // }, [enterdItme]);
+  // enterdItme 값이 있으면 검색어 기반 (/room/search/{recipeName}
+  const getData = async () => {
+    try {
+      const allRecepi = await axios({
+        url: `${
+          !enterdItme
+            ? 'http://i8b206.p.ssafy.io:9000/recipe/list'
+            : `http://i8b206.p.ssafy.io:9000/recipe/search/${enterdItme}`
+        }`,
+      });
+      console.log(allRecepi.data);
+      if (enterdItme) {
+        setRecepi([]);
+      }
+      setRecepi(prev => [...prev, ...allRecepi.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, [enterdItme]);
 
   return (
     <div>
@@ -68,7 +87,7 @@ function SearchRecipe() {
       </S.SearchSubHeader>
       <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
       <br />
-      <RecipeBox DUMMY_RECIPE={DUMMY_RECIPE} />
+      <RecipeBoxList recepi={recepi} />
     </div>
   );
 }
