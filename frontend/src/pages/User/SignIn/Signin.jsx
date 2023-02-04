@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // MUI 설정
@@ -28,7 +29,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-function Signin() {
+function Signin({ userId, userName, email }) {
   // 백엔드에 post요청 추후 추가
   const [nickName, setNickName] = useState('');
   const [prefer, setPrefer] = useState('');
@@ -47,6 +48,22 @@ function Signin() {
   };
   const preferHandler = e => {
     setPrefer(e.target.value);
+  };
+  const submitRegister = async () => {
+    const userFormPayload = {
+      id: userId, // /user/login의 response로 넘어온 "user" : {"userId": "KAKAO_2309429382o348"}
+      name: userName, // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
+      email, // /user/login의 response로 넘어온 "user" : {"email": "5120a@naver.com"}
+      nickname: nickName,
+      profileImg: 'imgUrl',
+      userIntroduce: '안녕하세요 000입니다.',
+      userCookCategory: prefer,
+    };
+    const submitUserForm = await axios.post(
+      'http://localhost:9000/signup',
+      userFormPayload
+    );
+    console.log(submitUserForm);
   };
 
   const theme = useTheme();
@@ -78,6 +95,7 @@ function Signin() {
       </StyledEngineProvider>
       <div>{nickName}</div>
       <div>{prefer}</div>
+      <button onClick={submitRegister}>회원가입</button>
     </div>
   );
 }
