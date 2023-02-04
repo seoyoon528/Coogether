@@ -10,6 +10,12 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
 
+    User findByUserSeq(Long userSeq);
+
+    User findByUserId(String userId);
+
+    boolean existsByUserId(String userId);
+
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("update User u set u.userAccountStatus = 'INACTIVE' where u.userSeq = :userSeq")
     void deleteByUserId(@Param("userSeq") Long userSeq);

@@ -34,7 +34,7 @@ public class IngredientFavService {
 
             ingredientFav.setIngredientFavFlag(EnumIngredientFavFlag.YES);
             ingredientFav.setIngredientFavCreatedDate(LocalDateTime.now());
-            User user = userRepository.findByUserId(userSeq);
+            User user = userRepository.findByUserSeq(userSeq);
             ingredientFav.setUser(user);
 
             Ingredient ingredient = ingredientRepository.findByIngredientId(ingredientId);

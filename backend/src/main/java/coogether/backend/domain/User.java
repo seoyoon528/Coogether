@@ -2,6 +2,7 @@ package coogether.backend.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import coogether.backend.domain.status.EnumRoleType;
 import coogether.backend.domain.status.EnumSnsType;
 import coogether.backend.domain.status.EnumUserAccountStatus;
 import coogether.backend.domain.status.EnumUserCookCategory;
@@ -106,17 +107,24 @@ public class User {
     @Column(name = "user_sns_type", nullable = false)
     private EnumSnsType userSnsType;
 
-//    @Builder
-//    public User(String userId, String userName, String userNickname, String userEmail, String userImg, String userIntroduce, EnumUserCookCategory userCookCategory, EnumUserAccountStatus user_account_status, int userTemp, EnumSnsType userSnsType) {
-//        this.userId = userId;
-//        this.userName = userName;
-//        this.userNickname = userNickname;
-//        this.userEmail = userEmail;
-//        this.userImg = userImg;
-//        this.userIntroduce = userIntroduce;
-//        this.userCookCategory = userCookCategory;
-//        this.userAccountStatus = user_account_status;
-//        this.userTemp = userTemp;
-//        this.userSnsType = userSnsType;
-//    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role_type", nullable = false)
+    private EnumRoleType userRoleType;
+
+    @Builder
+    public User(String userId, String userName, String userNickname, String userEmail, String userImg, String userIntroduce, EnumUserCookCategory userCookCategory, EnumUserAccountStatus userAccountStatus, int userTemp, LocalDateTime userCreateDate, LocalDateTime userLastLoginDate, EnumSnsType userSnsType, EnumRoleType userRoleType) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userNickname = userNickname;
+        this.userEmail = userEmail;
+        this.userImg = userImg;
+        this.userIntroduce = userIntroduce;
+        this.userCookCategory = userCookCategory;
+        this.userAccountStatus = userAccountStatus;
+        this.userTemp = userTemp;
+        this.userCreateDate = userCreateDate;
+        this.userLastLoginDate = userLastLoginDate;
+        this.userSnsType = userSnsType;
+        this.userRoleType = userRoleType;
+    }
 }

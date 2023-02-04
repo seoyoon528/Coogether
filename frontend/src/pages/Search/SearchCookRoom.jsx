@@ -27,11 +27,11 @@ function SearchCookRoom() {
             : `http://i8b206.p.ssafy.io:9000/room/search/${enterdItme}`
         }`,
       });
-      // console.log(allCookRoom.data);
+      // console.log(allCookRoom.data.content);
       if (enterdItme) {
         setCookRoom([]);
       }
-      setCookRoom(prev => [...prev, ...allCookRoom.data]);
+      setCookRoom(prev => [...prev, ...allCookRoom.data.content]);
     } catch (error) {
       console.log(error);
     }
@@ -39,15 +39,6 @@ function SearchCookRoom() {
   useEffect(() => {
     getData();
   }, [enterdItme]);
-  // 레시피 서치 페이지에도 추가해주기
-  // HTTP 요청 보내야 함
-  // 비동기 요청 보내기
-  // enterdItme 이 비어있으면 전체 (/room/list)
-  // enterdItme 값이 있으면 검색어 기반 (/room/search/{recipeName})
-
-  // useEffect(() => {
-  //   console.log(enterdItme);
-  // }, [enterdItme]);
 
   return (
     <>

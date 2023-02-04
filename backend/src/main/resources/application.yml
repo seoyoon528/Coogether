@@ -11,6 +11,10 @@ spring:
 #    url: jdbc:mysql://localhost:3306/coogether?serverTimezone=Asia/Seoul
 #    username: ssafy
 #    password: ssafy
+#    url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Seoul
+#    username: root
+#    password: 1234
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -25,9 +29,67 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  security:
+    require-ssl: true
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 670285594761-q4akvtkap45fh6g3568ijsq28hvvcs6p.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+          naver:
+            client-id: FylJwAFhGKavz2yoO3QX
+            client-secret: yMXe696U6B
+            scope:
+              - name
+              - email
+              - profile_image
+            client-name: Naver
+            authorization-grant-type: authorization_code  # Authorization code grant 방식 :: accessToken으로 회원 프로필 받아오는 방식
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver  # code를 받는 callback 주소 (google, facebook은 provider 이므로 적지 않아도 괜찮음)
+
+          kakao:
+            client-id: 30acc021c5bbb80348171d415339d43f
+            client-secret: AQvLN8mQhTBOgIkJKGKnXQpmBGgP3y86
+            scope:
+              - profile_nickname
+              - account_email
+            client-name: Kakao
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:3000/login/oauth2/code/kakao
+            client-authentication-method: POST
+
+        provider:
+          naver:
+            authorization-uri: https://nid.naver.com/oauth2.0/authorize   # 로그인 요청 시 호출되는 주소
+            token-uri: https://nid.naver.com/oauth2.0/token   # 토큰 요청
+            user-info-uri: https://openapi.naver.com/v1/nid/me    # 사용자 프로필 주소 받아옴
+            user-name-attribute: response   # 회원정보를 json으로 받아오는데 responer라는 키값으로 네이버가 리턴해줌
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
 logging.level:
   org.hibernate.SQL: debug
   com.amazonaws.util.EC2MetadataUtils: error
 # org.hibernate.type: trace
 
+# jwt secret key 설정
+jwt:
+  header: Authorization
+  secret: '55fccacc345b23286cea2c9bee7203763efd77fa45b41d6ea2120fc83f52fe586857c75bef9f28afebf6311574bb768a488d1fa50ac4e8d6e59cec40488e0a537c5047d482c8465b3806757b12987a1269cd7ee3f98c9cad3bbb9beedd16d9616ae6202f72a6f405beb249b2264e39d6351864be8b70c6058115f02a38e3c390'
 
+# 토큰 관련 secret Key 및 RedirectUri 설정
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpiry: 1800000
+    refreshTokenExpiry: 604800000
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:3000/oauth/redirect

@@ -66,11 +66,11 @@ function SearchRecipe() {
             : `http://i8b206.p.ssafy.io:9000/recipe/search/${enterdItme}`
         }`,
       });
-      console.log(allRecepi.data);
+      // console.log(allRecepi.data.content);
       if (enterdItme) {
         setRecepi([]);
       }
-      setRecepi(prev => [...prev, ...allRecepi.data]);
+      setRecepi(prev => [...prev, ...allRecepi.data.content]);
     } catch (error) {
       console.log(error);
     }

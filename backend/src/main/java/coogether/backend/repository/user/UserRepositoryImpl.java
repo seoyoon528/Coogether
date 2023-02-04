@@ -26,14 +26,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public User findByUserId(Long userSeq) {
-        return queryFactory
-                .selectFrom(user)
-                .where(user.userSeq.eq(userSeq))
-                .fetchOne();
-    }
-
-    @Override
     public List<User> findByUserName(String name) {
         return queryFactory
                 .selectFrom(user)
