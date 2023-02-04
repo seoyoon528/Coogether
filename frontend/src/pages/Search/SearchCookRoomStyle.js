@@ -14,3 +14,8 @@ export const SearchSubHeader = styled.p`
   line-height: auto;
   color: #4f4f4f;
 `;
+
+export const SkeletonContainer = styled.span`
+  height: 255px;
+  width: 216px;
+`;

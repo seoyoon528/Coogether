@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { Grid } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 
 import StreamList from '../../components/Wrapper/Box/StreamBox/streamList';
 import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
@@ -63,6 +64,7 @@ function SearchCookRoom() {
   console.log(page);
 
   const getData = useCallback(async () => {
+    setLoad(true);
     try {
       const allCookRoom = await axios({
         url: `${
@@ -79,17 +81,27 @@ function SearchCookRoom() {
         setCookRoom([]);
         setPage(0);
       }
-      setCookRoom(prev => [...prev, ...allCookRoom.data.content]);
+
+      // setCookRoom(prev => [...prev, ...allCookRoom.data.content]);
+      // setCookRoom(prev => [...new Set([...prev, ...allCookRoom.data.content])]);
+      setCookRoom(prev => {
+        return [...new Set([...prev, ...allCookRoom.data.content])];
+      });
       preventObserverRef.current = true;
     } catch (error) {
       console.log(error);
     }
+    setLoad(false);
   }, [page, enterdItme]);
 
   useEffect(() => {
     getData();
-  }, [enterdItme, getData]);
-  console.log(cookRoom);
+  }, [enterdItme, page]);
+  // console.log(cookRoom);
+
+  const SK = Array.from({ length: 15 }, () => (
+    <Skeleton variant="rectangular" width={255} height={216} />
+  ));
 
   return (
     <>
@@ -102,6 +114,11 @@ function SearchCookRoom() {
       <br />
       <Grid container justifyContent="space-evenly">
         <StreamList cookRoom={cookRoom} />
+        {load && (
+          <Grid container justifyContent="space-evenly">
+            {SK}
+          </Grid>
+        )}
       </Grid>
       <li ref={observerRef}>체크</li>
     </>

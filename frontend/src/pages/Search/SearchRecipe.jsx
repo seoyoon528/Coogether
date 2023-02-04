@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
+import { Skeleton, Grid } from '@mui/material';
 
 import RecipeBoxList from '../../components/Wrapper/Box/RecipeBox/RecipeBoxList ';
 import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
@@ -65,6 +66,7 @@ function SearchRecipe() {
   // enterdItme 이 비어있으면 전체 (/room/list)
   // enterdItme 값이 있으면 검색어 기반 (/room/search/{recipeName}
   const getData = useCallback(async () => {
+    setLoad(true);
     try {
       const allRecepi = await axios({
         url: `${
@@ -81,16 +83,22 @@ function SearchRecipe() {
         setRecepi([]);
         setPage(0);
       }
-      setRecepi(prev => [...prev, ...allRecepi.data.content]);
+      setRecepi(prev => [...new Set([...prev, ...allRecepi.data.content])]);
+
+      // setRecepi(prev => [...prev]);
       preventObserverRef.current = true;
     } catch (error) {
       console.log(error);
     }
+    setLoad(false);
   }, [page, enterdItme]);
   useEffect(() => {
     getData();
   }, [enterdItme, getData]);
-  console.log(recepi);
+
+  const SK = Array.from({ length: 15 }, () => (
+    <Skeleton variant="rectangular" width={255} height={216} />
+  ));
 
   return (
     <div>
@@ -101,6 +109,11 @@ function SearchRecipe() {
       <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
       <br />
       <RecipeBoxList recepi={recepi} />
+      {load && (
+        <Grid container justifyContent="space-evenly">
+          {SK}
+        </Grid>
+      )}
       <li ref={observerRef}>체크</li>
     </div>
   );
