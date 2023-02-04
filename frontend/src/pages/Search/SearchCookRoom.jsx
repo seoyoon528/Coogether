@@ -14,6 +14,8 @@ const SEARCH_URL = 'http://i8b206.p.ssafy.io:9000/room/search/';
 function SearchCookRoom() {
   const [cookRoom, setCookRoom] = useState([]);
   const [enterdItme, setEnterdItme] = useState('');
+  const TEXT = <p>참여하고 싶은 요리방 이름을 입력하세요</p>;
+
   // 로딩중인지 체크
   const [load, setLoad] = useState(null);
   // 페이지 체크 => useEffect 실행을 위함
@@ -54,8 +56,6 @@ function SearchCookRoom() {
       observer.disconnect();
     };
   }, []);
-
-  const TEXT = <p>참여하고 싶은 요리방 이름을 입력하세요</p>;
 
   const onSaveEnteredItem = item => {
     setEnterdItme(item);
