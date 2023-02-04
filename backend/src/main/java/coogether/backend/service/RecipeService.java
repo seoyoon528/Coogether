@@ -44,7 +44,7 @@ public class RecipeService {
         recipe.setRecipeType(recipeRequest.getRecipeType());
         recipe.setRecipeCreatedDate(LocalDateTime.now());
 
-        User user = userRepository.findByUserId(userSeq);
+        User user = userRepository.findByUserSeq(userSeq);
         recipe.setUser(user);
         recipeRepository.save(recipe);
 

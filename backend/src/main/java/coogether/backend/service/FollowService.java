@@ -35,12 +35,12 @@ public class FollowService {
             follow = new Follow();
 
             //user 없으면 탈출
-            User user = userRepository.findByUserId(followerId);
+            User user = userRepository.findByUserSeq(followerId);
             if(user == null)  return follow;
             follow.setFollowerUser(user);
 
             //ingredient 없으면 탈출
-            User user2 = userRepository.findByUserId(followingId);
+            User user2 = userRepository.findByUserSeq(followingId);
             if(user2 == null)  return follow;
             follow.setFollowingUser(user2);
 

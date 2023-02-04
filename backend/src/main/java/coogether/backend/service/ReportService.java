@@ -28,12 +28,12 @@ public class ReportService {
             return report;
         
         //reporterId 없으면 탈출
-        User user = userRepository.findByUserId(reporterId);
+        User user = userRepository.findByUserSeq(reporterId);
         if(user == null)  return report;
         report.setReporter(user);
 
         //reportedId 없으면 탈출
-        User user2 = userRepository.findByUserId(reportedId);
+        User user2 = userRepository.findByUserSeq(reportedId);
         if(user2 == null)  return report;
         report.setReported(user2);
 
