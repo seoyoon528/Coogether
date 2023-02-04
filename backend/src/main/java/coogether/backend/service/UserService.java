@@ -23,7 +23,7 @@ public class UserService {
     }
 
     public User getUserInfoById(Long userSeq){
-        return userRepository.findByUserId(userSeq);
+        return userRepository.findByUserSeq(userSeq);
     }
 
     public List<User> getUserListByName(String name){
@@ -32,7 +32,7 @@ public class UserService {
 
     @Transactional
     public void patchUserUpdate(Long userSeq, String nickname, String img, String introduce, EnumUserCookCategory userCookCategory) {
-        User user = userRepository.findByUserId(userSeq);
+        User user = userRepository.findByUserSeq(userSeq);
         if(nickname != null){
             user.setUserNickname(nickname);
         }
@@ -61,4 +61,17 @@ public class UserService {
     public List<User> getUserRank() {
         return userRepository.findUserRank();
     }
+
+    /* 사용자 정보 가져오는 메소드
+    요청 헤더에 Authorization 항목으로 토큰이 오면,
+    인증된 사용자에 대해 정보를 가져와 Account 타입으로 반환 */
+
+//    public User getAccountInfo(HttpServletRequest request) {
+//        String authenticAccount = (String) request.getAttribute("authenticAccount"); // userId 리턴
+//        System.out.println("JWT 토큰 인증이 완료된 계정입니다 : " + authenticAccount);
+//
+//        User user = userRepository.findByUserId(authenticAccount).orElseThrow();
+//        System.out.println("여기는 AccountService : " + user);
+//        return user;
+//    }
 }

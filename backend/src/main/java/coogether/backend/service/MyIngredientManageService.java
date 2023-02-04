@@ -32,7 +32,7 @@ public class MyIngredientManageService {
         MyIngredientManage myIngredientManage = new MyIngredientManage();
 
         //user
-        User user = userRepository.findByUserId(userSeq);
+        User user = userRepository.findByUserSeq(userSeq);
         myIngredientManage.setUser(user);
 
         //ingredient
@@ -57,7 +57,7 @@ public class MyIngredientManageService {
             myIngredientManage = new MyIngredientManage();
 
             //user 없으면 탈출
-            User user = userRepository.findByUserId(userSeq);
+            User user = userRepository.findByUserSeq(userSeq);
             if (user == null) return myIngredientManage;
             myIngredientManage.setUser(user);
 
