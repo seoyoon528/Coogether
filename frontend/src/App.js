@@ -12,6 +12,8 @@ import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
 import RecipeRegister from './pages/Recipe/RecipeRegister';
+
+import RedirectPage from './utils/RedirectPage';
 import Footer from './components/Nav/Footer';
 import FloatBtn from './components/Btn/FloatBtn/FloatBtn';
 
@@ -40,6 +42,10 @@ function App() {
         <Route path="/RecipeRegister" component={RecipeRegister} />
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} />
+        <Route path="/oauth/:redirect" component={RedirectPage} />
+        {/* <Route path="/oauth/kakao/callback">
+          <KAKAOAuth />
+        </Route> */}
         <Route path="/Signin" component={Signin} />
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage} />
