@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserRepositoryCustom {
-    User findByUserId(Long userSeq);
     List<User> findByUserName(String name);
 
 }
