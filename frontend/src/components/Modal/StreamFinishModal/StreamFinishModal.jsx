@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function StreamFinishModal() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div />;
 }
 
-export default StreamFinishModal
+export default StreamFinishModal;

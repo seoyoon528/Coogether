@@ -13,7 +13,12 @@ function FloatBtn(props) {
   const actions = [
     {
       icon: (
-        <VideoCameraFrontOutlinedIcon fontSize="large" onClick={onOpneModal} />
+        <Link to="/makecookroom">
+          <VideoCameraFrontOutlinedIcon
+            fontSize="large"
+            onClick={onOpneModal}
+          />
+        </Link>
       ),
       name: 'Broadcast ',
     },
