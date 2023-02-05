@@ -18,15 +18,6 @@ import Footer from './components/Nav/Footer';
 import FloatBtn from './components/Btn/FloatBtn/FloatBtn';
 
 function App() {
-  const [modal, setModal] = useState(false);
-  const onOpneModal = () => {
-    setModal(true);
-  };
-  // 예지님!!!!!! 얘를 방송생성 모달에서 사용하시면 됩니다!!!!!!!!
-  const onCloseModal = () => {
-    setModal(false);
-  };
-
   return (
     <div style={{ position: 'relative' }}>
       <Nav />
@@ -47,7 +38,7 @@ function App() {
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage} />
       </Switch>
-      <FloatBtn onOpneModal={onOpneModal} />
+      <FloatBtn />
       <Footer />
     </div>
   );

@@ -1,7 +1,4 @@
 import React from 'react';
-import GoogleAuth from '../../../utils/GoogleAuth';
-import NaverAuth from '../../../utils/NaverAuth';
-import KakaoAuth from '../../../utils/KakaoAuth';
 import * as L from './LoginStyle';
 import LoginAuth from '../../../utils/LoginAuth';
 

@@ -7,17 +7,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import Backdrop from '@mui/material/Backdrop';
 import { Link } from 'react-router-dom';
 
-function FloatBtn(props) {
-  const { onOpneModal, onCloseModal } = props;
+function FloatBtn() {
   // 플로팅
   const actions = [
     {
       icon: (
         <Link to="/makecookroom">
-          <VideoCameraFrontOutlinedIcon
-            fontSize="large"
-            onClick={onOpneModal}
-          />
+          <VideoCameraFrontOutlinedIcon fontSize="large" />
         </Link>
       ),
       name: 'Broadcast ',
