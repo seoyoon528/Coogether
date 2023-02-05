@@ -41,7 +41,7 @@ export default function RecipeInformations(props) {
         <li className="information__item">
           <div className="information__item__category">
             <img
-              src="https://cdn-icons-png.flaticon.com/512/2088/2088619.png"
+              src="https://cdn-icons-png.flaticon.com/512/1627/1627309.png"
               alt="출처 아이콘"
             />
             <p>출처</p>
