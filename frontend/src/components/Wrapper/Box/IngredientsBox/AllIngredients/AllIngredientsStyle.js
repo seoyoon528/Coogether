@@ -13,6 +13,10 @@ export const Contents = styled.div`
     border-radius: 2px;
     background: #febd2f;
   }
+  @media screen and (max-width: 1024px) {
+    overflow-x: auto;
+    width: 480px;
+  }
 `;
 export const Icon = styled.div`
   font-size: smaller;
