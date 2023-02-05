@@ -42,10 +42,7 @@ function App() {
         <Route path="/RecipeRegister" component={RecipeRegister} />
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} />
-        <Route path="/oauth/:redirect" component={RedirectPage} />
-        {/* <Route path="/oauth/kakao/callback">
-          <KAKAOAuth />
-        </Route> */}
+        <Route path="/Login/oauth2/code/kakao" component={RedirectPage} />
         <Route path="/Signin" component={Signin} />
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage} />
