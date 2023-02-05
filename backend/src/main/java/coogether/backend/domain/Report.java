@@ -30,12 +30,12 @@ public class Report {
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "reporter_id")
+    @JoinColumn(name = "reporter_seq")
     private User reporter;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "reported_id")
+    @JoinColumn(name = "reported_seq")
     private User reported;
 
     @Column(name = "report_content", length = 200, nullable = true)

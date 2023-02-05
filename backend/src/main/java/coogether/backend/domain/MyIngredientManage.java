@@ -30,7 +30,7 @@ public class MyIngredientManage {
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_seq")
     private User user;
 
     @JsonIgnore

@@ -36,7 +36,7 @@ public class IngredientFav {
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_seq")
     private User user;
 
     @Enumerated(EnumType.STRING)
