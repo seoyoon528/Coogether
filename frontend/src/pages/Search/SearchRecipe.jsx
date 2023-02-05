@@ -96,8 +96,8 @@ function SearchRecipe() {
     getData();
   }, [enterdItme, getData]);
 
-  const SK = Array.from({ length: 15 }, () => (
-    <Skeleton variant="rectangular" width={255} height={216} />
+  const SK = Array.from({ length: 15 }, (_, index) => (
+    <Skeleton key={index} variant="rectangular" width={255} height={216} />
   ));
 
   return (
@@ -114,7 +114,7 @@ function SearchRecipe() {
           {SK}
         </Grid>
       )}
-      <li ref={observerRef}>체크</li>
+      <li ref={observerRef} />
     </div>
   );
 }
