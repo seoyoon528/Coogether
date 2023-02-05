@@ -20,6 +20,7 @@ public class SimpleRecipeDto {
     private String recipeContent;
     private String recipeName;
     private LocalDateTime recipeCreatedDate;
+    private String recipeImg;
 
     @QueryProjection
     public SimpleRecipeDto(Recipe recipe) {
@@ -29,16 +30,17 @@ public class SimpleRecipeDto {
         this.recipeContent = recipe.getRecipeContent();
         this.recipeName = recipe.getRecipeName();
         this.recipeCreatedDate = recipe.getRecipeCreatedDate();
-
+        this.recipeImg = recipe.getRecipeImg();
     }
 
     @QueryProjection
-    public SimpleRecipeDto(Long recipeId, EnumRecipeCategory recipeCategory, EnumRecipeType recipeType, String recipeContent, String recipeName, LocalDateTime recipeCreatedDate) {
+    public SimpleRecipeDto(Long recipeId, EnumRecipeCategory recipeCategory, EnumRecipeType recipeType, String recipeContent, String recipeName, LocalDateTime recipeCreatedDate, String recipeImg) {
         this.recipeId = recipeId;
         this.recipeCategory = recipeCategory;
         this.recipeType = recipeType;
         this.recipeContent = recipeContent;
         this.recipeName = recipeName;
         this.recipeCreatedDate = recipeCreatedDate;
+        this.recipeImg = recipeImg;
     }
 }
