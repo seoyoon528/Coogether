@@ -30,8 +30,12 @@ public class Recipe {
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
     @JsonIgnore
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<RecipeStep> recipeStepList = new ArrayList<>();
+
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_seq")
     private User user;
 
 
@@ -57,4 +61,7 @@ public class Recipe {
     @CreatedDate // 최초 생성 시간
     @Column(name = "recipe_created_date", updatable = false)
     private LocalDateTime recipeCreatedDate;
+
+    @Column(name = "recipe_img", length = 100, nullable = true)
+    private String recipeImg;
 }

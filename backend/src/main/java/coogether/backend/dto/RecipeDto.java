@@ -29,6 +29,7 @@ public class RecipeDto {
     private String recipeContent;
     private String recipeName;
     private LocalDateTime recipeCreatedDate;
+    private String recipeImg;
     @QueryProjection
     public RecipeDto(Recipe recipe) {
         this.ingredientList = recipe.getIngredientList();
@@ -40,6 +41,7 @@ public class RecipeDto {
         this.recipeContent = recipe.getRecipeContent();
         this.recipeName = recipe.getRecipeName();
         this.recipeCreatedDate = recipe.getRecipeCreatedDate();
+        this.recipeImg = recipe.getRecipeImg();
 
     }
 }

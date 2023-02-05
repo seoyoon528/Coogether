@@ -31,12 +31,12 @@ public class Follow {
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "follower_user_id")
+    @JoinColumn(name = "follower_user_seq")
     private User followerUser;
 
     @JsonIgnore
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "following_user_id")
+    @JoinColumn(name = "following_user_seq")
     private User followingUser;
 
     @CreatedDate // 팔로우 최초 등록 일자

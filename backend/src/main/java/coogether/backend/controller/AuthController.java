@@ -41,7 +41,7 @@ public class AuthController {
         return authService.kakaoLogin(kakaoAccessToken);
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/user/signup")
     public ResponseEntity<SignupResponseDto> kakaoSignup(@RequestBody SignupRequestDto requestDto) {
         return authService.kakaoSignup(requestDto);
     }
