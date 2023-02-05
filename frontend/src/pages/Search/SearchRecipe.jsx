@@ -7,7 +7,7 @@ import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
 import * as S from './SearchRecipeStyle';
 
 const LIST_URL = 'http://i8b206.p.ssafy.io:9000/recipe/list';
-const SEARCH_URL = 'http://i8b206.p.ssafy.io:9000/recipe/search/';
+const SEARCH_URL = 'http://i8b206.p.ssafy.io:9000/recipe/search';
 
 function SearchRecipe() {
   const [enterdItme, setEnterdItme] = useState('');
@@ -59,7 +59,7 @@ function SearchRecipe() {
   const onSaveEnteredItem = item => {
     setEnterdItme(item);
   };
-  console.log(page);
+  // console.log(page);
 
   // HTTP 요청 보내야 함
   // 비동기 요청 보내기
