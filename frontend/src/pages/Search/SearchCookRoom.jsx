@@ -10,7 +10,7 @@ import * as S from './SearchCookRoomStyle';
 /** 해당 위치에서 api 요청(요리방리스트 get) 보내면 될 것 같음 */
 
 const LIST_URL = 'http://i8b206.p.ssafy.io:9000/room/list';
-const SEARCH_URL = 'http://i8b206.p.ssafy.io:9000/room/search/';
+const SEARCH_URL = 'http://i8b206.p.ssafy.io:9000/room/search';
 
 function SearchCookRoom() {
   const [cookRoom, setCookRoom] = useState([]);
@@ -61,7 +61,7 @@ function SearchCookRoom() {
   const onSaveEnteredItem = item => {
     setEnterdItme(item);
   };
-  console.log(page);
+  // console.log(page);
 
   const getData = useCallback(async () => {
     setLoad(true);
@@ -99,9 +99,10 @@ function SearchCookRoom() {
   }, [enterdItme, page]);
   // console.log(cookRoom);
 
-  const SK = Array.from({ length: 15 }, () => (
-    <Skeleton variant="rectangular" width={255} height={216} />
+  const SK = Array.from({ length: 15 }, (_, index) => (
+    <Skeleton key={index} variant="rectangular" width={255} height={216} />
   ));
+  // console.log(SK);
 
   return (
     <>
@@ -120,7 +121,7 @@ function SearchCookRoom() {
           </Grid>
         )}
       </Grid>
-      <li ref={observerRef}>체크</li>
+      <li ref={observerRef} />
     </>
   );
 }
