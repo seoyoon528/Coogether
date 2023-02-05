@@ -9,4 +9,9 @@ export const Contents = styled.div`
   padding: 20px;
   /* margin-left: 16rem; */
   margin-right: 0rem;
+
+  @media screen and (max-width: 1024px) {
+    overflow-x: auto;
+    width: 480px;
+  }
 `;
