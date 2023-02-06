@@ -15,6 +15,6 @@ export const StreamContents = styled.div`
     height: 40px;
     color: inherit;
     margin-bottom: 1rem;
-    border: 1 solid;
+    border: 1px solid;
   }
 `;
