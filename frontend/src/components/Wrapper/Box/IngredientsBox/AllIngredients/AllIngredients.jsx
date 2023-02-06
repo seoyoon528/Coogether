@@ -3,7 +3,7 @@ import axios from 'axios';
 import dummy from '../ingredients.json';
 import { Contents, Circle, Button, Wrapper } from './AllIngredientsStyle';
 
-function AllIngredients({ category, ingredientName, ingredientCategory }) {
+function AllIngredients({ category }) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const [ingredients, setIngredients] = useState([]);
@@ -12,18 +12,26 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
     setselectIngredientId(i);
     setVisible(!visible);
   };
+  const categoryKorean = dummy.categories
+    .filter(name => name.id === category)
+    .map(name => {
+      return <h4>{name.text} 전체</h4>;
+    });
+
   useEffect(() => {
     const getData = async () => {
       try {
-        const query = category;
+        let query = category;
+        if (query === 'ALL') {
+          query = '';
+        }
         const response = await axios.get(
           `http://i8b206.p.ssafy.io:9000/ingredient/list/total/${query}`
         );
-
         setIngredients([...response.data.map((v, a) => v.ingredientName)]);
         // console.log(ingredients);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     };
     getData();
@@ -74,12 +82,6 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
             handleClick(e);
           }}
         >
-          {/* {selectIngredientId === e.name && visible && (
-              <>
-                <Button>즐겨찾기</Button>
-                <Button>내 냉장고</Button>
-              </>
-            )} */}
           {e}
           {selectIngredientId === e && visible && (
             <Wrapper>
@@ -102,15 +104,23 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
       </div>
     );
   }
-  if (ingredientName)
-    return (
-      <div>
-        <Contents>
-          <h4>{category} 전체</h4>
-          {ingredient}
-        </Contents>
-      </div>
-    );
+  return (
+    <div>
+      <Contents>
+        {categoryKorean}
+        {ingredient}
+        {/* {ingredientName.length === 0
+          ? ingredient
+          : ingredientName
+              .filter(
+                (element, index) => category === ingredientCategory[index]
+              )
+              .map((element, index) => {
+                return <div key={element}>{element}</div>;
+              })} */}
+      </Contents>
+    </div>
+  );
 }
 
 export default AllIngredients;
