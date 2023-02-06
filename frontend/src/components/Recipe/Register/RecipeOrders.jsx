@@ -5,7 +5,6 @@ import { Box, Button, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
 export default function RecipeOrders(props) {
-  console.log(1);
   const { recipeOrders, onClick: setRecipeOrders } = props;
 
   // 순서 추가
@@ -82,7 +81,10 @@ export default function RecipeOrders(props) {
         })}
       </Box>
       <Box gridColumn="span 2" />
-      <Box gridColumn="span 9" sx={{ mx: 'auto' }}>
+      <Box
+        gridColumn="span 9"
+        sx={{ display: 'flex', justifyContent: 'center' }}
+      >
         <Button variant="contained" onClick={addRecipeOrder}>
           <p>추가</p>
         </Button>
