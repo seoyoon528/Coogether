@@ -2,12 +2,11 @@ import styled from 'styled-components';
 
 export const Contents = styled.div`
   background: #fff8ea;
-  width: 624px;
   height: 172px;
   padding: 20px;
   overflow-y: auto;
   &::-webkit-scrollbar {
-    width: 4px;
+    width: 0.3rem;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 2px;
@@ -15,7 +14,6 @@ export const Contents = styled.div`
   }
   @media screen and (max-width: 1024px) {
     overflow-x: auto;
-    width: 480px;
   }
 `;
 export const Icon = styled.div`
