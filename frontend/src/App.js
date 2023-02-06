@@ -32,7 +32,7 @@ function App() {
         <Route path="/Recipe/:recipeId" component={RecipeDetail} />
         <Route path="/RecipeRegister" component={RecipeRegister} />
         <Route path="/Rank" component={TemperatureRank} />
-        <Route path="/Login" component={Login} />
+        <Route path="/Login" component={Login} exact />
         <Route path="/Login/oauth2/code/kakao" component={RedirectPage} />
         <Route path="/Signin" component={Signin} />
         <Route path="/Profile/:userId" component={Profile} />

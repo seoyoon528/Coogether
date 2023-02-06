@@ -40,34 +40,39 @@ function RedirectPage() {
     userCookCategory: '',
   });
   const [nickName, setNickName] = useState('');
-  const [prefer, setPrefer] = useState('');
+  const [prefer, setPrefer] = useState([]);
   const preferCookArr = [
-    '한식',
-    '중식',
-    '양식',
-    '일식',
-    '베이킹/디저트',
-    '분식',
-    '기타',
+    ['한식', 'KOREAN'],
+    ['중식', 'CHINESE'],
+    ['양식', 'WESTERN'],
+    ['일식', 'JAPANESE'],
+    ['베이킹/디저트', 'DESSERT'],
+    ['아시안', 'ASIAN'],
+    ['분식', 'BUNSIK'],
+    ['기타', 'ETC'],
+    ['없음', 'NONE'],
   ];
   const nickNameHandler = e => {
     setNickName(e.target.value);
   };
   const preferHandler = e => {
-    setPrefer(e.target.value);
+    setPrefer(
+      preferCookArr[preferCookArr.map((v, a) => v[0]).indexOf(e.target.value)]
+    );
   };
   const submitRegister = async () => {
     const userFormPayload = {
-      id: '111', // /user/login의 response로 넘어온 "user" : {"userId": "KAKAO_2309429382o348"}
-      name: '111', // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
-      email: '111', // /user/login의 response로 넘어온 "user" : {"userEmail": "5120a@naver.com"}
-      nickname: '111',
-      profileImg: 'imgUrl',
-      userIntroduce: '안녕하세요 000입니다.',
-      userCookCategory: 'KOREAN',
+      id: userInfo.data.user.userId, // /user/login의 response로 넘어온 "user" : {"userId": "KAKAO_2309429382o348"}
+      name: userInfo.data.user.userName, // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
+      email: userInfo.data.user.userEmail, // /user/login의 response로 넘어온 "user" : {"userEmail": "5120a@naver.com"}
+      nickname: nickName,
+      profileImg: '',
+      userIntroduce: `안녕하세요 ${userInfo.data.user.userName}입니다.`,
+      userCookCategory: prefer[1],
     };
     const submitUserForm = await axios.post(
-      'http://localhost:9000/signup',
+      // 'http://localhost:9000/signup',
+      'http://i8b206.p.ssafy.io:9000/user/signup',
       userFormPayload
     );
     console.log(submitUserForm);
@@ -77,7 +82,8 @@ function RedirectPage() {
   const checkRegister = async () => {
     const code = new URL(window.location.href).searchParams.get('code');
     const res = await axios.get(
-      `http://localhost:9000/user/login?code=${code}`
+      // `http://localhost:9000/user/login?code=${code}`
+      `http://i8b206.p.ssafy.io:9000/user/login?code=${code}`
     );
     console.log(res);
     // loginsuccess false이면
@@ -107,15 +113,15 @@ function RedirectPage() {
               <Select
                 labelId="select-label"
                 id="select"
-                value={prefer}
+                value={prefer[0]}
                 label="선호 메뉴"
                 onChange={preferHandler}
                 MenuProps={MenuProps}
               >
                 {preferCookArr.map((v, a) => {
                   return (
-                    <MenuItem value={v} style={getStyles(v, prefer, theme)}>
-                      {v}
+                    <MenuItem value={v[0]} style={getStyles(v, prefer, theme)}>
+                      {v[0]}
                     </MenuItem>
                   );
                 })}
