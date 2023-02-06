@@ -14,7 +14,7 @@ var localUser = new UserModel();
 // 서버 URL 지정
 // const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'https://coogether.shop/';
+const APPLICATION_SERVER_URL = 'http://i8b206.p.ssafy.io:9000/';
 // const APPLICATION_SERVER_URL =
 //   'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
 
