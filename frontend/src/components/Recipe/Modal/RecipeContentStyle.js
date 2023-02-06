@@ -1,20 +1,9 @@
 import styled from 'styled-components';
 
-export const RecipeDetailStyle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const RecipeContentStyle = styled.div`
+  background-color: #fff8ea;
 
-  margin-top: 10.8rem;
-
-  .recipe-detail {
-    width: 78vw;
-
-    background-color: #fff8ea;
-    border-radius: 60px;
-
-    padding: 6.4rem;
-  }
+  padding: 6.4rem;
 
   .information__name {
     margin-bottom: 5.6rem;

@@ -6,8 +6,8 @@ export const RecipeBoxItemStyle = styled.div`
   background-color: #fff8ea;
 
   & img {
-    height: 178px;
-    width: 272px;
+    height: 60%;
+    width: 100%;
   }
 
   & h4 {

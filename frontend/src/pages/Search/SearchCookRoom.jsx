@@ -105,24 +105,28 @@ function SearchCookRoom() {
   // console.log(SK);
 
   return (
-    <>
-      <S.SearchMainHeader>참여하고 싶은 요리방을 찾아보세요</S.SearchMainHeader>
-      <S.SearchSubHeader>
-        다양한 사람들과 함께 요리를 해보고 기록을 남겨보세요
-      </S.SearchSubHeader>
-      {/* 레시피 서치 페이지에도 추가해주기 */}
-      <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
-      <br />
-      <Grid container justifyContent="space-evenly">
-        <StreamList cookRoom={cookRoom} />
-        {load && (
-          <Grid container justifyContent="space-evenly">
-            {SK}
-          </Grid>
-        )}
-      </Grid>
-      <li ref={observerRef} />
-    </>
+    <S.CookRoomContainer>
+      <div className="main">
+        <S.SearchMainHeader>
+          참여하고 싶은 요리방을 찾아보세요
+        </S.SearchMainHeader>
+        <S.SearchSubHeader>
+          다양한 사람들과 함께 요리를 해보고 기록을 남겨보세요
+        </S.SearchSubHeader>
+        {/* 레시피 서치 페이지에도 추가해주기 */}
+        <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
+        <br />
+        <Grid container justifyContent="space-evenly">
+          <StreamList cookRoom={cookRoom} />
+          {load && (
+            <Grid container justifyContent="space-evenly">
+              {SK}
+            </Grid>
+          )}
+        </Grid>
+        <li ref={observerRef} />
+      </div>
+    </S.CookRoomContainer>
   );
 }
 

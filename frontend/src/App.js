@@ -6,7 +6,6 @@ import Room from './pages/Room/Room';
 import SearchCookRoom from './pages/Search/SearchCookRoom';
 import SearchRecipe from './pages/Search/SearchRecipe';
 import TemperatureRank from './pages/Rank/TemperatureRank';
-import RecipeDetail from './pages/Recipe/RecipeDetail';
 import MyIngredientsManage from './pages/MyIngredientsManage/MyIngredientsManage';
 import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
@@ -29,7 +28,6 @@ function App() {
         <Route path="/Room/:roomId" component={Room} />
         <Route path="/SearchCookRoom" component={SearchCookRoom} />
         <Route path="/SearchRecipe" component={SearchRecipe} />
-        <Route path="/Recipe/:recipeId" component={RecipeDetail} />
         <Route path="/RecipeRegister" component={RecipeRegister} />
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} exact />
