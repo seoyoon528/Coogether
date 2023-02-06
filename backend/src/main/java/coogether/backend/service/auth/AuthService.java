@@ -131,20 +131,15 @@ public class AuthService {
 
     /* login 요청 보내는 회원가입 유무 판단해 분기 처리 */
     public ResponseEntity<LoginResponseDto> kakaoLogin(String kakaoAccessToken) {
-        System.out.println("[ KakaoLogin 진입 ]");
-
         // kakaoAccessToken 으로 회원정보 받아오기
         User kakaoUser = getKakaoInfo(kakaoAccessToken);
         LoginResponseDto loginResponseDto = new LoginResponseDto();
-        loginResponseDto.setUser(kakaoUser);
         try {
             TokenDto tokenDto = securityService.login(kakaoUser);
-            System.out.println("tokenDto = " + tokenDto);
-
+            loginResponseDto.setUser(userRepository.findByUserId(kakaoUser.getUserId()));
             loginResponseDto.setLoginSuccess(true);
             HttpHeaders headers = setTokenHeaders(tokenDto);
             return ResponseEntity.ok().headers(headers).body(loginResponseDto);
-
         } catch (CUserIdLoginFailedException e) {
             loginResponseDto.setLoginSuccess(false);
             return ResponseEntity.ok(loginResponseDto);
@@ -154,7 +149,7 @@ public class AuthService {
     /* 토큰을 헤더에 배치 */
     public HttpHeaders setTokenHeaders(TokenDto tokenDto) {
         HttpHeaders headers = new HttpHeaders();
-        ResponseCookie cookie = ResponseCookie.from("RefreshToken", tokenDto.getRefreshToken())
+        ResponseCookie cookie = ResponseCookie.from("JWTRefreshToken", tokenDto.getRefreshToken())
                 .path("/")
                 .maxAge(60*60*24*7) // 쿠키 유효기간 7일로 설정했음
                 .secure(true)
@@ -170,7 +165,6 @@ public class AuthService {
     /* 회원가입 요청 처리 */
     public ResponseEntity<SignupResponseDto> kakaoSignup(SignupRequestDto requestDto) {
         // 받아온 정보 DB에 저장
-        // TODO User에게 추가 정보 받아서 저장하기
         System.out.println("[ kakaoSignup 넘어옴 ]");
         User newUser = User.builder()
                 .userId(requestDto.getId())
