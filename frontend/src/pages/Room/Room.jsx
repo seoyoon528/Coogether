@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Background, H3, Button } from './RoomStyle';
+import { Background } from './RoomStyle';
 import CookRoom from '../../components/Room/CookRoom';
 
 function Room() {

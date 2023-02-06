@@ -4,8 +4,19 @@ import { createSlice } from '@reduxjs/toolkit';
 // user_name, user_id : 유저 정보
 const initialStateValue = {
   authenticated: false,
-  user_name: null,
-  user_id: null,
+  userAccountStatus: null,
+  userCookCategory: null,
+  userCreateDate: null,
+  userEmail: null,
+  userId: null,
+  userImg: null,
+  userIntroduce: null,
+  userLastLoginDate: null,
+  userName: null,
+  userNickname: null,
+  userRoleType: null,
+  userSnsType: null,
+  userTemp: null,
   accessToken: null,
 };
 // slice 이름을 user로 함
@@ -17,27 +28,42 @@ export const AuthSlice = createSlice({
     login: (state, action) => {
       const changeState = state;
       changeState.authenticated = action.payload.authenticated;
-      changeState.user_name = action.payload.user_name;
-      changeState.user_id = action.payload.user_id;
+      changeState.userAccountStatus = action.payload.userAccountStatus;
+      changeState.userCookCategory = action.payload.userCookCategory;
+      changeState.userCreateDate = action.payload.userCreateDate;
+      changeState.userEmail = action.payload.userEmail;
+      changeState.userId = action.payload.userId;
+      changeState.userImg = action.payload.userImg;
+      changeState.userIntroduce = action.payload.userIntroduce;
+      changeState.userLastLoginDate = action.payload.userLastLoginDate;
+      changeState.userName = action.payload.userName;
+      changeState.userNickname = action.payload.userNickname;
+      changeState.userRoleType = action.payload.userRoleType;
+      changeState.userSnsType = action.payload.userSnsType;
+      changeState.userTemp = action.payload.userTemp;
       changeState.accessToken = action.payload.accessToken;
     },
     logout: (state, action) => {
       const changeState = state;
       changeState.authenticated = false;
-      changeState.user_name = null;
-      changeState.user_id = null;
+      changeState.userAccountStatus = null;
+      changeState.userCookCategory = null;
+      changeState.userCreateDate = null;
+      changeState.userEmail = null;
+      changeState.userId = null;
+      changeState.userImg = null;
+      changeState.userIntroduce = null;
+      changeState.userLastLoginDate = null;
+      changeState.userName = null;
+      changeState.userNickname = null;
+      changeState.userRoleType = null;
+      changeState.userSnsType = null;
+      changeState.userTemp = null;
       changeState.accessToken = null;
-    },
-    register: (state, action) => {
-      const changeState = state;
-      changeState.authenticated = action.payload;
-      changeState.user_name = action.payload.user_name;
-      changeState.user_id = action.payload.user_id;
-      changeState.accessToken = action.payload.accessToken;
     },
   },
 });
 
-export const { login, logout, register } = AuthSlice.actions;
+export const { login, logout } = AuthSlice.actions;
 
 export default AuthSlice.reducer;

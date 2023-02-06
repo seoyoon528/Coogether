@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 // MUI 설정
 
 import { useTheme, StyledEngineProvider } from '@mui/material/styles';
@@ -7,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { login } from '../store/AuthSlice';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -28,6 +30,7 @@ function getStyles(name, personName, theme) {
 }
 
 function RedirectPage() {
+  const dispatch = useDispatch();
   // 쿼리스트링을 백엔드에 송신
   const [isRegistered, setIsregisterd] = useState(true);
   const [userInfo, setUserInfo] = useState({
@@ -93,6 +96,25 @@ function RedirectPage() {
       // 이미 회원인 경우 추후수정
     } else {
       console.log(`회원가입 된 사람입니다`);
+      dispatch(
+        login({
+          authenticated: true,
+          userAccountStatus: res.data.user.userAccountStatus,
+          userCookCategory: res.data.user.userCookCategory,
+          userCreateDate: res.data.user.userCreateDate,
+          userEmail: res.data.user.userEmail,
+          userId: res.data.user.userId,
+          userImg: res.data.user.userImg,
+          userIntroduce: res.data.user.userIntroduce,
+          userLastLoginDate: res.data.user.userLastLoginDate,
+          userName: res.data.user.userName,
+          userNickname: res.data.user.userNickname,
+          userRoleType: res.data.user.userRoleType,
+          userSnsType: res.data.user.userSnsType,
+          userTemp: res.data.user.userTemp,
+          accessToken: res.headers.authorization,
+        })
+      );
       console.log(res);
     }
   };

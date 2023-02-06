@@ -6,4 +6,7 @@ export const Background = styled.div`
   text-align: center;
   position: relative;
   background-size: cover;
+  & > h1 {
+    margin: 20px;
+  }
 `;
