@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { Stack } from '@mui/material';
 
+import Banner from '../../components/Banner/Banner';
 import StreamSwiper from '../../components/Wrapper/Box/StreamBox/StreamSwiper';
 import * as S from './MainStyle';
 
@@ -14,14 +15,14 @@ function Main() {
   const [third, setThird] = useState([]);
   const [isIn, setIsIn] = useState(false);
 
-  const user = useSelector(state => state.user.user_id);
-  console.log(user);
+  const user = useSelector(state => state.user.userId);
 
   const getData = async () => {
     try {
       const refrigeratorDAta = await axios({
         // 유저 id 추가해야 함
         url: 'http://i8b206.p.ssafy.io:9000/myIngredient/list/total/1',
+        // url: `http://i8b206.p.ssafy.io:9000/myIngredient/list/total/${user}`,
       });
       if (refrigeratorDAta.data.length > 0) {
         setIsIn(true);
@@ -55,26 +56,28 @@ function Main() {
     getData();
   }, []);
   return (
-    <S.MainContainer>
-      <Stack spacing={5} className="main">
-        <h1>배너가 들어갈 위치</h1>
-        <br />
-        {isIn && (
+    <>
+      <Banner />
+      <S.MainContainer>
+        <Stack spacing={5} className="main">
+          <br />
+          {isIn && (
+            <div>
+              <h1>재료기반 추천</h1>
+              <StreamSwiper cookRoom={first} />
+            </div>
+          )}
           <div>
-            <h1>재료기반 추천</h1>
-            <StreamSwiper cookRoom={first} />
+            <h1>시간임박 추천</h1>
+            <StreamSwiper cookRoom={second} />
           </div>
-        )}
-        <div>
-          <h1>시간임박 추천</h1>
-          <StreamSwiper cookRoom={second} />
-        </div>
-        <div>
-          <h1>선호분야 추천</h1>
-          <StreamSwiper cookRoom={third} />
-        </div>
-      </Stack>
-    </S.MainContainer>
+          <div>
+            <h1>선호분야 추천</h1>
+            <StreamSwiper cookRoom={third} />
+          </div>
+        </Stack>
+      </S.MainContainer>
+    </>
   );
 }
 export default Main;
