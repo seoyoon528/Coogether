@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Nav from './components/Nav/Nav';
 import Main from './pages/Main/Main';
@@ -6,7 +6,6 @@ import Room from './pages/Room/Room';
 import SearchCookRoom from './pages/Search/SearchCookRoom';
 import SearchRecipe from './pages/Search/SearchRecipe';
 import TemperatureRank from './pages/Rank/TemperatureRank';
-import RecipeDetail from './pages/Recipe/RecipeDetail';
 import MyIngredientsManage from './pages/MyIngredientsManage/MyIngredientsManage';
 import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
@@ -19,15 +18,6 @@ import Footer from './components/Nav/Footer';
 import FloatBtn from './components/Btn/FloatBtn/FloatBtn';
 
 function App() {
-  const [modal, setModal] = useState(false);
-  const onOpneModal = () => {
-    setModal(true);
-  };
-  // 예지님!!!!!! 얘를 방송생성 모달에서 사용하시면 됩니다!!!!!!!!
-  const onCloseModal = () => {
-    setModal(false);
-  };
-
   return (
     <div style={{ position: 'relative' }}>
       <Nav />
@@ -39,7 +29,6 @@ function App() {
         <Route path="/Room/:roomId" component={Room} />
         <Route path="/SearchCookRoom" component={SearchCookRoom} />
         <Route path="/SearchRecipe" component={SearchRecipe} />
-        <Route path="/Recipe/:recipeId" component={RecipeDetail} />
         <Route path="/RecipeRegister" component={RecipeRegister} />
         <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" component={Login} />
@@ -49,7 +38,7 @@ function App() {
         <Route path="/MyIngredients" component={MyIngredientsManage} />
         <Route path="/MakeCookRoom" component={MakeCookRoom} />
       </Switch>
-      <FloatBtn onOpneModal={onOpneModal} />
+      <FloatBtn />
       <Footer />
     </div>
   );
