@@ -45,7 +45,7 @@ export default function RecipeDetail(props) {
     recipe: { recipeName, thumbnail, recipeContent, recipeId },
   } = props;
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <RecipeContent onClose={onClose} />
     </Dialog>
   );
