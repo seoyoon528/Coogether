@@ -12,6 +12,12 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
     setselectIngredientId(i);
     setVisible(!visible);
   };
+  const categoryKorean = dummy.categories
+    .filter(name => name.id === category)
+    .map(name => {
+      return <h4>{name.text} 전체</h4>;
+    });
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -23,7 +29,7 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
         setIngredients([...response.data.map((v, a) => v.ingredientName)]);
         // console.log(ingredients);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     };
     getData();
@@ -59,7 +65,7 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
         setAllIngredient([...response.data.map((v, a) => v.ingredientName)]);
         // console.log(ingredients);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     };
     getAllData();
@@ -74,12 +80,6 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
             handleClick(e);
           }}
         >
-          {/* {selectIngredientId === e.name && visible && (
-              <>
-                <Button>즐겨찾기</Button>
-                <Button>내 냉장고</Button>
-              </>
-            )} */}
           {e}
           {selectIngredientId === e && visible && (
             <Wrapper>
@@ -102,15 +102,14 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
       </div>
     );
   }
-  if (ingredientName)
-    return (
-      <div>
-        <Contents>
-          <h4>{category} 전체</h4>
-          {ingredient}
-        </Contents>
-      </div>
-    );
+  return (
+    <div>
+      <Contents>
+        {categoryKorean}
+        {ingredient}
+      </Contents>
+    </div>
+  );
 }
 
 export default AllIngredients;

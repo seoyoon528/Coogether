@@ -16,6 +16,7 @@ function IngredientsBox({ onSelect, category }) {
             key={v.id}
             active={category === v.id}
             onClick={() => onSelect(v.id)}
+            category={category}
           >
             <H4>{v.text}</H4>
           </Categories>
