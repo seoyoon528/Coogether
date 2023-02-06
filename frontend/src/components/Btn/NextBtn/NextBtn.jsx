@@ -3,14 +3,14 @@ import React from 'react';
 import { Button } from './NextBtnStyle';
 
 function NextBtn(props) {
-  const { size, name, color, action } = props;
+  const { size, name, color, onClick } = props;
   return (
     <Button>
       <button
         className={`${size} ${color}`}
         onClick={event => {
           event.preventDefault();
-          action();
+          onClick();
         }}
       >
         {name}
