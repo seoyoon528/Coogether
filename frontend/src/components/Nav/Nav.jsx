@@ -1,9 +1,11 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import Mainlogo from '../../assets/img/mainlogo.png';
 import { Navstyle, NavbarBlock, Line, Imgstyle, Loginstyle } from './NavStyle';
 
 function Nav() {
+  const isLogin = useSelector(state => state.user.authenticated);
   return (
     <>
       <NavbarBlock>
@@ -36,7 +38,7 @@ function Nav() {
           <Box gridColumn="span 1" />
           <Box gridColumn="span 1" />
           <Box grid-column="span 1">
-            <Loginstyle to="/Login">Login</Loginstyle>
+            <Loginstyle to="/Login">{!isLogin ? 'Login' : 'Logout'}</Loginstyle>
           </Box>
           {/* </NavbarBlock> */}
         </Box>

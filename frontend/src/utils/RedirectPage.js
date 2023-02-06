@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { login } from '../store/AuthSlice';
+import { Background } from '../pages/User/SignIn/SigninStyle';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -29,7 +30,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-function RedirectPage() {
+function RedirectPage({ history }) {
   const dispatch = useDispatch();
   // 쿼리스트링을 백엔드에 송신
   const [isRegistered, setIsregisterd] = useState(true);
@@ -116,6 +117,7 @@ function RedirectPage() {
         })
       );
       console.log(res);
+      history.push('/main');
     }
   };
 
@@ -124,14 +126,19 @@ function RedirectPage() {
   }, []);
   return (
     <>
-      {!isRegistered ? (
-        <div>
+      {/* 나중에 !isRegistered로 바꾸기 */}
+      {isRegistered ? (
+        <Background>
+          <h1>쿠게더에게 더 알려주세요</h1>
+          <div>소셜 로그인으로 쿠게더와 함께할 수 있습니다</div>
           <div>
             <input onChange={nickNameHandler} />
           </div>
           <StyledEngineProvider injectFirst>
             <FormControl sx={{ m: 1, width: 200 }}>
-              <InputLabel id="select-label">선호 메뉴</InputLabel>
+              <InputLabel id="select-label">
+                선호 분야를 선택해주세요
+              </InputLabel>
               <Select
                 labelId="select-label"
                 id="select"
@@ -139,6 +146,8 @@ function RedirectPage() {
                 label="선호 메뉴"
                 onChange={preferHandler}
                 MenuProps={MenuProps}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
               >
                 {preferCookArr.map((v, a) => {
                   return (
@@ -154,9 +163,9 @@ function RedirectPage() {
           <div>{prefer}</div>
 
           <button onClick={submitRegister}>회원가입</button>
-        </div>
+        </Background>
       ) : (
-        '리다이렉트 페이지입니다.'
+        <div>Loading...</div>
       )}
     </>
   );
