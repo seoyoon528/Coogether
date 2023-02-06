@@ -1,27 +1,30 @@
 import styled from 'styled-components';
-import BannerIMG from '../../assets/img/BannerIMG.jpg';
 
 export const BannerContainer = styled.div`
-  display: flex;
-`;
+  position: relative;
 
-export const BannerIMGContainer = styled.img`
-  height: 50vh;
-  width: 100vw;
-`;
+  .mainTitle {
+    font-family: 'Pretendard SemiBold';
+    position: absolute;
+    left: 10%;
+    top: 20%;
+  }
 
-export const TextContainer = styled.div`
-  padding-left: 10px;
-`;
+  .subTitle {
+    font-family: 'Pretendard SemiBold';
+    position: absolute;
+    left: 10%;
+    top: 35%;
+  }
 
-export const Title = styled.h1`
-  color: black;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const Subtitle = styled.p`
-  color: black;
-  align-items: center;
-  justify-content: center;
+  & p {
+    font-family: 'Pretendard Regular';
+    position: absolute;
+    left: 10%;
+    top: 55%;
+  }
+  & img {
+    width: 100%;
+    height: 36vh;
+  }
 `;
