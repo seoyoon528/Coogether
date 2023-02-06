@@ -12,11 +12,7 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
     fontSize: '1.6rem',
     padding: '1.6rem',
     // Use the system font instead of the default Roboto font.
-    fontFamily: 'Pretendard Regular',
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: 'black',
-    },
+    fontFamily: 'Pretendard Medium',
   },
 }));
 
@@ -54,9 +50,6 @@ export default function RecipeFoodCategory(props) {
             value="no-select"
             sx={{
               display: 'none',
-              padding: '1.6rem',
-              fontFamily: 'Pretendard Regular',
-              fontSize: '1.6rem',
             }}
           >
             요리 분류를 선택해주세요
