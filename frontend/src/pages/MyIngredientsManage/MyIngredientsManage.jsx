@@ -86,12 +86,12 @@ function MyIngredientsManage() {
             <IngredientsBox category={category} onSelect={onSelect} />
           </Box>
           <Box gridColumn="span 1" />
-          <Box gridColumn="span 6">
+          <Box gridColumn="span 5">
             {components.map(component => {
               return component;
             })}
           </Box>
-          <Box gridColumn="span 1" />
+          <Box gridColumn="span 2" />
           {/* <Box gridColumn="span 1" /> */}
         </Box>
       </Contents>

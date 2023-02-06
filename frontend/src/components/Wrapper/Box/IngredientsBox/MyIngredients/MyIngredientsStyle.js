@@ -21,7 +21,7 @@ export const AppWrap = styled.div`
 
 export const Contents = styled.div`
   background: #fff8ea;
-  width: 624px;
+  /* width: 624px; */
   height: 164px;
   margin-bottom: 20px;
   padding: 20px;
@@ -29,6 +29,6 @@ export const Contents = styled.div`
 
   @media screen and (max-width: 1024px) {
     overflow-x: auto;
-    width: 480px;
+    /* width: 480px; */
   }
 `;
