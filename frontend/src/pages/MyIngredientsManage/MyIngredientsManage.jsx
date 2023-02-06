@@ -7,6 +7,7 @@ import MyIngredients from '../../components/Wrapper/Box/IngredientsBox/MyIngredi
 import AllIngredients from '../../components/Wrapper/Box/IngredientsBox/AllIngredients/AllIngredients';
 import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
 import { Contents } from './MyIngredientsManageStyle';
+import SearchIngredient from '../../components/Wrapper/Box/IngredientsBox/SearchIngredient/SearchIngredient';
 
 function MyIngredientsManage() {
   const [category, setCategory] = useState('ALL');
@@ -28,21 +29,19 @@ function MyIngredientsManage() {
         url: `http://i8b206.p.ssafy.io:9000/myIngredient/search/${enterdItme}`,
       });
       console.log(allIngre.data);
-      setIngredientName(prev => [
-        ...prev,
-        ...allIngre.data.map(v => v.ingredientName),
-      ]);
-      setIngredientCategory(prev => [
-        ...prev,
-        ...allIngre.data.map(v => v.ingredientCategory),
-      ]);
+
+      setIngredientName([...allIngre.data.map(v => v.ingredientName)]);
+      setIngredientCategory([...allIngre.data.map(v => v.ingredientCategory)]);
       // console.log(ingredient);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    getData();
+    console.log(enterdItme);
+    if (enterdItme !== '') {
+      getData();
+    }
   }, [enterdItme]);
 
   const components = [
@@ -67,7 +66,6 @@ function MyIngredientsManage() {
   // 비동기 요청 보내기
   // enterdItme 이 비어있으면 전체 (/room/list)
   // enterdItme 값이 있으면 검색어 기반 (/room/search/{recipeName})
-
   // useEffect(() => {
   //   console.log(enterdItme);
   // }, [enterdItme]);
@@ -79,19 +77,27 @@ function MyIngredientsManage() {
       <br />
       <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
       <br />
+
       <Contents>
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1}>
-          <Box gridColumn="span 2" />
-          <Box gridColumn="span 1">
+          <Box gridColumn="span 1" />
+          <Box gridColumn="span 10">
+            <SearchIngredient ingredientName={ingredientName} />
+          </Box>
+          <Box gridColumn="span 1" />
+        </Box>
+        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1}>
+          <Box gridColumn="span 1" />
+          <Box gridColumn="span 3">
             <IngredientsBox category={category} onSelect={onSelect} />
           </Box>
           <Box gridColumn="span 1" />
-          <Box gridColumn="span 5">
+          <Box gridColumn="span 6">
             {components.map(component => {
               return component;
             })}
           </Box>
-          <Box gridColumn="span 2" />
+          <Box gridColumn="span 1" />
           {/* <Box gridColumn="span 1" /> */}
         </Box>
       </Contents>

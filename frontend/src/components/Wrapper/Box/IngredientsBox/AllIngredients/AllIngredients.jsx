@@ -3,7 +3,7 @@ import axios from 'axios';
 import dummy from '../ingredients.json';
 import { Contents, Circle, Button, Wrapper } from './AllIngredientsStyle';
 
-function AllIngredients({ category, ingredientName, ingredientCategory }) {
+function AllIngredients({ category }) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const [ingredients, setIngredients] = useState([]);
@@ -21,11 +21,13 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
   useEffect(() => {
     const getData = async () => {
       try {
-        const query = category;
+        let query = category;
+        if (query === 'ALL') {
+          query = '';
+        }
         const response = await axios.get(
           `http://i8b206.p.ssafy.io:9000/ingredient/list/total/${query}`
         );
-
         setIngredients([...response.data.map((v, a) => v.ingredientName)]);
         // console.log(ingredients);
       } catch (e) {
@@ -65,7 +67,7 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
         setAllIngredient([...response.data.map((v, a) => v.ingredientName)]);
         // console.log(ingredients);
       } catch (e) {
-        // console.log(e);
+        console.log(e);
       }
     };
     getAllData();
@@ -107,6 +109,15 @@ function AllIngredients({ category, ingredientName, ingredientCategory }) {
       <Contents>
         {categoryKorean}
         {ingredient}
+        {/* {ingredientName.length === 0
+          ? ingredient
+          : ingredientName
+              .filter(
+                (element, index) => category === ingredientCategory[index]
+              )
+              .map((element, index) => {
+                return <div key={element}>{element}</div>;
+              })} */}
       </Contents>
     </div>
   );
