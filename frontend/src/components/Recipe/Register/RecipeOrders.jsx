@@ -4,6 +4,9 @@ import React from 'react';
 import { Box, Button, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
+// Component
+import NextBtn from '../../Btn/NextBtn/NextBtn';
+
 export default function RecipeOrders(props) {
   const { recipeOrders, onClick: setRecipeOrders } = props;
 
@@ -85,9 +88,12 @@ export default function RecipeOrders(props) {
         gridColumn="span 9"
         sx={{ display: 'flex', justifyContent: 'center' }}
       >
-        <Button variant="contained" onClick={addRecipeOrder}>
-          <p>추가</p>
-        </Button>
+        <NextBtn
+          name="추가"
+          size="small"
+          color="yellow"
+          onClick={addRecipeOrder}
+        />
       </Box>
     </Box>
   );
