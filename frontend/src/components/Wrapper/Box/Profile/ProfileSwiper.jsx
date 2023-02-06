@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // MUI
 import { Stack } from '@mui/material';
@@ -19,11 +19,24 @@ import { HistoryStyle, MyRecipeStyle } from './ProfileSwiperStyle';
 
 export default function ProfileSwiper(props) {
   const { histories, recipes } = props;
+  const [viewSize, setViewSize] = useState();
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setViewSize(window.innerWidth);
+    });
+    return () => {
+      window.removeEventListener('resize', () => {
+        setViewSize(window.innerWidth);
+      });
+    };
+  }, []);
+
   return (
     <Swiper
       modules={[Navigation, Mousewheel]}
       spaceBetween={48}
-      slidesPerView={3}
+      slidesPerView={viewSize >= 900 ? 5 : 3}
       navigation
       mousewheel
       // onSwiper={swiper => console.log(swiper)}
