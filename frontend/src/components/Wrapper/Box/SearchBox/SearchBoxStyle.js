@@ -4,6 +4,7 @@ export const SearchFormWrapper = styled.form`
   display: flex;
   justify-content: center;
   height: auto;
+  padding-bottom: 2rem;
 `;
 
 export const SearchFormLabel = styled.label`

@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 // Swiper
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Stack } from '@mui/material';
+
 import * as S from './streamItemStyle';
+
+// MUI
 
 // eslint-disable-next-line
 import 'swiper/css';
@@ -12,6 +16,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 // eslint-disable-next-line
 import 'swiper/css/pagination';
+
+import gim from '../../../../assets/img/김찌.jpg';
 
 export default function StreamSwiper(props) {
   const { cookRoom } = props;
@@ -34,33 +40,43 @@ export default function StreamSwiper(props) {
       {cookRoom.map(room => {
         return (
           <SwiperSlide key={room.cookingRoomId}>
-            <S.CookRoomItemWrapper>
-              <S.CookRoomItemImg src={room.cookingRoomImg} alt="img" />
-              <S.StartUserWrapper>
-                <S.JoinUserWrapper>
-                  <p>{room.userJoinLists ? room.userJoinLists.length : 0}명</p>
-                </S.JoinUserWrapper>
-                <S.StartTimeWrapper>
-                  <p>
-                    {`${new Date(
-                      room.cookingRoomStartTime
-                    ).getHours()}:${new Date(
-                      room.cookingRoomStartTime
-                    ).getMinutes()}`}
-                    시작
-                  </p>
-                </S.StartTimeWrapper>
-              </S.StartUserWrapper>
-              <Link to={`/Room/${room.cookingRoomId}`}>
-                <S.roomTitle>{room.cookingRoomName}</S.roomTitle>
-              </Link>
-              <S.KingWrapper>
-                <p>{room.cookingRoomHost}</p>
-              </S.KingWrapper>
-              <S.TagWrapper>
-                <span>#{room.recipe.recipeName}</span>
-              </S.TagWrapper>
-            </S.CookRoomItemWrapper>
+            <Stack
+              spacing={2}
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+            >
+              <S.CookRoomItemWrapper>
+                {/* <S.CookRoomItemImg src={room.cookingRoomImg} alt="img" /> */}
+                <S.CookRoomItemImg src={gim} alt="img" />
+                <S.StartUserWrapper>
+                  <S.JoinUserWrapper>
+                    <p>
+                      {room.userJoinLists ? room.userJoinLists.length : 0}명
+                    </p>
+                  </S.JoinUserWrapper>
+                  <S.StartTimeWrapper>
+                    <p>
+                      {`${new Date(
+                        room.cookingRoomStartTime
+                      ).getHours()}:${new Date(
+                        room.cookingRoomStartTime
+                      ).getMinutes()}`}
+                      시작
+                    </p>
+                  </S.StartTimeWrapper>
+                </S.StartUserWrapper>
+                <Link to={`/Room/${room.cookingRoomId}`}>
+                  <S.roomTitle>{room.cookingRoomName}</S.roomTitle>
+                </Link>
+                <S.KingWrapper>
+                  <p>{room.cookingRoomHost}</p>
+                </S.KingWrapper>
+                <S.TagWrapper>
+                  <span>#{room.recipe.recipeName}</span>
+                </S.TagWrapper>
+              </S.CookRoomItemWrapper>
+            </Stack>
           </SwiperSlide>
         );
       })}

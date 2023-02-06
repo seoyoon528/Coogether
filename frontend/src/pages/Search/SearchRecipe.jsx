@@ -101,21 +101,23 @@ function SearchRecipe() {
   ));
 
   return (
-    <div>
-      <S.SearchMainHeader>원하는 요리 레시피를 찾아보세요</S.SearchMainHeader>
-      <S.SearchSubHeader>
-        재료부터 요리 순서까지 레시피를 보고 요리를 따라할 수 있어요
-      </S.SearchSubHeader>
-      <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
-      <br />
-      <RecipeBoxList recepi={recepi} />
-      {load && (
-        <Grid container justifyContent="space-evenly">
-          {SK}
-        </Grid>
-      )}
-      <li ref={observerRef} />
-    </div>
+    <S.RecepiContainer>
+      <div className="main">
+        <S.SearchMainHeader>원하는 요리 레시피를 찾아보세요</S.SearchMainHeader>
+        <S.SearchSubHeader>
+          재료부터 요리 순서까지 레시피를 보고 요리를 따라할 수 있어요
+        </S.SearchSubHeader>
+        <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
+        <br />
+        <RecipeBoxList recepi={recepi} />
+        {load && (
+          <Grid container justifyContent="space-evenly">
+            {SK}
+          </Grid>
+        )}
+        <li ref={observerRef} />
+      </div>
+    </S.RecepiContainer>
   );
 }
 

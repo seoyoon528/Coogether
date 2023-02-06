@@ -6,6 +6,8 @@ import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
 // Style
 import { RecipeBoxItemStyle } from './RecipeBoxItemStyle ';
 
+import ggim from '../../../../assets/img/김찌.jpg';
+
 function RecipeBoxItem({ recipe }) {
   const { recipeName, thumbnail, recipeContent, recipeId } = recipe;
   // Modal 상태
@@ -21,7 +23,8 @@ function RecipeBoxItem({ recipe }) {
 
   return (
     <RecipeBoxItemStyle>
-      <img src={thumbnail} alt="이미지" />
+      {/* <img src={thumbnail} alt="이미지" /> */}
+      <img src={ggim} alt="이미지" />
       <h4 onClick={openModal} aria-hidden="true">
         {recipeName}
       </h4>
