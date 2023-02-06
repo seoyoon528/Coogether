@@ -9,6 +9,7 @@ import RecipeFoodCategory from './RecipeFoodCategory';
 import RecipeCookImage from './RecipeCookImage';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeOrders from './RecipeOrders';
+import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 function RecipeRegisterForm() {
   // 요리 이름
@@ -60,9 +61,12 @@ function RecipeRegisterForm() {
             gridColumn="span 9"
             sx={{ display: 'flex', justifyContent: 'center' }}
           >
-            <Button variant="contained" onClick={recipeSubmitHandler}>
-              <p>등록</p>
-            </Button>
+            <NextBtn
+              onClick={recipeSubmitHandler}
+              name="등록"
+              size="small"
+              color="yellow"
+            />
           </Box>
         </Box>
       </Stack>
