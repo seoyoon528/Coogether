@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 // MUI
-import { Button, Stack, Grid } from '@mui/material';
+import { Button, Stack, Box } from '@mui/material';
 
 // Component
 import RecipeCookName from './RecipeCookName';
@@ -9,6 +9,7 @@ import RecipeFoodCategory from './RecipeFoodCategory';
 import RecipeCookImage from './RecipeCookImage';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeOrders from './RecipeOrders';
+import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 function RecipeRegisterForm() {
   // 요리 이름
@@ -18,11 +19,7 @@ function RecipeRegisterForm() {
   // 요리 이미지
   const [cookImage, setCookImage] = useState('');
   // 요리 재료
-  const [recipeIngredients, setRecipeIngredients] = useState([
-    { id: 'ingredient-1', name: '요리명' },
-    { id: 'ingredient-2', name: '요리명' },
-    { id: 'ingredient-3', name: '요리명' },
-  ]);
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
   // 요리 순서
   const [recipeOrders, setRecipeOrders] = useState([
     { id: 'order-1' },
@@ -53,19 +50,25 @@ function RecipeRegisterForm() {
         <RecipeCookImage cookImage={cookImage} onChange={setCookImage} />
         <RecipeIngredients
           recipeIngredients={recipeIngredients}
-          onClick={setRecipeIngredients}
+          setRecipeIngredients={setRecipeIngredients}
         />
         <hr color="#ffcc5e" />
         <RecipeOrders recipeOrders={recipeOrders} onClick={setRecipeOrders} />
         <hr color="#ffcc5e" />
-        <Grid container columnSpacin={2}>
-          <Grid item xs={2} />
-          <Grid item xs={9} className="recipe-register-form__submit-button">
-            <Button variant="contained" onClick={recipeSubmitHandler}>
-              <p>등록</p>
-            </Button>
-          </Grid>
-        </Grid>
+        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+          <Box gridColumn="span 2" />
+          <Box
+            gridColumn="span 9"
+            sx={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <NextBtn
+              onClick={recipeSubmitHandler}
+              name="등록"
+              size="small"
+              color="yellow"
+            />
+          </Box>
+        </Box>
       </Stack>
     </form>
   );

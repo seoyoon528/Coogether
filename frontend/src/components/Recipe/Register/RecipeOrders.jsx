@@ -4,8 +4,10 @@ import React from 'react';
 import { Box, Button, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
+// Component
+import NextBtn from '../../Btn/NextBtn/NextBtn';
+
 export default function RecipeOrders(props) {
-  console.log(1);
   const { recipeOrders, onClick: setRecipeOrders } = props;
 
   // 순서 추가
@@ -82,10 +84,16 @@ export default function RecipeOrders(props) {
         })}
       </Box>
       <Box gridColumn="span 2" />
-      <Box gridColumn="span 9" sx={{ mx: 'auto' }}>
-        <Button variant="contained" onClick={addRecipeOrder}>
-          <p>추가</p>
-        </Button>
+      <Box
+        gridColumn="span 9"
+        sx={{ display: 'flex', justifyContent: 'center' }}
+      >
+        <NextBtn
+          name="추가"
+          size="small"
+          color="yellow"
+          onClick={addRecipeOrder}
+        />
       </Box>
     </Box>
   );
