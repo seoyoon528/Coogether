@@ -8,7 +8,8 @@ import { Stack } from '@mui/material';
 
 import * as S from './StreamSwiperStyle';
 
-// MUI
+// Component
+import ChefHat from '../../../Rank/ChefHat';
 
 // eslint-disable-next-line
 import 'swiper/css';
@@ -77,6 +78,7 @@ export default function StreamSwiper(props) {
                 </Link>
                 <S.KingWrapper>
                   <p>{room.cookingRoomHost}</p>
+                  <ChefHat color="red" />
                 </S.KingWrapper>
                 <S.TagWrapper>
                   <span>#{room.recipe.recipeName}</span>

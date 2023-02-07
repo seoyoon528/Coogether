@@ -22,10 +22,10 @@ function RecipeBoxItem({ recipe }) {
 
   return (
     <RecipeBoxItemStyle>
-      <img src={recipeImg} alt="이미지" />
-      <h4 onClick={openModal} aria-hidden="true">
-        {recipeName}
-      </h4>
+      <div onClick={openModal} aria-hidden="true">
+        <img src={recipeImg} alt="이미지" />
+        <h4>{recipeName}</h4>
+      </div>
       <hr />
       <RecipeDetail open={isModalOpened} onClose={closeModal} recipe={recipe} />
     </RecipeBoxItemStyle>
