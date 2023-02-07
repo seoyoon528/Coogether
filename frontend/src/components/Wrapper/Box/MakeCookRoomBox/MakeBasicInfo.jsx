@@ -1,15 +1,18 @@
 import React from 'react';
 import { StreamContents } from './MakeBasicInfoStyle';
 
-function MakeBasicInfo() {
+function MakeBasicInfo(props) {
+  const { streamName, onChange: setStreamName } = props;
   return (
     <StreamContents>
       <p>방송 제목</p>
-      <input type="text" placeholder="방송 제목을 입력해주세요" />
-      <p>시작 시간</p>
-      <input type="text" placeholder="시작 시간을 입력해주세요" />
-      <p>요리 이름</p>
-      <input type="text" placeholder="요리 이름을 입력해주세요" />
+      <input
+        type="text"
+        required
+        value={streamName}
+        onChange={e => setStreamName(e.target.value)}
+        placeholder="방송 제목을 입력해주세요"
+      />
     </StreamContents>
   );
 }
