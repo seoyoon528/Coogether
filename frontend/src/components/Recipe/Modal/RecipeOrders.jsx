@@ -11,8 +11,12 @@ export default function RecipeOrders(props) {
       <ul>
         {orders.map((order, idx) => {
           return (
-            <li className="orders__item" key={`orders-${idx + 1}`}>
-              <h3>{idx + 1}</h3>
+            <li
+              className={`orders__item ${
+                order.trim()[0] === '*' ? 'small' : ''
+              }`}
+              key={`orders-${idx + 1}`}
+            >
               <p className="content">{order}</p>
             </li>
           );
