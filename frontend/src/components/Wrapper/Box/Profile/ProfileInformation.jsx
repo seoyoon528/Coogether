@@ -7,20 +7,22 @@ import { Grid } from '@mui/material';
 import { ProfileInformationStyle } from './ProfileInformationStyle';
 
 export default function ProfileInformation(props) {
+  const message = '';
+
   const {
     userInformation: {
-      nickname,
-      follower,
-      following,
-      temperature,
-      like,
+      userNickname,
+      userTemp,
+      userCookCategory,
       rank,
-      message,
+      followerCnt,
+      followingCnt,
+      userIntroduce,
     },
   } = props;
   return (
     <ProfileInformationStyle>
-      <h2>{nickname}</h2>
+      <h2>{userNickname}</h2>
       <Grid
         container
         direction="column"
@@ -31,7 +33,8 @@ export default function ProfileInformation(props) {
         <Grid item xs={1}>
           <div className="follow">
             <p>
-              팔로워 <span>{follower}</span> | 팔로잉 <span>{following}</span>
+              팔로워 <span>{followerCnt}</span> | 팔로잉{' '}
+              <span>{followingCnt}</span>
             </p>
           </div>
         </Grid>
@@ -48,7 +51,11 @@ export default function ProfileInformation(props) {
                       />
                       <p>온도</p>
                     </div>
-                    <p>{temperature}도</p>
+                    <p>
+                      {userTemp >= 1000
+                        ? `${Math.floor(userTemp / 1000, -1)}K`
+                        : userTemp}{' '}
+                    </p>
                   </div>
                 </Grid>
                 <Grid item xs={4}>
@@ -60,7 +67,7 @@ export default function ProfileInformation(props) {
                       />
                       <p>선호</p>
                     </div>
-                    <p>{like}</p>
+                    <p>{userCookCategory}</p>
                   </div>
                 </Grid>
                 <Grid item xs={4}>
@@ -80,8 +87,8 @@ export default function ProfileInformation(props) {
           </Grid>
         </Grid>
         <Grid item xs={1}>
-          <div className="message">
-            <p>{message}</p>
+          <div className={`message ${userIntroduce ? 'userInput' : ''}`}>
+            <p>{userIntroduce || '상태 메시지를 입력하세요'}</p>
           </div>
         </Grid>
       </Grid>

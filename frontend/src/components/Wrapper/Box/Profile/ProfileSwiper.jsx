@@ -19,24 +19,16 @@ import { HistoryStyle, MyRecipeStyle } from './ProfileSwiperStyle';
 
 export default function ProfileSwiper(props) {
   const { histories, recipes } = props;
-  const [viewSize, setViewSize] = useState();
-
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setViewSize(window.innerWidth);
-    });
-    return () => {
-      window.removeEventListener('resize', () => {
-        setViewSize(window.innerWidth);
-      });
-    };
-  }, []);
-
   return (
     <Swiper
       modules={[Navigation, Mousewheel]}
       spaceBetween={48}
-      slidesPerView={viewSize >= 900 ? 5 : 3}
+      breakpoints={{
+        1536: {
+          slidesPerView: 4,
+        },
+      }}
+      slidesPerView={3}
       navigation
       mousewheel
       // onSwiper={swiper => console.log(swiper)}
