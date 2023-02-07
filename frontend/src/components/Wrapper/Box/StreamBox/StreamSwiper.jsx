@@ -17,8 +17,6 @@ import 'swiper/css/navigation';
 // eslint-disable-next-line
 import 'swiper/css/pagination';
 
-import gim from '../../../../assets/img/김찌.jpg';
-
 export default function StreamSwiper(props) {
   const { cookRoom } = props;
 

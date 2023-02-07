@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 import * as S from './streamItemStyle';
 
-import gim from '../../../../assets/img/김찌.jpg';
-
 function StreamItem({ room }) {
   const {
     cookingRoomId,
