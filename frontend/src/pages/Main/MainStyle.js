@@ -6,6 +6,10 @@ export const MainContainer = styled.section`
 
   margin-top: 3.2rem;
 
+  & h2 {
+    padding-bottom: 2rem;
+  }
+
   .main {
     width: 78vw;
   }
