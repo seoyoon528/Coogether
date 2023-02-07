@@ -1,11 +1,8 @@
 package coogether.backend.controller;
 
 import coogether.backend.domain.Follow;
-import coogether.backend.domain.MyIngredientManage;
-import coogether.backend.dto.FollowDto;
 import coogether.backend.dto.FollowerDto;
 import coogether.backend.dto.FollowingDto;
-import coogether.backend.dto.MyIngredientManageDto;
 import coogether.backend.service.FollowService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
