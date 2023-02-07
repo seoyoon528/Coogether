@@ -4,7 +4,7 @@ import loginBg from '../../assets/img/loginBackground.jpeg';
 
 export const Background = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   text-align: center;
   position: relative;
   background-size: cover;
