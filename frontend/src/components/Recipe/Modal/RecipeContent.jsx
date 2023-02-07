@@ -69,8 +69,8 @@ function RecipeDetailModalContent(props) {
         <Grid item xs={5} className="recipe-detail__information">
           <RecipeIngredients ingredients={ingredients} />
         </Grid>
-        <Grid item xs={2} />
-        <Grid item xs={5} className="recipe-detail__information">
+        <Grid item xs={1} />
+        <Grid item xs={6} className="recipe-detail__information">
           <RecipeOrders orders={recipeOrders} />
         </Grid>
       </Grid>
