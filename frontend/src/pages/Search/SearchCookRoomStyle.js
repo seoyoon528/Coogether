@@ -4,7 +4,7 @@ export const CookRoomContainer = styled.section`
   display: flex;
   justify-content: center;
 
-  margin-top: 3.2rem;
+  /* margin-top: 3.2rem; */
 
   .main {
     width: 78vw;
@@ -39,7 +39,4 @@ export const SearchContainer = styled.section`
   }
 `;
 
-export const SkeletonContainer = styled.span`
-  height: 255px;
-  width: 216px;
-`;
+export const Line = styled.hr``;

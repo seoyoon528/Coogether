@@ -114,6 +114,7 @@ function SearchRecipe() {
           onChangePage={onChangePage}
         />
         <br />
+        <hr />
         <RecipeBoxList recepi={recepi} />
         {load && (
           <Grid container justifyContent="space-evenly">

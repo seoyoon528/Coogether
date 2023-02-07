@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 import StreamItem from './streamItem';
-import * as S from './streamListStyle';
 
 function StreamList(props) {
   const { cookRoom } = props;

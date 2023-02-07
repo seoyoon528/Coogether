@@ -4,7 +4,7 @@ export const RecepiContainer = styled.section`
   display: flex;
   justify-content: center;
 
-  margin-top: 3.2rem;
+  /* margin-top: 3.2rem; */
 
   .main {
     width: 78vw;
