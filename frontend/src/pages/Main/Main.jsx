@@ -30,21 +30,21 @@ function Main() {
 
       const firstData = await axios({
         // 추후 수정
-        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
+        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=10',
       });
       // console.log(firstData);
       setFirst(firstData.data.content);
 
       const secondData = await axios({
         // 추후 수정
-        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
+        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=10',
       });
       // console.log(firstData);
       setSecond(secondData.data.content);
 
       const thirdData = await axios({
         // 추후 수정
-        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
+        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=10',
       });
       // console.log(firstData);
       setThird(thirdData.data.content);
@@ -63,16 +63,16 @@ function Main() {
           <br />
           {isIn && (
             <div>
-              <h1>재료기반 추천</h1>
+              <h2>냉장고를 정리할 수 있는 절호의 기회!</h2>
               <StreamSwiper cookRoom={first} />
             </div>
           )}
           <div>
-            <h1>시간임박 추천</h1>
+            <h2>곧 시작해요! 얼른 들어오세요</h2>
             <StreamSwiper cookRoom={second} />
           </div>
           <div>
-            <h1>선호분야 추천</h1>
+            <h2>이 요리 좋아하지 않나요??</h2>
             <StreamSwiper cookRoom={third} />
           </div>
         </Stack>
