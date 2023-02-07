@@ -80,4 +80,11 @@ public class RecipeController {
     public Page<SimpleRecipeDto> recipeListByRecipeName(@PathVariable("recipeName") String recipeName,Pageable pageable)  {
         return recipeService.getRecipeListPagingByRecipeName(recipeName,pageable);
     }
+
+    @ApiOperation(value = "사용자 아이디로 본인의 커스텀 레시피 목록 반환")
+    @GetMapping("/recipe/list/{userSeq}")
+    public ResponseEntity recipeListUser(@PathVariable("userSeq") Long userSeq) {
+        List<SimpleRecipeDto> result = recipeService.getRecipeListUser(userSeq);
+        return ResponseEntity.ok().body(result);
+    }
 }

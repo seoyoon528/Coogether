@@ -6,18 +6,17 @@ import coogether.backend.domain.User;
 import coogether.backend.dto.request.RecipeRequest;
 import coogether.backend.dto.request.RecipeStepRequest;
 import coogether.backend.dto.simple.SimpleRecipeDto;
-import coogether.backend.dto.simple.SimpleUserDto;
 import coogether.backend.repository.recipe.RecipeRepository;
 import coogether.backend.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,5 +63,17 @@ public class RecipeService {
 
     public Page<SimpleRecipeDto> getRecipeListPagingByRecipeName(String recipeName, Pageable pageable) {
         return recipeRepository.getRecipeListPagingByRecipeName(recipeName,pageable);
+    }
+
+    public List<SimpleRecipeDto> getRecipeListUser(Long userSeq) {
+        List<SimpleRecipeDto> result = new ArrayList<>();
+
+        List<Recipe> recipes = recipeRepository.findByUserSeq(userSeq);
+        for (Recipe r : recipes) {
+            SimpleRecipeDto simpleRecipeDto = new SimpleRecipeDto(r);
+            result.add(simpleRecipeDto);
+        }
+
+        return result;
     }
 }
