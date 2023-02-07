@@ -7,7 +7,9 @@ import coogether.backend.dto.RecipeDto;
 import coogether.backend.dto.request.RecipeRequest;
 import coogether.backend.dto.simple.SimpleRecipeDto;
 import coogether.backend.repository.cookingroom.CookingRoomRepository;
+import coogether.backend.service.IngredientListService;
 import coogether.backend.service.RecipeService;
+import coogether.backend.service.RecipeStepService;
 import coogether.backend.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,14 +28,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecipeController {
     private final RecipeService recipeService;
+    private final RecipeStepService recipeStepService;
+    private final IngredientListService ingredientListService;
 
     @ApiOperation(value = "사용자 커스텀 레시피 등록")
     @PostMapping("/recipe/create/{userSeq}")
     public ResponseEntity addCustomRecipe(@RequestBody RecipeRequest recipeRequest, @PathVariable("userSeq") Long userSeq)  {
 
-        recipeService.addCustomRecipe(recipeRequest,userSeq);
+        Recipe customRecipe = recipeService.addCustomRecipe(recipeRequest, userSeq);
 
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        if (customRecipe != null) {
+            ingredientListService.addIngredientList(customRecipe.getRecipeId(), recipeRequest.getIngredientListRequest());
+            recipeStepService.addRecipeStep(customRecipe.getRecipeId(), recipeRequest.getRecipeStepRequest());
+            return ResponseEntity.status(HttpStatus.OK).body(true);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.OK).body(false);
+        }
+
     }
     
 //    @ApiOperation(value = "레시피 목록 전체를 반환하는 메소드")

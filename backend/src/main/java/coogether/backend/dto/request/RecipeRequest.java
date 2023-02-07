@@ -9,12 +9,15 @@ import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class RecipeRequest {
 
     private EnumRecipeCategory recipeCategory;
     private EnumRecipeType recipeType;
-    private String recipeContent;
+    private String recipeImg;
     private String recipeName;
+    private List<IngredientListRequest> ingredientListRequest;
+    private List<RecipeStepRequest> recipeStepRequest;
 }
