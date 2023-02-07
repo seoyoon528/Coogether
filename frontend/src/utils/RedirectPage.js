@@ -127,7 +127,7 @@ function RedirectPage({ history }) {
   return (
     <>
       {/* 나중에 !isRegistered로 바꾸기 */}
-      {isRegistered ? (
+      {!isRegistered ? (
         <Background>
           <h1>쿠게더에게 더 알려주세요</h1>
           <div>소셜 로그인으로 쿠게더와 함께할 수 있습니다</div>
