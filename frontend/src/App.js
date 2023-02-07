@@ -16,6 +16,7 @@ import MakeCookRoom from './pages/MakeCookRoom/MakeCookRoom';
 import RedirectPage from './utils/RedirectPage';
 import Footer from './components/Nav/Footer';
 import FloatBtn from './components/Btn/FloatBtn/FloatBtn';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage} />
         <Route path="/MakeCookRoom" component={MakeCookRoom} />
+        <Route path="*" component={NotFound} exact />
       </Switch>
       <FloatBtn />
       <Footer />
