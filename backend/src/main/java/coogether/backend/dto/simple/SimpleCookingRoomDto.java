@@ -24,7 +24,14 @@ public class SimpleCookingRoomDto {
     public SimpleCookingRoomDto(CookingRoom cookingRoom) {
         this.cookingRoomId = cookingRoom.getCookingRoomId();
         this.cookingRoomName = cookingRoom.getCookingRoomName();
-        this.cookingRoomImg = cookingRoom.getCookingRoomImg();
+        this.cookingRoomImg = cookingRoom.getCookingRoomImg()
+                != null ? cookingRoom.getCookingRoomImg() : "https://s3.ap-northeast-2.amazonaws.com/my.first.example.sss.bucket/img/cookwaitingimg.jpg";
+
+//        if (cookingRoom.getCookingRoomImg() == null || cookingRoom.getCookingRoomImg().equals("")) {
+//            this.cookingRoomImg = null;
+//        } else {
+//            this.cookingRoomImg = cookingRoom.getCookingRoomImg();
+//        }
         this.cookingRoomStartTime = cookingRoom.getCookingRoomStartTime();
         this.cookingRoomStatus = cookingRoom.getCookingRoomStatus();
         this.cookingRoomNotice = cookingRoom.getCookingRoomNotice();
