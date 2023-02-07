@@ -21,25 +21,26 @@ const APPLICATION_SERVER_URL = 'http://i8b206.p.ssafy.io:9000/';
 class CookRoom extends Component {
   constructor(props) {
     super(props);
+    console.log(props.userInfo.userImg);
     this.hasBeenUpdated = false;
     let sessionName = this.props.roomId;
 
-    let userName = this.props.user
-      ? // 세션 유저 이름 지정
-        this.props.user
-      : 'OpenVidu_User' + Date.now();
+    // 세션 유저 이름 지정
+    let userName = this.props.userInfo.userNickname;
     this.remotes = [];
     this.findHost = [[userName, Date.now()]];
     this.localUserAccessAllowed = false;
     this.state = {
       mySessionId: sessionName,
       myUserName: userName,
+      myPicture: this.props.userInfo.userImg ? this.props.userInfo.userImg : '',
       session: undefined,
       localUser: undefined,
       subscribers: [],
       chatDisplay: 'block',
       currentVideoDevice: undefined,
       kicktrigger: false,
+      recipe:undefined,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -49,6 +50,10 @@ class CookRoom extends Component {
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
     this.killUser = this.killUser.bind(this);
+    // 레시피 가져오기
+    this.importRecipe = this.importRecipe.bind(this);
+
+
 
     this.nicknameChanged = this.nicknameChanged.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -63,6 +68,7 @@ class CookRoom extends Component {
   componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload);
     this.joinSession();
+    
   }
 
   componentWillUnmount() {
@@ -115,10 +121,13 @@ class CookRoom extends Component {
       }
     }
   }
-
+  // 연결 시 유저 이름과 유저 사진 동시에 전송
   connect(token) {
     this.state.session
-      .connect(token, { clientData: this.state.myUserName })
+      .connect(token, {
+        clientData: this.state.myUserName,
+        clientPicture: this.state.myPicture,
+      })
       .then(() => {
         this.connectWebCam();
       })
@@ -139,6 +148,15 @@ class CookRoom extends Component {
         );
       });
   }
+
+  // 임시 로직 - 해당 레시피의 id를 props에서 받아올것
+  async getRecipe() {
+    const response = await axios.get(
+      'http://i8b206.p.ssafy.io:9000/recipe/list?page=0'
+    );
+    return response.data;
+  }
+  this.state.recipe = await getRecipe()
 
   async connectWebCam() {
     await this.OV.getUserMedia({
@@ -226,7 +244,7 @@ class CookRoom extends Component {
       subscribers: [],
       // 해당 세션 ID 값 부여
       mySessionId: '',
-      myUserName: 'OpenVidu_User' + Math.floor(Math.random() * 100),
+      myUserName: '',
       localUser: undefined,
     });
     if (this.props.leaveSession) {
@@ -298,9 +316,10 @@ class CookRoom extends Component {
       newUser.setType('remote');
       const nickname = event.stream.connection.data.split('%')[0];
       newUser.setNickname(JSON.parse(nickname).clientData);
+      newUser.setImg(JSON.parse(nickname).clientPicture);
       this.remotes.push(newUser);
       this.findHost.push([JSON.parse(nickname).clientData, Date.now()]);
-      console.log(this.findHost);
+
       if (this.localUserAccessAllowed) {
         this.updateSubscribers();
       }
@@ -530,6 +549,7 @@ class CookRoom extends Component {
               <ChatComponent
                 remoteUsers={this.state.subscribers}
                 user={localUser}
+                userImg={this.state.myPicture}
                 chatDisplay={this.state.chatDisplay}
                 close={this.toggleChat}
                 messageReceived={this.checkNotification}

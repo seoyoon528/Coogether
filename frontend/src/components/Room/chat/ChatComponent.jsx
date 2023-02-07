@@ -1,13 +1,25 @@
 /* eslint-disable */
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { WaitContainer } from './ChatCompo';
+import { ContentWrap } from './ChatCompo';
+import { ExitBox } from './ChatCompo';
+import { WrapUserList } from './ChatCompo';
+import { WrapUserInfo } from './ChatCompo';
+
+import {
+  WaitDivideBox,
+  WaitTitle,
+  ThisUserImg,
+  WaitContainer,
+} from './ChatCompo';
 
 import './ChatComponent.css';
 
 export default class ChatComponent extends Component {
   constructor(props) {
     super(props);
+
+    console.log(this.props.remoteUsers);
     this.state = {
       messageList: [],
       message: '',
@@ -91,76 +103,87 @@ export default class ChatComponent extends Component {
   render() {
     return (
       <WaitContainer>
-        <div id="chatContainer">
-          <div>오늘은 모두 요리사</div>
+        <WaitDivideBox>
+          <WaitTitle>오늘은 모두 요리사</WaitTitle>
+
           {/* 유저 정보 입력 공간, 사진도 같이 가져와야함 */}
-          <div>
-            <div>{this.props.user.nickname}</div>
-            <div>사진</div>
+          <WrapUserList>
+            <WrapUserInfo>
+              <ThisUserImg src={this.props.userImg} />
+              <div>{this.props.user.nickname}</div>
+            </WrapUserInfo>
             {this.props.remoteUsers.map((v, a) => {
-              return <div>{v.nickname}</div>;
+              return (
+                <WrapUserInfo>
+                  <ThisUserImg src={v.img} />
+                  <div>{v.nickname}</div>
+                </WrapUserInfo>
+              );
             })}
-          </div>
+          </WrapUserList>
           {/* 재료 및 레시피 정보 입력 공간 */}
           <div>레시피재료</div>
-          <div>쌈장닭갈비 불고기 우유 고추장 된장 맛술</div>
-        </div>
-        <div id="chatContainer">
-          <div id="chatComponent">
-            <div id="chatToolbar">
-              {/* 방 이름+ 채팅 */}
-              <span>
-                {this.props.user.getStreamManager().stream.session.sessionId} 방
-                채팅
-              </span>
-            </div>
-            <span>참가자 ({this.props.remoteUsers.length + 1})</span>
-            <span>공지를 올려주세요!</span>
-            <div className="message-wrap" ref={this.chatScroll}>
-              {this.state.messageList.map((data, i) => (
-                <div
-                  key={i}
-                  id="remoteUsers"
-                  className={
-                    'message' +
-                    (data.connectionId !== this.props.user.getConnectionId()
-                      ? ' left'
-                      : ' right')
-                  }
-                >
-                  <canvas
-                    id={'userImg-' + i}
-                    width="60"
-                    height="60"
-                    className="user-img"
-                  />
-                  <div className="msg-detail">
-                    <div className="msg-info">
-                      <p> {data.nickname}</p>
-                    </div>
-                    <div className="msg-content">
-                      <span className="triangle" />
-                      <p className="text">{data.message}</p>
+          <ContentWrap>쌈장닭갈비 불고기 우유 고추장 된장 맛술</ContentWrap>
+        </WaitDivideBox>
+        <WaitDivideBox>
+          <ContentWrap>
+            <div id="chatComponent">
+              <div id="chatToolbar">
+                {/* 방 이름+ 채팅 */}
+                <span>
+                  {this.props.user.getStreamManager().stream.session.sessionId}{' '}
+                  방 채팅
+                </span>
+              </div>
+              <span>참가자 ({this.props.remoteUsers.length + 1})</span>
+              <span>공지를 올려주세요!</span>
+              <div className="message-wrap" ref={this.chatScroll}>
+                {this.state.messageList.map((data, i) => (
+                  <div
+                    key={i}
+                    id="remoteUsers"
+                    className={
+                      'message' +
+                      (data.connectionId !== this.props.user.getConnectionId()
+                        ? ' left'
+                        : ' right')
+                    }
+                  >
+                    <canvas
+                      id={'userImg-' + i}
+                      width="60"
+                      height="60"
+                      className="user-img"
+                    />
+                    <div className="msg-detail">
+                      <div className="msg-info">
+                        <p> {data.nickname}</p>
+                      </div>
+                      <div className="msg-content">
+                        <span className="triangle" />
+                        <p className="text">{data.message}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <hr />
+              <div id="messageInput">
+                <input
+                  placeholder="여기에 메세지를 입력해주세요"
+                  id="chatInput"
+                  value={this.state.message}
+                  onChange={this.handleChange}
+                  onKeyPress={this.handlePressKey}
+                />
+                <button onClick={this.sendMessage}> 보내기</button>
+              </div>
             </div>
-            <hr />
-            <div id="messageInput">
-              <input
-                placeholder="여기에 메세지를 입력해주세요"
-                id="chatInput"
-                value={this.state.message}
-                onChange={this.handleChange}
-                onKeyPress={this.handlePressKey}
-              />
-              <button onClick={this.sendMessage}> 보내기</button>
-            </div>
-          </div>
-          <button onClick={this.close}>시작하기</button>
-          <Link to="/Main">나가기</Link>
-        </div>
+            <button onClick={this.close}>시작하기</button>
+            <Link to="/Main">나가기</Link>
+          </ContentWrap>
+        </WaitDivideBox>
+        <ExitBox>오마이갓</ExitBox>
       </WaitContainer>
     );
   }
