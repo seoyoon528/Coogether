@@ -21,8 +21,7 @@ function StreamItem({ room }) {
   const START = `${hour}: ${minute}`;
   return (
     <S.CookRoomItemWrapper>
-      {/* <S.CookRoomItemImg src={cookingRoomImg} alt="img" /> */}
-      <S.CookRoomItemImg src={gim} alt="img" />
+      <S.CookRoomItemImg src={cookingRoomImg} alt="img" />
       <S.StartUserWrapper>
         <S.JoinUserWrapper>
           <p>{userJoinLists ? userJoinLists.length : 0}명</p>
