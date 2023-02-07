@@ -3,8 +3,11 @@ package coogether.backend.controller;
 
 import coogether.backend.domain.CookingRoom;
 import coogether.backend.domain.User;
+import coogether.backend.domain.UserJoinList;
 import coogether.backend.dto.CookingRoomDto;
 import coogether.backend.dto.UserDto;
+import coogether.backend.dto.request.CookingRoomRequest;
+import coogether.backend.dto.request.RecipeRequest;
 import coogether.backend.dto.simple.SimpleRecipeDto;
 import coogether.backend.service.CookingRoomService;
 import io.swagger.annotations.Api;
@@ -13,10 +16,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,20 @@ import java.util.List;
 public class CookingRoomController {
 
     private final CookingRoomService cookingRoomService;
+
+    @ApiOperation(value = "요리방 생성 (대기방)")
+    @PostMapping("/room/create/{userSeq}/{recipeId}")
+    public ResponseEntity addCookingRoom(@RequestBody CookingRoomRequest cookingRoomRequest, @PathVariable("userSeq") Long userSeq
+    , @PathVariable("recipeId") Long recipeId)  {
+
+        CookingRoom cookingRoom = cookingRoomService.addCookingRoom(cookingRoomRequest,userSeq,recipeId);
+
+        if(cookingRoom !=null){
+//            cookingRoomService.addUserJoin(userSeq, cookingRoom.getCookingRoomId());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
 
 //    @ApiOperation(value = "요리방 목록 전체를 반환하는 메소드")
 //    @GetMapping("/room/list")
@@ -54,6 +70,7 @@ public class CookingRoomController {
 //
 //        return ResponseEntity.ok().body(result);
 //    }
+
     @ApiOperation(value = "레시피 이름으로 요리방 목록 전체를 반환하는 메소드 (페이징가능 size, page)")
     @GetMapping("/room/search/{recipeName}")
     public Page<CookingRoomDto> roomListByRecipeName(@PathVariable("recipeName") String recipeName, Pageable pageable)  {
