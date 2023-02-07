@@ -65,7 +65,7 @@ function SearchCookRoom() {
     setCookRoom([]);
     setPage(0);
   };
-  console.log(page);
+  // console.log(page);
 
   const getData = useCallback(async () => {
     setLoad(true);
@@ -77,7 +77,7 @@ function SearchCookRoom() {
             : `${SEARCH_URL}/${enterdItme}?page=${page}&size=15`
         }`,
       });
-      console.log(allCookRoom.data);
+      // console.log(allCookRoom.data);
       if (page === allCookRoom.data.totalPages) {
         endRef.current = true;
       }
@@ -117,6 +117,7 @@ function SearchCookRoom() {
           TEXT={TEXT}
         />
         <br />
+        <hr />
         <StreamList cookRoom={cookRoom} />
         {load && (
           <Grid container justifyContent="space-evenly">
