@@ -6,6 +6,8 @@ export const HistoryStyle = styled.div`
   border: 0.5px dashed #505050;
   border-radius: 4px;
 
+  cursor: pointer;
+
   .history__image {
     height: 60%;
   }
@@ -23,6 +25,8 @@ export const MyRecipeStyle = styled.div`
 
   border: 0.5px dashed #505050;
   border-radius: 4px;
+
+  cursor: pointer;
 
   .my-recipe__image {
     height: 40%;
