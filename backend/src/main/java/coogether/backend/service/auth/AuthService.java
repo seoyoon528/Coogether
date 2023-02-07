@@ -141,6 +141,7 @@ public class AuthService {
             HttpHeaders headers = setTokenHeaders(tokenDto);
             return ResponseEntity.ok().headers(headers).body(loginResponseDto);
         } catch (CUserIdLoginFailedException e) {
+            loginResponseDto.setUser(kakaoUser);
             loginResponseDto.setLoginSuccess(false);
             return ResponseEntity.ok(loginResponseDto);
         }
