@@ -6,7 +6,7 @@ import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Stack } from '@mui/material';
 
-import * as S from './streamItemStyle';
+import * as S from './StreamSwiperStyle';
 
 // MUI
 
