@@ -3,11 +3,24 @@ import React from 'react';
 // MUI
 import { Grid } from '@mui/material';
 
+// Component
+import ChefHat from '../../../Rank/ChefHat';
+
 // Style
 import { ProfileInformationStyle } from './ProfileInformationStyle';
 
 export default function ProfileInformation(props) {
-  const message = '';
+  const matchedCategory = {
+    KOREAN: '한식',
+    CHINESE: '중식',
+    WESTERN: '양식',
+    JAPANESE: '일식',
+    DESSERT: '디저트',
+    ASIAN: '아시안',
+    BUNSIK: '분식',
+    ETC: '기타',
+    NONE: '없음',
+  };
 
   const {
     userInformation: {
@@ -67,16 +80,13 @@ export default function ProfileInformation(props) {
                       />
                       <p>선호</p>
                     </div>
-                    <p>{userCookCategory}</p>
+                    <p>{matchedCategory[userCookCategory]}</p>
                   </div>
                 </Grid>
                 <Grid item xs={4}>
                   <div className="item">
                     <div className="icon">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/1021/1021641.png"
-                        alt="랭크 아이콘"
-                      />
+                      <ChefHat color={rank} />
                       <p>랭크</p>
                     </div>
                     <p>{rank}</p>
