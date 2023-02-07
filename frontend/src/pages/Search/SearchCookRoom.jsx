@@ -97,7 +97,9 @@ function SearchCookRoom() {
   // console.log(cookRoom);
 
   const SK = Array.from({ length: 15 }, (_, index) => (
-    <Skeleton key={index} variant="rectangular" width={255} height={216} />
+    <Grid item xs={6} md={4} lg={3} key={index}>
+      <Skeleton variant="rectangular" width={255} height={216} />
+    </Grid>
   ));
   // console.log(SK);
 
@@ -120,7 +122,13 @@ function SearchCookRoom() {
         <hr />
         <StreamList cookRoom={cookRoom} />
         {load && (
-          <Grid container justifyContent="space-evenly">
+          <Grid
+            container
+            columns={12}
+            columnSpacing={5}
+            rowGap={3}
+            justifyContent="space-between"
+          >
             {SK}
           </Grid>
         )}
