@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+
+import axios from 'axios';
 
 // MUI
 import { Stack } from '@mui/material';
@@ -13,8 +16,7 @@ import UserHistory from '../../../components/Wrapper/Box/Profile/UserHistory';
 import { ProfileStyle } from './ProfileStyle';
 
 const DUMMY_DATA = {
-  image:
-    'https://upload.wikimedia.org/wikipedia/commons/0/0f/IU_posing_for_Marie_Claire_Korea_March_2022_issue_03.jpg',
+  image: '',
   nickname: '아이유',
   follower: 1000,
   following: 1000,
@@ -51,56 +53,102 @@ const DUMMY_DATA = {
   ],
 };
 function Profile() {
+  // 유저ID
+  const { userId } = useParams();
+  // 유저 상세 정보
+  const [userData, setUserData] = useState({});
+  const history = useHistory();
+
+  useEffect(async () => {
+    const requestInfo = {
+      url: `http://i8b206.p.ssafy.io:9000/user/${userId}`,
+      method: 'GET',
+    };
+    try {
+      const response = await axios(requestInfo);
+      const data = await response.data;
+      let rank;
+      if (data.userTemp >= 70) {
+        rank = 'purple';
+      } else if (data.userTemp >= 60) {
+        rank = 'navy';
+      } else if (data.userTemp >= 50) {
+        rank = 'blue';
+      } else if (data.userTemp >= 40) {
+        rank = 'green';
+      } else if (data.userTemp >= 30) {
+        rank = 'yellow';
+      } else if (data.userTemp >= 20) {
+        rank = 'orange';
+      } else {
+        rank = 'red';
+      }
+      data.rank = rank;
+      setUserData(data);
+    } catch (error) {
+      if (error.response.status === 400) {
+        // 일단 alert로 처리함
+        alert('없는 유저입니다');
+      }
+      history.replace('/main');
+    }
+  }, [userId]);
+
   const {
-    image,
-    nickname,
-    follower,
-    following,
-    temperature,
-    like,
+    userImg,
+    userNickname,
+    userTemp,
+    userCookCategory,
+    userIntroduce,
+    followerList,
+    followingList,
     rank,
-    message,
-    cookHistories,
-    recipeHistories,
-  } = DUMMY_DATA;
+  } = userData;
+
   const userInformation = {
-    nickname,
-    follower,
-    following,
-    temperature,
-    like,
+    userNickname,
+    userTemp,
+    userCookCategory,
     rank,
-    message,
+    followerCnt: followerList?.length,
+    followingCnt: followingList?.length,
+    userIntroduce,
   };
   const histories = [];
   for (let i = 0; i < 8; i += 1) {
-    const data = { ...cookHistories[0] };
+    const data = { ...DUMMY_DATA.cookHistories[0] };
     data.id = i;
     histories.push(data);
   }
   const recipes = [];
   for (let i = 0; i < 9; i += 1) {
-    const data = { ...recipeHistories[0] };
+    const data = { ...DUMMY_DATA.recipeHistories[0] };
     data.id = i;
     recipes.push(data);
   }
 
   return (
     <ProfileStyle>
-      <Stack spacing={5} className="profile">
-        <UserInfoBox className="user-information">
-          <ProfileImage image={image} />
-          <ProfileInformation userInformation={userInformation} />
-        </UserInfoBox>
-        <hr />
-        {cookHistories.length > 0 && (
-          <UserHistory sectionName="요리 기록" histories={histories} />
-        )}
-        {recipeHistories.length > 0 && (
-          <UserHistory sectionName="등록한 레시피" recipes={recipes} />
-        )}
-        <UserHistory />
-      </Stack>
+      {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>}
+      {Object.keys(userData).length > 0 && (
+        <Stack spacing={5} className="profile">
+          <UserInfoBox className="user-information">
+            <ProfileImage
+              image={DUMMY_DATA.image}
+              userNickname={userNickname}
+            />
+            <ProfileInformation userInformation={userInformation} />
+          </UserInfoBox>
+          <hr />
+          {histories.length > 0 && (
+            <UserHistory sectionName="요리 기록" histories={histories} />
+          )}
+          {recipes.length > 0 && (
+            <UserHistory sectionName="등록한 레시피" recipes={recipes} />
+          )}
+          <UserHistory />
+        </Stack>
+      )}
     </ProfileStyle>
   );
 }

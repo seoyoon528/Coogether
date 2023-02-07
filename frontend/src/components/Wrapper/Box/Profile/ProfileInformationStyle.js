@@ -22,27 +22,44 @@ export const ProfileInformationStyle = styled.section`
     margin-bottom: 1.6rem;
   }
 
+  .item {
+    width: 60%;
+
+    text-align: center;
+  }
+
   .icon img {
-    width: 3.2rem;
-    height: 3.2rem;
+    width: 100%;
   }
 
   .item p {
+    margin-top: 1.6rem;
+
     font-size: 1.8rem;
   }
 
   .icon p {
+    margin-top: 0.8rem;
+
     font-size: 1.4rem;
     color: #505050;
   }
 
   .message {
-    padding: 1.6rem;
+    padding: 3.2rem;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
 
     border: 0.5px solid #505050;
     border-right: 0;
     border-left: 0;
 
     text-align: center;
+    color: #505050;
+  }
+
+  .message.userInput {
+    text-align: start;
+    color: #000;
   }
 `;

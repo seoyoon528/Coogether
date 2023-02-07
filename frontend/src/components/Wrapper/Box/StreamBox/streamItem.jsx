@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 import * as S from './streamItemStyle';
 
-import gim from '../../../../assets/img/김찌.jpg';
-
 function StreamItem({ room }) {
   const {
     cookingRoomId,
@@ -21,8 +19,7 @@ function StreamItem({ room }) {
   const START = `${hour}: ${minute}`;
   return (
     <S.CookRoomItemWrapper>
-      {/* <S.CookRoomItemImg src={cookingRoomImg} alt="img" /> */}
-      <S.CookRoomItemImg src={gim} alt="img" />
+      <S.CookRoomItemImg src={cookingRoomImg} alt="img" />
       <S.StartUserWrapper>
         <S.JoinUserWrapper>
           <p>{userJoinLists ? userJoinLists.length : 0}명</p>

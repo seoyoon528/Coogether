@@ -17,8 +17,6 @@ import 'swiper/css/navigation';
 // eslint-disable-next-line
 import 'swiper/css/pagination';
 
-import gim from '../../../../assets/img/김찌.jpg';
-
 export default function StreamSwiper(props) {
   const { cookRoom } = props;
 
@@ -56,8 +54,7 @@ export default function StreamSwiper(props) {
               alignItems="center"
             >
               <S.CookRoomItemWrapper>
-                {/* <S.CookRoomItemImg src={room.cookingRoomImg} alt="img" /> */}
-                <S.CookRoomItemImg src={gim} alt="img" />
+                <S.CookRoomItemImg src={room.cookingRoomImg} alt="img" />
                 <S.StartUserWrapper>
                   <S.JoinUserWrapper>
                     <p>

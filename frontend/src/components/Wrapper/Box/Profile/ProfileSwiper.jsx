@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // MUI
 import { Stack } from '@mui/material';
@@ -23,6 +23,11 @@ export default function ProfileSwiper(props) {
     <Swiper
       modules={[Navigation, Mousewheel]}
       spaceBetween={48}
+      breakpoints={{
+        1536: {
+          slidesPerView: 4,
+        },
+      }}
       slidesPerView={3}
       navigation
       mousewheel
