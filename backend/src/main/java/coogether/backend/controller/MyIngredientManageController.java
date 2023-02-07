@@ -25,14 +25,14 @@ import java.util.List;
 public class MyIngredientManageController {
     private final MyIngredientManageService myIngredientManageService;
 
-    @ApiOperation(value = "------------ PATCH로 통합 ------------")
-    @PostMapping("/myIngredient/create/{userSeq}/{ingredientId}")
-    public ResponseEntity addMyIngredientByIngredientId(@PathVariable("userSeq") Long userSeq, @PathVariable("ingredientId") Long ingredientId) {
-
-        MyIngredientManage result = myIngredientManageService.addMyIngredientByIngredientId(userSeq,ingredientId);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleMyIngredientManageDto(result));
-    }
+//    @ApiOperation(value = "------------ PATCH로 통합 ------------")
+//    @PostMapping("/myIngredient/create/{userSeq}/{ingredientId}")
+//    public ResponseEntity addMyIngredientByIngredientId(@PathVariable("userSeq") Long userSeq, @PathVariable("ingredientId") Long ingredientId) {
+//
+//        MyIngredientManage result = myIngredientManageService.addMyIngredientByIngredientId(userSeq,ingredientId);
+//
+//        return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleMyIngredientManageDto(result));
+//    }
 
     @ApiOperation(value = "내 냉장고에 재료 추가하는 메소드 (최초등록/재등록/제거) * flag : {IN, OUT}")
     @PatchMapping("/myIngredient/update/{userSeq}/{ingredientId}")

@@ -2,6 +2,13 @@
 server:
   port: 9000
 
+# openvidu server 설정
+OPENVIDU_URL: https://coogether.shop:8443
+OPENVIDU_SECRET: MY_SECRET
+#openvidu:
+#  url: https://coogether.shop:8443
+#  secret: MY_SECRET
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,7 +24,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         #        show_sql: true

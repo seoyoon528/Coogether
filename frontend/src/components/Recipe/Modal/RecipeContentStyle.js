@@ -27,7 +27,7 @@ export const RecipeContentStyle = styled.div`
   }
 
   .information__item__category img {
-    width: 5vw;
+    width: 100%;
 
     margin-bottom: 0.8rem;
   }

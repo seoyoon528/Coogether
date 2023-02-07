@@ -44,7 +44,8 @@ dependencies {
 	//swagger 추가
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
-
+	implementation("io.swagger:swagger-annotations:1.5.21")
+	implementation("io.swagger:swagger-models:1.5.21")
 	//security
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -58,6 +59,9 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Openvidu 의존성
+	implementation group: 'io.openvidu', name: 'openvidu-java-client', version: '2.23.0'
 }
 
 tasks.named('test') {
