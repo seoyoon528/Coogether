@@ -59,7 +59,7 @@ spring:
             redirect-uri: http://localhost:8080/login/oauth2/code/naver  # code를 받는 callback 주소 (google, facebook은 provider 이므로 적지 않아도 괜찮음)
 
           kakao:
-            client-id: 30acc021c5bbb80348171d415339d43f
+            client-id: b674e8f9c243d9c4425264edb0f647a9
             client-secret: AQvLN8mQhTBOgIkJKGKnXQpmBGgP3y86
             scope:
               - profile_nickname
