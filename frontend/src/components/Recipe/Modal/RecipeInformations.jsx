@@ -3,15 +3,7 @@ import React from 'react';
 import { Stack, Grid } from '@mui/material';
 
 export default function RecipeInformations(props) {
-  const {
-    name,
-    category,
-    author,
-    orderCount,
-    contentCount,
-    ingredientCount,
-    date,
-  } = props;
+  const { name, category, author, contentCount, ingredientCount, date } = props;
   return (
     <Stack direction="column" spacing={2}>
       <h2 className="information__name">{name}</h2>
@@ -38,7 +30,7 @@ export default function RecipeInformations(props) {
                 />
                 <p>과정</p>
               </div>
-              <p>{orderCount}</p>
+              <p>{contentCount}</p>
             </li>
           </Grid>
           <Grid item xs={4}>

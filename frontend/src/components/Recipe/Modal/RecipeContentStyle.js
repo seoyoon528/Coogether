@@ -48,7 +48,7 @@ export const RecipeContentStyle = styled.div`
     display: flex;
     justify-content: space-between;
 
-    margin-bottom: 1.6rem;
+    margin-top: 1.6rem;
   }
 
   .ingredients__item p {
@@ -61,10 +61,19 @@ export const RecipeContentStyle = styled.div`
   }
 
   .orders__item {
-    margin-bottom: 1.6rem;
+    margin-top: 1.6rem;
+  }
+
+  .orders__item.small {
+    margin-top: 0.8rem;
+  }
+
+  .orders__item.small .content {
+    font-size: 1.6rem;
+    color: #505050;
   }
 
   .orders__item .content {
-    margin-top: 0.8rem;
+    font-size: 2rem;
   }
 `;
