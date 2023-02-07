@@ -21,6 +21,8 @@ export const Input = styled.input`
 `;
 
 export const Area = styled.div`
+  width: 240px;
+  height: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,9 +32,9 @@ export const Area = styled.div`
   border-radius: 4px;
 
   background-color: white;
-`;
 
-export const Img = styled.img`
-  width: 100%;
-  height: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;

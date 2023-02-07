@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { SvgIcon } from '@mui/material';
-import { StreamContents, Input, Area, Img } from './MakeDetailInfoStyle';
-import StreamModal from '../../../Modal/StreamModal/StreamModal';
+import { StreamContents, Input, Area } from './MakeDetailInfoStyle';
 
 function MakeBasicInfo() {
   const [imgFile, setImgFile] = useState('');
@@ -19,10 +18,6 @@ function MakeBasicInfo() {
   //   setImgFile(URL.createObjectURL(e.target.files[0]));
   // };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const onClickButton = () => {
-    setIsOpen(true);
-  };
   return (
     <>
       <StreamContents>
@@ -30,9 +25,9 @@ function MakeBasicInfo() {
         <Input type="text" placeholder="공지 사항을 입력해주세요" />
         <p>미리 보기</p>
         <label htmlFor="recipe-cook-image">
-          <Area id="recipe-cook-image__area">
+          <Area>
             {imgFile !== '' ? (
-              <Img src={imgFile} alt="사진" />
+              <img src={imgFile} alt="사진" />
             ) : (
               <SvgIcon
                 sx={{ fontSize: 100 }}
@@ -49,15 +44,6 @@ function MakeBasicInfo() {
           hidden
         />
       </StreamContents>
-      <button onClick={onClickButton}>생성 완료</button>
-      {isOpen && (
-        <StreamModal
-          open={isOpen}
-          onClose={() => {
-            setIsOpen(false);
-          }}
-        />
-      )}
     </>
   );
 }

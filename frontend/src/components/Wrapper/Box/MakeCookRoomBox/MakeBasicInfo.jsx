@@ -1,7 +1,8 @@
 import React from 'react';
 import { StreamContents } from './MakeBasicInfoStyle';
 
-function MakeBasicInfo() {
+function MakeBasicInfo(props) {
+  const { inputs, onChange: setInputs } = props;
   const time = new Date();
   const YEAR = time.getFullYear();
   const MONTH = time.getMonth();
