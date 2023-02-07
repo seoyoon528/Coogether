@@ -24,4 +24,7 @@ public class SignupRequestDto {
         this.userIntroduce = userIntroduce;
         this.userCookCategory = userCookCategory;
     }
+
+    public SignupRequestDto() {
+    }
 }
