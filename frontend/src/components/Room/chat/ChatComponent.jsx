@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { WaitContainer } from './ChatCompo';
 
 import './ChatComponent.css';
 
@@ -89,7 +90,7 @@ export default class ChatComponent extends Component {
 
   render() {
     return (
-      <div id="waitContainer">
+      <WaitContainer>
         <div id="chatContainer">
           <div>오늘은 모두 요리사</div>
           {/* 유저 정보 입력 공간, 사진도 같이 가져와야함 */}
@@ -160,7 +161,7 @@ export default class ChatComponent extends Component {
           <button onClick={this.close}>시작하기</button>
           <Link to="/Main">나가기</Link>
         </div>
-      </div>
+      </WaitContainer>
     );
   }
 }
