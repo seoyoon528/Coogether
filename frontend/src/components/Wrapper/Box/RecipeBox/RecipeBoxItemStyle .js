@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const RecipeBoxItemStyle = styled.div`
   width: 27.2rem;
   height: 20rem;
-  /* background-color: #fff8ea; */
+  background-color: #fff8ea;
 
   & img {
     height: 15rem;
