@@ -1,48 +1,66 @@
 import styled from 'styled-components';
 
-export const all = styled.div`
-  position: relative;
+export const Window = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* position: relative; */
   width: 100vw;
   height: 100vh;
   background-color: #fff8ea;
+`;
 
-  .food {
-    position: absolute;
-    height: 30rem;
-    left: 43%;
-    top: 10%;
-  }
+export const All = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
 
-  & h1 {
-    position: absolute;
+  .title {
+    display: flex;
+    /* position: absolute;
     left: 38.8%;
-    top: 42%;
+    top: 42%; */
   }
-
-  .first {
-    font-size: 128px;
-    position: absolute;
-    left: 40%;
-    top: 20%;
+  .logoBtn {
+    padding-top: 5rem;
+    display: flex;
+    align-items: center;
   }
-  .second {
-    font-size: 128px;
-    position: absolute;
-    left: 57%;
-    top: 20%;
-  }
-
   .logo {
-    position: absolute;
+    display: inline;
+    align-items: center;
     height: 10rem;
+    justify-content: center;
+    /* margin-top: 5rem; */
+    /* align-items: center; */
+    /* position: absolute;
     left: 45%;
-    top: 50%;
+    top: 50%; */
   }
 `;
 
-export const Img = styled.img`
-  position: absolute;
-  height: 30rem;
-  left: 53%;
-  top: 20%;
+export const Header = styled.div`
+  display: flex;
+  .first {
+    display: flex;
+    align-items: center;
+    font-size: 13rem;
+    /* position: absolute;
+    left: 40%;
+    top: 20%; */
+  }
+  .second {
+    display: flex;
+    align-items: center;
+    font-size: 13rem;
+    /* position: absolute;
+    left: 57%;
+    top: 20%; */
+  }
+  .food {
+    height: 30rem;
+    /* position: absolute;
+    left: 43%;
+    top: 10%; */
+  }
 `;
