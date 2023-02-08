@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 
+import axios from 'axios';
+
 // MUI
 import { Button, Stack, Box } from '@mui/material';
 
@@ -27,20 +29,51 @@ function RecipeRegisterForm() {
   ]);
 
   // form 제출
-  const recipeSubmitHandler = event => {
+  const recipeSubmitHandler = async event => {
     event.preventDefault();
-
-    console.log(
-      cookNameRef.current.value,
-      selectedCategory,
-      cookImage,
-      recipeIngredients,
-      recipeOrders
+    const formData = new FormData();
+    const recipeName = cookNameRef.current.value;
+    const recipeCategory = selectedCategory;
+    const recipeImg = cookImage;
+    const ingredientListRequest = recipeIngredients.map(
+      ({ ingredientId, ingredientAmount }) => {
+        return { ingredientId, ingredientAmount };
+      }
     );
+    const recipeStepRequest = recipeOrders.map(({ content }, idx) => {
+      return { recipeStepNum: idx + 1, recipeStepContent: content };
+    });
+    const recipeType = 'CUSTOM';
+
+    formData.append('recipeName', recipeName);
+    formData.append('recipeCategory', recipeCategory);
+    formData.append('recipeImg', recipeImg);
+    formData.append('ingredientListRequest', ingredientListRequest);
+    formData.append('recipeStepRequest', recipeStepRequest);
+    formData.append('recipeType', recipeType);
+
+    const requestInfo = {
+      url: 'http://i8b206.p.ssafy.io:9000/recipe/create/1',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data: formData,
+    };
+
+    console.log(requestInfo);
+
+    try {
+      const response = await axios(requestInfo);
+      const data = await response.data;
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <form className="recipe-register__form">
+    <form className="recipe-register__form" onSubmit={recipeSubmitHandler}>
       <Stack spacing={5}>
         <RecipeCookName cookNameRef={cookNameRef} />
         <RecipeFoodCategory
@@ -61,12 +94,7 @@ function RecipeRegisterForm() {
             gridColumn="span 9"
             sx={{ display: 'flex', justifyContent: 'center' }}
           >
-            <NextBtn
-              onClick={recipeSubmitHandler}
-              name="등록"
-              size="small"
-              color="yellow"
-            />
+            <button>등록</button>
           </Box>
         </Box>
       </Stack>
