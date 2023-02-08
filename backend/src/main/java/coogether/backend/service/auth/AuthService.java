@@ -164,7 +164,7 @@ public class AuthService {
     }
 
     /* 회원가입 요청 처리 */
-    public ResponseEntity<SignupResponseDto> kakaoSignup(SignupRequestDto requestDto) {
+    public ResponseEntity<SignupResponseDto> kakaoSignup(SignupRequestDto requestDto, String url) {
         // 받아온 정보 DB에 저장
         System.out.println("[ kakaoSignup 넘어옴 ]");
         User newUser = User.builder()
@@ -173,7 +173,7 @@ public class AuthService {
                 .userEmail(requestDto.getEmail())
                 .userRoleType(EnumRoleType.ROLE_USER)
                 .userNickname(requestDto.getNickname())
-                .userImg(requestDto.getProfileImg())
+                .userImg(url)
                 .userIntroduce(requestDto.getUserIntroduce())
                 .userCookCategory(requestDto.getUserCookCategory())
                 .userTemp(0)

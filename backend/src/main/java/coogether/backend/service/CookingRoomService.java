@@ -46,11 +46,11 @@ public class CookingRoomService {
     }
 
     @Transactional
-    public CookingRoom addCookingRoom(CookingRoomRequest cookingRoomRequest, Long userSeq, Long recipeId) {
+    public CookingRoom addCookingRoom(CookingRoomRequest cookingRoomRequest, Long userSeq, Long recipeId, String url) {
         // 기본 정보
         CookingRoom cookingRoom = new CookingRoom();
 
-        cookingRoom.setCookingRoomImg(cookingRoomRequest.getCookingRoomImg());
+        cookingRoom.setCookingRoomImg(url);
         cookingRoom.setCookingRoomName(cookingRoomRequest.getCookingRoomName());
         cookingRoom.setCookingRoomNotice(cookingRoomRequest.getCookingRoomNotice());
         cookingRoom.setCookingRoomStartTime(cookingRoomRequest.getCookingRoomStartTime());
