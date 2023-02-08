@@ -57,8 +57,8 @@ function MakeCoomRoom() {
         },
         // url: `http://i8b206.p.ssafy.io:9000/room/create/${user}/${recipeId}`,
       });
-      console.log(postData);
-      // history.push(`/Room/${roomId}`);
+      // console.log(postData.data);
+      history.push(`/Room/${postData.data}`);
     } catch (error) {
       console.log(error);
     }
