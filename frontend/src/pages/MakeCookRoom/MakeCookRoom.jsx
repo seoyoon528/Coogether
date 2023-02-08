@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box } from '@mui/material';
 import axios from 'axios';
+import { Box } from '@mui/material';
+
 import { Background, H3, Button } from './MakeCookRoomStyle';
+
+import NextBtn from '../../components/Btn/NextBtn/NextBtn';
 import MakeBasicInfo from '../../components/Wrapper/Box/MakeCookRoomBox/MakeBasicInfo';
 import MakeDetailInfo from '../../components/Wrapper/Box/MakeCookRoomBox/MakeDetailInfo';
 import StreamModal from '../../components/Modal/StreamModal/StreamModal';
@@ -28,17 +31,6 @@ function MakeCoomRoom() {
   const onClickButton = () => {
     setIsOpen(true);
   };
-
-  // console.log('streamName');
-  // console.log(streamName);
-  // console.log('announce');
-  // console.log(announce);
-  // console.log('streamTime');
-  // console.log(streamTime);
-  // console.log('selectRecipe');
-  // console.log(typeof selectRecipe.recipeId);
-  // console.log('cookImage');
-  // console.log(cookImage);
 
   const roomSubmitHandler = async event => {
     event.preventDefault();
@@ -75,6 +67,12 @@ function MakeCoomRoom() {
           <SearchMakeCookRoom setSelectRecipe={setSelectRecipe} />
           <MakeDetailInfo setAnnounce={setAnnounce} />
           <MakeImage cookImage={cookImage} onChange={setCookImage} />
+          {/* <NextBtn
+            onClick={onClickButton}
+            name="등록"
+            size="small"
+            color="yellow"
+          /> */}
           <Button onClick={onClickButton}>생성 완료</Button>
           {isOpen && (
             <StreamModal

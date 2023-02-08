@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const StreamContents = styled.div`
+  padding-top: 10px;
   text-align: center;
   margin-bottom: 1rem;
   p {
