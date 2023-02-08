@@ -2,6 +2,7 @@ package coogether.backend.controller;
 
 
 import coogether.backend.domain.CookingRoom;
+import coogether.backend.dto.CookingRoomCountDto;
 import coogether.backend.dto.CookingRoomDto;
 import coogether.backend.dto.request.CookingRoomRequest;
 import coogether.backend.service.CookingRoomService;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Api(tags = {"쿠킹룸 정보를 제공하는 Controller (현재 시간 이후의 방 정보만 제공)"})
@@ -32,7 +35,7 @@ public class CookingRoomController {
         if (cookingRoom != null) {
             Boolean check = cookingRoomService.addUserJoin(userSeq, cookingRoom.getCookingRoomId());
             if (check) {
-                return ResponseEntity.status(HttpStatus.OK).body(true);
+                return ResponseEntity.status(HttpStatus.OK).body(cookingRoom.getCookingRoomId());
             }
         }
 
@@ -79,5 +82,29 @@ public class CookingRoomController {
     public ResponseEntity roomInfoByCookingRoomId(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq) {
         cookingRoomService.deleteCookingRoomByCookingRoomId(cookingRoomId,userSeq);
         return ResponseEntity.status(HttpStatus.OK).body(true);
+    }
+
+    @ApiOperation(value = "카테고리별 요리방 추천")
+    @GetMapping("/room/list/{category}/{userSeq}")
+    public ResponseEntity roomListByRecommend(@PathVariable("category") int category, @PathVariable("userSeq") Long userSeq) {
+        List<CookingRoom> cookingRoomList;
+
+        switch(category) {
+            // 0: 내 재료 기반 추천, 1: 시작시간 임박순 추천, 2: 사용자 선호 요리 기반 추천
+            case 0:
+                List<CookingRoomCountDto> cookingRoomDtos = cookingRoomService.getRecommendedRoomListByMyIngredient(userSeq);
+                return ResponseEntity.status(HttpStatus.OK).body(cookingRoomDtos);
+
+            case 1:
+                cookingRoomList = cookingRoomService.getRecommendedRoomListByStartTime();
+                return ResponseEntity.status(HttpStatus.OK).body(cookingRoomList);
+
+            case 2:
+                cookingRoomList = cookingRoomService.getRecommendedRoomListByUserCook(userSeq);
+                return ResponseEntity.status(HttpStatus.OK).body(cookingRoomList);
+
+            default:
+                return null;
+        }
     }
 }
