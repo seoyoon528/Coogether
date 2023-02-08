@@ -2,6 +2,9 @@ package coogether.backend.service;
 
 import coogether.backend.domain.*;
 import coogether.backend.domain.status.EnumCookingRoomStatus;
+import coogether.backend.domain.status.EnumMyIngredientManageFlag;
+import coogether.backend.domain.status.EnumRecipeCategory;
+import coogether.backend.dto.CookingRoomCountDto;
 import coogether.backend.dto.CookingRoomDto;
 import coogether.backend.dto.request.CookingRoomRequest;
 import coogether.backend.dto.simple.SimpleUserJoinListDto;
@@ -16,8 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)  // 트랜잭션 안에서만 데이터 변경하게 설정
@@ -92,5 +94,53 @@ public class CookingRoomService {
     @Transactional
     public void deleteCookingRoomByCookingRoomId(Long cookingRoomId,Long userSeq) {
         userJoinListRepository.deleteByUserSeq(cookingRoomId,userSeq);
+    }
+
+    /* 카테고리별 요리방 추천 */
+    // 사용자 재료 기반 추천
+    public List<CookingRoomCountDto> getRecommendedRoomListByMyIngredient(Long userSeq) {
+        List<CookingRoomCountDto> cookingRoomCountDtos = new ArrayList<>();
+        User user = userRepository.findByUserSeq(userSeq);
+
+        List<MyIngredientManage> myIngredientManageList = user.getMyIngredientManageList();
+        List<CookingRoom> cookingRoomList = cookingRoomRepository.findAll();
+
+        for (CookingRoom cookingRoom : cookingRoomList) {
+            CookingRoomCountDto cookingRoomCountDto = new CookingRoomCountDto();
+            List<IngredientList> ingredientLists = cookingRoom.getRecipe().getIngredientList();
+
+            int count = 0;
+            for (IngredientList il : ingredientLists) {
+                for (MyIngredientManage mig : myIngredientManageList) {
+                    if (il.getIngredient().getIngredientId() == mig.getIngredient().getIngredientId() && mig.getMyIngredientManageFlag().toString().equals("IN")) {
+                        count++;
+                    }
+                }
+            }
+            if (count > 0) {
+                cookingRoomCountDto.setCookingRoom(cookingRoom);
+                cookingRoomCountDto.setIngredientCnt(count);
+                System.out.println("cookingRoomCountDto = " + cookingRoomCountDto.getCookingRoom().getCookingRoomId());
+                System.out.println("count = " + count);
+                cookingRoomCountDtos.add(cookingRoomCountDto);
+            }
+        }
+
+        Collections.sort(cookingRoomCountDtos);
+        return cookingRoomCountDtos;
+    }
+
+    // 시작 시간 임박 순 추천
+    public List<CookingRoom> getRecommendedRoomListByStartTime() {
+        List<CookingRoom> cookingRoomList = cookingRoomRepository.findAll();
+        return cookingRoomList;
+    }
+
+    // 사용자 선호 요리 기반 추천
+    public List<CookingRoom> getRecommendedRoomListByUserCook(Long userSeq) {
+        User user = userRepository.findByUserSeq(userSeq);
+        List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(EnumRecipeCategory.ASIAN);
+//        List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(user.getUserCookCategory());
+        return cookingRoomList;
     }
 }
