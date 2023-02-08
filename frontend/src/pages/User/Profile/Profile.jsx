@@ -57,6 +57,7 @@ function Profile() {
   const { userId } = useParams();
   // 유저 상세 정보
   const [userData, setUserData] = useState({});
+  const [isSameUser, setIsSameUser] = useState(true);
   const history = useHistory();
 
   useEffect(async () => {
@@ -69,19 +70,19 @@ function Profile() {
       const data = await response.data;
       let rank;
       if (data.userTemp >= 70) {
-        rank = 'purple';
+        rank = '보라';
       } else if (data.userTemp >= 60) {
-        rank = 'navy';
+        rank = '남색';
       } else if (data.userTemp >= 50) {
-        rank = 'blue';
+        rank = '파랑';
       } else if (data.userTemp >= 40) {
-        rank = 'green';
+        rank = '초록';
       } else if (data.userTemp >= 30) {
-        rank = 'yellow';
+        rank = '노랑';
       } else if (data.userTemp >= 20) {
-        rank = 'orange';
+        rank = '주황';
       } else {
-        rank = 'red';
+        rank = '빨강';
       }
       data.rank = rank;
       setUserData(data);
@@ -136,13 +137,15 @@ function Profile() {
             <ProfileImage
               image={DUMMY_DATA.image}
               userNickname={userNickname}
+              isSameUser={isSameUser}
             />
-            <ProfileInformation userInformation={userInformation} />
+            <ProfileInformation
+              userInformation={userInformation}
+              isSameUser={isSameUser}
+            />
           </UserInfoBox>
           <hr />
-          {histories.length > 0 && (
-            <UserHistory sectionName="요리 기록" histories={histories} />
-          )}
+          <UserHistory sectionName="요리 기록" histories={histories} />
           {recipes.length > 0 && (
             <UserHistory sectionName="등록한 레시피" recipes={recipes} />
           )}
