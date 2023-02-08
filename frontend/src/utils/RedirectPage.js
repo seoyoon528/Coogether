@@ -101,8 +101,8 @@ function RedirectPage({ history }) {
     };
     console.log(userFormPayload);
     const submitUserForm = await axios.post(
-      'http://localhost:9000/user/signup',
-      // 'http://i8b206.p.ssafy.io:9000/user/signup',
+      // 'http://localhost:9000/user/signup',
+      'http://i8b206.p.ssafy.io:9000/user/signup',
       userFormPayload
     );
     console.log(submitUserForm);
@@ -112,8 +112,8 @@ function RedirectPage({ history }) {
   const checkRegister = async () => {
     const code = new URL(window.location.href).searchParams.get('code');
     const res = await axios.get(
-      `http://localhost:9000/user/login?code=${code}`
-      // `http://i8b206.p.ssafy.io:9000/user/login?code=${code}`
+      // `http://localhost:9000/user/login?code=${code}`
+      `http://i8b206.p.ssafy.io:9000/user/login?code=${code}`
     );
     console.log(res);
     // loginsuccess false이면
