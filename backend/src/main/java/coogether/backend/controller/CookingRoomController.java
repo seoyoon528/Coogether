@@ -6,15 +6,19 @@ import coogether.backend.dto.CookingRoomCountDto;
 import coogether.backend.dto.CookingRoomDto;
 import coogether.backend.dto.request.CookingRoomRequest;
 import coogether.backend.service.CookingRoomService;
+import coogether.backend.service.file.S3Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -24,13 +28,20 @@ import java.util.List;
 public class CookingRoomController {
 
     private final CookingRoomService cookingRoomService;
+    private final S3Service s3Service;
 
-    @ApiOperation(value = "요리방 생성 (대기방)")
-    @PostMapping("/room/create/{userSeq}/{recipeId}")
-    public ResponseEntity addCookingRoom(@RequestBody CookingRoomRequest cookingRoomRequest, @PathVariable("userSeq") Long userSeq
-            , @PathVariable("recipeId") Long recipeId) {
+    @ApiOperation(value = "요리방 생성 (대기방)", produces = "multipart/form-data")
+    @PostMapping(value ="/room/create/{userSeq}/{recipeId}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addCookingRoom(@RequestBody CookingRoomRequest cookingRoomRequest, @RequestPart(value="file",required = false) MultipartFile multipartFile, @PathVariable("userSeq") Long userSeq
+            , @PathVariable("recipeId") Long recipeId) throws IOException {
 
-        CookingRoom cookingRoom = cookingRoomService.addCookingRoom(cookingRoomRequest, userSeq, recipeId);
+        String url = null;
+        if (multipartFile != null) {
+            url = s3Service.uploadFile(multipartFile, "cookingRoom");
+        }
+        System.out.println("url = " + url);
+        CookingRoom cookingRoom = cookingRoomService.addCookingRoom(cookingRoomRequest, userSeq, recipeId, url);
 
         if (cookingRoom != null) {
             Boolean check = cookingRoomService.addUserJoin(userSeq, cookingRoom.getCookingRoomId());
