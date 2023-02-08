@@ -5,10 +5,14 @@
 }
 
 #waitContainer {
-  display: flex;
+  display: absolute;
+  top: 0px;
+  left: 0px;
   height: 95%;
+  width: 100%;
   background: rgba(254, 189, 47, 0.1);
   border-radius: 45px;
+  margin: 2% 2%;
 }
 #chatToolbar {
   width: 106px;

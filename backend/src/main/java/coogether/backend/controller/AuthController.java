@@ -45,6 +45,7 @@ public class AuthController {
     @ApiOperation(value = "회원가입 위한 메소드")
     @PostMapping("/user/signup")
     public ResponseEntity<SignupResponseDto> kakaoSignup(@RequestBody SignupRequestDto requestDto) {
+        System.out.println("회원가입 컨트롤러 넘어옴");
         return authService.kakaoSignup(requestDto);
     }
 }

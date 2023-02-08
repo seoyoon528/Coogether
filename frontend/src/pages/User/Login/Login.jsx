@@ -25,8 +25,6 @@ function Login({ history }) {
         <a href={KAKAO_AUTH_URL}>
           <img src={KakaoLogin} alt="카카오아이콘" />
         </a>
-        <img src={GoogleLogin} alt="구글아이콘" />
-        <img src={NaverLogin} alt="네이버아이콘" />
       </L.loginBackground>
     );
   }

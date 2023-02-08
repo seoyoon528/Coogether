@@ -3,8 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.div`
   max-width: 1000px;
   text-align: center;
-  padding: 0 10px;
-  margin: 0 auto;
+  z-index: 9999;
+  position: absolute;
+  left: 25%;
+  transform: translate(-50%, 0%);
 `;
 
 export const SwitchWrapper = styled.div`
@@ -12,7 +14,7 @@ export const SwitchWrapper = styled.div`
   display: inline-flex;
   padding: 4px;
   border: 1px solid lightgrey;
-  margin-bottom: 40px;
+
   border-radius: 30px;
   background: #febd2f;
 

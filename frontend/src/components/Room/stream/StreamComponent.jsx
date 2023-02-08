@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
+import * as S from './StreamComponentStyle';
 import './StreamComponent.css';
 
 import OvVideoComponent from './OvVideo';
@@ -7,6 +8,7 @@ import OvVideoComponent from './OvVideo';
 export default class StreamComponent extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       nickname: this.props.user.getNickname(),
       showForm: false,
@@ -57,9 +59,7 @@ export default class StreamComponent extends Component {
 
   render() {
     return (
-      <div className="OT_widget-container">
-        <span id="nickname">{this.props.user.getNickname()}</span>
-
+      <S.StreamBox subscribeNum={this.props.subscribeNum + 1}>
         {this.props.user !== undefined &&
         this.props.user.getStreamManager() !== undefined ? (
           <div className="streamComponent">
@@ -96,7 +96,8 @@ export default class StreamComponent extends Component {
             )}
           </div>
         ) : null}
-      </div>
+        <S.NickName>{this.props.user.getNickname()}</S.NickName>
+      </S.StreamBox>
     );
   }
 }

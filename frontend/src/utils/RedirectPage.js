@@ -11,6 +11,31 @@ import Select from '@mui/material/Select';
 import { login } from '../store/AuthSlice';
 import { Background } from '../pages/User/SignIn/SigninStyle';
 
+export function SelectLabels() {
+  const [age, setAge] = useState('');
+
+  const handleChange = event => {
+    setAge(event.target.value);
+  };
+
+  return (
+    <div>
+      <FormControl sx={{ m: 1, minWidth: 220 }}>
+        <Select
+          value={age}
+          onChange={handleChange}
+          displayEmpty
+          inputProps={{ 'aria-label': 'Without label' }}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
+  );
+}
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -70,12 +95,13 @@ function RedirectPage({ history }) {
       name: userInfo.data.user.userName, // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
       email: userInfo.data.user.userEmail, // /user/login의 response로 넘어온 "user" : {"userEmail": "5120a@naver.com"}
       nickname: nickName,
-      profileImg: '',
+      profileImg: 'eee',
       userIntroduce: `안녕하세요 ${userInfo.data.user.userName}입니다.`,
       userCookCategory: prefer[1],
     };
+    console.log(userFormPayload);
     const submitUserForm = await axios.post(
-      // 'http://localhost:9000/signup',
+      // 'http://localhost:9000/user/signup',
       'http://i8b206.p.ssafy.io:9000/user/signup',
       userFormPayload
     );
@@ -131,34 +157,22 @@ function RedirectPage({ history }) {
         <Background>
           <h1>쿠게더에게 더 알려주세요</h1>
           <div>소셜 로그인으로 쿠게더와 함께할 수 있습니다</div>
+          <SelectLabels />
           <div>
             <input onChange={nickNameHandler} />
           </div>
-          <StyledEngineProvider injectFirst>
-            <FormControl sx={{ m: 1, width: 200 }}>
-              <InputLabel id="select-label">
-                선호 분야를 선택해주세요
-              </InputLabel>
-              <Select
-                labelId="select-label"
-                id="select"
-                value={prefer[0]}
-                label="선호 메뉴"
-                onChange={preferHandler}
-                MenuProps={MenuProps}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-              >
-                {preferCookArr.map((v, a) => {
-                  return (
-                    <MenuItem value={v[0]} style={getStyles(v, prefer, theme)}>
-                      {v[0]}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </StyledEngineProvider>
+          <FormControl sx={{ m: 1, minWidth: 220 }}>
+            <Select
+              value={prefer[0]}
+              onChange={preferHandler}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+            >
+              {preferCookArr.map((v, a) => {
+                return <MenuItem value={v[0]}>{v[0]}</MenuItem>;
+              })}
+            </Select>
+          </FormControl>
           <div>{nickName}</div>
           <div>{prefer}</div>
 
