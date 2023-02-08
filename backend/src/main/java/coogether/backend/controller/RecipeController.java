@@ -37,25 +37,27 @@ public class RecipeController {
     private final S3Service s3Service;
 
     @ApiOperation(value = "사용자 커스텀 레시피 등록", produces = "multipart/form-data")
-    @PostMapping(value  ="/recipe/create/{userSeq}",
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addCustomRecipe(@RequestPart(required = false) MultipartFile multipartFile,@RequestPart RecipeRequest recipeRequest,@PathVariable("userSeq") Long userSeq) throws IOException {
+    @PostMapping(value = "/recipe/create/{userSeq}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addCustomRecipe( @RequestPart RecipeRequest recipeRequest,@RequestPart(value="file",required = false) MultipartFile multipartFile, @PathVariable("userSeq") Long userSeq) throws IOException {
 
-        String url = s3Service.uploadFile(multipartFile,"customRecipe");
+        String url = null;
+        if (multipartFile != null) {
+            url = s3Service.uploadFile(multipartFile, "customRecipe");
+        }
         System.out.println("url = " + url);
-        Recipe customRecipe = recipeService.addCustomRecipe(recipeRequest, userSeq,url);
+        Recipe customRecipe = recipeService.addCustomRecipe(recipeRequest, userSeq, url);
 
         if (customRecipe != null) {
             ingredientListService.addIngredientList(customRecipe.getRecipeId(), recipeRequest.getIngredientListRequest());
             recipeStepService.addRecipeStep(customRecipe.getRecipeId(), recipeRequest.getRecipeStepRequest());
             return ResponseEntity.status(HttpStatus.OK).body(true);
-        }
-        else {
+        } else {
             return ResponseEntity.status(HttpStatus.OK).body(false);
         }
 
     }
-    
+
     @ApiOperation(value = "레시피 목록 전체를 반환하는 메소드")
     @GetMapping("/recipe/list/total")
     public ResponseEntity recipeListAll() {
@@ -85,8 +87,8 @@ public class RecipeController {
 
     @ApiOperation(value = "레시피 이름으로 레시피 목록 전체를 반환하는 메소드 (페이징가능 size, page)")
     @GetMapping("/recipe/search/{recipeName}")
-    public Page<SimpleRecipeDto> recipeListByRecipeName(@PathVariable("recipeName") String recipeName,Pageable pageable)  {
-        return recipeService.getRecipeListPagingByRecipeName(recipeName,pageable);
+    public Page<SimpleRecipeDto> recipeListByRecipeName(@PathVariable("recipeName") String recipeName, Pageable pageable) {
+        return recipeService.getRecipeListPagingByRecipeName(recipeName, pageable);
     }
 
     @ApiOperation(value = "사용자 아이디로 본인의 커스텀 레시피 목록 반환")
