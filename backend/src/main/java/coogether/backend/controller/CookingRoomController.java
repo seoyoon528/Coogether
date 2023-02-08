@@ -32,7 +32,7 @@ public class CookingRoomController {
         if (cookingRoom != null) {
             Boolean check = cookingRoomService.addUserJoin(userSeq, cookingRoom.getCookingRoomId());
             if (check) {
-                return ResponseEntity.status(HttpStatus.OK).body(true);
+                return ResponseEntity.status(HttpStatus.OK).body(cookingRoom.getCookingRoomId());
             }
         }
 
