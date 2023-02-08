@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 public class CookingRoomRequest {
 
     private String cookingRoomName;
-    private String cookingRoomImg;
-    private MultipartFile file;
     private String RecipeName;
     private LocalDateTime cookingRoomStartTime;
     private String cookingRoomNotice;
