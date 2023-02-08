@@ -9,7 +9,7 @@ import navy from '../../assets/img/chef-navy.png';
 import purple from '../../assets/img/chef-purple.png';
 
 export default function ChefHat(props) {
-  const { color } = props;
+  const { color, className } = props;
   return (
     <img
       src={(() => {
@@ -31,7 +31,7 @@ export default function ChefHat(props) {
         }
       })()}
       alt="chef-hat 아이콘"
-      className="chef-hay-image"
+      className={className}
     />
   );
 }

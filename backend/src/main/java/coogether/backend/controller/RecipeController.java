@@ -18,8 +18,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,11 +36,13 @@ public class RecipeController {
     private final IngredientListService ingredientListService;
     private final S3Service s3Service;
 
-    @ApiOperation(value = "사용자 커스텀 레시피 등록")
-    @PostMapping("/recipe/create/{userSeq}")
-    public ResponseEntity addCustomRecipe(@RequestBody RecipeRequest recipeRequest, @PathVariable("userSeq") Long userSeq) throws IOException {
+    @ApiOperation(value = "사용자 커스텀 레시피 등록", produces = "multipart/form-data")
+    @PostMapping(value  ="/recipe/create/{userSeq}",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addCustomRecipe(@RequestPart RecipeRequest recipeRequest,@PathVariable("userSeq") Long userSeq) throws IOException {
 
         String url = s3Service.uploadFile(recipeRequest.getFile(),"customRecipe");
+        System.out.println("url = " + url);
         Recipe customRecipe = recipeService.addCustomRecipe(recipeRequest, userSeq,url);
 
         if (customRecipe != null) {

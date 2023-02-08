@@ -9,6 +9,9 @@ export const RecepiContainer = styled.section`
   .main {
     width: 78vw;
   }
+  & li {
+    visibility: hidden;
+  }
 `;
 
 export const SearchMainHeader = styled.h2`

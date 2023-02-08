@@ -23,7 +23,7 @@ function StreamItem({ room }) {
       <S.CookRoomItemImg src={cookingRoomImg} alt="img" />
       <S.StartUserWrapper>
         <S.JoinUserWrapper>
-          <p>{userJoinLists ? userJoinLists.length : 0}명</p>
+          <p>요리사 {userJoinLists ? userJoinLists.length : 0}명</p>
         </S.JoinUserWrapper>
         <S.StartTimeWrapper>
           <p>{START} 시작</p>
@@ -39,7 +39,7 @@ function StreamItem({ room }) {
       </Link>
       <S.KingWrapper>
         <p>{cookingRoomHost}</p>
-        <ChefHat color="red" />
+        <ChefHat color="red" className="chefhat" />
       </S.KingWrapper>
       <S.TagWrapper>
         <span>#{recipe.recipeName}</span>
