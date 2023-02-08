@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
-import * as SF from './StreamFinishModalStyle';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import imgInput from '../../../assets/icon/imgInput.svg';
+import * as SF from './StreamFinishModalStyle';
 
 function StreamFinishModal() {
   const [nowStep, setNowStep] = useState(0);
@@ -61,7 +64,15 @@ function StreamFinishModal() {
           />
 
           <SF.ImgBox>
-            <img src={imgURL} alt="이미지 미리보기" />
+            {!imgURL ? (
+              <img
+                src={imgInput}
+                alt="이미지 넣기"
+                style={{ width: '20%', height: '20%' }}
+              />
+            ) : (
+              <img src={imgURL} alt="이미지 미리보기" />
+            )}
           </SF.ImgBox>
           <SF.ImgUploadBtn onClick={onUploadImageButtonClick}>
             사진 촬영
@@ -86,7 +97,28 @@ function StreamFinishModal() {
           <SF.SubTitle>
             이번 요리로 소진한 재료는 냉장고에서 제거하세요.
           </SF.SubTitle>
-          <SF.ImgBox />
+          <SF.CheckBox>
+            <FormGroup>
+              <FormControlLabel control={<Checkbox />} label="당근" />
+              <FormControlLabel control={<Checkbox />} label="호박" />
+              <FormControlLabel control={<Checkbox />} label="고기" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+              <FormControlLabel control={<Checkbox />} label="주스" />
+            </FormGroup>
+          </SF.CheckBox>
           <SF.ImgUploadBtn style={{ opacity: '0', cursor: 'default' }}>
             사진 촬영
           </SF.ImgUploadBtn>

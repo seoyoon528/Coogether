@@ -52,8 +52,6 @@ export const WrapUserList = styled.div`
 `;
 
 export const ContentWrap = styled.div`
-  background: #ffffff;
-  border: 1px solid #505050;
   border-radius: 3px;
   width: 80%;
   height: 60vh;
@@ -63,4 +61,23 @@ export const ExitBox = styled.div`
   display: inline-block;
   width: 90%;
   height: 14vh;
+`;
+export const RecipeWrap = styled.div`
+  width: '100%';
+  height: '100%';
+  margin-top: '5%';
+  border-radius: '3px';
+  border: '1px solid #505050';
+  background: '#ffffff';
+  padding-top: '10%';
+  & > h1 {
+    font-family: 'Pretendard Variable';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1vw;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
 `;

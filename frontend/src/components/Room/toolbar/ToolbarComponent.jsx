@@ -5,7 +5,7 @@ import * as T from './ToolbarCom';
 export default class ToolbarComponent extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.recipe.recipeContent.split('\n').length);
+
     // step을 여기서 따로 두기
     this.state = { fullscreen: false, toolNowStep: 0 };
     this.openModal = this.openModal.bind(this);
@@ -147,8 +147,7 @@ export default class ToolbarComponent extends Component {
                 <span>전체화면</span>
               )}
             </span>
-            {this.props.recipe.recipeContent.split('\n').length - 1 <=
-            this.state.toolNowStep ? (
+            {this.props.recipe.length - 1 <= this.state.toolNowStep ? (
               <button onClick={this.openModal}>요리 마치기</button>
             ) : (
               <button onClick={this.nextStep}>다음 단계로</button>

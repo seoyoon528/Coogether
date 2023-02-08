@@ -1,8 +1,10 @@
 /* eslint-disable */
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import CarouselBtn from '../../Btn/CarouselBtn/CarouselBtn';
 
 import {
+  RecipeWrap,
   ContentWrap,
   ExitBox,
   WrapUserList,
@@ -121,11 +123,20 @@ export default class ChatComponent extends Component {
             })}
           </WrapUserList>
           {/* 재료 및 레시피 정보 입력 공간 */}
+
           <ContentWrap>
-            <div>{this.props.recipe.recipeName}</div>
-            {this.props.recipe.recipeContent.split('\n').map(v => {
-              return <div>{v}</div>;
-            })}
+            <CarouselBtn left={'레시피'} right={'재료'} />
+            <RecipeWrap>
+              <h1 style={{}}>레시피 이름</h1>
+              {this.props.recipe.map(v => {
+                return (
+                  <div>
+                    {v.recipeStepNum}
+                    <div>{v.recipeStepContent}</div>
+                  </div>
+                );
+              })}
+            </RecipeWrap>
           </ContentWrap>
         </WaitDivideBox>
         <WaitDivideBox>

@@ -43,6 +43,30 @@ export const ImgBox = styled.div`
     height: 100%;
   }
 `;
+export const CheckBox = styled.div`
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  padding: 1vh 0.5vw;
+  width: 25vw;
+  height: 25vh;
+  border: 1px solid #505050;
+  justify-content: space-evenly;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+
+  margin-bottom: 3vh;
+  & div {
+    display: inline-block;
+    margin: 0 0;
+
+    & label {
+      margin: 0 0;
+    }
+  }
+`;
 export const ImgUploadBtn = styled.button`
   width: 10vw;
   height: 5vh;

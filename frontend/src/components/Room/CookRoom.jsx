@@ -22,14 +22,14 @@ var localUser = new UserModel();
 // 서버 URL 지정
 // const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'http://i8b206.p.ssafy.io:9000/';
-// const APPLICATION_SERVER_URL =
-//   'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
+// const APPLICATION_SERVER_URL = 'http://i8b206.p.ssafy.io:9000/';
+const APPLICATION_SERVER_URL =
+  'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
 
 class CookRoom extends Component {
   constructor(props) {
     super(props);
-    console.log(props.userInfo.userImg);
+
     this.hasBeenUpdated = false;
     let sessionName = this.props.roomId;
 
@@ -52,6 +52,7 @@ class CookRoom extends Component {
       nowStep: 0,
       open: false,
     };
+
     this.modalOpen = this.modalOpen.bind(this);
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
@@ -166,11 +167,11 @@ class CookRoom extends Component {
   // 임시 로직 - 해당 레시피의 id를 props에서 받아올것
   async getRecipe() {
     const response = await axios.get(
-      'http://i8b206.p.ssafy.io:9000/recipe/list?page=0'
+      'http://i8b206.p.ssafy.io:9000/recipestep/list/2'
     );
-
+    console.log(response.data);
     this.setState({
-      recipe: response.data.content[0],
+      recipe: response.data,
     });
   }
 
@@ -574,8 +575,7 @@ class CookRoom extends Component {
     return (
       <>
         {this.state.chatDisplay === 'none' &&
-        this.state.nowStep >=
-          this.state.recipe.recipeContent.split('\n').length - 1 ? (
+        this.state.nowStep >= this.state.recipe.length - 1 ? (
           <div>
             <Modal
               open={this.state.open}
@@ -646,26 +646,33 @@ class CookRoom extends Component {
               ))}
             </C.CookDivideBox>
             <C.CookDivideBox>
-              <div>{this.state.recipe.recipeName}</div>
-              {this.state.recipe.recipeContent
-                .split('\n')
+              <div>레시피 이름(props로 받을것)</div>
+              {this.state.recipe
                 .filter((v, a) => a < Number(this.state.nowStep))
                 .map(v => {
-                  return <div style={{ fontSize: '10px' }}>{v}</div>;
+                  return (
+                    <div style={{ fontSize: '10px' }}>
+                      {v.recipeStepContent}
+                    </div>
+                  );
                 })}
-              {this.state.recipe.recipeContent
-                .split('\n')
+              {this.state.recipe
                 .filter((v, a) => a === Number(this.state.nowStep))
                 .map(v => {
                   return (
-                    <div style={{ fontSize: '30px', top: '50%' }}>{v}</div>
+                    <div style={{ fontSize: '30px', top: '50%' }}>
+                      {v.recipeStepContent}
+                    </div>
                   );
                 })}
-              {this.state.recipe.recipeContent
-                .split('\n')
+              {this.state.recipe
                 .filter((v, a) => a > Number(this.state.nowStep))
                 .map(v => {
-                  return <div style={{ fontSize: '10px' }}>{v}</div>;
+                  return (
+                    <div style={{ fontSize: '10px' }}>
+                      {v.recipeStepContent}
+                    </div>
+                  );
                 })}
             </C.CookDivideBox>
 
