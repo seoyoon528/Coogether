@@ -25,8 +25,8 @@ export const Contents = styled.div`
   }
 `;
 export const Circle = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background-color: #ffffff;
   font-size: smaller;

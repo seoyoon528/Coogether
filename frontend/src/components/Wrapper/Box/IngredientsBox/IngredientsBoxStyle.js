@@ -5,6 +5,7 @@ export const CategoriesBlock = styled.div`
   padding: 1rem;
   margin: 0 auto;
   display: inline-block;
+
   @media screen and (max-width: 768px) {
     width: 100%;
     overflow-x: auto;
@@ -18,6 +19,7 @@ export const Categories = styled.div`
   text-decoration: none;
   color: inherit;
   padding-bottom: 2rem;
+  text-align: center;
 
   &:hover {
     color: #febd2f;
@@ -30,6 +32,7 @@ export const Contents = styled.div`
   padding: 10px;
   /* margin-left: 8rem; */
   margin-top: 2rem;
+  text-align: center;
 `;
 
 export const H4 = styled.div`

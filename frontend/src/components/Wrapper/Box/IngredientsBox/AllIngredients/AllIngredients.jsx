@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
+import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import dummy from '../ingredients.json';
 import { Contents, Circle, Button, Wrapper } from './AllIngredientsStyle';
 
@@ -46,13 +48,17 @@ function AllIngredients({ category }) {
             handleClick(i);
           }}
         >
-          {i}
           {selectIngredientId === i && visible && (
             <>
-              <Button>즐겨찾기</Button>
-              <Button>내 냉장고</Button>
+              <Button>
+                <BookmarkAddRoundedIcon />
+              </Button>
+              <Button>
+                <KitchenRoundedIcon />
+              </Button>
             </>
           )}
+          {i}
         </Circle>
       </span>
     );
@@ -82,13 +88,17 @@ function AllIngredients({ category }) {
             handleClick(e);
           }}
         >
-          {e}
           {selectIngredientId === e && visible && (
-            <Wrapper>
-              <Button>즐겨찾기</Button>
-              <Button>내 냉장고</Button>
-            </Wrapper>
+            <>
+              <Button>
+                <BookmarkAddRoundedIcon />
+              </Button>
+              <Button>
+                <KitchenRoundedIcon />
+              </Button>
+            </>
           )}
+          {e}
         </Circle>
       </span>
     );

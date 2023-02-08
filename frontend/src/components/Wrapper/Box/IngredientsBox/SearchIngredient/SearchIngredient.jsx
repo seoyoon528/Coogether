@@ -4,6 +4,9 @@ import { Contents, Circle, Button, Box } from './SearchIngredientStyle';
 function SearchIngredient({ ingredientName }) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
+  const oneIngreName = ingredientName.map(name => {
+    return <p>{name}</p>;
+  });
   const handleClick = ingredientName => {
     setselectIngredientId(ingredientName);
     setVisible(!visible);
@@ -19,13 +22,13 @@ function SearchIngredient({ ingredientName }) {
       ) : (
         <span>
           <Circle
-            key={ingredientName}
+            key={oneIngreName}
             onClick={() => {
-              handleClick(ingredientName);
+              handleClick(oneIngreName);
             }}
           >
-            {ingredientName}
-            {selectIngredientId === ingredientName && visible && (
+            {oneIngreName}
+            {selectIngredientId === oneIngreName && visible && (
               <>
                 <Button>즐겨찾기</Button>
                 <Button>내 냉장고</Button>

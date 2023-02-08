@@ -27,10 +27,33 @@ export const Contents = styled.div`
   background: #fff8ea;
   height: 164px;
   margin-bottom: 20px;
-  padding: 20px;
+  padding: 12px;
   /* margin-left: 16rem; */
 
   @media screen and (max-width: 1024px) {
     overflow-x: auto;
+  }
+`;
+
+export const Circle = styled.button`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #febd2f;
+  font-size: smaller;
+  text-align: center;
+  line-height: 60px;
+  /* margin-bottom: 1rem; */
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  z-index: 1;
+  position: relative;
+
+  p {
+    position: absolute;
+    left: 11.1%;
+    bottom: 30%;
+    text-align: center;
   }
 `;

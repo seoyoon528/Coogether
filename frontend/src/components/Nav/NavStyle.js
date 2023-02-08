@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const NavbarBlock = styled.div`
-  margin-top: 0.7rem;
+  margin-top: 1rem;
 `;
 
 export const Navstyle = styled(NavLink)`
@@ -14,7 +14,7 @@ export const Navstyle = styled(NavLink)`
   margin-top: 1.5rem;
   margin-left: 3.5rem;
   margin-right: 2rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2rem;
   display: flex;
   @media screen and (max-width: 1180px) {
     margin-left: 1.75rem;
