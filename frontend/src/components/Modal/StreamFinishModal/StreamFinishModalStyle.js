@@ -5,6 +5,7 @@ export const FinishWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 2vh 0;
 `;
 
 export const FinishTitle = styled.div`
