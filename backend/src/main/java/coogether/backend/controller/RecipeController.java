@@ -39,9 +39,9 @@ public class RecipeController {
     @ApiOperation(value = "사용자 커스텀 레시피 등록", produces = "multipart/form-data")
     @PostMapping(value  ="/recipe/create/{userSeq}",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addCustomRecipe(@RequestPart RecipeRequest recipeRequest,@PathVariable("userSeq") Long userSeq) throws IOException {
+    public ResponseEntity addCustomRecipe(@RequestPart(required = false) MultipartFile multipartFile,@RequestPart RecipeRequest recipeRequest,@PathVariable("userSeq") Long userSeq) throws IOException {
 
-        String url = s3Service.uploadFile(recipeRequest.getFile(),"customRecipe");
+        String url = s3Service.uploadFile(multipartFile,"customRecipe");
         System.out.println("url = " + url);
         Recipe customRecipe = recipeService.addCustomRecipe(recipeRequest, userSeq,url);
 
