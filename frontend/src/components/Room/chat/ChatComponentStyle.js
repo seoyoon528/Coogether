@@ -40,8 +40,11 @@ export const ThisUserImg = styled.img`
   border-radius: 45px;
 `;
 export const WrapUserInfo = styled.span`
-  margin: 0 4px 0 0;
+  margin: 0 0.7vw 0 0;
   font-size: 15px;
+  & > div {
+    font-size: 1.2vw;
+  }
 `;
 export const WrapUserList = styled.div`
   display: flex;
@@ -53,31 +56,54 @@ export const WrapUserList = styled.div`
 
 export const ContentWrap = styled.div`
   border-radius: 3px;
+  display: flex;
   width: 80%;
   height: 60vh;
 `;
 
 export const ExitBox = styled.div`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   width: 90%;
   height: 14vh;
+  padding: 5vh 5vw;
+  & > a {
+    text-align: center;
+    width: 9vw;
+    height: 6vh;
+    background: #dee2e6;
+    border-radius: 3px;
+  }
 `;
 export const RecipeWrap = styled.div`
-  width: '100%';
-  height: '100%';
-  margin-top: '5%';
-  border-radius: '3px';
-  border: '1px solid #505050';
-  background: '#ffffff';
-  padding-top: '10%';
+  width: 100%;
+  height: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 3px;
+  border: 1px solid #505050;
+  background: #ffffff;
+  padding-top: 10%;
+  overflow-y: scroll;
   & > h1 {
-    font-family: 'Pretendard Variable';
+    font-family: Pretendard Variable;
     font-style: normal;
     font-weight: 700;
-    font-size: 1vw;
+    font-size: 1.4vw;
     line-height: 29px;
-    display: flex;
-    align-items: center;
-    text-align: center;
+  }
+  & div {
+  }
+`;
+export const StepTitle = styled.div`
+  text-align: left;
+  margin-bottom: 1.3vh;
+  font-size: 1.7vw;
+  & div {
+    margin-top: 0.5vh;
+    font-size: 1.2vw;
   }
 `;

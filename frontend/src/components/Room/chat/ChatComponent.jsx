@@ -3,17 +3,7 @@ import React, { Component, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CarouselBtn from '../../Btn/CarouselBtn/CarouselBtn';
 
-import {
-  RecipeWrap,
-  ContentWrap,
-  ExitBox,
-  WrapUserList,
-  WrapUserInfo,
-  WaitDivideBox,
-  WaitTitle,
-  ThisUserImg,
-  WaitContainer,
-} from './ChatCompo';
+import * as C from './ChatComponentStyle';
 
 import './ChatComponent.css';
 
@@ -103,44 +93,46 @@ export default class ChatComponent extends Component {
 
   render() {
     return (
-      <WaitContainer>
-        <WaitDivideBox>
-          <WaitTitle>오늘은 모두 요리사</WaitTitle>
+      <C.WaitContainer>
+        <C.WaitDivideBox>
+          <C.WaitTitle>오늘은 모두 요리사</C.WaitTitle>
 
           {/* 유저 정보 입력 공간, 사진도 같이 가져와야함 */}
-          <WrapUserList>
-            <WrapUserInfo>
-              <ThisUserImg src={this.props.userImg} />
+          <C.WrapUserList>
+            <C.WrapUserInfo>
+              <C.ThisUserImg src={this.props.userImg} />
               <div>{this.props.user.nickname}</div>
-            </WrapUserInfo>
+            </C.WrapUserInfo>
             {this.props.remoteUsers.map((v, a) => {
               return (
-                <WrapUserInfo>
-                  <ThisUserImg src={v.img} />
+                <C.WrapUserInfo>
+                  <C.ThisUserImg src={v.img} />
                   <div>{v.nickname}</div>
-                </WrapUserInfo>
+                </C.WrapUserInfo>
               );
             })}
-          </WrapUserList>
+          </C.WrapUserList>
           {/* 재료 및 레시피 정보 입력 공간 */}
 
-          <ContentWrap>
+          <C.ContentWrap>
             <CarouselBtn left={'레시피'} right={'재료'} />
-            <RecipeWrap>
-              <h1 style={{}}>레시피 이름</h1>
+            <C.RecipeWrap>
+              <h1>레시피 이름</h1>
               {this.props.recipe.map(v => {
                 return (
-                  <div>
-                    {v.recipeStepNum}
+                  <C.StepTitle>
+                    {v.recipeStepNum + 1 < 10
+                      ? '0' + String(v.recipeStepNum + 1)
+                      : v.recipeStepNum + 1}
                     <div>{v.recipeStepContent}</div>
-                  </div>
+                  </C.StepTitle>
                 );
               })}
-            </RecipeWrap>
-          </ContentWrap>
-        </WaitDivideBox>
-        <WaitDivideBox>
-          <ContentWrap>
+            </C.RecipeWrap>
+          </C.ContentWrap>
+        </C.WaitDivideBox>
+        <C.WaitDivideBox>
+          <C.ContentWrap>
             <div id="chatComponent">
               <div id="chatToolbar">
                 {/* 방 이름+ 채팅 */}
@@ -194,12 +186,12 @@ export default class ChatComponent extends Component {
               </div>
             </div>
             <button onClick={this.close}>시작하기</button>
-          </ContentWrap>
-        </WaitDivideBox>
-        <ExitBox>
+          </C.ContentWrap>
+        </C.WaitDivideBox>
+        <C.ExitBox>
           <Link to="/Main">나가기</Link>
-        </ExitBox>
-      </WaitContainer>
+        </C.ExitBox>
+      </C.WaitContainer>
     );
   }
 }
