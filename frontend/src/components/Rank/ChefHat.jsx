@@ -14,17 +14,17 @@ export default function ChefHat(props) {
     <img
       src={(() => {
         switch (color) {
-          case 'red':
+          case '빨강':
             return red;
-          case 'yellow':
-            return yellow;
-          case 'orange':
+          case '주황':
             return orange;
-          case 'green':
+          case '노랑':
+            return yellow;
+          case '초록':
             return green;
-          case 'blue':
+          case '파랑':
             return blue;
-          case 'navy':
+          case '남색':
             return navy;
           default:
             return purple;
