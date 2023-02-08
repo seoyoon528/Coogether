@@ -1,18 +1,28 @@
 import styled from 'styled-components';
 
 export const CookRoomItemWrapper = styled.div`
-  height: 25.5rem;
   width: 21.6rem;
+  position: relative;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+  margin-top: 25px;
+  height: 25.5rem;
+  /* width: 21.6rem; */
   /* background-color: rgba(255, 248, 234, 0.5); */
-  background-color: #fff8ea;
+  /* background-color: #fff8ea; */
 `;
 
 export const CookRoomItemImg = styled.img`
+  position: relative;
   height: 60%;
   width: 100%;
 `;
 
 export const KingWrapper = styled.div`
+  display: flex;
+  position: absolute;
+  top: 195px;
   height: 14px;
 
   & p {
@@ -22,11 +32,16 @@ export const KingWrapper = styled.div`
     line-height: auto;
     color: #4f4f4f;
   }
-  & img {
+  .chefhat {
+    margin-left: 10px;
+    width: 10px;
+    height: 10px;
   }
 `;
 
 export const roomTitle = styled.h4`
+  position: absolute;
+  top: 165px;
   text-align: left;
   vertical-align: top;
   line-height: auto;
@@ -39,6 +54,9 @@ export const StartUserWrapper = styled.div`
 `;
 
 export const StartTimeWrapper = styled.div`
+  position: absolute;
+  top: 134px;
+  right: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,13 +77,19 @@ export const StartTimeWrapper = styled.div`
 `;
 
 export const JoinUserWrapper = styled.div`
+  position: absolute;
+  top: 134px;
+  left: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 2rem;
-  width: 3rem;
+  /* width: 8rem; */
   border-radius: 0.2rem;
   background-color: rgba(0, 0, 0, 0.5);
+
+  width: max-content;
+  min-width: 5rem;
 
   & p {
     text-align: center;
@@ -77,6 +101,8 @@ export const JoinUserWrapper = styled.div`
 `;
 
 export const TagWrapper = styled.div`
+  position: absolute;
+  top: 215px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,5 +118,31 @@ export const TagWrapper = styled.div`
     vertical-align: middle;
     line-height: auto;
     color: #ffffff;
+  }
+`;
+
+export const StyledRoot = styled.div`
+  width: 128.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -8.8rem;
+  button {
+    padding: 0;
+    background: none;
+    border: none;
+  }
+  .swiper {
+    &-wrapper,
+    &-container {
+      width: 120rem;
+      margin: 0;
+    }
+    &-container {
+      margin: 0 3.2rem;
+    }
+    &-button-disabled {
+      visibility: hidden;
+    }
   }
 `;
