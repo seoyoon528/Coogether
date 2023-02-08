@@ -17,8 +17,8 @@ public class RecipeRequest {
 
     private EnumRecipeCategory recipeCategory;
     private EnumRecipeType recipeType;
-    private String recipeImg;
-    private MultipartFile file;
+//    private String recipeImg;
+//    private MultipartFile file;
 
     private String recipeName;
     private List<IngredientListRequest> ingredientListRequest;
