@@ -5,10 +5,18 @@ import React, { Component } from 'react';
 import ChatComponent from './chat/ChatComponent';
 import DialogExtensionComponent from './dialog-extension/DialogExtension';
 import StreamComponent from './stream/StreamComponent';
-import './CookRoomStyle.css';
+import * as C from './CookRoomStyle';
 
 import UserModel from './models/user-model';
 import ToolbarComponent from './toolbar/ToolbarComponent';
+import { thisTypeAnnotation } from '@babel/types';
+
+// mui import
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import StreamFinishModal from '../Modal/StreamFinishModal/StreamFinishModal';
 
 var localUser = new UserModel();
 // 서버 URL 지정
@@ -40,9 +48,11 @@ class CookRoom extends Component {
       chatDisplay: 'block',
       currentVideoDevice: undefined,
       kicktrigger: false,
-      recipe:undefined,
+      recipe: undefined,
+      nowStep: 0,
+      open: false,
     };
-
+    this.modalOpen = this.modalOpen.bind(this);
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
@@ -51,9 +61,9 @@ class CookRoom extends Component {
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
     this.killUser = this.killUser.bind(this);
     // 레시피 가져오기
-    this.importRecipe = this.importRecipe.bind(this);
-
-
+    this.getRecipe = this.getRecipe.bind(this);
+    // 다음 단계로 넘어가기
+    this.nextStep = this.nextStep.bind(this);
 
     this.nicknameChanged = this.nicknameChanged.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -64,11 +74,12 @@ class CookRoom extends Component {
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
   }
-
+  componentWillMount() {
+    this.getRecipe();
+  }
   componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload);
     this.joinSession();
-    
   }
 
   componentWillUnmount() {
@@ -78,6 +89,9 @@ class CookRoom extends Component {
 
   onbeforeunload(event) {
     this.leaveSession();
+  }
+  modalOpen() {
+    this.setState({ open: !this.state.open });
   }
 
   joinSession() {
@@ -154,9 +168,11 @@ class CookRoom extends Component {
     const response = await axios.get(
       'http://i8b206.p.ssafy.io:9000/recipe/list?page=0'
     );
-    return response.data;
+
+    this.setState({
+      recipe: response.data.content[0],
+    });
   }
-  this.state.recipe = await getRecipe()
 
   async connectWebCam() {
     await this.OV.getUserMedia({
@@ -193,6 +209,7 @@ class CookRoom extends Component {
     localUser.setScreenShareActive(false);
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
+    this.clickNextStep();
     this.subscribeToStreamDestroyed();
     this.killSession();
     this.sendSignalUserChanged({
@@ -277,6 +294,16 @@ class CookRoom extends Component {
     this.state.session.signal(signalOptions);
   }
 
+  // 다음 단계로 넘어가기
+  nextStep() {
+    const signalOptions = {
+      data: Number(this.state.nowStep) + 1,
+      type: 'nextStep',
+    };
+
+    this.state.session.signal(signalOptions);
+  }
+
   nicknameChanged(nickname) {
     let localUser = this.state.localUser;
     localUser.setNickname(nickname);
@@ -345,6 +372,12 @@ class CookRoom extends Component {
         alert('강퇴당했습니다');
         this.leaveSession();
       }
+    });
+  }
+  clickNextStep() {
+    this.state.session.on('signal:nextStep', event => {
+      console.log(event);
+      this.setState({ nowStep: event.data });
     });
   }
   subscribeToUserChanged() {
@@ -540,73 +573,122 @@ class CookRoom extends Component {
 
     return (
       <>
-        {localUser !== undefined &&
-          localUser.getStreamManager() !== undefined && (
-            <div
-              className="OT_root OT_publisher custom-class"
-              style={chatDisplay}
+        {this.state.chatDisplay === 'none' &&
+        this.state.nowStep >=
+          this.state.recipe.recipeContent.split('\n').length - 1 ? (
+          <div>
+            <Modal
+              open={this.state.open}
+              onClose={this.modalOpen}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
             >
-              <ChatComponent
-                remoteUsers={this.state.subscribers}
-                user={localUser}
-                userImg={this.state.myPicture}
-                chatDisplay={this.state.chatDisplay}
-                close={this.toggleChat}
-                messageReceived={this.checkNotification}
-              />
-            </div>
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '50%',
+                  height: '60%',
+                  bgcolor: '#FFFFFF',
+                  border: '2px solid #ffffff',
+                  boxShadow: 24,
+                  borderRadius: '16px',
+                  p: 4,
+                }}
+              >
+                <StreamFinishModal />
+              </Box>
+            </Modal>
+          </div>
+        ) : (
+          ''
+        )}
+        {localUser !== undefined &&
+          this.state.chatDisplay !== 'none' &&
+          localUser.getStreamManager() !== undefined && (
+            <ChatComponent
+              remoteUsers={this.state.subscribers}
+              user={localUser}
+              userImg={this.state.myPicture}
+              chatDisplay={this.state.chatDisplay}
+              close={this.toggleChat}
+              messageReceived={this.checkNotification}
+              recipe={this.state.recipe}
+            />
           )}
-
         <DialogExtensionComponent
           showDialog={this.state.showExtensionDialog}
           cancelClicked={this.closeDialogExtension}
         />
-
-        <div>
-          {this.state.chatDisplay === 'none' &&
-            localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div id="localUser">
+        {this.state.chatDisplay === 'none' && (
+          <C.CookContainer>
+            <C.CookDivideBox>
+              {localUser !== undefined &&
+                localUser.getStreamManager() !== undefined && (
+                  <StreamComponent
+                    user={localUser}
+                    handleNickname={this.nicknameChanged}
+                    subscribeNum={this.state.subscribers.length}
+                  />
+                )}
+              {this.state.subscribers.map((sub, i) => (
                 <StreamComponent
-                  user={localUser}
-                  handleNickname={this.nicknameChanged}
-                />
-              </div>
-            )}
-          {this.state.chatDisplay === 'none' &&
-            this.state.subscribers.map((sub, i) => (
-              <div
-                key={i}
-                className="OT_root OT_publisher custom-class"
-                id="remoteUsers"
-              >
-                <StreamComponent
+                  key={i}
                   user={sub}
                   streamId={sub.streamManager.stream.streamId}
                   kicktrigger={this.state.kicktrigger}
                   kickStatusChanged={this.kickStatusChanged}
                   killUser={this.killUser}
+                  subscribeNum={this.state.subscribers.length}
                 />
-              </div>
-            ))}
-        </div>
+              ))}
+            </C.CookDivideBox>
+            <C.CookDivideBox>
+              <div>{this.state.recipe.recipeName}</div>
+              {this.state.recipe.recipeContent
+                .split('\n')
+                .filter((v, a) => a < Number(this.state.nowStep))
+                .map(v => {
+                  return <div style={{ fontSize: '10px' }}>{v}</div>;
+                })}
+              {this.state.recipe.recipeContent
+                .split('\n')
+                .filter((v, a) => a === Number(this.state.nowStep))
+                .map(v => {
+                  return (
+                    <div style={{ fontSize: '30px', top: '50%' }}>{v}</div>
+                  );
+                })}
+              {this.state.recipe.recipeContent
+                .split('\n')
+                .filter((v, a) => a > Number(this.state.nowStep))
+                .map(v => {
+                  return <div style={{ fontSize: '10px' }}>{v}</div>;
+                })}
+            </C.CookDivideBox>
 
-        {this.state.chatDisplay === 'none' && (
-          <ToolbarComponent
-            sessionId={mySessionId}
-            user={localUser}
-            showNotification={this.state.messageReceived}
-            kicktrigger={this.state.kicktrigger}
-            kickStatusChanged={this.kickStatusChanged}
-            camStatusChanged={this.camStatusChanged}
-            micStatusChanged={this.micStatusChanged}
-            screenShare={this.screenShare}
-            stopScreenShare={this.stopScreenShare}
-            toggleFullscreen={this.toggleFullscreen}
-            switchCamera={this.switchCamera}
-            leaveSession={this.leaveSession}
-            toggleChat={this.toggleChat}
-          />
+            <ToolbarComponent
+              recipe={this.state.recipe}
+              nowStep={this.state.nowStep}
+              modalOpen={this.modalOpen}
+              nextStep={this.nextStep}
+              sessionId={mySessionId}
+              user={localUser}
+              showNotification={this.state.messageReceived}
+              kicktrigger={this.state.kicktrigger}
+              kickStatusChanged={this.kickStatusChanged}
+              camStatusChanged={this.camStatusChanged}
+              micStatusChanged={this.micStatusChanged}
+              screenShare={this.screenShare}
+              stopScreenShare={this.stopScreenShare}
+              toggleFullscreen={this.toggleFullscreen}
+              switchCamera={this.switchCamera}
+              leaveSession={this.leaveSession}
+              toggleChat={this.toggleChat}
+            />
+          </C.CookContainer>
         )}
       </>
     );

@@ -1,12 +1,12 @@
 /* eslint-disable */
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentWrap } from './ChatCompo';
-import { ExitBox } from './ChatCompo';
-import { WrapUserList } from './ChatCompo';
-import { WrapUserInfo } from './ChatCompo';
 
 import {
+  ContentWrap,
+  ExitBox,
+  WrapUserList,
+  WrapUserInfo,
   WaitDivideBox,
   WaitTitle,
   ThisUserImg,
@@ -19,7 +19,6 @@ export default class ChatComponent extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.remoteUsers);
     this.state = {
       messageList: [],
       message: '',
@@ -122,8 +121,12 @@ export default class ChatComponent extends Component {
             })}
           </WrapUserList>
           {/* 재료 및 레시피 정보 입력 공간 */}
-          <div>레시피재료</div>
-          <ContentWrap>쌈장닭갈비 불고기 우유 고추장 된장 맛술</ContentWrap>
+          <ContentWrap>
+            <div>{this.props.recipe.recipeName}</div>
+            {this.props.recipe.recipeContent.split('\n').map(v => {
+              return <div>{v}</div>;
+            })}
+          </ContentWrap>
         </WaitDivideBox>
         <WaitDivideBox>
           <ContentWrap>
@@ -180,10 +183,11 @@ export default class ChatComponent extends Component {
               </div>
             </div>
             <button onClick={this.close}>시작하기</button>
-            <Link to="/Main">나가기</Link>
           </ContentWrap>
         </WaitDivideBox>
-        <ExitBox>오마이갓</ExitBox>
+        <ExitBox>
+          <Link to="/Main">나가기</Link>
+        </ExitBox>
       </WaitContainer>
     );
   }
