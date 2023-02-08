@@ -4,6 +4,7 @@ import coogether.backend.domain.*;
 import coogether.backend.domain.status.EnumCookingRoomStatus;
 import coogether.backend.domain.status.EnumMyIngredientManageFlag;
 import coogether.backend.domain.status.EnumRecipeCategory;
+import coogether.backend.domain.status.EnumUserCookCategory;
 import coogether.backend.dto.CookingRoomCountDto;
 import coogether.backend.dto.CookingRoomDto;
 import coogether.backend.dto.request.CookingRoomRequest;
@@ -139,8 +140,32 @@ public class CookingRoomService {
     // 사용자 선호 요리 기반 추천
     public List<CookingRoom> getRecommendedRoomListByUserCook(Long userSeq) {
         User user = userRepository.findByUserSeq(userSeq);
-        List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(EnumRecipeCategory.ASIAN);
-//        List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(user.getUserCookCategory());
+        List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(enumConvertor(user.getUserCookCategory()));
+
         return cookingRoomList;
+    }
+
+    public EnumRecipeCategory enumConvertor(EnumUserCookCategory enumUserCookCategory) {
+        String userCookCategory = enumUserCookCategory.toString();
+        switch (userCookCategory) {
+            case "KOREAN":
+                return EnumRecipeCategory.KOREAN;
+            case "CHINESE":
+                return EnumRecipeCategory.CHINESE;
+            case "WESTERN":
+                return EnumRecipeCategory.WESTERN;
+            case "JAPANESE":
+                return EnumRecipeCategory.JAPANESE;
+            case "DESSERT":
+                return EnumRecipeCategory.DESSERT;
+            case "ASIAN":
+                return EnumRecipeCategory.ASIAN;
+            case "BUNSIK":
+                return EnumRecipeCategory.BUNSIK;
+            case "ETC":
+                return EnumRecipeCategory.ETC;
+            default:
+                return null;
+        }
     }
 }
