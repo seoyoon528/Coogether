@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 // Swiper
@@ -59,6 +59,7 @@ export default function StreamSwiper(props) {
                 <S.StartUserWrapper>
                   <S.JoinUserWrapper>
                     <p>
+                      요리사{' '}
                       {room.userJoinLists ? room.userJoinLists.length : 0}명
                     </p>
                   </S.JoinUserWrapper>
@@ -78,7 +79,7 @@ export default function StreamSwiper(props) {
                 </Link>
                 <S.KingWrapper>
                   <p>{room.cookingRoomHost}</p>
-                  <ChefHat color="red" />
+                  <ChefHat color="red" className="chefhat" />
                 </S.KingWrapper>
                 <S.TagWrapper>
                   <span>#{room.recipe.recipeName}</span>
