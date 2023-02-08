@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Nav from './components/Nav/Nav';
 import Main from './pages/Main/Main';
@@ -16,11 +16,16 @@ import MakeCookRoom from './pages/MakeCookRoom/MakeCookRoom';
 import RedirectPage from './utils/RedirectPage';
 import Footer from './components/Nav/Footer';
 import FloatBtn from './components/Btn/FloatBtn/FloatBtn';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
+  const [isShow, setIsShow] = useState(true);
+  const onChangeShow = () => {
+    setIsShow(!isShow);
+  };
   return (
     <div style={{ position: 'relative' }}>
-      <Nav />
+      {isShow && <Nav />}
       <Switch>
         <Route path="/" exact>
           <Redirect to="/Main" />
@@ -37,9 +42,12 @@ function App() {
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage} />
         <Route path="/MakeCookRoom" component={MakeCookRoom} />
+        <Route path="*">
+          <NotFound onChangeShow={onChangeShow} />
+        </Route>
       </Switch>
-      <FloatBtn />
-      <Footer />
+      {isShow && <FloatBtn />}
+      {isShow && <Footer />}
     </div>
   );
 }

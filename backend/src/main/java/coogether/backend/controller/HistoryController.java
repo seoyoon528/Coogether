@@ -3,11 +3,9 @@ package coogether.backend.controller;
 
 import coogether.backend.domain.History;
 import coogether.backend.dto.HistoryDto;
-import coogether.backend.dto.UserDto;
 import coogether.backend.service.HistoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

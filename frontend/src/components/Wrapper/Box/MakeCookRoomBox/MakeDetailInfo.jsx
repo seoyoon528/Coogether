@@ -1,53 +1,34 @@
-import React, { useState, useRef } from 'react';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { SvgIcon } from '@mui/material';
-import { StreamContents, Input } from './MakeDetailInfoStyle';
-import StreamModal from '../../../Modal/StreamModal/StreamModal';
+import React, { useRef } from 'react';
+import { StreamContents } from './MakeDetailInfoStyle';
 
-function MakeBasicInfo() {
-  const [imgFile, setImgFile] = useState('');
-  const imgRef = useRef();
-  const saveImgFile = () => {
-    const file = imgRef.current.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImgFile(reader.result);
-    };
+function MakeBasicInfo(props) {
+  const { setAnnounce } = props;
+
+  const inputRef = useRef();
+
+  const formSubmitHandler = event => {
+    event.preventDefault();
+
+    const inputItem = inputRef.current.value;
+    if (inputItem.trim().length === 0) {
+      return;
+    }
+    setAnnounce(inputItem);
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const onClickButton = () => {
-    setIsOpen(true);
-  };
   return (
     <>
       <StreamContents>
         <p>공지 사항</p>
-        <Input type="text" placeholder="공지 사항을 입력해주세요" />
-        <p>미리 보기</p>
-        {imgFile !== '' ? (
-          <img src={imgFile} alt="사진" />
-        ) : (
-          <SvgIcon sx={{ fontSize: 100 }} component={AddPhotoAlternateIcon} />
-        )}
-
-        <input
-          type="file"
-          accept="image/*"
-          onChange={saveImgFile}
-          ref={imgRef}
-        />
+        <form onChange={formSubmitHandler}>
+          <input
+            type="text"
+            required
+            ref={inputRef}
+            placeholder="공지 사항을 입력해주세요"
+          />
+        </form>
       </StreamContents>
-      <button onClick={onClickButton}>생성 완료</button>
-      {isOpen && (
-        <StreamModal
-          open={isOpen}
-          onClose={() => {
-            setIsOpen(false);
-          }}
-        />
-      )}
     </>
   );
 }

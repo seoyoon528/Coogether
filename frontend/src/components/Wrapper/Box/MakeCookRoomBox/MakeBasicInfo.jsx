@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { StreamContents } from './MakeBasicInfoStyle';
 
-function MakeBasicInfo() {
+function MakeBasicInfo(props) {
+  const { setStreamName } = props;
+
+  const inputRef = useRef();
+
+  const formSubmitHandler = event => {
+    event.preventDefault();
+
+    const inputItem = inputRef.current.value;
+    if (inputItem.trim().length === 0) {
+      return;
+    }
+    setStreamName(inputItem);
+  };
   return (
     <StreamContents>
       <p>방송 제목</p>
-      <input type="text" placeholder="방송 제목을 입력해주세요" />
-      <p>시작 시간</p>
-      <input type="text" placeholder="시작 시간을 입력해주세요" />
-      <p>요리 이름</p>
-      <input type="text" placeholder="요리 이름을 입력해주세요" />
+      <form onChange={formSubmitHandler}>
+        <input
+          type="text"
+          required
+          ref={inputRef}
+          placeholder="방송 제목을 입력해주세요"
+        />
+      </form>
     </StreamContents>
   );
 }

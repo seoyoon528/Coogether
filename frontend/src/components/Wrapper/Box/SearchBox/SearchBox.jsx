@@ -5,7 +5,7 @@ import * as S from './SearchBoxStyle';
 
 // 레시피랑 요리방을 검색하는 네모난 박스만 만들 예정
 function SearchBox(props) {
-  const { onSaveEnteredItem, TEXT } = props;
+  const { onSaveEnteredItem, onChangePage, TEXT } = props;
   const inputRef = useRef();
 
   const formSubmitHandler = event => {
@@ -16,6 +16,7 @@ function SearchBox(props) {
       return;
     }
     onSaveEnteredItem(inputItem);
+    onChangePage();
   };
 
   return (

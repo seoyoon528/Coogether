@@ -61,6 +61,10 @@ function SearchCookRoom() {
   const onSaveEnteredItem = item => {
     setEnterdItme(item);
   };
+  const onChangePage = () => {
+    setCookRoom([]);
+    setPage(0);
+  };
   // console.log(page);
 
   const getData = useCallback(async () => {
@@ -73,17 +77,10 @@ function SearchCookRoom() {
             : `${SEARCH_URL}/${enterdItme}?page=${page}&size=15`
         }`,
       });
-      // console.log(allCookRoom.data.totalPages);
+      // console.log(allCookRoom.data);
       if (page === allCookRoom.data.totalPages) {
         endRef.current = true;
       }
-      if (enterdItme) {
-        setCookRoom([]);
-        setPage(0);
-      }
-
-      // setCookRoom(prev => [...prev, ...allCookRoom.data.content]);
-      // setCookRoom(prev => [...new Set([...prev, ...allCookRoom.data.content])]);
       setCookRoom(prev => {
         return [...new Set([...prev, ...allCookRoom.data.content])];
       });
@@ -100,7 +97,9 @@ function SearchCookRoom() {
   // console.log(cookRoom);
 
   const SK = Array.from({ length: 15 }, (_, index) => (
-    <Skeleton key={index} variant="rectangular" width={255} height={216} />
+    <Grid item xs={6} md={4} lg={3} key={index}>
+      <Skeleton variant="rectangular" width={255} height={216} />
+    </Grid>
   ));
   // console.log(SK);
 
@@ -114,16 +113,25 @@ function SearchCookRoom() {
           다양한 사람들과 함께 요리를 해보고 기록을 남겨보세요
         </S.SearchSubHeader>
         {/* 레시피 서치 페이지에도 추가해주기 */}
-        <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
+        <SearchBox
+          onSaveEnteredItem={onSaveEnteredItem}
+          onChangePage={onChangePage}
+          TEXT={TEXT}
+        />
         <br />
-        <Grid container justifyContent="space-evenly">
-          <StreamList cookRoom={cookRoom} />
-          {load && (
-            <Grid container justifyContent="space-evenly">
-              {SK}
-            </Grid>
-          )}
-        </Grid>
+        <hr />
+        <StreamList cookRoom={cookRoom} />
+        {load && (
+          <Grid
+            container
+            columns={12}
+            columnSpacing={5}
+            rowGap={3}
+            justifyContent="space-between"
+          >
+            {SK}
+          </Grid>
+        )}
         <li ref={observerRef} />
       </div>
     </S.CookRoomContainer>

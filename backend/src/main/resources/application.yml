@@ -1,3 +1,14 @@
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA26F6FSQAEV7RLDHL
+      secret-key: aYsJF0cAup0Jn8dND3puwOAHuGLmfWuSBiK1+Dc8
+    s3: #버킷이름
+      bucket: my.first.example.sss.bucket
+    region: #S3 지역
+      static: ap-northeast-2
+    stack:
+      auto: false
 
 server:
   port: 9000
@@ -21,6 +32,10 @@ spring:
 #    url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Seoul
 #    username: root
 #    password: 1234
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
   jpa:
     hibernate:

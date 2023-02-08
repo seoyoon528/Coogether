@@ -9,10 +9,17 @@ function RecipeBoxList(props) {
   const { recepi } = props;
 
   return (
-    <Grid container spacing={2} justifyContent="space-evenly">
+    <Grid
+      container
+      columns={12}
+      columnSpacing={5}
+      rowSpacing={4}
+      // rowGap={3}
+      justifyContent="space-evenly"
+    >
       {recepi.map(recipe => {
         return (
-          <Grid item key={recipe.recipeId}>
+          <Grid item key={recipe.recipeId} xs={6} md={4} lg={3}>
             <RecipeBoxItem recipe={recipe} />
           </Grid>
         );

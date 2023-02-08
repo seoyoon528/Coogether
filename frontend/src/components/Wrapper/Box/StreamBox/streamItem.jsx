@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ChefHat from '../../../Rank/ChefHat';
 
 import * as S from './streamItemStyle';
 
@@ -38,6 +39,7 @@ function StreamItem({ room }) {
       </Link>
       <S.KingWrapper>
         <p>{cookingRoomHost}</p>
+        <ChefHat color="red" />
       </S.KingWrapper>
       <S.TagWrapper>
         <span>#{recipe.recipeName}</span>

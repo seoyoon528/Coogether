@@ -59,7 +59,12 @@ function SearchRecipe() {
   const onSaveEnteredItem = item => {
     setEnterdItme(item);
   };
-  // console.log(page);
+
+  const onChangePage = () => {
+    setRecepi([]);
+    setPage(0);
+  };
+  console.log(page);
 
   // HTTP 요청 보내야 함
   // 비동기 요청 보내기
@@ -75,17 +80,13 @@ function SearchRecipe() {
             : `${SEARCH_URL}/${enterdItme}?page=${page}&size=15`
         }`,
       });
+      console.log(allRecepi);
       // console.log(allRecepi.data.content);
-      if (page === allRecepi.data.totalPages) {
+      if (page === allRecepi.data.totalPages - 1) {
         endRef.current = true;
-      }
-      if (enterdItme) {
-        setRecepi([]);
-        setPage(0);
       }
       setRecepi(prev => [...new Set([...prev, ...allRecepi.data.content])]);
 
-      // setRecepi(prev => [...prev]);
       preventObserverRef.current = true;
     } catch (error) {
       console.log(error);
@@ -97,9 +98,10 @@ function SearchRecipe() {
   }, [enterdItme, getData]);
 
   const SK = Array.from({ length: 15 }, (_, index) => (
-    <Skeleton key={index} variant="rectangular" width={255} height={216} />
+    <Grid item xs={6} md={4} lg={3} key={index}>
+      <Skeleton variant="rectangular" width={255} height={216} />
+    </Grid>
   ));
-
   return (
     <S.RecepiContainer>
       <div className="main">
@@ -107,11 +109,22 @@ function SearchRecipe() {
         <S.SearchSubHeader>
           재료부터 요리 순서까지 레시피를 보고 요리를 따라할 수 있어요
         </S.SearchSubHeader>
-        <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
+        <SearchBox
+          onSaveEnteredItem={onSaveEnteredItem}
+          TEXT={TEXT}
+          onChangePage={onChangePage}
+        />
         <br />
+        <hr />
         <RecipeBoxList recepi={recepi} />
         {load && (
-          <Grid container justifyContent="space-evenly">
+          <Grid
+            container
+            columns={12}
+            columnSpacing={5}
+            rowGap={3}
+            justifyContent="space-between"
+          >
             {SK}
           </Grid>
         )}

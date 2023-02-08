@@ -8,14 +8,20 @@ export default function RecipeIngredients(props) {
     <Stack direction="column" spacing={2}>
       <h2>재료</h2>
       <ul>
-        {ingredients.map((ingredient, idx) => {
-          return (
-            <li className="ingredients__item" key={`ingredients-${idx + 1}`}>
-              <p className="name">{ingredient.name}</p>
-              <p className="amount">{ingredient.amount}</p>
-            </li>
-          );
-        })}
+        {ingredients.map(
+          ({
+            ingredientListId,
+            ingredient: { ingredientName },
+            ingredientAmount,
+          }) => {
+            return (
+              <li className="ingredients__item" key={ingredientListId}>
+                <p className="name">{ingredientName}</p>
+                <p className="amount">{ingredientAmount}</p>
+              </li>
+            );
+          }
+        )}
       </ul>
     </Stack>
   );

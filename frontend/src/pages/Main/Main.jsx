@@ -30,21 +30,21 @@ function Main() {
 
       const firstData = await axios({
         // 추후 수정
-        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=10',
+        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
       // console.log(firstData);
       setFirst(firstData.data.content);
 
       const secondData = await axios({
         // 추후 수정
-        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=10',
+        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
       // console.log(firstData);
       setSecond(secondData.data.content);
 
       const thirdData = await axios({
         // 추후 수정
-        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=10',
+        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
       // console.log(firstData);
       setThird(thirdData.data.content);
