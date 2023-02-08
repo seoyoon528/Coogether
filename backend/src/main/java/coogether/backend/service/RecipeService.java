@@ -38,11 +38,14 @@ public class RecipeService {
     }
 
     @Transactional
-    public Recipe addCustomRecipe(RecipeRequest recipeRequest, Long userSeq) {
+    public Recipe addCustomRecipe(RecipeRequest recipeRequest, Long userSeq, String url) {
         // 기본 정보
         Recipe recipe = new Recipe();
         recipe.setRecipeCategory(recipeRequest.getRecipeCategory());
-        recipe.setRecipeImg(recipeRequest.getRecipeImg());
+
+        // 버킷에 저장된 이미지 url 불러오기
+        recipe.setRecipeImg(url);
+
         recipe.setRecipeName(recipeRequest.getRecipeName());
         recipe.setRecipeType(recipeRequest.getRecipeType());
         recipe.setRecipeCreatedDate(LocalDateTime.now());
