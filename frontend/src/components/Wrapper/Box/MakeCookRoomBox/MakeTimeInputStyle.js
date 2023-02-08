@@ -17,4 +17,17 @@ export const StreamContents = styled.div`
     margin-bottom: 1rem;
     border: 1px solid;
   }
+  input[type='time'] {
+    position: relative;
+  }
+
+  input[type='time']::-webkit-calendar-picker-indicator {
+    display: block;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: transparent;
+  }
 `;

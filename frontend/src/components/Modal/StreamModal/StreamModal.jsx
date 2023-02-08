@@ -11,7 +11,9 @@ function StreamModal({ onClose, roomSubmitHandler }) {
       <ModalWrap onClick={e => e.stopPropagation()}>
         <p>함께 요리를 시작하시겠습니까?</p>
         <button onClick={handleClose}>취소</button>
-        <button onClick={roomSubmitHandler}>완료</button>
+        <form onSubmit={roomSubmitHandler}>
+          <button>완료</button>
+        </form>
       </ModalWrap>
     </Overlay>
   );
