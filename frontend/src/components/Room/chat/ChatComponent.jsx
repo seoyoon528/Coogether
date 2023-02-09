@@ -153,9 +153,9 @@ export default class ChatComponent extends Component {
               {this.props.recipe.map(v => {
                 return (
                   <C.StepTitle>
-                    {v.recipeStepNum + 1 < 10
-                      ? '0' + String(v.recipeStepNum + 1)
-                      : v.recipeStepNum + 1}
+                    {v.recipeStepNum < 10
+                      ? '0' + String(v.recipeStepNum)
+                      : v.recipeStepNum}
                     <div>{v.recipeStepContent}</div>
                   </C.StepTitle>
                 );
