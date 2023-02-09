@@ -78,7 +78,7 @@ public class User {
     @Column(name = "user_email", length = 50, nullable = false)
     private String userEmail;
 
-    @Column(name = "user_img", length = 100, nullable = true)
+    @Column(name = "user_img", length = 1000, nullable = true)
     private String userImg;
 
     @Column(name = "user_introduce", length = 300, nullable = true)

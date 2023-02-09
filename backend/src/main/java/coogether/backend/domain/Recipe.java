@@ -62,6 +62,6 @@ public class Recipe {
     @Column(name = "recipe_created_date", updatable = false)
     private LocalDateTime recipeCreatedDate;
 
-    @Column(name = "recipe_img", length = 100, nullable = true)
+    @Column(name = "recipe_img", length = 1000, nullable = true)
     private String recipeImg;
 }

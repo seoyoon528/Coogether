@@ -48,7 +48,7 @@ public class CookingRoom {
     @Column(name = "cooking_room_name", length = 30, nullable = false)
     private String cookingRoomName;
 
-    @Column(name = "cooking_room_img", length = 100, nullable = false)
+    @Column(name = "cooking_room_img", length = 1000, nullable = false)
     private String cookingRoomImg;
 
     @Column(name = "cooking_room_start_time", updatable = false, nullable = false)
