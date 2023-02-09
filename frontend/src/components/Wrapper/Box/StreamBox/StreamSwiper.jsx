@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Swiper
@@ -10,6 +10,7 @@ import * as S from './StreamSwiperStyle';
 
 // Component
 import ChefHat from '../../../Rank/ChefHat';
+import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
 
 // eslint-disable-next-line
 import 'swiper/css';
@@ -20,6 +21,8 @@ import 'swiper/css/pagination';
 
 export default function StreamSwiper(props) {
   const { cookRoom } = props;
+  const [isCookRoomEnterModalOpened, setIsCookRoomEnterModalOpened] =
+    useState(false);
 
   return (
     <Swiper
@@ -55,8 +58,18 @@ export default function StreamSwiper(props) {
               alignItems="center"
             >
               <S.CookRoomItemWrapper>
-                <S.CookRoomItemImg src={room.cookingRoomImg} alt="img" />
-                <S.StartUserWrapper>
+                <S.CookRoomItemImg
+                  src={room.cookingRoomImg}
+                  alt="img"
+                  onClick={() => {
+                    setIsCookRoomEnterModalOpened(true);
+                  }}
+                />
+                <S.StartUserWrapper
+                  onClick={() => {
+                    setIsCookRoomEnterModalOpened(true);
+                  }}
+                >
                   <S.JoinUserWrapper>
                     <p>
                       요리사{' '}
@@ -74,16 +87,24 @@ export default function StreamSwiper(props) {
                     </p>
                   </S.StartTimeWrapper>
                 </S.StartUserWrapper>
-                <Link to={`/Room/${room.cookingRoomId}`}>
-                  <S.roomTitle>{room.cookingRoomName}</S.roomTitle>
-                </Link>
+                <S.roomTitle
+                  onClick={() => {
+                    setIsCookRoomEnterModalOpened(true);
+                  }}
+                >
+                  {room.cookingRoomName}
+                </S.roomTitle>
                 <S.KingWrapper>
                   <p>{room.cookingRoomHost}</p>
                   <ChefHat color="red" className="chefhat" />
                 </S.KingWrapper>
-                <S.TagWrapper>
-                  <span>#{room.recipe.recipeName}</span>
-                </S.TagWrapper>
+                <S.TagWrapper>#{room.recipe.recipeName}</S.TagWrapper>
+                <CookRoomEnterModal
+                  isCookRoomEnterModalOpened={isCookRoomEnterModalOpened}
+                  setIsCookRoomEnterModalOpened={setIsCookRoomEnterModalOpened}
+                  cookingRoomId={room.cookingRoomId}
+                  recipe={room.recipe}
+                />
               </S.CookRoomItemWrapper>
             </Stack>
           </SwiperSlide>

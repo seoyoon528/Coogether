@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ChefHat from '../../../Rank/ChefHat';
 
 import * as S from './streamItemStyle';
 
+// Component
+import ChefHat from '../../../Rank/ChefHat';
 import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
 
 function StreamItem({ room }) {
@@ -57,7 +58,7 @@ function StreamItem({ room }) {
         <ChefHat color="red" className="chefhat" />
       </S.KingWrapper>
       <S.TagWrapper>
-        <span>#{recipe.recipeName}</span>
+        {/* <span>#{recipe.recipeName}</span> */}#{recipe.recipeName}
       </S.TagWrapper>
       <CookRoomEnterModal
         isCookRoomEnterModalOpened={isCookRoomEnterModalOpened}

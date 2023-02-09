@@ -50,10 +50,10 @@ function MakeCoomRoom() {
     try {
       const postData = await axios({
         url: `http://i8b206.p.ssafy.io:9000/room/create/1/${selectRecipe.recipeId}`,
+        // url: `http://i8b206.p.ssafy.io:9000/room/create/${user}/${selectRecipe.recipeId}`,
         method: 'POST',
         headers: { 'Content-Type': 'multipart/form-data' },
         data: formData,
-        // url: `http://i8b206.p.ssafy.io:9000/room/create/${user}/${recipeId}`,
       });
       // console.log(postData.data);
       history.push(`/Room/${postData.data}`);

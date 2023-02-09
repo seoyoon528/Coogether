@@ -107,18 +107,15 @@ export const TagWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 0.95rem;
-  height: 19px;
-  width: max-content;
-  min-width: 5rem;
+  min-height: 2.1rem;
   background-color: #febd2f;
-
-  & span {
-    font-family: 'Pretendard ExtraLight';
-    text-align: center;
-    vertical-align: middle;
-    line-height: auto;
-    color: #ffffff;
-  }
+  font-family: 'Pretendard ExtraLight';
+  text-align: center;
+  vertical-align: middle;
+  line-height: auto;
+  color: #ffffff;
+  width: max-content;
+  padding: 0 5px;
 `;
 
 export const StyledRoot = styled.div`
