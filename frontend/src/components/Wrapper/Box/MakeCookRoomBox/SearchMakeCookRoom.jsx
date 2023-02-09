@@ -76,6 +76,13 @@ function SearchMakeCookRoom(props) {
               },
             },
           }}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.recipeId}>
+                {option.recipeName}
+              </li>
+            );
+          }}
           renderInput={params => (
             <TextField
               {...params}
