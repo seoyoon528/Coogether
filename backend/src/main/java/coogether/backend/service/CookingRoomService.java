@@ -2,6 +2,10 @@ package coogether.backend.service;
 
 import coogether.backend.domain.*;
 import coogether.backend.domain.status.*;
+import coogether.backend.domain.status.EnumCookingRoomStatus;
+import coogether.backend.domain.status.EnumMyIngredientManageFlag;
+import coogether.backend.domain.status.EnumRecipeCategory;
+import coogether.backend.domain.status.EnumUserCookCategory;
 import coogether.backend.dto.CookingRoomCountDto;
 import coogether.backend.dto.CookingRoomDto;
 import coogether.backend.dto.request.CookingRoomRequest;
@@ -16,8 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -30,7 +32,6 @@ public class CookingRoomService {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
     private final UserJoinListRepository userJoinListRepository;
-    private EntityManager em;
 
     public CookingRoom getCookingRoomByCookingRoomId(Long cookingRoomId) {
         return cookingRoomRepository.findByCookingRoomId(cookingRoomId);

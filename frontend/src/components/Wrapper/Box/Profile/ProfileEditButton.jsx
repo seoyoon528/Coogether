@@ -1,25 +1,39 @@
 import React from 'react';
-
+import axios from 'axios';
 // MUI
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 
 export default function ProfileEditButton(props) {
-  const { setIsInputActive, isInputActive, className } = props;
+  const { isEditActive, setIsEditActive, className, userInformation } = props;
   return (
     <button
       className={className}
-      onClick={event => {
+      onClick={async event => {
         event.preventDefault();
-        if (isInputActive) {
-          setIsInputActive(false);
+        if (isEditActive) {
+          const formData = new FormData();
+          const requestInfo = {
+            url: '',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+            data: '',
+          };
+          try {
+            const response = await axios(requestInfo);
+          } catch (error) {
+            console.log(error);
+          }
+          setIsEditActive(false);
         } else {
-          setIsInputActive(true);
+          setIsEditActive(true);
         }
       }}
     >
-      {!isInputActive && <EditIcon fontSize="large" />}
-      {isInputActive && <DoneIcon fontSize="large" />}
+      {!isEditActive && <EditIcon fontSize="large" />}
+      {isEditActive && <DoneIcon fontSize="large" />}
     </button>
   );
 }

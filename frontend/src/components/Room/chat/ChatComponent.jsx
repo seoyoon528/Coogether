@@ -21,6 +21,8 @@ export default class ChatComponent extends Component {
     this.handlePressKey = this.handlePressKey.bind(this);
     this.close = this.close.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.openFullScreenMode = this.openFullScreenMode.bind(this);
+    this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
   }
 
   componentDidMount() {
@@ -88,7 +90,37 @@ export default class ChatComponent extends Component {
   }
 
   close() {
+    this.openFullScreenMode();
     this.props.close(undefined);
+  }
+
+  // 전체화면 설정
+  openFullScreenMode() {
+    if (document.documentElement.requestFullscreen)
+      document.documentElement.requestFullscreen();
+    else if (document.documentElement.webkitRequestFullscreen)
+      // Chrome, Safari (webkit)
+      document.documentElement.webkitRequestFullscreen();
+    else if (document.documentElement.mozRequestFullScreen)
+      // Firefox
+      document.documentElement.mozRequestFullScreen();
+    else if (document.documentElement.msRequestFullscreen)
+      // IE or Edge
+      document.documentElement.msRequestFullscreen();
+  }
+
+  // 전체화면 해제
+  closeFullScreenMode() {
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.webkitExitFullscreen)
+      // Chrome, Safari (webkit)
+      document.webkitExitFullscreen();
+    else if (document.mozCancelFullScreen)
+      // Firefox
+      document.mozCancelFullScreen();
+    else if (document.msExitFullscreen)
+      // IE or Edge
+      document.msExitFullscreen();
   }
 
   render() {
@@ -121,9 +153,9 @@ export default class ChatComponent extends Component {
               {this.props.recipe.map(v => {
                 return (
                   <C.StepTitle>
-                    {v.recipeStepNum + 1 < 10
-                      ? '0' + String(v.recipeStepNum + 1)
-                      : v.recipeStepNum + 1}
+                    {v.recipeStepNum < 10
+                      ? '0' + String(v.recipeStepNum)
+                      : v.recipeStepNum}
                     <div>{v.recipeStepContent}</div>
                   </C.StepTitle>
                 );

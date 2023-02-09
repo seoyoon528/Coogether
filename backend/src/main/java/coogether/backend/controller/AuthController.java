@@ -51,7 +51,7 @@ public class AuthController {
     @ApiOperation(value = "회원가입 위한 메소드", produces = "multipart/form-data")
     @PostMapping(value = "/user/signup",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SignupResponseDto> kakaoSignup(@RequestBody SignupRequestDto requestDto, @RequestPart(value="file",required = false) MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<SignupResponseDto> kakaoSignup(@RequestPart SignupRequestDto requestDto, @RequestPart(value="file",required = false) MultipartFile multipartFile) throws IOException {
         System.out.println("회원가입 컨트롤러 넘어옴");
 
         String url = null;

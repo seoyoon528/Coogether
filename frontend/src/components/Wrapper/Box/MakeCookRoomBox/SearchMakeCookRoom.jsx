@@ -12,12 +12,9 @@ function SearchMakeCookRoom(props) {
   useEffect(async () => {
     try {
       const getRecipe = await axios({
-        // 추후 수정 필요함
-        url: 'http://i8b206.p.ssafy.io:9000/recipe/list',
+        url: 'http://i8b206.p.ssafy.io:9000/recipe/list/total',
       });
-      // 추후 수정 필요함
-      // console.log(getRecipe.data.content);
-      setRecipe(getRecipe.data.content);
+      setRecipe(getRecipe.data);
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +67,18 @@ function SearchMakeCookRoom(props) {
               padding: '1.6rem',
               fontFamily: 'Pretendard Regular',
             },
+            '& .MuiOutlinedInput-root': {
+              '&.Mui-focused fieldset': {
+                borderColor: '#FEBD2F',
+              },
+            },
+          }}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.recipeId}>
+                {option.recipeName}
+              </li>
+            );
           }}
           renderInput={params => (
             <TextField

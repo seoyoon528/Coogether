@@ -41,6 +41,6 @@ public class Ingredient {
     @Column(name = "ingredient_category", nullable = false)
     private EnumIngredientCategory ingredientCategory;
 
-    @Column(name = "ingredient_icon", length = 100, nullable = true)
+    @Column(name = "ingredient_icon", length = 1000, nullable = true)
     private String ingredientIcon;
 }

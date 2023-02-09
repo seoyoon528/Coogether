@@ -9,7 +9,7 @@ export const WaitContainer = styled.div`
   background: rgba(254, 189, 47, 0.1);
   border-radius: 45px;
   margin: 2vh 1vw;
-  padding: 2vh 0;
+  padding: 1vh 0;
 `;
 
 export const WaitDivideBox = styled.div`
@@ -31,7 +31,7 @@ export const WaitTitle = styled.h1`
   align-items: center;
   text-align: center;
   color: #000000;
-  margin: 2% 0;
+  margin: 4vh 0;
 `;
 
 export const ThisUserImg = styled.img`
@@ -64,13 +64,18 @@ export const ContentWrap = styled.div`
 export const ExitBox = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 90%;
   height: 14vh;
   padding: 5vh 5vw;
   & > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     width: 9vw;
     height: 6vh;
+    font-size: 1.5vw;
     background: #dee2e6;
     border-radius: 3px;
   }

@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState } from 'react';
 
 // MUI
 import { Grid, Select, MenuItem, styled, InputBase } from '@mui/material';
@@ -24,6 +24,7 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
     marginTop: '1.6rem',
     justifyContent: 'center',
     fontFamily: 'Pretendard Regular',
+    padding: 0,
   },
   '& #profile-cook-category': {
     padding: 0,
@@ -40,61 +41,34 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function ProfileInformation(props) {
-  const matchedCategory = {
-    KOREAN: '한식',
-    CHINESE: '중식',
-    WESTERN: '양식',
-    JAPANESE: '일식',
-    DESSERT: '디저트',
-    ASIAN: '아시안',
-    BUNSIK: '분식',
-    ETC: '기타',
-    NONE: '없음',
-  };
-
-  const [selectedCategory, setSelectedCategory] = useState('');
-
-  const cookCategories = [
-    { value: 'korean', label: '한식' },
-    { value: 'chinese', label: '중식' },
-    { value: 'western', label: '양식' },
-    { value: 'japanese', label: '일식' },
-    { value: 'dessert', label: '디저트' },
-    { value: 'asian', label: '아시안' },
-    { value: 'bunsik', label: '분식' },
-    { value: 'etc', label: '기타' },
-    { value: 'none', label: '없음' },
-  ];
+  const { userInformation, isAuthor, isEditActive, setIsEditActive, dispatch } =
+    props;
 
   const {
-    userInformation: {
-      userNickname,
-      userTemp,
-      userCookCategory,
-      rank,
-      followerCnt,
-      followingCnt,
-      userIntroduce,
-    },
-    userInformation,
-    isSameUser,
-  } = props;
+    userNickname,
+    userCookCategory,
+    userIntroduce,
+    userTemp,
+    followerList,
+    followingList,
+    rank,
+  } = userInformation;
 
-  const initialState = userInformation;
-  function reducer(state, action) {
-    switch (action.type) {
-      case 'nickname':
-        return { count: state.count + 1 };
-      case 'cookCategory':
-        return { count: state.count - 1 };
-      case 'userIntroduce':
-        return { count: state.count - 1 };
-      default:
-        throw new Error();
-    }
-  }
+  const cookCategories = [
+    { value: 'KOREAN', label: '한식' },
+    { value: 'CHINESE', label: '중식' },
+    { value: 'WESTERN', label: '양식' },
+    { value: 'JAPANESE', label: '일식' },
+    { value: 'DESSERT', label: '디저트' },
+    { value: 'ASIAN', label: '아시안' },
+    { value: 'BUNSIK', label: '분식' },
+    { value: 'ETC', label: '기타' },
+    { value: 'NONE', label: '없음' },
+  ];
 
-  const [isInputActive, setIsInputActive] = useState(false);
+  const selectedCookCategory = cookCategories.filter(category => {
+    return userCookCategory === category.value;
+  })[0].label;
 
   return (
     <ProfileInformationStyle>
@@ -105,29 +79,39 @@ export default function ProfileInformation(props) {
         rowSpacing={{ xs: 2, md: 4, lg: 8 }}
         columns={1}
       >
+        {/* 닉네임 */}
         <Grid item xs={1}>
           <div className="form__nickname">
             <input
+              className={`${isEditActive ? 'active' : ''}`}
               type="text"
               value={userNickname}
-              readOnly={!isInputActive}
+              onChange={event => {
+                const userNickname = event.target.value;
+                dispatch({ type: 'userNickname', userNickname });
+              }}
+              readOnly={!isEditActive}
               maxLength="10"
             />
-            {isSameUser && (
+            {/* 수정 버튼 */}
+            {isAuthor && (
               <ProfileEditButton
-                setIsInputActive={setIsInputActive}
-                isInputActive={isInputActive}
+                setIsEditActive={setIsEditActive}
+                isEditActive={isEditActive}
+                userInformation={userInformation}
                 className="form__button"
               />
             )}
           </div>
+          {/* 팔로우 */}
           <div className="follow">
             <p>
-              팔로워 <span>{followerCnt}</span> | 팔로잉{' '}
-              <span>{followingCnt}</span>
+              팔로워 <span>{followerList.length}</span> | 팔로잉{' '}
+              <span>{followingList.length}</span>
             </p>
           </div>
         </Grid>
+        {/* 랭크, 온도, 선호 분야 */}
         <Grid item xs={1}>
           <Grid container columns={12}>
             <Grid item xs={6}>
@@ -168,14 +152,22 @@ export default function ProfileInformation(props) {
                       <p>선호</p>
                     </div>
                     <Select
-                      readOnly={!isInputActive}
+                      readOnly={!isEditActive}
                       fullWidth
-                      value={selectedCategory}
+                      value={selectedCookCategory}
                       onChange={event => {
-                        setSelectedCategory(event.target.value);
+                        const userCookCategory = cookCategories.filter(
+                          category => {
+                            return event.target.value === category.label;
+                          }
+                        )[0].value;
+                        dispatch({
+                          type: 'userCookCategory',
+                          userCookCategory,
+                        });
                       }}
                       id={`profile-cook-category${
-                        !isInputActive && '-inactive'
+                        !isEditActive ? '-inactive' : ''
                       }`}
                       input={<CategoryInput />}
                     >
@@ -207,11 +199,15 @@ export default function ProfileInformation(props) {
           <div className="message">
             <input
               className={`message__input ${userIntroduce && 'exist'} ${
-                isInputActive && 'active'
+                isEditActive && 'active'
               }`}
               type="text"
-              readOnly={!isInputActive}
+              readOnly={!isEditActive}
               value={userIntroduce}
+              onChange={event => {
+                const userIntroduce = event.target.value;
+                dispatch({ type: 'userIntroduce', userIntroduce });
+              }}
               placeholder="상태 메시지를 입력하세요"
             />
           </div>

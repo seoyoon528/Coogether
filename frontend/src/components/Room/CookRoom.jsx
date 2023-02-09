@@ -167,7 +167,7 @@ class CookRoom extends Component {
   // 임시 로직 - 해당 레시피의 id를 props에서 받아올것
   async getRecipe() {
     const response = await axios.get(
-      'http://i8b206.p.ssafy.io:9000/recipestep/list/2'
+      'http://i8b206.p.ssafy.io:9000/recipestep/list/3'
     );
     console.log(response.data);
     this.setState({
