@@ -5,10 +5,8 @@ import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import { AppWrap, Button, Contents, Circle } from './MyIngredientsStyle';
 import AllMyIrngredientsModal from '../../../../Modal/AllMyIngredientsModal/AllMyIngredientsModal';
 
-function MyIngredients({ category }) {
+function MyIngredients({ category, fridge, categoryFridges }) {
   const [visible, setVisible] = useState(false);
-  const [fridge, setFridge] = useState([]);
-  const [categoryFridges, setCategoryFridges] = useState([]);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const handleClick = i => {
     setselectIngredientId(i);
@@ -18,21 +16,6 @@ function MyIngredients({ category }) {
   const onClickButton = () => {
     setIsOpen(true);
   };
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(
-          'http://i8b206.p.ssafy.io:9000/myIngredient/list/total/1'
-        );
-        setFridge([...response.data.map((v, a) => v.fridgeName)]);
-        console.log(fridge);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getData();
-  }, [category]);
 
   const fridgeIngredient = fridge.map(i => {
     return (
@@ -58,27 +41,6 @@ function MyIngredients({ category }) {
       </span>
     );
   });
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        let query = category;
-        if (query === 'ALL') {
-          query = '';
-        }
-        const response = await axios.get(
-          `http://i8b206.p.ssafy.io:9000/ingredient/list/my/1/${query}`
-        );
-        setCategoryFridges([
-          ...response.data.map((v, a) => v.categoryFridgesName),
-        ]);
-        console.log(categoryFridges);
-      } catch (e) {
-        // console.log(e);
-      }
-    };
-    getData();
-  }, [category]);
 
   const categoryFridge = categoryFridges.map(i => {
     return (

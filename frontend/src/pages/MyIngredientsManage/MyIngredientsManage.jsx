@@ -17,6 +17,8 @@ function MyIngredientsManage() {
   const [enterdItme, setEnterdItme] = useState('');
   const [ingredientName, setIngredientName] = useState([]);
   const [ingredientCategory, setIngredientCategory] = useState([]);
+  const [fridge, setFridge] = useState([]);
+  const [categoryFridges, setCategoryFridges] = useState([]);
 
   const TEXT = <p>원하는 재료를 입력해주세요</p>;
 
@@ -24,6 +26,7 @@ function MyIngredientsManage() {
     setEnterdItme(item);
   };
 
+  // 검색 api
   const getData = async () => {
     try {
       const allIngre = await axios({
@@ -45,6 +48,7 @@ function MyIngredientsManage() {
     }
   }, [enterdItme]);
 
+  // 재료 전체 카테고리 분류 api
   useEffect(() => {
     const getData = async () => {
       try {
@@ -64,6 +68,7 @@ function MyIngredientsManage() {
     getData();
   }, [category]);
 
+  // 재료 전체 api
   useEffect(() => {
     const getAllData = async () => {
       try {
@@ -77,6 +82,44 @@ function MyIngredientsManage() {
       }
     };
     getAllData();
+  }, [category]);
+
+  // 유저별 냉장고 재료 api
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(
+          'http://i8b206.p.ssafy.io:9000/myIngredient/list/total/1'
+        );
+        setFridge([...response.data.map((v, a) => v.fridgeName)]);
+        console.log(fridge);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getData();
+  }, [category]);
+
+  // 유저별 냉장고 카테고리 재료 api
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let query = category;
+        if (query === 'ALL') {
+          query = '';
+        }
+        const response = await axios.get(
+          `http://i8b206.p.ssafy.io:9000/ingredient/list/my/1/${query}`
+        );
+        setCategoryFridges([
+          ...response.data.map((v, a) => v.categoryFridgesName),
+        ]);
+        console.log(categoryFridges);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getData();
   }, [category]);
 
   const components = [

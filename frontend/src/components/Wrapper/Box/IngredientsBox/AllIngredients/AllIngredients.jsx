@@ -17,17 +17,6 @@ function AllIngredients({ category, ingredients, allIngredient }) {
     console.log(i.ingredientId);
   };
 
-  const sumbitIngredient = i => {
-    const inorOutIngredient = async target => {
-      const sendIngredient = await axios.patch(
-        `http://i8b206.p.ssafy.io:9000/myIngredient/update/1/${target}`,
-        {}
-      );
-      console.log(sendIngredient);
-    };
-    inorOutIngredient(i.ingredientId);
-  };
-
   const categoryKorean = dummy.categories
     .filter(name => name.id === category)
     .map(name => {
@@ -56,21 +45,21 @@ function AllIngredients({ category, ingredients, allIngredient }) {
   //   Authorization: `Bearer ${accessToken}`
   //  }
 
-  const ingredient = ingredients.map((i, idx) => {
+  const ingredient = ingredients.map(i => {
     return (
       <span>
         <Circle
           key={i}
           onClick={() => {
+            sumbitMyIngredient(i);
             handleClick(i);
-            console.log(i.ingredientId);
           }}
         >
           {selectIngredientId === i.ingredientId && visible && (
             <>
               <Button
                 onClick={() => {
-                  sumbitIngredient(i);
+                  sumbitMyIngredient(i);
                 }}
               >
                 <BookmarkAddRoundedIcon />
@@ -99,7 +88,7 @@ function AllIngredients({ category, ingredients, allIngredient }) {
             <>
               <Button
                 onClick={() => {
-                  sumbitIngredient(e);
+                  sumbitMyIngredient(e);
                 }}
               >
                 <BookmarkAddRoundedIcon />
