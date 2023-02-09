@@ -5,7 +5,7 @@ import axios from 'axios';
 import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
 
 // Style
-import { RecipeBoxItemStyle } from './RecipeBoxItemStyle ';
+import { RecipeBoxItemStyle, UnderLine } from './RecipeBoxItemStyle ';
 
 function RecipeBoxItem({ recipe }) {
   const { recipeName, recipeImg, recipeId } = recipe;
@@ -26,7 +26,7 @@ function RecipeBoxItem({ recipe }) {
         <img src={recipeImg} alt="이미지" />
         <h4>{recipeName}</h4>
       </div>
-      <hr />
+      <UnderLine />
       <RecipeDetail open={isModalOpened} onClose={closeModal} recipe={recipe} />
     </RecipeBoxItemStyle>
   );

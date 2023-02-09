@@ -20,10 +20,6 @@ function Footer() {
   ) {
     return (
       <FotterPlace>
-        <br />
-        <br />
-        <br />
-        <br />
         <Line />
         <br />
         <br />
