@@ -23,73 +23,74 @@ function SearchMakeCookRoom(props) {
     <>
       <StreamContents>
         <p> 요리 이름</p>
-        <Autocomplete
-          disablePortal
-          id="recipe-register__autocomplete"
-          noOptionsText="검색 결과가 없습니다"
-          options={recipe}
-          onChange={(event, newValue) => {
-            setSelectRecipe(newValue);
-          }}
-          blurOnSelect
-          getOptionLabel={option => {
-            return option.recipeName || '';
-          }}
-          sx={{
-            '& .MuiFormControl-root': {
-              backgroundColor: 'white',
-            },
-            '& .MuiFormControl-root .MuiInputBase-root': {
-              height: '5.6rem',
-              padding: '1.6rem',
-            },
-            '& .MuiOutlinedInput-notchedOutline': {
-              border: '0.5px solid #505050',
-            },
-            '& .MuiFormControl-root .MuiInputBase-root .MuiInputBase-input': {
-              height: '100%',
-              padding: 0,
-              fontFamily: 'Pretendard Medium',
-              fontSize: '1.6rem',
-              '::placeholder': {
-                color: '#505050',
-                fontFamily: 'Pretendard Regular',
-                opacity: '1',
-              },
-            },
-            '& + .MuiAutocomplete-popper .MuiAutocomplete-option': {
-              padding: '1.6rem',
-              fontSize: '1.6rem',
-              fontFamily: 'Pretendard Regular',
-            },
-            '& + .MuiAutocomplete-popper .MuiAutocomplete-noOptions': {
-              fontSize: '1.6rem',
-              padding: '1.6rem',
-              fontFamily: 'Pretendard Regular',
-            },
-            '& .MuiOutlinedInput-root': {
-              '&.Mui-focused fieldset': {
-                borderColor: '#FEBD2F',
-              },
-            },
-          }}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.recipeId}>
-                {option.recipeName}
-              </li>
-            );
-          }}
-          renderInput={params => (
-            <TextField
-              {...params}
-              placeholder="레시피를 검색하세요"
-              sx={{ border: 'none' }}
-            />
-          )}
-        />
-        {/* <input type="text" placeholder="요리 이름을 검색하세요." /> */}
+        <div>필수</div>
       </StreamContents>
+      <Autocomplete
+        disablePortal
+        id="recipe-register__autocomplete"
+        noOptionsText="검색 결과가 없습니다"
+        options={recipe}
+        onChange={(event, newValue) => {
+          setSelectRecipe(newValue);
+        }}
+        blurOnSelect
+        getOptionLabel={option => {
+          return option.recipeName || '';
+        }}
+        sx={{
+          '& .MuiFormControl-root': {
+            backgroundColor: 'white',
+          },
+          '& .MuiFormControl-root .MuiInputBase-root': {
+            height: '5.6rem',
+            padding: '1.6rem',
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: '0.5px solid #505050',
+          },
+          '& .MuiFormControl-root .MuiInputBase-root .MuiInputBase-input': {
+            height: '100%',
+            padding: 0,
+            fontFamily: 'Pretendard Medium',
+            fontSize: '1.6rem',
+            '::placeholder': {
+              color: '#505050',
+              fontFamily: 'Pretendard Regular',
+              opacity: '1',
+            },
+          },
+          '& + .MuiAutocomplete-popper .MuiAutocomplete-option': {
+            padding: '1.6rem',
+            fontSize: '1.6rem',
+            fontFamily: 'Pretendard Regular',
+          },
+          '& + .MuiAutocomplete-popper .MuiAutocomplete-noOptions': {
+            fontSize: '1.6rem',
+            padding: '1.6rem',
+            fontFamily: 'Pretendard Regular',
+          },
+          '& .MuiOutlinedInput-root': {
+            '&.Mui-focused fieldset': {
+              borderColor: '#FEBD2F',
+            },
+          },
+        }}
+        renderOption={(props, option) => {
+          return (
+            <li {...props} key={option.recipeId}>
+              {option.recipeName}
+            </li>
+          );
+        }}
+        renderInput={params => (
+          <TextField
+            {...params}
+            placeholder="레시피를 검색하세요"
+            sx={{ border: 'none' }}
+          />
+        )}
+      />
+      {/* <input type="text" placeholder="요리 이름을 검색하세요." /> */}
     </>
   );
 }
