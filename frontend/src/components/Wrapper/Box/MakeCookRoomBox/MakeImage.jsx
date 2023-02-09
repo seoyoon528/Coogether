@@ -14,8 +14,9 @@ function MakeBasicInfo(props) {
         <label htmlFor="thumbnail-cook-image">
           <Area>
             {cookImage !== '' ? (
-              <img src={cookImage} alt="사진" />
+              <img src={URL.createObjectURL(cookImage)} alt="사진" />
             ) : (
+              // (URL.createObjectURL(event.target.files[0]))
               <SvgIcon
                 sx={{ fontSize: 100 }}
                 component={AddPhotoAlternateIcon}
@@ -25,10 +26,11 @@ function MakeBasicInfo(props) {
         </label>
         <input
           type="file"
-          accept="image/*"
+          accept=".jpg, .jpeg, .png"
           id="thumbnail-cook-image"
           onChange={event => {
-            setCookImage(URL.createObjectURL(event.target.files[0]));
+            // setCookImage(URL.createObjectURL(event.target.files[0]));
+            setCookImage(event.target.files[0]);
           }}
           hidden
         />
