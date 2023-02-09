@@ -33,7 +33,7 @@ public class CookingRoomController {
     @ApiOperation(value = "요리방 생성 (대기방)", produces = "multipart/form-data")
     @PostMapping(value ="/room/create/{userSeq}/{recipeId}",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addCookingRoom(@RequestBody CookingRoomRequest cookingRoomRequest, @RequestPart(value="file",required = false) MultipartFile multipartFile, @PathVariable("userSeq") Long userSeq
+    public ResponseEntity addCookingRoom(@RequestPart CookingRoomRequest cookingRoomRequest, @RequestPart(value="file",required = false) MultipartFile multipartFile, @PathVariable("userSeq") Long userSeq
             , @PathVariable("recipeId") Long recipeId) throws IOException {
 
         String url = null;

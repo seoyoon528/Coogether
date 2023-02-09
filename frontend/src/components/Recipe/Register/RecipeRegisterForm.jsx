@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -14,6 +15,10 @@ import RecipeOrders from './RecipeOrders';
 import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 function RecipeRegisterForm() {
+  const history = useHistory;
+
+  const DUMMY_USER_ID = 1;
+
   // 요리 이름
   const cookNameRef = useRef();
   // 요리 분류
@@ -31,7 +36,8 @@ function RecipeRegisterForm() {
   // form 제출
   const recipeSubmitHandler = async event => {
     event.preventDefault();
-    const formData = new FormData();
+
+    // 전송하는 데이터 가공 및 변수명 변경
     const recipeName = cookNameRef.current.value;
     const recipeCategory = selectedCategory;
     const recipeImg = cookImage;
@@ -45,15 +51,27 @@ function RecipeRegisterForm() {
     });
     const recipeType = 'CUSTOM';
 
-    formData.append('recipeName', recipeName);
-    formData.append('recipeCategory', recipeCategory);
-    formData.append('recipeImg', recipeImg);
-    formData.append('ingredientListRequest', ingredientListRequest);
-    formData.append('recipeStepRequest', recipeStepRequest);
-    formData.append('recipeType', recipeType);
+    // 이미지를 제외한 전송 데이터 객체로 묶기
+    const sendingData = {
+      recipeName,
+      recipeCategory,
+      ingredientListRequest,
+      recipeStepRequest,
+      recipeType,
+    };
+
+    // formData에 전송할 데이터 담기
+    const formData = new FormData();
+    // 객체
+    formData.append(
+      'recipeRequest',
+      new Blob([JSON.stringify(sendingData)], { type: 'application/json' })
+    );
+    // 파일
+    formData.append('file', recipeImg);
 
     const requestInfo = {
-      url: 'http://i8b206.p.ssafy.io:9000/recipe/create/1',
+      url: `http://i8b206.p.ssafy.io:9000/recipe/create/${DUMMY_USER_ID}`,
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -61,12 +79,9 @@ function RecipeRegisterForm() {
       data: formData,
     };
 
-    console.log(requestInfo);
-
     try {
       const response = await axios(requestInfo);
-      const data = await response.data;
-      console.log(data);
+      history.replace(`/profile/${DUMMY_USER_ID}`);
     } catch (error) {
       console.log(error);
     }

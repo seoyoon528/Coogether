@@ -36,6 +36,7 @@ export default function RecipeCookImage(props) {
           accept="image/*"
           id="recipe-cook-image"
           hidden
+          name="recipeImg"
         />
       </Box>
     </Box>
