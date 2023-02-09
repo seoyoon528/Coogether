@@ -58,7 +58,7 @@ export const ContentWrap = styled.div`
   border-radius: 3px;
   display: flex;
   width: 80%;
-  height: 60vh;
+  height: 70vh;
 `;
 
 export const ExitBox = styled.div`
@@ -82,9 +82,10 @@ export const ExitBox = styled.div`
 `;
 export const RecipeWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: 55vh;
   padding-left: 5%;
   padding-right: 5%;
+  padding-bottom: 3%;
   position: relative;
   text-align: center;
   margin-top: 20px;
@@ -92,15 +93,18 @@ export const RecipeWrap = styled.div`
   border: 1px solid #505050;
   background: #ffffff;
   padding-top: 10%;
-  overflow-y: scroll;
+  overflow: overlay;
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   & > h1 {
+    display: block;
     font-family: Pretendard Variable;
     font-style: normal;
     font-weight: 700;
     font-size: 1.4vw;
     line-height: 29px;
-  }
-  & div {
   }
 `;
 export const StepTitle = styled.div`
@@ -111,4 +115,87 @@ export const StepTitle = styled.div`
     margin-top: 0.5vh;
     font-size: 1.2vw;
   }
+`;
+export const StepIngTitle = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1.3vh;
+  font-size: 1.7vw;
+  & div {
+    margin-top: 0.5vh;
+    font-size: 1.2vw;
+  }
+`;
+export const IngWrap = styled.div`
+  width: 100%;
+  height: 55vh;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 3%;
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 3px;
+  border: 1px solid #505050;
+  background: #ffffff;
+  padding-top: 10%;
+  overflow: overlay;
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  & > h1 {
+    font-family: Pretendard Variable;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.4vw;
+    line-height: 29px;
+  }
+`;
+
+export const ChatComponent = styled.div`
+  border-radius: 3px;
+  width: 100%;
+  height: 100%;
+
+  background-color: transparent;
+`;
+export const DivBox = styled.div`
+  width: 100%;
+  height: 3vh;
+  display: block;
+`;
+
+export const ChatTitle = styled.div`
+  right: 25%;
+  transform: translate(50%, -70%);
+  width: 10vw;
+  height: 5vh;
+  z-index: 9999;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background-color: #febd2f;
+
+  text-align: center;
+  color: #ffffff;
+  & > span {
+    font-weight: bold;
+    font-size: 2vh;
+  }
+`;
+export const ChatBox = styled.div`
+  display: flex;
+  width: 100%;
+  height: 90%;
+  border: 0.5px solid black;
+  background-color: #ffffff;
+  flex-direction: column;
+  border-radius: 4px;
+  padding: 1vh 1vw;
+  margin-top: 1vh;
 `;

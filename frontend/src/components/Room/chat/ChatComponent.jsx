@@ -6,6 +6,9 @@ import CarouselBtn from '../../Btn/CarouselBtn/CarouselBtn';
 import * as C from './ChatComponentStyle';
 
 import './ChatComponent.css';
+import axios from 'axios';
+
+import clock from '../../../assets/icon/clock.svg';
 
 export default class ChatComponent extends Component {
   constructor(props) {
@@ -14,6 +17,9 @@ export default class ChatComponent extends Component {
     this.state = {
       messageList: [],
       message: '',
+      ingredients: [],
+      startTime: '',
+      recipeIngredient: 'recipe',
     };
     this.chatScroll = React.createRef();
 
@@ -23,8 +29,13 @@ export default class ChatComponent extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.openFullScreenMode = this.openFullScreenMode.bind(this);
     this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
+    this.recipeIngredient = this.recipeIngredient.bind(this);
+    // 재료 가져오기
+    this.ingredient = this.ingredient.bind(this);
   }
-
+  componentWillMount() {
+    this.ingredient();
+  }
   componentDidMount() {
     this.props.user
       .getStreamManager()
@@ -61,6 +72,32 @@ export default class ChatComponent extends Component {
     }
   }
 
+  // 재료,시작시간 가져오기
+  async ingredient() {
+    const res = await axios.get(
+      `http://i8b206.p.ssafy.io:9000/room/${
+        this.props.user.getStreamManager().stream.session.sessionId
+      }`
+    );
+    console.log(res);
+    const recipeId = res.data.recipe.recipeId;
+    const resIng = await axios.get(
+      `http://i8b206.p.ssafy.io:9000/ingredient/list/${recipeId}`
+    );
+    const targetTime = new Date(res.data.cookingRoomStartTime);
+    const targetH = targetTime.getHours();
+    const targetM = targetTime.getMinutes();
+    this.setState({ startTime: `${targetH}:${targetM}` });
+    this.setState({ ingredients: resIng.data });
+  }
+  // 레시피 재료 전환
+  recipeIngredient(target) {
+    if (target === 'left') {
+      this.setState({ recipeIngredient: 'recipe' });
+    } else {
+      this.setState({ recipeIngredient: 'ingredient' });
+    }
+  }
   sendMessage() {
     console.log(this.state.message);
     if (this.props.user && this.state.message) {
@@ -147,81 +184,134 @@ export default class ChatComponent extends Component {
           {/* 재료 및 레시피 정보 입력 공간 */}
 
           <C.ContentWrap>
-            <CarouselBtn left={'레시피'} right={'재료'} />
-            <C.RecipeWrap>
-              <h1>레시피 이름</h1>
-              {this.props.recipe.map(v => {
-                return (
-                  <C.StepTitle>
-                    {v.recipeStepNum < 10
-                      ? '0' + String(v.recipeStepNum)
-                      : v.recipeStepNum}
-                    <div>{v.recipeStepContent}</div>
-                  </C.StepTitle>
-                );
-              })}
-            </C.RecipeWrap>
+            <CarouselBtn
+              left={'레시피'}
+              right={'재료'}
+              recipeIngredient={this.recipeIngredient}
+            />
+            {this.state.recipeIngredient === 'recipe' ? (
+              <C.RecipeWrap>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    fontSize: '2vh',
+                  }}
+                >
+                  <img
+                    src={clock}
+                    alt="시계아이콘"
+                    style={{ marginRight: '0.5vw' }}
+                  />
+                  {this.state.startTime} 시작
+                </div>
+                <h1>레시피 이름</h1>
+                {this.props.recipe.map(v => {
+                  return (
+                    <C.StepTitle>
+                      {v.recipeStepNum < 10
+                        ? '0' + String(v.recipeStepNum)
+                        : v.recipeStepNum}
+                      <div>{v.recipeStepContent}</div>
+                    </C.StepTitle>
+                  );
+                })}
+              </C.RecipeWrap>
+            ) : (
+              <C.IngWrap>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    fontSize: '2vh',
+                  }}
+                >
+                  <img
+                    src={clock}
+                    alt="시계아이콘"
+                    style={{ marginRight: '0.5vw' }}
+                  />
+                  {this.state.startTime} 시작
+                </div>
+                <h1>레시피 이름</h1>
+                {this.state.ingredients.map(v => {
+                  return (
+                    <C.StepIngTitle>
+                      <div> {v.ingredient.ingredientName}</div>
+                      <div>{v.ingredientAmount}</div>
+                    </C.StepIngTitle>
+                  );
+                })}
+              </C.IngWrap>
+            )}
           </C.ContentWrap>
         </C.WaitDivideBox>
         <C.WaitDivideBox>
           <C.ContentWrap>
-            <div id="chatComponent">
-              <div id="chatToolbar">
-                {/* 방 이름+ 채팅 */}
-                <span>
-                  {this.props.user.getStreamManager().stream.session.sessionId}{' '}
-                  방 채팅
-                </span>
-              </div>
-              <span>참가자 ({this.props.remoteUsers.length + 1})</span>
-              <span>공지를 올려주세요!</span>
-              <div className="message-wrap" ref={this.chatScroll}>
-                {this.state.messageList.map((data, i) => (
-                  <div
-                    key={i}
-                    id="remoteUsers"
-                    className={
-                      'message' +
-                      (data.connectionId !== this.props.user.getConnectionId()
-                        ? ' left'
-                        : ' right')
-                    }
-                  >
-                    <canvas
-                      id={'userImg-' + i}
-                      width="60"
-                      height="60"
-                      className="user-img"
-                    />
-                    <div className="msg-detail">
-                      <div className="msg-info">
-                        <p> {data.nickname}</p>
-                      </div>
-                      <div className="msg-content">
-                        <span className="triangle" />
-                        <p className="text">{data.message}</p>
+            <C.ChatComponent>
+              <C.DivBox></C.DivBox>
+              <C.ChatBox>
+                <C.ChatTitle>
+                  {/* 방 이름+ 채팅 */}
+                  <span>
+                    {/* {
+                      this.props.user.getStreamManager().stream.session
+                        .sessionId
+                    } */}
+                    채팅
+                  </span>
+                </C.ChatTitle>
+                <div>참가자 ({this.props.remoteUsers.length + 1})</div>
+                <div className="message-wrap" ref={this.chatScroll}>
+                  {this.state.messageList.map((data, i) => (
+                    <div
+                      key={i}
+                      id="remoteUsers"
+                      className={
+                        'message' +
+                        (data.connectionId !== this.props.user.getConnectionId()
+                          ? ' left'
+                          : ' right')
+                      }
+                    >
+                      <canvas
+                        id={'userImg-' + i}
+                        width="60"
+                        height="60"
+                        className="user-img"
+                      />
+                      <div className="msg-detail">
+                        <div className="msg-info">
+                          <p> {data.nickname}</p>
+                        </div>
+                        <div className="msg-content">
+                          <span className="triangle" />
+                          <p className="text">{data.message}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-              <hr />
-              <div id="messageInput">
-                <input
-                  placeholder="여기에 메세지를 입력해주세요"
-                  id="chatInput"
-                  value={this.state.message}
-                  onChange={this.handleChange}
-                  onKeyPress={this.handlePressKey}
-                />
-                <button onClick={this.sendMessage}> 보내기</button>
-              </div>
-            </div>
-            <button onClick={this.close}>시작하기</button>
+                  ))}
+                </div>
+                <hr />
+                <div id="messageInput">
+                  <input
+                    placeholder="여기에 메세지를 입력해주세요"
+                    id="chatInput"
+                    value={this.state.message}
+                    onChange={this.handleChange}
+                    onKeyPress={this.handlePressKey}
+                  />
+                  <button onClick={this.sendMessage}> 보내기</button>
+                </div>
+              </C.ChatBox>
+            </C.ChatComponent>
           </C.ContentWrap>
         </C.WaitDivideBox>
         <C.ExitBox>
           <Link to="/Main">나가기</Link>
+          <button onClick={this.close}>시작하기</button>
         </C.ExitBox>
       </C.WaitContainer>
     );
