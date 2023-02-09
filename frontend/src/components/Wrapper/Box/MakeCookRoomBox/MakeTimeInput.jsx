@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StreamContents } from './MakeTimeInputStyle';
+import { StreamContents, StreamContentsInput } from './MakeTimeInputStyle';
 
 function MakeBasicInfo(props) {
   const { setStreamTime } = props;
@@ -7,11 +7,11 @@ function MakeBasicInfo(props) {
   const [inputTime, setInputTime] = useState('');
   const time = new Date();
   const YEAR = time.getFullYear();
-  let MONTH = time.getMonth();
+  let MONTH = time.getMonth() + 1;
   if (MONTH < 10) {
     MONTH = `0${MONTH}`;
   }
-  let DAY = time.getDay();
+  let DAY = time.getDate();
   if (DAY < 10) {
     DAY = `0${DAY}`;
   }
@@ -35,14 +35,19 @@ function MakeBasicInfo(props) {
   // const MINUTE = time.getMinutes();
   // console.log(T);
   return (
-    <StreamContents>
-      <p>시작 시간</p>
-      <input
-        type="time"
-        placeholder="시작 시간을 입력해주세요"
-        onChange={timeCheckHandler}
-      />
-    </StreamContents>
+    <>
+      <StreamContents>
+        <p>시작 시간</p>
+        <div>필수</div>
+      </StreamContents>
+      <StreamContentsInput>
+        <input
+          type="time"
+          placeholder="시작 시간을 입력해주세요"
+          onChange={timeCheckHandler}
+        />
+      </StreamContentsInput>
+    </>
   );
 }
 

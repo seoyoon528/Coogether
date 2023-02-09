@@ -23,7 +23,13 @@ export const ModalWrap = styled.div`
   transform: translate(-50%, -50%);
   padding: 4rem;
 
-  p {
+  & p {
     font-weight: 600;
+  }
+
+  & div {
+    display: flex;
+    padding-top: 15px;
+    justify-content: space-around;
   }
 `;

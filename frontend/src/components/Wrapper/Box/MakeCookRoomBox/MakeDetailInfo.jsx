@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { StreamContents } from './MakeDetailInfoStyle';
+import { StreamContents, StreamContentsInput } from './MakeDetailInfoStyle';
 
 function MakeBasicInfo(props) {
   const { setAnnounce } = props;
@@ -20,15 +20,17 @@ function MakeBasicInfo(props) {
     <>
       <StreamContents>
         <p>공지 사항</p>
-        <form onChange={formSubmitHandler}>
-          <input
-            type="text"
-            required
-            ref={inputRef}
-            placeholder="공지 사항을 입력해주세요"
-          />
-        </form>
+        <div>필수</div>
       </StreamContents>
+
+      <form onChange={formSubmitHandler}>
+        <StreamContentsInput
+          type="text"
+          required
+          ref={inputRef}
+          placeholder="공지 사항을 입력해주세요"
+        />
+      </form>
     </>
   );
 }
