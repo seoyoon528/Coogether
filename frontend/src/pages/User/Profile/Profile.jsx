@@ -15,43 +15,6 @@ import UserHistory from '../../../components/Wrapper/Box/Profile/UserHistory';
 // Style
 import { ProfileStyle } from './ProfileStyle';
 
-const DUMMY_DATA = {
-  image: '',
-  nickname: '아이유',
-  follower: 1000,
-  following: 1000,
-  temperature: 50,
-  like: '한식',
-  rank: 'red',
-  message: '상태 메시지입니다',
-  cookHistories: [
-    {
-      image:
-        'https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80',
-      title: '레시피 제목',
-      cooks: [
-        '참여 요리사1',
-        '참여 요리사2',
-        '참여 요리사3',
-        '참여 요리사4',
-        '참여 요리사5',
-      ],
-      date: '2023-01-01',
-    },
-  ],
-  recipeHistories: [
-    {
-      image:
-        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=781&q=80',
-      recipeName: '요리 이름',
-      information: {
-        ingredients: [],
-        orders: [],
-        date: '',
-      },
-    },
-  ],
-};
 const findRank = temp => {
   let rank;
   if (temp >= 60) {
@@ -74,8 +37,12 @@ const findRank = temp => {
 };
 
 function Profile() {
+  // DUMMY_USER
+  const DUMMY_USER_ID = 2;
+
   // 유저ID
   const { userId } = useParams();
+
   // Page history
   const history = useHistory();
 
@@ -89,48 +56,35 @@ function Profile() {
     followerList: [],
     followingList: [],
     rank: '',
+    cookHistories: [],
+    recipes: [],
   };
   // 유저 상태 reducer
-  const reducer = (
-    state,
-    {
-      type,
-      userNickname,
-      userCookCategory,
-      userIntroduce,
-      userImg,
-      userTemp,
-      followerList,
-      followingList,
-      rank,
-    }
-  ) => {
+  const reducer = (state, { type, payload }) => {
     switch (type) {
-      case 'userNickname':
-        return { ...state, userNickname };
-      case 'userCookCategory':
-        return { ...state, userCookCategory };
-      case 'userIntroduce':
-        return { ...state, userIntroduce };
-      case 'userImg':
-        return { ...state, userImg };
+      // case 'userNickname':
+      //   return { ...state, ...payload };
+      // case 'userCookCategory':
+      //   return { ...state, ...payload };
+      // case 'userIntroduce':
+      //   return { ...state, ...payload };
+      // case 'userImg':
+      //   return { ...state, ...payload };
+      // case 'follow':
+      //   return { ...state, ...payload };
+      case 'edit':
+        return { ...state, ...payload };
+
       default:
         return {
-          userNickname,
-          userCookCategory,
-          userIntroduce,
-          userImg,
-          userTemp,
-          followerList,
-          followingList,
-          rank,
+          ...payload,
         };
     }
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // 로그인 유저와 프로필 유저 일치 여부
-  const [isAuthor, setIsAuthor] = useState(true);
+  const [isAuthor, setIsAuthor] = useState(DUMMY_USER_ID === +userId);
 
   // 수정 활성화 여부
   const [isEditActive, setIsEditActive] = useState(false);
@@ -142,12 +96,21 @@ function Profile() {
       method: 'GET',
     };
     try {
-      const response = await axios(requestInfo);
-      const userData = await response.data;
+      const userDataResponse = await axios(requestInfo);
+      const userData = await userDataResponse.data;
       // 랭크 확인
       const rank = findRank(userData.userTemp);
+      // 히스토리 요청 및 저장
+      requestInfo.url = `http://i8b206.p.ssafy.io:9000/history/${userId}`;
+      const cookHistoryResponse = await axios(requestInfo);
+      const cookHistories = await cookHistoryResponse.data;
+      // 커스텀 레시피 요청 및 저장
+      requestInfo.url = `http://i8b206.p.ssafy.io:9000/recipe/list/${userId}`;
+      const recipeResponse = await axios(requestInfo);
+      const recipes = await recipeResponse.data;
       // 불러온 정보 저장
-      dispatch({ ...userData, rank });
+      const payload = { ...userData, rank, cookHistories, recipes };
+      dispatch({ payload });
     } catch (error) {
       if (error.response.status === 400) {
         // 일단 alert로 처리함
@@ -157,19 +120,7 @@ function Profile() {
     }
   }, [userId]);
 
-  // 더미 데이터
-  const histories = [];
-  for (let i = 0; i < 8; i += 1) {
-    const data = { ...DUMMY_DATA.cookHistories[0] };
-    data.id = i;
-    histories.push(data);
-  }
-  const recipes = [];
-  for (let i = 0; i < 9; i += 1) {
-    const data = { ...DUMMY_DATA.recipeHistories[0] };
-    data.id = i;
-    recipes.push(data);
-  }
+  console.log(state.followerList);
 
   return (
     <ProfileStyle>
@@ -178,7 +129,7 @@ function Profile() {
         <Stack spacing={5} className="profile">
           <UserInfoBox className="user-information">
             <ProfileImage
-              image={DUMMY_DATA.image}
+              image={state.userImg}
               userNickname={state.userNickname}
               isAuthor={isAuthor}
               dispatch={dispatch}
@@ -194,9 +145,12 @@ function Profile() {
             />
           </UserInfoBox>
           <hr />
-          <UserHistory sectionName="요리 기록" histories={histories} />
-          {recipes.length > 0 && (
-            <UserHistory sectionName="등록한 레시피" recipes={recipes} />
+          <UserHistory
+            sectionName="요리 기록"
+            histories={state.cookHistories}
+          />
+          {state.recipes.length > 0 && (
+            <UserHistory sectionName="등록한 레시피" recipes={state.recipes} />
           )}
           <UserHistory />
         </Stack>

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 
+import { useParams } from 'react-router-dom';
+
+import axios from 'axios';
+
 // MUI
 import { Grid, Select, MenuItem, styled, InputBase } from '@mui/material';
 
@@ -41,6 +45,9 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function ProfileInformation(props) {
+  const { userId } = useParams();
+  // const { isFollowed, setIsFollowed } = useState();
+
   const { userInformation, isAuthor, isEditActive, setIsEditActive, dispatch } =
     props;
 
@@ -70,6 +77,20 @@ export default function ProfileInformation(props) {
     return userCookCategory === category.value;
   })[0].label;
 
+  const clickFollowHandler = async () => {
+    // 팔로잉은 더미 데이터
+    const requestInfo = {
+      url: `http://i8b206.p.ssafy.io:9000/follow/${userId}/2`,
+      method: 'PATCH',
+    };
+    try {
+      const response = await axios(requestInfo);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ProfileInformationStyle>
       <Grid
@@ -88,7 +109,7 @@ export default function ProfileInformation(props) {
               value={userNickname}
               onChange={event => {
                 const userNickname = event.target.value;
-                dispatch({ type: 'userNickname', userNickname });
+                dispatch({ type: 'edit', payload: { userNickname } });
               }}
               readOnly={!isEditActive}
               maxLength="10"
@@ -98,7 +119,7 @@ export default function ProfileInformation(props) {
               <ProfileEditButton
                 setIsEditActive={setIsEditActive}
                 isEditActive={isEditActive}
-                userInformation={userInformation}
+                editData={{ userNickname, userCookCategory, userIntroduce }}
                 className="form__button"
               />
             )}
@@ -109,6 +130,26 @@ export default function ProfileInformation(props) {
               팔로워 <span>{followerList.length}</span> | 팔로잉{' '}
               <span>{followingList.length}</span>
             </p>
+            {!isAuthor && (
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    clickFollowHandler();
+                  }}
+                >
+                  팔로우
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    clickFollowHandler();
+                  }}
+                >
+                  팔로우 취소
+                </button>
+              </div>
+            )}
           </div>
         </Grid>
         {/* 랭크, 온도, 선호 분야 */}
@@ -162,8 +203,8 @@ export default function ProfileInformation(props) {
                           }
                         )[0].value;
                         dispatch({
-                          type: 'userCookCategory',
-                          userCookCategory,
+                          type: 'edit',
+                          payload: { userCookCategory },
                         });
                       }}
                       id={`profile-cook-category${
@@ -206,7 +247,7 @@ export default function ProfileInformation(props) {
               value={userIntroduce}
               onChange={event => {
                 const userIntroduce = event.target.value;
-                dispatch({ type: 'userIntroduce', userIntroduce });
+                dispatch({ type: 'edit', payload: { userIntroduce } });
               }}
               placeholder="상태 메시지를 입력하세요"
             />
