@@ -2,55 +2,77 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
+import { useDispatch, useSelector } from 'react-redux';
 import dummy from '../ingredients.json';
 import { Contents, Circle, Button, Wrapper } from './AllIngredientsStyle';
 
-function AllIngredients({ category }) {
+function AllIngredients({ category, ingredients, allIngredient }) {
+  const accessToken = useSelector(state => state.user.accessToken);
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
-  const [ingredients, setIngredients] = useState([]);
-  const [allIngredient, setAllIngredient] = useState([]);
+
   const handleClick = i => {
-    setselectIngredientId(i);
+    setselectIngredientId(i.ingredientId);
     setVisible(!visible);
+    console.log(i.ingredientId);
   };
+
+  const sumbitIngredient = i => {
+    const inorOutIngredient = async target => {
+      const sendIngredient = await axios.patch(
+        `http://i8b206.p.ssafy.io:9000/myIngredient/update/1/${target}`,
+        {}
+      );
+      console.log(sendIngredient);
+    };
+    inorOutIngredient(i.ingredientId);
+  };
+
   const categoryKorean = dummy.categories
     .filter(name => name.id === category)
     .map(name => {
       return <h4>{name.text} 전체</h4>;
     });
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        let query = category;
-        if (query === 'ALL') {
-          query = '';
-        }
-        const response = await axios.get(
-          `http://i8b206.p.ssafy.io:9000/ingredient/list/total/${query}`
-        );
-        setIngredients([...response.data.map((v, a) => v.ingredientName)]);
-        // console.log(ingredients);
-      } catch (e) {
-        // console.log(e);
-      }
-    };
-    getData();
-  }, [category]);
+  // // bookmark로 보내는 것
+  // function bookMark() {
+  //   const handleClick = i => {
+  //     setselectIngredientId(i);
+  //   };
+  //   const patchBookmark = async () => {
+  //     await axios.patch(
+  //       `http://i8b206.p.ssafy.io:9000//myIngredient/create/fav/1/${setselectIngredientId}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //         body:
+  //       });
+  //   };
+  // }
 
-  const ingredient = ingredients.map(i => {
+  // access 토큰
+  // headers: {
+  //   Authorization: `Bearer ${accessToken}`
+  //  }
+
+  const ingredient = ingredients.map((i, idx) => {
     return (
       <span>
         <Circle
           key={i}
           onClick={() => {
             handleClick(i);
+            console.log(i.ingredientId);
           }}
         >
-          {selectIngredientId === i && visible && (
+          {selectIngredientId === i.ingredientId && visible && (
             <>
-              <Button>
+              <Button
+                onClick={() => {
+                  sumbitIngredient(i);
+                }}
+              >
                 <BookmarkAddRoundedIcon />
               </Button>
               <Button>
@@ -58,26 +80,11 @@ function AllIngredients({ category }) {
               </Button>
             </>
           )}
-          {i}
+          {i.ingredientName}
         </Circle>
       </span>
     );
   });
-
-  useEffect(() => {
-    const getAllData = async () => {
-      try {
-        const response = await axios.get(
-          'http://i8b206.p.ssafy.io:9000/ingredient/list/total'
-        );
-        setAllIngredient([...response.data.map((v, a) => v.ingredientName)]);
-        // console.log(ingredients);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getAllData();
-  }, [category]);
 
   const AllIngredient = allIngredient.map(e => {
     return (
@@ -88,9 +95,13 @@ function AllIngredients({ category }) {
             handleClick(e);
           }}
         >
-          {selectIngredientId === e && visible && (
+          {selectIngredientId === e.ingredientId && visible && (
             <>
-              <Button>
+              <Button
+                onClick={() => {
+                  sumbitIngredient(e);
+                }}
+              >
                 <BookmarkAddRoundedIcon />
               </Button>
               <Button>
@@ -98,7 +109,7 @@ function AllIngredients({ category }) {
               </Button>
             </>
           )}
-          {e}
+          {e.ingredientName}
         </Circle>
       </span>
     );

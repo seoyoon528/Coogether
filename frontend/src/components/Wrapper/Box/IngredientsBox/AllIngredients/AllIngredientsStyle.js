@@ -24,7 +24,7 @@ export const Icon = styled.div`
   height: 20px;
 `;
 
-export const Circle = styled.button`
+export const Circle = styled.div`
   width: 60px;
   height: 60px;
   border-radius: 50%;

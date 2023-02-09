@@ -43,6 +43,7 @@ function MyIngredients({ category }) {
             handleClick(i);
           }}
         >
+          {i}
           {selectIngredientId === i && visible && (
             <>
               <Button>
@@ -53,7 +54,6 @@ function MyIngredients({ category }) {
               </Button>
             </>
           )}
-          {i}
         </Circle>
       </span>
     );

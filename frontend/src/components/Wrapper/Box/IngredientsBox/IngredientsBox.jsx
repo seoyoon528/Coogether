@@ -25,6 +25,5 @@ function IngredientsBox({ onSelect, category }) {
     </Contents>
   );
 }
-// }
 
 export default IngredientsBox;

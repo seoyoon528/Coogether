@@ -12,7 +12,8 @@ import SearchIngredient from '../../components/Wrapper/Box/IngredientsBox/Search
 function MyIngredientsManage() {
   const [category, setCategory] = useState('ALL');
   const onSelect = useCallback(Category => setCategory(Category), []);
-
+  const [ingredients, setIngredients] = useState([]);
+  const [allIngredient, setAllIngredient] = useState([]);
   const [enterdItme, setEnterdItme] = useState('');
   const [ingredientName, setIngredientName] = useState([]);
   const [ingredientCategory, setIngredientCategory] = useState([]);
@@ -44,6 +45,40 @@ function MyIngredientsManage() {
     }
   }, [enterdItme]);
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let query = category;
+        if (query === 'ALL') {
+          query = '';
+        }
+        const response = await axios.get(
+          `http://i8b206.p.ssafy.io:9000/ingredient/list/total/${query}`
+        );
+        setIngredients([...response.data.map((v, a) => v)]);
+        // console.log(ingredients);
+      } catch (e) {
+        // console.log(e);
+      }
+    };
+    getData();
+  }, [category]);
+
+  useEffect(() => {
+    const getAllData = async () => {
+      try {
+        const response = await axios.get(
+          'http://i8b206.p.ssafy.io:9000/ingredient/list/total'
+        );
+        setAllIngredient([...response.data.map((v, a) => v)]);
+        // console.log(allIngredient);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getAllData();
+  }, [category]);
+
   const components = [
     <FavoriteIngredients
       category={category}
@@ -56,6 +91,8 @@ function MyIngredientsManage() {
       ingredientCategory={ingredientCategory}
     />,
     <AllIngredients
+      ingredients={ingredients}
+      allIngredient={allIngredient}
       category={category}
       ingredientName={ingredientName}
       ingredientCategory={ingredientCategory}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import axios from 'axios';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
+import { useDispatch, useSelector } from 'react-redux';
 import { Contents, Circle, Button } from './FavoriteIngredientsStyle';
 // import StreamModal from '../../../../Modal/StreamModal/StreamModal';
 // import StreamModalPicture from '../../../../Modal/StreamModal/StreamModalPicture';
@@ -10,6 +11,7 @@ function FavoriteIngredients({ category }) {
   const [visible, setVisible] = useState(false);
   const [favorite, setFavorite] = useState([]);
   const [selectIngredientId, setselectIngredientId] = useState('');
+  const accessToken = useSelector(state => state.user.accessToken);
   const handleClick = i => {
     setselectIngredientId(i);
     setVisible(!visible);
@@ -19,7 +21,12 @@ function FavoriteIngredients({ category }) {
     const getData = async () => {
       try {
         const response = await axios.get(
-          'http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/1'
+          'http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/1',
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
         );
         setFavorite([...response.data.map((v, a) => v.favoriteName)]);
         console.log(favorite);
@@ -39,6 +46,7 @@ function FavoriteIngredients({ category }) {
             handleClick(i);
           }}
         >
+          {i}
           {selectIngredientId === i && visible && (
             <>
               <Button>
@@ -49,7 +57,6 @@ function FavoriteIngredients({ category }) {
               </Button>
             </>
           )}
-          {i}
         </Circle>
       </span>
     );

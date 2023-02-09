@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CategoriesBlock = styled.div`
   display: flex;
-  padding: 1rem;
+  padding: 0.8rem;
   margin: 0 auto;
   display: inline-block;
 
@@ -18,7 +18,7 @@ export const Categories = styled.div`
   white-space: pre;
   text-decoration: none;
   color: inherit;
-  padding-bottom: 2rem;
+  padding-bottom: 1.7rem;
   text-align: center;
 
   &:hover {
