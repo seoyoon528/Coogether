@@ -12,14 +12,15 @@ function RecipeBoxList(props) {
     <Grid
       container
       columns={12}
-      columnSpacing={5}
-      rowSpacing={4}
+      columnSpacing={{ xs: 2, md: 5, lg: 8 }}
+      // columnSpacing={5}
+      // rowSpacing={{ xs: 2, md: 5, lg: 8 }}
       // rowGap={3}
       justifyContent="space-evenly"
     >
       {recepi.map(recipe => {
         return (
-          <Grid item key={recipe.recipeId} xs={6} md={4} lg={3}>
+          <Grid item key={recipe.recipeId} xs={5} md={4} lg={3}>
             <RecipeBoxItem recipe={recipe} />
           </Grid>
         );
