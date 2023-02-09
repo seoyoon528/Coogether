@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class CookingRoomRequest {
 
     private String cookingRoomName;
-    private String RecipeName;
+    private String recipeName;
     private LocalDateTime cookingRoomStartTime;
     private String cookingRoomNotice;
 }

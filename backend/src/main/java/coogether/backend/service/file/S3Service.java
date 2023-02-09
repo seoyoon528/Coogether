@@ -80,13 +80,13 @@ public class S3Service {
         List<S3ObjectSummary> objectSummaries = listObjectsV2Result.getObjectSummaries();
 
         for (S3ObjectSummary object : objectSummaries) {
-            System.out.println("object = " + object.toString());
+//            System.out.println("object = " + object.toString());
         }
 
         String Url = "https://s3.ap-northeast-2.amazonaws.com/my.first.example.sss.bucket/";
         Url += uploadType + "/" + fileName;
         String changeUrl = Url.replaceAll(" ", "+");
-        System.out.println(changeUrl);
+//        System.out.println(changeUrl);
         //return amazonS3.getUrl(bucket, fileName).toString();
         return changeUrl;
     }

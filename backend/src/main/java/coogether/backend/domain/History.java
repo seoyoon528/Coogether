@@ -32,6 +32,6 @@ public class History {
     @Column(name = "history_id", nullable = false)
     private Long historyId;
 
-    @Column(name = "history_img", length = 100, nullable = true)
+    @Column(name = "history_img", length = 1000, nullable = true)
     private String historyImg;
 }
