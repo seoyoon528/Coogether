@@ -6,10 +6,9 @@ export const HistoryStyle = styled.div`
   border: 0.5px dashed #505050;
   border-radius: 4px;
 
-  cursor: pointer;
-
   .history__image {
-    height: 60%;
+    height: 55%;
+    cursor: pointer;
   }
 
   .history__image img {
@@ -18,10 +17,42 @@ export const HistoryStyle = styled.div`
 
     border-radius: 4px;
   }
+
+  .history__text {
+    height: 45%;
+    padding: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .history__title {
+    margin-bottom: 1.6rem;
+    cursor: pointer;
+  }
+
+  .cook {
+    line-height: 150%;
+    cursor: pointer;
+  }
+
+  .cook span {
+    font-size: 1.6rem;
+    padding-right: 0.8rem;
+  }
+
+  .cook span:hover {
+    text-decoration: underline #febd2f;
+  }
+
+  .data {
+    font-size: 1.4rem;
+    color: #505050;
+  }
 `;
 
 export const MyRecipeStyle = styled.div`
-  height: 40rem;
+  height: 36rem;
 
   border: 0.5px dashed #505050;
   border-radius: 4px;
@@ -29,7 +60,7 @@ export const MyRecipeStyle = styled.div`
   cursor: pointer;
 
   .my-recipe__image {
-    height: 40%;
+    height: 45%;
   }
 
   .my-recipe__image img {
@@ -41,10 +72,13 @@ export const MyRecipeStyle = styled.div`
 
   .my-recipe__text {
     padding: 2.4rem;
+    height: 55%;
   }
 
   .my-recipe__title {
     text-align: center;
+
+    margin-bottom: 2.4rem;
   }
 
   .content__item {

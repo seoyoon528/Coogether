@@ -17,6 +17,11 @@ import 'swiper/css/pagination';
 // Style
 import { HistoryStyle, MyRecipeStyle } from './ProfileSwiperStyle';
 
+// Image
+import StepCountImage from '../../../../assets/img/list.png';
+import IngredientCountImage from '../../../../assets/img/handbag.png';
+import CookCategoryImage from '../../../../assets/img/cake-dome.svg';
+
 export default function ProfileSwiper(props) {
   const { histories, recipes } = props;
   return (
@@ -42,13 +47,17 @@ export default function ProfileSwiper(props) {
                 <div className="history__image">
                   <img src={history.image} alt="요리 사진" />
                 </div>
-                <h4 className="history__title">{history.title}</h4>
-                <div className="history__content">
-                  <p className="cook">
-                    {history.cooks.map(cook => {
-                      return <span key={cook}>{cook}</span>;
-                    })}
-                  </p>
+                <div className="history__text">
+                  <div>
+                    <h4 className="history__title">{history.title}</h4>
+                    <div className="history__content">
+                      <p className="cook">
+                        {history.cooks.map(cook => {
+                          return <span key={cook}>{cook}</span>;
+                        })}
+                      </p>
+                    </div>
+                  </div>
                   <p className="date">{history.date}</p>
                 </div>
               </HistoryStyle>
@@ -63,46 +72,39 @@ export default function ProfileSwiper(props) {
                 <div className="my-recipe__image">
                   <img src={recipe.image} alt="레시피 사진" />
                 </div>
-                <div className="my-recipe__text">
-                  <h4 className="my-recipe__title">{recipe.recipeName}</h4>
-                  <Stack
-                    spacing={2}
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <div className="content__item">
-                      <div className="category">
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/512/2940/2940816.png"
-                          alt="재료 아이콘"
-                        />
-                        <p>재료</p>
+                <Stack spacing={3}>
+                  <div className="my-recipe__text">
+                    <h4 className="my-recipe__title">{recipe.recipeName}</h4>
+                    <Stack
+                      spacing={2}
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
+                      <div className="content__item">
+                        <div className="category">
+                          <img src={CookCategoryImage} alt="재료 아이콘" />
+                          <p>선호</p>
+                        </div>
+                        <p>한식</p>
                       </div>
-                      <p>N개</p>
-                    </div>
-                    <div className="content__item">
-                      <div className="category">
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/512/3078/3078984.png"
-                          alt="단계 아이콘"
-                        />
-                        <p>과정</p>
+                      <div className="content__item">
+                        <div className="category">
+                          <img src={IngredientCountImage} alt="재료 아이콘" />
+                          <p>재료</p>
+                        </div>
+                        <p>N개</p>
                       </div>
-                      <p>N개</p>
-                    </div>
-                    <div className="content__item">
-                      <div className="category">
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/512/1627/1627309.png"
-                          alt="재료 아이콘"
-                        />
-                        <p>작성일</p>
+                      <div className="content__item">
+                        <div className="category">
+                          <img src={StepCountImage} alt="단계 아이콘" />
+                          <p>과정</p>
+                        </div>
+                        <p>N개</p>
                       </div>
-                      <p>23.01.01</p>
-                    </div>
-                  </Stack>
-                </div>
+                    </Stack>
+                  </div>
+                </Stack>
               </MyRecipeStyle>
             </SwiperSlide>
           );
