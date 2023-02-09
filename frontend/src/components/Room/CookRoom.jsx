@@ -6,7 +6,7 @@ import ChatComponent from './chat/ChatComponent';
 import DialogExtensionComponent from './dialog-extension/DialogExtension';
 import StreamComponent from './stream/StreamComponent';
 import * as C from './CookRoomStyle';
-
+import CheckUserNum from './models/CheckUserNum';
 import UserModel from './models/user-model';
 import ToolbarComponent from './toolbar/ToolbarComponent';
 import { thisTypeAnnotation } from '@babel/types';
@@ -231,6 +231,8 @@ class CookRoom extends Component {
 
   updateSubscribers() {
     var subscribers = this.remotes;
+    console.log(subscribers);
+
     this.setState(
       {
         subscribers: subscribers,
@@ -346,6 +348,7 @@ class CookRoom extends Component {
       newUser.setNickname(JSON.parse(nickname).clientData);
       newUser.setImg(JSON.parse(nickname).clientPicture);
       this.remotes.push(newUser);
+
       this.findHost.push([JSON.parse(nickname).clientData, Date.now()]);
 
       if (this.localUserAccessAllowed) {
@@ -574,6 +577,10 @@ class CookRoom extends Component {
 
     return (
       <>
+        <CheckUserNum
+          userNum={this.state.subscribers.length + 1}
+          thisRoom={this.props.roomId}
+        />
         {this.state.chatDisplay === 'none' &&
         this.state.nowStep >= this.state.recipe.length - 1 ? (
           <div>
