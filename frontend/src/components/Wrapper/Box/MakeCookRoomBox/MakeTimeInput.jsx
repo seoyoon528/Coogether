@@ -7,11 +7,11 @@ function MakeBasicInfo(props) {
   const [inputTime, setInputTime] = useState('');
   const time = new Date();
   const YEAR = time.getFullYear();
-  let MONTH = time.getMonth();
+  let MONTH = time.getMonth() + 1;
   if (MONTH < 10) {
     MONTH = `0${MONTH}`;
   }
-  let DAY = time.getDay();
+  let DAY = time.getDate();
   if (DAY < 10) {
     DAY = `0${DAY}`;
   }

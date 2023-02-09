@@ -12,11 +12,8 @@ function SearchMakeCookRoom(props) {
   useEffect(async () => {
     try {
       const getRecipe = await axios({
-        // 추후 수정 필요함
         url: 'http://i8b206.p.ssafy.io:9000/recipe/list/total',
       });
-      // 추후 수정 필요함
-      // console.log(getRecipe.data.content);
       setRecipe(getRecipe.data);
     } catch (error) {
       console.log(error);
