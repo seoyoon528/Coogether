@@ -58,7 +58,7 @@ function StreamItem({ room }) {
         <ChefHat color="red" className="chefhat" />
       </S.KingWrapper>
       <S.TagWrapper>
-        <span>#{recipe.recipeName}</span>
+        {/* <span>#{recipe.recipeName}</span> */}#{recipe.recipeName}
       </S.TagWrapper>
       <CookRoomEnterModal
         isCookRoomEnterModalOpened={isCookRoomEnterModalOpened}

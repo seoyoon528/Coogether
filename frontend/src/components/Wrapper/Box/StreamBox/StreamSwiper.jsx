@@ -98,9 +98,7 @@ export default function StreamSwiper(props) {
                   <p>{room.cookingRoomHost}</p>
                   <ChefHat color="red" className="chefhat" />
                 </S.KingWrapper>
-                <S.TagWrapper>
-                  <span>#{room.recipe.recipeName}</span>
-                </S.TagWrapper>
+                <S.TagWrapper>#{room.recipe.recipeName}</S.TagWrapper>
                 <CookRoomEnterModal
                   isCookRoomEnterModalOpened={isCookRoomEnterModalOpened}
                   setIsCookRoomEnterModalOpened={setIsCookRoomEnterModalOpened}
