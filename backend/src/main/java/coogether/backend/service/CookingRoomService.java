@@ -1,9 +1,7 @@
 package coogether.backend.service;
 
 import coogether.backend.domain.*;
-import coogether.backend.domain.status.EnumCookingRoomStatus;
-import coogether.backend.domain.status.EnumMyIngredientManageFlag;
-import coogether.backend.domain.status.EnumRecipeCategory;
+import coogether.backend.domain.status.*;
 import coogether.backend.dto.CookingRoomCountDto;
 import coogether.backend.dto.CookingRoomDto;
 import coogether.backend.dto.request.CookingRoomRequest;
@@ -18,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -30,6 +30,7 @@ public class CookingRoomService {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
     private final UserJoinListRepository userJoinListRepository;
+    private EntityManager em;
 
     public CookingRoom getCookingRoomByCookingRoomId(Long cookingRoomId) {
         return cookingRoomRepository.findByCookingRoomId(cookingRoomId);
@@ -112,8 +113,12 @@ public class CookingRoomService {
             int count = 0;
             for (IngredientList il : ingredientLists) {
                 for (MyIngredientManage mig : myIngredientManageList) {
-                    if (il.getIngredient().getIngredientId() == mig.getIngredient().getIngredientId() && mig.getMyIngredientManageFlag().toString().equals("IN")) {
-                        count++;
+                    if (il.getIngredient().getIngredientId() == mig.getIngredient().getIngredientId() && mig.getMyIngredientManageFlag() == EnumMyIngredientManageFlag.IN) {
+                        EnumIngredientCategory ingredientCategory = il.getIngredient().getIngredientCategory();
+
+                        if (ingredientCategory == EnumIngredientCategory.MEAT || ingredientCategory == EnumIngredientCategory.SEAFOOD ||ingredientCategory == EnumIngredientCategory.NOODLE || ingredientCategory == EnumIngredientCategory.KIMCHI) {
+                            count++;
+                        }
                     }
                 }
             }
@@ -127,20 +132,70 @@ public class CookingRoomService {
         }
 
         Collections.sort(cookingRoomCountDtos);
+        System.out.println(cookingRoomCountDtos.size());
+        if (cookingRoomCountDtos.size() > 10) {
+            List<CookingRoomCountDto> cookingRoomCountDtosSubTen = cookingRoomCountDtos.subList(0, 10);
+            return cookingRoomCountDtosSubTen;
+        }
         return cookingRoomCountDtos;
     }
 
     // 시작 시간 임박 순 추천
     public List<CookingRoom> getRecommendedRoomListByStartTime() {
         List<CookingRoom> cookingRoomList = cookingRoomRepository.findAll();
+
+        if (cookingRoomList.size() > 10) {
+            List<CookingRoom> cookingRoomsTop10 = cookingRoomList.subList(0, 10);
+            return cookingRoomsTop10;
+        }
+
         return cookingRoomList;
+
+//        List<CookingRoom> cookingRoomList = em.createQuery("select cr from CookingRoom cr where TIMEDIFF(cr.cookingRoomStartTime ,now()) > 0 order by cr.cookingRoomStartTime asc", CookingRoom.class)
+//                                                .setMaxResults(10)
+//                                                .getResultList();
+//        return cookingRoomList;
     }
 
     // 사용자 선호 요리 기반 추천
     public List<CookingRoom> getRecommendedRoomListByUserCook(Long userSeq) {
         User user = userRepository.findByUserSeq(userSeq);
-        List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(EnumRecipeCategory.ASIAN);
-//        List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(user.getUserCookCategory());
+        List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(enumConvertor(user.getUserCookCategory()));
+        if (cookingRoomList.size() > 10) {
+            List<CookingRoom> cookingRoomListTop10 = cookingRoomList.subList(0, 10);
+            return cookingRoomListTop10;
+        }
+
         return cookingRoomList;
+
+//        List<CookingRoom> cookingRoomList = em.createQuery("select cr from CookingRoom cr where cr.recipe.recipeCategory = :userCookCategory", CookingRoom.class)
+//                        .setParameter("userCookCategory", enumConvertor(user.getUserCookCategory()).toString())
+//                        .setMaxResults(10)
+//                        .getResultList();
+//        return cookingRoomList;
+    }
+
+    public EnumRecipeCategory enumConvertor(EnumUserCookCategory enumUserCookCategory) {
+        String userCookCategory = enumUserCookCategory.toString();
+        switch (userCookCategory) {
+            case "KOREAN":
+                return EnumRecipeCategory.KOREAN;
+            case "CHINESE":
+                return EnumRecipeCategory.CHINESE;
+            case "WESTERN":
+                return EnumRecipeCategory.WESTERN;
+            case "JAPANESE":
+                return EnumRecipeCategory.JAPANESE;
+            case "DESSERT":
+                return EnumRecipeCategory.DESSERT;
+            case "ASIAN":
+                return EnumRecipeCategory.ASIAN;
+            case "BUNSIK":
+                return EnumRecipeCategory.BUNSIK;
+            case "ETC":
+                return EnumRecipeCategory.ETC;
+            default:
+                return null;
+        }
     }
 }
