@@ -112,6 +112,7 @@ export default function RecipeIngredients(props) {
                 renderInput={params => (
                   <TextField
                     {...params}
+                    name="ingredientListRequest"
                     placeholder="재료를 검색하세요"
                     sx={{ border: 'none' }}
                   />

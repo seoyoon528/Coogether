@@ -59,6 +59,7 @@ export default function RecipeOrders(props) {
                     orderInputHandler(idx, inputOrder);
                   }}
                   id={order.id}
+                  name="recipeStepRequest"
                   className="recipe-order__input"
                   placeholder={`Step ${idx + 1}`}
                 />

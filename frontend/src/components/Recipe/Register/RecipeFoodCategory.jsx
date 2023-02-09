@@ -37,6 +37,7 @@ export default function RecipeFoodCategory(props) {
       </Box>
       <Box gridColumn="span 9">
         <Select
+          name="recipeCategory"
           fullWidth
           value={selectedCategory}
           onChange={event => {
