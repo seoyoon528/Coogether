@@ -37,6 +37,7 @@ export const Button = styled.button`
   height: 32px;
   margin-bottom: 2rem;
   border-radius: 10px;
+  margin-top: 1.5rem;
 
   &:hover {
     background-color: #febd2f;

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { StreamContents } from './MakeBasicInfoStyle';
+import { StreamContents, StreamContentsInput } from './MakeBasicInfoStyle';
 
 function MakeBasicInfo(props) {
   const { setStreamName } = props;
@@ -16,17 +16,20 @@ function MakeBasicInfo(props) {
     setStreamName(inputItem);
   };
   return (
-    <StreamContents>
-      <p>방송 제목</p>
+    <>
+      <StreamContents>
+        <p>방송 제목</p>
+        <div>필수</div>
+      </StreamContents>
       <form onChange={formSubmitHandler}>
-        <input
+        <StreamContentsInput
           type="text"
           required
           ref={inputRef}
           placeholder="방송 제목을 입력해주세요"
         />
       </form>
-    </StreamContents>
+    </>
   );
 }
 

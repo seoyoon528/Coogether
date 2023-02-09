@@ -32,8 +32,7 @@ function MakeCoomRoom() {
     setIsOpen(true);
   };
 
-  const roomSubmitHandler = async event => {
-    event.preventDefault();
+  const roomSubmitHandler = async () => {
     const sendingData = {
       cookingRoomName: streamName,
       cookingRoomNotice: announce,
@@ -74,12 +73,7 @@ function MakeCoomRoom() {
           <SearchMakeCookRoom setSelectRecipe={setSelectRecipe} />
           <MakeDetailInfo setAnnounce={setAnnounce} />
           <MakeImage cookImage={cookImage} onChange={setCookImage} />
-          {/* <NextBtn
-            onClick={onClickButton}
-            name="등록"
-            size="small"
-            color="yellow"
-          /> */}
+
           <Button onClick={onClickButton}>생성 완료</Button>
           {isOpen && (
             <StreamModal
