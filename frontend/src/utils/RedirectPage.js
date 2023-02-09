@@ -12,9 +12,11 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { login } from '../store/AuthSlice';
 import { Background } from '../pages/User/SignIn/SigninStyle';
+import RedirectImg from './RedirectImg';
 
 export function SelectLabels({ preferCookArr }) {
   const [age, setAge] = useState('');
+  const [userImg, setUserImg] = useState('');
   const history = useHistory();
 
   const handleChange = event => {
@@ -67,10 +69,11 @@ function RedirectPage({ history }) {
     name: '', // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
     email: '', // /user/login의 response로 넘어온 "user" : {"userEmail": "5120a@naver.com"}
     nickname: '',
-    profileImg: 'imgUrl',
+    profileImg: '',
     userIntroduce: '안녕하세요 000입니다.',
     userCookCategory: '',
   });
+  const [userImg, setUserImg] = useState('');
   const [nickName, setNickName] = useState('');
   const [prefer, setPrefer] = useState([]);
   const preferCookArr = [
@@ -84,8 +87,12 @@ function RedirectPage({ history }) {
     ['기타', 'ETC'],
     ['없음', 'NONE'],
   ];
+  const userImgHandler = event => {
+    setUserImg(event);
+  };
   const nickNameHandler = e => {
     setNickName(e.target.value);
+    console.log(userImg);
   };
   const preferHandler = e => {
     setPrefer(
@@ -98,20 +105,38 @@ function RedirectPage({ history }) {
       name: userInfo.data.user.userName, // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
       email: userInfo.data.user.userEmail, // /user/login의 response로 넘어온 "user" : {"userEmail": "5120a@naver.com"}
       nickname: nickName,
-      profileImg: 'eee',
+      profileImg: '',
       userIntroduce: `안녕하세요 ${userInfo.data.user.userName}입니다.`,
       userCookCategory: prefer[1],
     };
     console.log(userFormPayload);
     // 이석훈 - 로컬 작업으로만 진행하기 때문에 merge때 배포 주소로 바꿀것
-    const submitUserForm = await axios.post(
-      // 'http://localhost:9000/user/signup',
-      'http://i8b206.p.ssafy.io:9000/user/signup',
-      userFormPayload
+    // formdata에 전송할 데이터 담기
+    const formData = new FormData();
+    formData.append(
+      'requestDto',
+      new Blob([JSON.stringify(userFormPayload)], { type: 'application/json' })
     );
-    console.log(submitUserForm);
-    history.push('/main');
+    // 파일
+    formData.append('file', userImg);
+
+    const requestInfo = {
+      url: `http://i8b206.p.ssafy.io:9000/user/signup`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data: formData,
+    };
+    try {
+      const submitUserForm = await axios(requestInfo);
+      console.log(submitUserForm);
+      history.push('/main');
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   const theme = useTheme();
 
   const checkRegister = async () => {
@@ -263,6 +288,7 @@ function RedirectPage({ history }) {
               })}
             </Select>
           </FormControl>
+          <RedirectImg userImgHandler={userImgHandler} />
           <div>
             <button
               onClick={submitRegister}
