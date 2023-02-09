@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
+export const FridgeButton = styled.button`
   font-size: 14px;
   padding: 5px;
   border: 1px solid #febd2f;
@@ -15,6 +15,27 @@ export const Button = styled.button`
   &:hover {
     background-color: #febd2f;
     color: #ffffff;
+  }
+`;
+
+export const Button = styled.button`
+  font-size: xx-small;
+  float: left;
+  width: 50%;
+  width: 50px;
+  z-index: 1;
+  /* position: absolute; */
+  /* height: 14px; */
+  /* justify-content: center;
+  text-align: center; */
+  margin: 0;
+  padding: 0;
+  margin-left: 0;
+  /* position: relative; */
+
+  &:hover {
+    color: #febd2f;
+    /* background-color: rgb(0, 0, 0, 0.5); */
   }
 `;
 

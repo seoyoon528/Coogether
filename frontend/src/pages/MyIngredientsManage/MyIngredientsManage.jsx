@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import IngredientsBox from '../../components/Wrapper/Box/IngredientsBox/IngredientsBox';
 import FavoriteIngredients from '../../components/Wrapper/Box/IngredientsBox/FavoriteIngredients/FavoriteIngredients';
 import MyIngredients from '../../components/Wrapper/Box/IngredientsBox/MyIngredients/MyIngredients';
@@ -19,6 +20,9 @@ function MyIngredientsManage() {
   const [ingredientCategory, setIngredientCategory] = useState([]);
   const [fridge, setFridge] = useState([]);
   const [categoryFridges, setCategoryFridges] = useState([]);
+  const [favorite, setFavorite] = useState([]);
+  const [favPatch, setFavPatch] = useState([]);
+  const accessToken = useSelector(state => state.user.accessToken);
 
   const TEXT = <p>원하는 재료를 입력해주세요</p>;
 
@@ -47,6 +51,84 @@ function MyIngredientsManage() {
       getData();
     }
   }, [enterdItme]);
+
+  // 즐겨찾기 patch
+  const favIngredient = i => {
+    const inorOutIngredient = async target => {
+      const sendIngredient = await axios.patch(
+        `http://i8b206.p.ssafy.io:9000/myIngredient/create/fav/1/${target}`,
+        {}
+      );
+      let res = -1;
+      res = sendIngredient.data;
+      if (res === '') {
+        const response = await axios.get(
+          'http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/1',
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      }
+      // 즐겨찾기 api
+      useEffect(() => {
+        const getData = async () => {
+          try {
+            const response = await axios.get(
+              'http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/1',
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              }
+            );
+            const a = [...response.data.map((v, a) => v)];
+            setFavorite(a.map(num => num.ingredient));
+            console.log(favorite);
+          } catch (e) {
+            console.log(e);
+          }
+        };
+        getData();
+      }, [category]);
+    };
+    inorOutIngredient(i.ingredientId);
+  };
+
+  // 즐겨찾기 api
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(
+          'http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/1',
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        const a = [...response.data.map((v, a) => v)];
+        setFavorite(a.map(num => num.ingredient));
+        console.log(favorite);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getData();
+  }, [category]);
+
+  // 내 냉장고 patch
+  const sumbitIngredient = i => {
+    const inorOutIngredient = async target => {
+      const sendIngredient = await axios.patch(
+        `http://i8b206.p.ssafy.io:9000/myIngredient/update/1/${target}`,
+        {}
+      );
+      console.log(sendIngredient);
+    };
+    inorOutIngredient(i.ingredientId);
+  };
 
   // 재료 전체 카테고리 분류 api
   useEffect(() => {
@@ -91,7 +173,7 @@ function MyIngredientsManage() {
         const response = await axios.get(
           'http://i8b206.p.ssafy.io:9000/myIngredient/list/total/1'
         );
-        setFridge([...response.data.map((v, a) => v.fridgeName)]);
+        setFridge([...response.data.map((v, a) => v)]);
         console.log(fridge);
       } catch (e) {
         console.log(e);
@@ -111,12 +193,10 @@ function MyIngredientsManage() {
         const response = await axios.get(
           `http://i8b206.p.ssafy.io:9000/ingredient/list/my/1/${query}`
         );
-        setCategoryFridges([
-          ...response.data.map((v, a) => v.categoryFridgesName),
-        ]);
+        setCategoryFridges([...response.data.map((v, a) => v)]);
         console.log(categoryFridges);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     };
     getData();
@@ -127,11 +207,14 @@ function MyIngredientsManage() {
       category={category}
       ingredientName={ingredientName}
       ingredientCategory={ingredientCategory}
+      favorite={favorite}
     />,
     <MyIngredients
       category={category}
       ingredientName={ingredientName}
       ingredientCategory={ingredientCategory}
+      categoryFridges={categoryFridges}
+      fridge={fridge}
     />,
     <AllIngredients
       ingredients={ingredients}
@@ -139,6 +222,8 @@ function MyIngredientsManage() {
       category={category}
       ingredientName={ingredientName}
       ingredientCategory={ingredientCategory}
+      favIngredient={favIngredient}
+      sumbitIngredient={sumbitIngredient}
     />,
   ];
 

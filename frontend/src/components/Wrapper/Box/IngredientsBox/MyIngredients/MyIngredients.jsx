@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
-import axios from 'axios';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
-import { AppWrap, Button, Contents, Circle } from './MyIngredientsStyle';
+import {
+  AppWrap,
+  Button,
+  Contents,
+  Circle,
+  FridgeButton,
+} from './MyIngredientsStyle';
 import AllMyIrngredientsModal from '../../../../Modal/AllMyIngredientsModal/AllMyIngredientsModal';
 
 function MyIngredients({ category, fridge, categoryFridges }) {
@@ -21,12 +26,12 @@ function MyIngredients({ category, fridge, categoryFridges }) {
     return (
       <span>
         <Circle
-          key={i}
+          key={i?.ingredient.ingredientId}
           onClick={() => {
             handleClick(i);
           }}
         >
-          {i}
+          {i?.ingredient.ingredientName}
           {selectIngredientId === i && visible && (
             <>
               <Button>
@@ -46,9 +51,9 @@ function MyIngredients({ category, fridge, categoryFridges }) {
     return (
       <span>
         <Circle
-          key={i}
+          key={i.ingredientId}
           onClick={() => {
-            handleClick(i);
+            handleClick(i.ingredientId);
           }}
         >
           {selectIngredientId === i && visible && (
@@ -61,7 +66,7 @@ function MyIngredients({ category, fridge, categoryFridges }) {
               </Button>
             </>
           )}
-          {i}
+          {i.ingredientName}
         </Circle>
       </span>
     );
@@ -75,9 +80,8 @@ function MyIngredients({ category, fridge, categoryFridges }) {
             내 냉장고에 있는 재료
             <KitchenRoundedIcon style={{ fontSize: '20px' }} />
           </h4>
-          {categoryFridge}
           <AppWrap>
-            <Button onClick={onClickButton}>냉장고 전체보기</Button>
+            <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
             {isOpen && (
               <AllMyIrngredientsModal
                 open={isOpen}
@@ -87,6 +91,7 @@ function MyIngredients({ category, fridge, categoryFridges }) {
               />
             )}
           </AppWrap>
+          {fridgeIngredient}
         </Contents>
       </div>
     );
@@ -97,7 +102,7 @@ function MyIngredients({ category, fridge, categoryFridges }) {
         내 냉장고에 있는 재료
         <KitchenRoundedIcon style={{ fontSize: '20px' }} />
       </h4>
-      {fridgeIngredient}
+      {categoryFridge}
       <AppWrap>
         <Button onClick={onClickButton}>냉장고 전체보기</Button>
         {isOpen && (

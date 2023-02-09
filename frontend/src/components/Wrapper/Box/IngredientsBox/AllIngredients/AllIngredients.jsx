@@ -6,7 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import dummy from '../ingredients.json';
 import { Contents, Circle, Button, Wrapper } from './AllIngredientsStyle';
 
-function AllIngredients({ category, ingredients, allIngredient }) {
+function AllIngredients({
+  category,
+  ingredients,
+  allIngredient,
+  sumbitIngredient,
+  favIngredient,
+}) {
   const accessToken = useSelector(state => state.user.accessToken);
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
@@ -51,7 +57,6 @@ function AllIngredients({ category, ingredients, allIngredient }) {
         <Circle
           key={i}
           onClick={() => {
-            sumbitMyIngredient(i);
             handleClick(i);
           }}
         >
@@ -59,12 +64,16 @@ function AllIngredients({ category, ingredients, allIngredient }) {
             <>
               <Button
                 onClick={() => {
-                  sumbitMyIngredient(i);
+                  favIngredient(i);
                 }}
               >
                 <BookmarkAddRoundedIcon />
               </Button>
-              <Button>
+              <Button
+                onClick={() => {
+                  sumbitIngredient(i);
+                }}
+              >
                 <KitchenRoundedIcon />
               </Button>
             </>
@@ -88,12 +97,16 @@ function AllIngredients({ category, ingredients, allIngredient }) {
             <>
               <Button
                 onClick={() => {
-                  sumbitMyIngredient(e);
+                  favIngredient(e);
                 }}
               >
                 <BookmarkAddRoundedIcon />
               </Button>
-              <Button>
+              <Button
+                onClick={() => {
+                  sumbitIngredient(e);
+                }}
+              >
                 <KitchenRoundedIcon />
               </Button>
             </>
