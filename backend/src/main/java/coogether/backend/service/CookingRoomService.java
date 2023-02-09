@@ -162,6 +162,7 @@ public class CookingRoomService {
     public List<CookingRoom> getRecommendedRoomListByUserCook(Long userSeq) {
         User user = userRepository.findByUserSeq(userSeq);
         List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(enumConvertor(user.getUserCookCategory()));
+
         if (cookingRoomList.size() > 10) {
             List<CookingRoom> cookingRoomListTop10 = cookingRoomList.subList(0, 10);
             return cookingRoomListTop10;

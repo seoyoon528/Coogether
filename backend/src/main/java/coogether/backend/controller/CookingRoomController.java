@@ -95,27 +95,25 @@ public class CookingRoomController {
         return ResponseEntity.status(HttpStatus.OK).body(true);
     }
 
-    @ApiOperation(value = "카테고리별 요리방 추천")
-    @GetMapping("/room/list/{category}/{userSeq}")
-    public ResponseEntity roomListByRecommend(@PathVariable("category") int category, @PathVariable("userSeq") Long userSeq) {
-        List<CookingRoom> cookingRoomList;
+    @ApiOperation(value = "요리방 추천 - 내 재료 기반")
+    @GetMapping("/room/recommend/myingredient/{userSeq}")
+    public ResponseEntity roomListByRecommendMyIngredient(@PathVariable("userSeq") Long userSeq) {
+        List<CookingRoomCountDto> cookingRoomDtos = cookingRoomService.getRecommendedRoomListByMyIngredient(userSeq);
+        return ResponseEntity.status(HttpStatus.OK).body(cookingRoomDtos);
+    }
 
-        switch(category) {
-            // 0: 내 재료 기반 추천, 1: 시작시간 임박순 추천, 2: 사용자 선호 요리 기반 추천
-            case 0:
-                List<CookingRoomCountDto> cookingRoomDtos = cookingRoomService.getRecommendedRoomListByMyIngredient(userSeq);
-                return ResponseEntity.status(HttpStatus.OK).body(cookingRoomDtos);
+    @ApiOperation(value = "요리방 추천 - 시작 시간 임박순")
+    @GetMapping("/room/recommend/starttime")
+    public ResponseEntity roomListByRecommendStartTime() {
 
-            case 1:
-                cookingRoomList = cookingRoomService.getRecommendedRoomListByStartTime();
-                return ResponseEntity.status(HttpStatus.OK).body(cookingRoomList);
+        List<CookingRoom> cookingRoomList = cookingRoomService.getRecommendedRoomListByStartTime();
+        return ResponseEntity.status(HttpStatus.OK).body(cookingRoomList);
+    }
 
-            case 2:
-                cookingRoomList = cookingRoomService.getRecommendedRoomListByUserCook(userSeq);
-                return ResponseEntity.status(HttpStatus.OK).body(cookingRoomList);
-
-            default:
-                return null;
-        }
+    @ApiOperation(value = "요리방 추천 - 사용자 선호 요리 기반")
+    @GetMapping("/room/recommend/usercook/{userSeq}")
+    public ResponseEntity roomListByRecommendUserCook(@PathVariable("userSeq") Long userSeq) {
+        List<CookingRoom> cookingRoomList = cookingRoomService.getRecommendedRoomListByUserCook(userSeq);
+        return ResponseEntity.status(HttpStatus.OK).body(cookingRoomList);
     }
 }
