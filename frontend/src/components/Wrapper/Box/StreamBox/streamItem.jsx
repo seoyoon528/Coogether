@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ChefHat from '../../../Rank/ChefHat';
 
 import * as S from './streamItemStyle';
 
+// Component
+import ChefHat from '../../../Rank/ChefHat';
 import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
 
 function StreamItem({ room }) {

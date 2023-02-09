@@ -14,6 +14,8 @@ export default function CookRoomEnterModalContent(props) {
     recipeIngredients,
     notHavingIngredients,
     setIsCookRoomEnterModalOpened,
+    cookingRoomId,
+    onCookRoomModalClose,
   } = props;
 
   return (
@@ -26,6 +28,7 @@ export default function CookRoomEnterModalContent(props) {
       />
       <CookEnterModalFooter
         setIsCookRoomEnterModalOpened={setIsCookRoomEnterModalOpened}
+        cookingRoomId={cookingRoomId}
       />
     </CookRoomEnterModalContentStyle>
   );

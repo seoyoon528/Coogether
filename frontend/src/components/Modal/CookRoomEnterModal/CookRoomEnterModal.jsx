@@ -64,6 +64,7 @@ export default function CookRoomEnterModal(props) {
         notHavingIngredients={notHavingIngredients}
         recipeName={recipeName}
         setIsCookRoomEnterModalOpened={setIsCookRoomEnterModalOpened}
+        cookingRoomId={cookingRoomId}
       />
     </Dialog>
   );
