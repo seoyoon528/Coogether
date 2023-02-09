@@ -39,29 +39,30 @@ public class RecipeService {
 
     @Transactional
     public Recipe addCustomRecipe(RecipeRequest recipeRequest, Long userSeq, String url) {
-        // 기본 정보
-        Recipe recipe = new Recipe();
-        recipe.setRecipeCategory(recipeRequest.getRecipeCategory());
-
-        // 버킷에 저장된 이미지 url 불러오기
-        recipe.setRecipeImg(url);
-
-        recipe.setRecipeName(recipeRequest.getRecipeName());
-        recipe.setRecipeType(recipeRequest.getRecipeType());
-        recipe.setRecipeCreatedDate(LocalDateTime.now());
-
-        String recipeTotalContent = "";
-        for (RecipeStepRequest rsr : recipeRequest.getRecipeStepRequest()) {
-            recipeTotalContent += rsr.getRecipeStepNum() + ". " + rsr.getRecipeStepContent() + "\n";
-        }
-        recipe.setRecipeContent(recipeTotalContent);
-
         User user = userRepository.findByUserSeq(userSeq);
-        recipe.setUser(user);
-        recipeRepository.saveAndFlush(recipe);
-        em.clear();
+        if (user != null) {
+            Recipe recipe = new Recipe();
+            recipe.setUser(user);
+            recipe.setRecipeCategory(recipeRequest.getRecipeCategory());
 
-        return recipe;
+            // 버킷에 저장된 이미지 url 불러오기
+            recipe.setRecipeImg(url);
+
+            recipe.setRecipeName(recipeRequest.getRecipeName());
+            recipe.setRecipeType(recipeRequest.getRecipeType());
+            recipe.setRecipeCreatedDate(LocalDateTime.now());
+
+            String recipeTotalContent = "";
+            for (RecipeStepRequest rsr : recipeRequest.getRecipeStepRequest()) {
+                recipeTotalContent += rsr.getRecipeStepNum() + ". " + rsr.getRecipeStepContent() + "\n";
+            }
+            recipe.setRecipeContent(recipeTotalContent);
+            recipeRepository.saveAndFlush(recipe);
+            em.clear();
+
+            return recipe;
+        }
+        return null;
     }
 
     public Page<SimpleRecipeDto> getRecipeListPagingByRecipeName(String recipeName, Pageable pageable) {
