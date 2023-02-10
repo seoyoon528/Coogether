@@ -9,7 +9,7 @@ import ProfileSwiper from './ProfileSwiper';
 import { UserHistoryStyle, NoHistory } from './UserHistoryStyle';
 
 export default function UserHistory(props) {
-  const { sectionName, histories, recipes, content } = props;
+  const { sectionName, histories, recipes } = props;
   const history = useHistory();
 
   return (

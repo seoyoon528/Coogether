@@ -8,10 +8,19 @@ import FollowModalContent from './FollowModalContent';
 import FollowModalHeader from './FollowModalHeader';
 
 export default function FollowModal(props) {
-  const { open, onClose, followerList, followingList, clickedContentName } =
-    props;
-  console.log(followingList);
+  // Props
+  const {
+    open,
+    onClose,
+    followerList,
+    followingList,
+    clickedContentName,
+    loginUserSeq,
+  } = props;
+
+  // useState
   const [activeContent, setActiveContent] = useState(clickedContentName);
+
   return (
     <Dialog
       open={open}
@@ -27,15 +36,17 @@ export default function FollowModal(props) {
       />
       {activeContent === 'follower' && (
         <FollowModalContent
-          userList={followerList.filter(({ followFlag }) => {
-            return followFlag === 'CONNECT';
+          loginUserSeq={loginUserSeq}
+          userList={followerList.filter(({ followId, followFlag }) => {
+            return followFlag === 'CONNECT' && followId !== loginUserSeq;
           })}
         />
       )}
-      {activeContent === 'follwing' && (
+      {activeContent === 'following' && (
         <FollowModalContent
-          userList={followingList.filter(({ followFlag }) => {
-            return followFlag === 'CONNECT';
+          loginUserSeq={loginUserSeq}
+          userList={followingList.filter(({ followId, followFlag }) => {
+            return followFlag === 'CONNECT' && followId !== loginUserSeq;
           })}
         />
       )}

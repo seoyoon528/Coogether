@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import axios from 'axios';
 
@@ -15,6 +16,7 @@ import UserHistory from '../../../components/Wrapper/Box/Profile/UserHistory';
 // Style
 import { ProfileStyle } from './ProfileStyle';
 
+// 온도 랭크 변환 함수
 const findRank = temp => {
   let rank;
   if (temp >= 60) {
@@ -37,16 +39,7 @@ const findRank = temp => {
 };
 
 function Profile() {
-  // DUMMY_USER
-  const DUMMY_USER_ID = 2;
-
-  // 유저ID
-  const { userId } = useParams();
-
-  // Page history
-  const history = useHistory();
-
-  // 유저 상태 초기화
+  // useReducer
   const initialState = {
     userImg: '',
     userNickname: '',
@@ -59,40 +52,40 @@ function Profile() {
     cookHistories: [],
     recipes: [],
   };
-  // 유저 상태 reducer
+
   const reducer = (state, { type, payload }) => {
     switch (type) {
-      // case 'userNickname':
-      //   return { ...state, ...payload };
-      // case 'userCookCategory':
-      //   return { ...state, ...payload };
-      // case 'userIntroduce':
-      //   return { ...state, ...payload };
-      // case 'userImg':
-      //   return { ...state, ...payload };
-      // case 'follow':
-      //   return { ...state, ...payload };
       case 'edit':
         return { ...state, ...payload };
-
       default:
         return {
           ...payload,
         };
     }
   };
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // 로그인 유저와 프로필 유저 일치 여부
-  const [isAuthor, setIsAuthor] = useState(DUMMY_USER_ID === +userId);
+  // Redux
+  const { userSeq: loginUserSeq } = useSelector(state => {
+    return state.user;
+  });
 
-  // 수정 활성화 여부
-  const [isEditActive, setIsEditActive] = useState(false);
+  // useParams
+  const { userId: profileUserSeq } = useParams();
 
+  // useHistory
+  const history = useHistory();
+
+  // useState
+  const [isAuthor, setIsAuthor] = useState(loginUserSeq === +profileUserSeq); // 로그인 유저와 프로필 유저 일치 여부
+  const [isEditActive, setIsEditActive] = useState(false); // 수정 기능 활성화 여부
+
+  // useEffect
   // 프로필 페이지 유저의 정보를 불러오기(userId가 바뀌면 함수 실행)
   useEffect(async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/user/${userId}`,
+      url: `http://i8b206.p.ssafy.io:9000/api/user/${profileUserSeq}`,
       method: 'GET',
     };
     try {
@@ -101,11 +94,11 @@ function Profile() {
       // 랭크 확인
       const rank = findRank(userData.userTemp);
       // 히스토리 요청 및 저장
-      requestInfo.url = `http://i8b206.p.ssafy.io:9000/history/${userId}`;
+      requestInfo.url = `http://i8b206.p.ssafy.io:9000/api/history/${profileUserSeq}`;
       const cookHistoryResponse = await axios(requestInfo);
       const cookHistories = await cookHistoryResponse.data;
       // 커스텀 레시피 요청 및 저장
-      requestInfo.url = `http://i8b206.p.ssafy.io:9000/recipe/list/${userId}`;
+      requestInfo.url = `http://i8b206.p.ssafy.io:9000/api/recipe/list/${profileUserSeq}`;
       const recipeResponse = await axios(requestInfo);
       const recipes = await recipeResponse.data;
       // 불러온 정보 저장
@@ -118,9 +111,7 @@ function Profile() {
       }
       history.replace('/main');
     }
-  }, [userId]);
-  console.log(state);
-  console.log(state.followerList, state.followingList);
+  }, [profileUserSeq]);
 
   return (
     <ProfileStyle>
@@ -137,6 +128,8 @@ function Profile() {
               setIsEditActive={setIsEditActive}
             />
             <ProfileInformation
+              loginUserSeq={loginUserSeq}
+              profileUserSeq={profileUserSeq}
               userInformation={state}
               isAuthor={isAuthor}
               dispatch={dispatch}
