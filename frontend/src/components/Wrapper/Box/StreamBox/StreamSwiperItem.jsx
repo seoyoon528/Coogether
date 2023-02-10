@@ -9,6 +9,11 @@ function StreamSwiperItem(props) {
   const [isCookRoomEnterModalOpened, setIsCookRoomEnterModalOpened] =
     useState(false);
 
+  let isDto = false;
+  if (room.cookingRoomDto) {
+    isDto = true;
+  }
+
   return (
     <>
       <Stack
@@ -19,7 +24,9 @@ function StreamSwiperItem(props) {
       >
         <S.CookRoomItemWrapper>
           <S.CookRoomItemImg
-            src={room.cookingRoomImg}
+            src={
+              isDto ? room.cookingRoomDto.cookingRoomImg : room.cookingRoomImg
+            }
             alt="img"
             onClick={() => {
               setIsCookRoomEnterModalOpened(true);
@@ -31,17 +38,40 @@ function StreamSwiperItem(props) {
             }}
           >
             <S.JoinUserWrapper>
-              <p>
-                요리사 {room.userJoinLists ? room.userJoinLists.length : 0}명
-              </p>
+              {isDto ? (
+                <p>
+                  요리사{' '}
+                  {room.cookingRoomDto.userJoinLists
+                    ? room.cookingRoomDto.userJoinLists.length
+                    : 0}
+                  명
+                </p>
+              ) : (
+                <p>
+                  요리사 {room.userJoinLists ? room.userJoinLists.length : 0}명
+                </p>
+              )}
             </S.JoinUserWrapper>
             <S.StartTimeWrapper>
-              <p>
-                {`${new Date(room.cookingRoomStartTime).getHours()}:${new Date(
-                  room.cookingRoomStartTime
-                ).getMinutes()}`}
-                시작
-              </p>
+              {isDto ? (
+                <p>
+                  {`${new Date(
+                    room.cookingRoomDto.cookingRoomStartTime
+                  ).getHours()}:${new Date(
+                    room.cookingRoomDto.cookingRoomStartTime
+                  ).getMinutes()}`}
+                  시작
+                </p>
+              ) : (
+                <p>
+                  {`${new Date(
+                    room.cookingRoomStartTime
+                  ).getHours()}:${new Date(
+                    room.cookingRoomStartTime
+                  ).getMinutes()}`}
+                  시작
+                </p>
+              )}
             </S.StartTimeWrapper>
           </S.StartUserWrapper>
           <S.roomTitle
@@ -49,18 +79,29 @@ function StreamSwiperItem(props) {
               setIsCookRoomEnterModalOpened(true);
             }}
           >
-            {room.cookingRoomName}
+            {isDto ? room.cookingRoomDto.cookingRoomName : room.cookingRoomName}
           </S.roomTitle>
           <S.KingWrapper>
-            <p>{room.cookingRoomHost}</p>
+            <p>
+              {isDto
+                ? room.cookingRoomDto.cookingRoomHost
+                : room.cookingRoomHost}
+            </p>
             <ChefHat color="red" className="chefhat" />
           </S.KingWrapper>
-          <S.TagWrapper>#{room.recipe.recipeName}</S.TagWrapper>
+          <S.TagWrapper>
+            #
+            {isDto
+              ? room.cookingRoomDto.recipe.recipeName
+              : room.recipe.recipeName}
+          </S.TagWrapper>
           <CookRoomEnterModal
             isCookRoomEnterModalOpened={isCookRoomEnterModalOpened}
             setIsCookRoomEnterModalOpened={setIsCookRoomEnterModalOpened}
-            cookingRoomId={room.cookingRoomId}
-            recipe={room.recipe}
+            cookingRoomId={
+              isDto ? room.cookingRoomDto.cookingRoomId : room.cookingRoomId
+            }
+            recipe={isDto ? room.cookingRoomDto.recipe : room.recipe}
           />
         </S.CookRoomItemWrapper>
       </Stack>
