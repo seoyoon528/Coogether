@@ -16,6 +16,7 @@ import UserHistory from '../../../components/Wrapper/Box/Profile/UserHistory';
 // Style
 import { ProfileStyle } from './ProfileStyle';
 
+// 온도 랭크 변환 함수
 const findRank = temp => {
   let rank;
   if (temp >= 60) {
@@ -38,17 +39,7 @@ const findRank = temp => {
 };
 
 function Profile() {
-  const { userSeq: loginUserSeq } = useSelector(state => {
-    return state.user;
-  });
-
-  // 프로필 유저ID
-  const { userId: profileUserSeq } = useParams();
-
-  // Page history
-  const history = useHistory();
-
-  // 유저 상태 초기화
+  // useReducer
   const initialState = {
     userImg: '',
     userNickname: '',
@@ -62,7 +53,6 @@ function Profile() {
     recipes: [],
   };
 
-  // 유저 상태 reducer
   const reducer = (state, { type, payload }) => {
     switch (type) {
       case 'edit':
@@ -73,14 +63,25 @@ function Profile() {
         };
     }
   };
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // 로그인 유저와 프로필 유저 일치 여부
-  const [isAuthor, setIsAuthor] = useState(loginUserSeq === +profileUserSeq);
+  // Redux
+  const { userSeq: loginUserSeq } = useSelector(state => {
+    return state.user;
+  });
 
-  // 수정 활성화 여부
-  const [isEditActive, setIsEditActive] = useState(false);
+  // useParams
+  const { userId: profileUserSeq } = useParams();
 
+  // useHistory
+  const history = useHistory();
+
+  // useState
+  const [isAuthor, setIsAuthor] = useState(loginUserSeq === +profileUserSeq); // 로그인 유저와 프로필 유저 일치 여부
+  const [isEditActive, setIsEditActive] = useState(false); // 수정 기능 활성화 여부
+
+  // useEffect
   // 프로필 페이지 유저의 정보를 불러오기(userId가 바뀌면 함수 실행)
   useEffect(async () => {
     const requestInfo = {
@@ -111,8 +112,6 @@ function Profile() {
       history.replace('/main');
     }
   }, [profileUserSeq]);
-  console.log(state);
-  console.log(state.followerList, state.followingList);
 
   return (
     <ProfileStyle>

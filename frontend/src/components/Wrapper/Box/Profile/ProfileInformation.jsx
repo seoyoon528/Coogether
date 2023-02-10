@@ -26,6 +26,7 @@ import FireIcon from '../../../../assets/img/fire.png';
 // Style
 import { ProfileInformationStyle } from './ProfileInformationStyle';
 
+// Select input Style
 const CategoryInput = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     display: 'flex',
@@ -114,6 +115,7 @@ export default function ProfileInformation(props) {
     }
   }, [followerList, followingList]);
 
+  // select options
   const cookCategories = [
     { value: 'KOREAN', label: '한식' },
     { value: 'CHINESE', label: '중식' },
@@ -234,7 +236,7 @@ export default function ProfileInformation(props) {
                 <span className="follow-value">{followingCount}</span>
               </div>
               <div className="follow-click-button">
-                {!isFollowed && (
+                {!isFollowed && loginUserSeq && (
                   <button
                     type="button"
                     onClick={() => {
