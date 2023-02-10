@@ -48,6 +48,19 @@ function FavoriteIngredients({ favorite, sumbitIngredient, favIngredient }) {
     );
   });
 
+  if (favIngredient) {
+    return (
+      <div>
+        <Contents>
+          <h4>
+            즐겨찾기
+            <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
+          </h4>
+          {favoriteIngredient}
+        </Contents>
+      </div>
+    );
+  }
   return (
     <div>
       <Contents>
