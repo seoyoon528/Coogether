@@ -14,6 +14,7 @@ function Main() {
   const [second, setSecond] = useState([]);
   const [third, setThird] = useState([]);
   const [isIn, setIsIn] = useState(false);
+  const [isInThird, seIsInThird] = useState(false);
 
   const userSeq = useSelector(state => state.user.userSeq);
 
@@ -21,9 +22,9 @@ function Main() {
     try {
       const refrigeratorDAta = await axios({
         // 유저 id 추가해야 함
-        // url: `http://i8b206.p.ssafy.io:9000/myIngredient/list/total/${userSeq}`,
-        // headers: { Authorization: `Bearer ${userSeq}` },
-        url: 'http://i8b206.p.ssafy.io:9000/myIngredient/list/total/1',
+        url: `http://i8b206.p.ssafy.io:9000/myIngredient/list/total/${userSeq}`,
+        headers: { Authorization: `Bearer ${userSeq}` },
+        // url: 'http://i8b206.p.ssafy.io:9000/myIngredient/list/total/1',
       });
       if (refrigeratorDAta.data.length > 0) {
         setIsIn(true);
@@ -31,29 +32,32 @@ function Main() {
 
       const firstData = await axios({
         // 추후 수정
-        // url: `http://i8b206.p.ssafy.io:9000/room/recommend/myingredient/${userSeq}`,
-        // headers: { Authorization: `Bearer ${userSeq}` },
-        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
+        url: `http://i8b206.p.ssafy.io:9000/room/recommend/myingredient/${userSeq}`,
+        headers: { Authorization: `Bearer ${userSeq}` },
+        // url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
-      // console.log(firstData);
-      setFirst(firstData.data.content);
+      console.log(firstData);
+      // setFirst(firstData.data);
 
       const secondData = await axios({
         // 추후 수정
-        // url: 'http://i8b206.p.ssafy.io:9000/room/recommend/starttime',
-        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
+        url: 'http://i8b206.p.ssafy.io:9000/room/recommend/starttime',
+        // url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
-      // console.log(firstData);
-      setSecond(secondData.data.content);
+      // console.log(secondData);
+      setSecond(secondData.data);
 
       const thirdData = await axios({
         // 추후 수정
-        // url: `http://i8b206.p.ssafy.io:9000/room/recommend/usercook/${userSeq}`,
-        // headers: { Authorization: `Bearer ${userSeq}` }
-        url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
+        url: `http://i8b206.p.ssafy.io:9000/room/recommend/usercook/${userSeq}`,
+        headers: { Authorization: `Bearer ${userSeq}` },
+        // url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
-      // console.log(firstData);
-      setThird(thirdData.data.content);
+      console.log(thirdData);
+      if (thirdData.data.length < 0) {
+        seIsInThird(true);
+        setThird(thirdData.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -77,10 +81,12 @@ function Main() {
             <h2>곧 시작해요! 얼른 들어오세요</h2>
             <StreamSwiper cookRoom={second} />
           </div>
-          <div>
-            <h2>이 요리 좋아하지 않나요??</h2>
-            <StreamSwiper cookRoom={third} />
-          </div>
+          {isInThird && (
+            <div>
+              <h2>이 요리 좋아하지 않나요??</h2>
+              <StreamSwiper cookRoom={third} />
+            </div>
+          )}
         </Stack>
       </S.MainContainer>
     </>
