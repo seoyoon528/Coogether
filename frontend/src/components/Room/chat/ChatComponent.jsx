@@ -5,7 +5,6 @@ import CarouselBtn from '../../Btn/CarouselBtn/CarouselBtn';
 
 import * as C from './ChatComponentStyle';
 
-import './ChatComponent.css';
 import axios from 'axios';
 
 import clock from '../../../assets/icon/clock.svg';
@@ -49,11 +48,6 @@ export default class ChatComponent extends Component {
         });
         const document = window.document;
         setTimeout(() => {
-          const userImg = document.getElementById(
-            'userImg-' + (this.state.messageList.length - 1)
-          );
-          const video = document.getElementById('video-' + data.streamId);
-          const avatar = userImg.getContext('2d');
           // avatar.drawImage(video, 200, 120, 285, 285, 0, 0, 60, 60);
           this.props.messageReceived();
         }, 50);
@@ -99,7 +93,6 @@ export default class ChatComponent extends Component {
     }
   }
   sendMessage() {
-    console.log(this.state.message);
     if (this.props.user && this.state.message) {
       let message = this.state.message.replace(/ +(?= )/g, '');
       if (message !== '' && message !== ' ') {
@@ -249,7 +242,7 @@ export default class ChatComponent extends Component {
           </C.ContentWrap>
         </C.WaitDivideBox>
         <C.WaitDivideBox>
-          <C.ContentWrap>
+          <C.ChatContentWrap>
             <C.ChatComponent>
               <C.DivBox></C.DivBox>
               <C.ChatBox>
@@ -263,8 +256,10 @@ export default class ChatComponent extends Component {
                     채팅
                   </span>
                 </C.ChatTitle>
-                <div>참가자 ({this.props.remoteUsers.length + 1})</div>
-                <div className="message-wrap" ref={this.chatScroll}>
+                <C.UserLen>
+                  참가자 ({this.props.remoteUsers.length + 1})
+                </C.UserLen>
+                <C.MsgWrap ref={this.chatScroll}>
                   {this.state.messageList.map((data, i) => (
                     <div
                       key={i}
@@ -272,16 +267,23 @@ export default class ChatComponent extends Component {
                       className={
                         'message' +
                         (data.connectionId !== this.props.user.getConnectionId()
-                          ? ' left'
-                          : ' right')
+                          ? 'left'
+                          : 'right')
                       }
                     >
-                      <canvas
-                        id={'userImg-' + i}
-                        width="60"
-                        height="60"
-                        className="user-img"
-                      />
+                      {data.nickname === this.props.user.nickname ? (
+                        <img
+                          src={this.props.userImg}
+                          alt="채팅이미지"
+                          style={{ width: '30px', height: '30px' }}
+                        />
+                      ) : (
+                        <img
+                          src={this.props.remoteUsers[0].img}
+                          alt="채팅이미지"
+                          style={{ width: '30px', height: '30px' }}
+                        />
+                      )}
                       <div className="msg-detail">
                         <div className="msg-info">
                           <p> {data.nickname}</p>
@@ -293,9 +295,9 @@ export default class ChatComponent extends Component {
                       </div>
                     </div>
                   ))}
-                </div>
+                </C.MsgWrap>
                 <hr />
-                <div id="messageInput">
+                <C.InputTxt>
                   <input
                     placeholder="여기에 메세지를 입력해주세요"
                     id="chatInput"
@@ -303,11 +305,13 @@ export default class ChatComponent extends Component {
                     onChange={this.handleChange}
                     onKeyPress={this.handlePressKey}
                   />
-                  <button onClick={this.sendMessage}> 보내기</button>
-                </div>
+                  <div>
+                    <button onClick={this.sendMessage}> 보내기</button>
+                  </div>
+                </C.InputTxt>
               </C.ChatBox>
             </C.ChatComponent>
-          </C.ContentWrap>
+          </C.ChatContentWrap>
         </C.WaitDivideBox>
         <C.ExitBox>
           <Link to="/Main">나가기</Link>
