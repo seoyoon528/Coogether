@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -58,12 +58,17 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function ProfileInformation(props) {
-  const [isFollowModalOpened, setIsFollowModalOpened] = useState(false);
-  const [clickedContentName, setClickedContentName] = useState('follower');
-
-  const { userInformation, isAuthor, isEditActive, setIsEditActive, dispatch } =
-    props;
-  // 유저 정보 나누기
+  // Props
+  const {
+    userInformation,
+    isAuthor,
+    isEditActive,
+    setIsEditActive,
+    dispatch,
+    loginUserSeq,
+    profileUserSeq,
+  } = props;
+  // 유저 정보 나누기 (userInformation 변수를 사용하기 위해서 다시 나눔)
   const {
     userNickname,
     userCookCategory,
@@ -74,42 +79,41 @@ export default function ProfileInformation(props) {
     rank,
   } = userInformation;
 
-  // 팔로워 카운트
-  const [followerCount, setFollowerCount] = useState(
-    followerList.length > 0
-      ? followerList.filter(({ followFlag }) => {
-          return followFlag === 'CONNECT';
-        }).length
-      : 0
-  );
-
-  // 팔로잉 카운트
-  const [followingCount, setFollowingCount] = useState(
-    followingList.length > 0
-      ? followingList.filter(({ followFlag }) => {
-          return followFlag === 'CONNECT';
-        }).length
-      : 0
-  );
-
-  // 더미 유저 시쿼스
-  const DUMMY_USER_SEQ = 2;
-
-  // 현재 프로필 페이지 유저
-  const { userId } = useParams();
+  // Redux
   const accessToken = useSelector(state => state.user.accessToken);
 
-  // 팔로우 상태
-  const [isFollowed, setIsFollowed] = useState(
-    (() => {
-      if (followerCount > 0) {
-        return followerList.some(({ followId }) => {
-          return followId === DUMMY_USER_SEQ;
-        });
-      }
-      return false;
-    })()
-  );
+  // useState
+  const [isFollowModalOpened, setIsFollowModalOpened] = useState(false);
+  const [isFollowed, setIsFollowed] = useState();
+  const [clickedContentName, setClickedContentName] = useState('follower'); // 팔로워 선택 or 팔로잉 선택
+  const [followerCount, setFollowerCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+
+  // useEffect
+  useEffect(() => {
+    // follower 수 체크 및 팔로우 여부 확인
+    if (followerList.length > 0) {
+      setFollowerCount(
+        followerList.filter(({ followFlag }) => {
+          return followFlag === 'CONNECT';
+        }).length
+      );
+      // 팔로우 여부 확인
+      setIsFollowed(
+        followerList.some(({ followId, followFlag }) => {
+          return followId === loginUserSeq && followFlag === 'CONNECT';
+        })
+      );
+    }
+    // following 수 체크
+    if (followingList.length > 0) {
+      setFollowingCount(
+        followingList.filter(({ followFlag }) => {
+          return followFlag === 'CONNECT';
+        }).length
+      );
+    }
+  }, [followerList, followingList]);
 
   const cookCategories = [
     { value: 'KOREAN', label: '한식' },
@@ -128,28 +132,36 @@ export default function ProfileInformation(props) {
     return userCookCategory === category.value;
   })[0].label;
 
+  // Function
+  // 팔로우 함수
+  const follow = () => {
+    setIsFollowed(false);
+    setFollowerCount(prev => {
+      return prev - 1;
+    });
+  };
+  // 언팔로우 함수
+  const unfollow = () => {
+    setIsFollowed(true);
+    setFollowerCount(prev => {
+      return prev + 1;
+    });
+  };
+  // 팔로우 버튼 클릭
   const clickFollowHandler = async () => {
-    // 팔로잉은 더미 데이터
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/follow/${DUMMY_USER_SEQ}/${userId}`,
+      url: `http://i8b206.p.ssafy.io:9000/follow/${loginUserSeq}/${profileUserSeq}`, // 팔로잉 REST API
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     };
     try {
-      const response = await axios(requestInfo);
-      console.log(response.data);
+      await axios(requestInfo);
       if (isFollowed) {
-        setIsFollowed(false);
-        setFollowerCount(prev => {
-          return prev - 1;
-        });
+        follow();
       } else {
-        setIsFollowed(true);
-        setFollowerCount(prev => {
-          return prev + 1;
-        });
+        unfollow();
       }
     } catch (error) {
       console.log(error);
@@ -196,6 +208,7 @@ export default function ProfileInformation(props) {
             followerList={followerList}
             followingList={followingList}
             clickedContentName={clickedContentName}
+            loginUserSeq={loginUserSeq}
           />
           <div className="follow">
             <Stack spacing={2} direction="row">
