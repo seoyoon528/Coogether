@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import { useParams } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
@@ -23,6 +21,7 @@ import FollowModal from '../../../Modal/Follow/FollowModal';
 
 // Image
 import LikeIcon from '../../../../assets/img/cake-dome.svg';
+import FireIcon from '../../../../assets/img/fire.png';
 
 // Style
 import { ProfileInformationStyle } from './ProfileInformationStyle';
@@ -278,10 +277,7 @@ export default function ProfileInformation(props) {
                 <Grid item xs={4}>
                   <div className="item">
                     <div className="icon">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/637/637651.png"
-                        alt="온도 아이콘"
-                      />
+                      <img src={FireIcon} alt="온도 아이콘" />
                       <p>온도</p>
                     </div>
                     <div className="user-information-value-box">
