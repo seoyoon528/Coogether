@@ -66,6 +66,9 @@ class CookRoom extends Component {
     this.getRecipe = this.getRecipe.bind(this);
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
+    // 전체 화면으로
+    this.openFullScreenMode = this.openFullScreenMode.bind(this);
+    this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
 
     this.nicknameChanged = this.nicknameChanged.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -391,6 +394,7 @@ class CookRoom extends Component {
   chattoCook() {
     this.state.session.on('signal:startCook', event => {
       this.setState({ chatDisplay: 'none', messageReceived: false });
+      this.openFullScreenMode();
     });
   }
 
