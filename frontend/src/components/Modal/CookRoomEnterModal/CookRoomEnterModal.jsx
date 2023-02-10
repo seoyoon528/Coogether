@@ -24,14 +24,14 @@ export default function CookRoomEnterModal(props) {
   //   레시피 전체 재료 요청 및 저장
   useEffect(async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/ingredient/list/${recipeId}`,
+      url: `http://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`,
       method: 'GET',
     };
     try {
       const recipeIngredientsResponse = await axios(requestInfo);
       const recipeIngredients = await recipeIngredientsResponse.data;
 
-      requestInfo.url = `http://i8b206.p.ssafy.io:9000/myIngredient/list/cooking/${userSeq}/${recipeId}`;
+      requestInfo.url = `http://i8b206.p.ssafy.io:9000/api/myIngredient/list/cooking/${userSeq}/${recipeId}`;
       const myIngredientsResponse = await axios(requestInfo);
       const myIngredients = await myIngredientsResponse.data;
 

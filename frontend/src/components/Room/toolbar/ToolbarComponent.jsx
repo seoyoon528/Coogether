@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 import './ToolbarComponent.css';
 import * as T from './ToolbarCom';
+import { Link } from 'react-router-dom';
 export default class ToolbarComponent extends Component {
   constructor(props) {
     super(props);
 
     // step을 여기서 따로 두기
-    this.state = { fullscreen: false, toolNowStep: 0 };
+    this.state = { fullscreen: true, toolNowStep: 0 };
     this.openModal = this.openModal.bind(this);
     this.nextStep = this.nextStep.bind(this);
     this.camStatusChanged = this.camStatusChanged.bind(this);
@@ -19,6 +20,8 @@ export default class ToolbarComponent extends Component {
     this.switchCamera = this.switchCamera.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
+    this.openFullScreenMode = this.openFullScreenMode.bind(this);
+    this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
   }
   openModal() {
     this.props.modalOpen();
@@ -49,8 +52,12 @@ export default class ToolbarComponent extends Component {
   }
 
   toggleFullscreen() {
+    if (this.state.fullscreen) {
+      this.closeFullScreenMode();
+    } else {
+      this.openFullScreenMode();
+    }
     this.setState({ fullscreen: !this.state.fullscreen });
-    this.props.toggleFullscreen();
   }
 
   switchCamera() {
@@ -58,11 +65,41 @@ export default class ToolbarComponent extends Component {
   }
 
   leaveSession() {
+    this.props.onChangeShow();
     this.props.leaveSession();
   }
 
   toggleChat() {
     this.props.toggleChat();
+  }
+
+  // 전체화면 설정
+  openFullScreenMode() {
+    if (document.documentElement.requestFullscreen)
+      document.documentElement.requestFullscreen();
+    else if (document.documentElement.webkitRequestFullscreen)
+      // Chrome, Safari (webkit)
+      document.documentElement.webkitRequestFullscreen();
+    else if (document.documentElement.mozRequestFullScreen)
+      // Firefox
+      document.documentElement.mozRequestFullScreen();
+    else if (document.documentElement.msRequestFullscreen)
+      // IE or Edge
+      document.documentElement.msRequestFullscreen();
+  }
+
+  // 전체화면 해제
+  closeFullScreenMode() {
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.webkitExitFullscreen)
+      // Chrome, Safari (webkit)
+      document.webkitExitFullscreen();
+    else if (document.mozCancelFullScreen)
+      // Firefox
+      document.mozCancelFullScreen();
+    else if (document.msExitFullscreen)
+      // IE or Edge
+      document.msExitFullscreen();
   }
 
   render() {
@@ -92,9 +129,9 @@ export default class ToolbarComponent extends Component {
               onClick={this.micStatusChanged}
             >
               {localUser !== undefined && localUser.isAudioActive() ? (
-                <span>마이크 켜기</span>
-              ) : (
                 <span>음소거</span>
+              ) : (
+                <span>마이크 켜기</span>
               )}
             </span>
 
@@ -105,13 +142,13 @@ export default class ToolbarComponent extends Component {
               onClick={this.camStatusChanged}
             >
               {localUser !== undefined && localUser.isVideoActive() ? (
-                <span>카메라 켜기</span>
-              ) : (
                 <span>카메라 끄기</span>
+              ) : (
+                <span>카메라 켜기</span>
               )}
             </span>
 
-            <span
+            {/* <span
               color="inherit"
               className="navButton"
               onClick={this.screenShare}
@@ -135,7 +172,7 @@ export default class ToolbarComponent extends Component {
               onClick={this.switchCamera}
             >
               카메라 바꾸기
-            </span>
+            </span> */}
             <span
               color="inherit"
               className="navButton"
@@ -153,14 +190,15 @@ export default class ToolbarComponent extends Component {
               <button onClick={this.nextStep}>다음 단계로</button>
             )}
 
-            <span
+            <Link
+              to="/Main"
               color="secondary"
               className="navButton"
               onClick={this.leaveSession}
               id="navLeaveButton"
             >
               나가기
-            </span>
+            </Link>
           </div>
         </div>
       </T.ToolContainer>

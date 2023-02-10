@@ -10,7 +10,7 @@ export default function FollowModalUser(props) {
 
   useEffect(async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/user/${followId}`,
+      url: `http://i8b206.p.ssafy.io:9000/api/user/${followId}`,
       method: 'GET',
     };
     try {

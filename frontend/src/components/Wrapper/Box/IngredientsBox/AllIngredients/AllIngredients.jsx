@@ -26,7 +26,7 @@ function AllIngredients({ category }) {
           query = '';
         }
         const response = await axios.get(
-          `http://i8b206.p.ssafy.io:9000/ingredient/list/total/${query}`
+          `http://i8b206.p.ssafy.io:9000/api/ingredient/list/total/${query}`
         );
         setIngredients([...response.data.map((v, a) => v.ingredientName)]);
         // console.log(ingredients);
@@ -62,7 +62,7 @@ function AllIngredients({ category }) {
     const getAllData = async () => {
       try {
         const response = await axios.get(
-          'http://i8b206.p.ssafy.io:9000/ingredient/list/total'
+          'http://i8b206.p.ssafy.io:9000/api/ingredient/list/total'
         );
         setAllIngredient([...response.data.map((v, a) => v.ingredientName)]);
         // console.log(ingredients);
