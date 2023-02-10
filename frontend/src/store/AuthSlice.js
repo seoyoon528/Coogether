@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 // authenticated : 로그인 여부
 // user_name, user_id : 유저 정보
 const initialStateValue = {
+  userSeq: null,
   authenticated: false,
   userAccountStatus: null,
   userCookCategory: null,
@@ -27,6 +28,7 @@ export const AuthSlice = createSlice({
   reducers: {
     login: (state, action) => {
       const changeState = state;
+      changeState.userSeq = action.payload.userSeq;
       changeState.authenticated = action.payload.authenticated;
       changeState.userAccountStatus = action.payload.userAccountStatus;
       changeState.userCookCategory = action.payload.userCookCategory;
@@ -45,6 +47,7 @@ export const AuthSlice = createSlice({
     },
     logout: (state, action) => {
       const changeState = state;
+      changeState.userSeq = null;
       changeState.authenticated = false;
       changeState.userAccountStatus = null;
       changeState.userCookCategory = null;
