@@ -17,15 +17,15 @@ import java.util.List;
 public class Ingredient {
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MyIngredientManage> myIngredientManageList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<IngredientFav> ingredientFavList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<IngredientList> ingredientList = new ArrayList<>();
 
 
