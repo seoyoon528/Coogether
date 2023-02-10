@@ -23,7 +23,7 @@ function Main({ onChangeShow }, isShow) {
     try {
       const secondData = await axios({
         // 추후 수정
-        url: 'http://i8b206.p.ssafy.io:9000/api/room/recommend/starttime',
+        url: 'https://i8b206.p.ssafy.io:9000/api/room/recommend/starttime',
         // url: 'http://i8b206.p.ssafy.io:9000/api/room/list?size=5',
       });
       if (secondData.data.length > 0) {
