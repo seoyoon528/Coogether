@@ -212,8 +212,10 @@ class CookRoom extends Component {
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
     this.clickNextStep();
+    this.chattoCook();
     this.subscribeToStreamDestroyed();
     this.killSession();
+
     this.sendSignalUserChanged({
       isScreenShareActive: localUser.isScreenShareActive(),
     });
@@ -385,6 +387,13 @@ class CookRoom extends Component {
       this.setState({ nowStep: event.data });
     });
   }
+  // 채팅방이 없어지고 다음 단계로 이동
+  chattoCook() {
+    this.state.session.on('signal:startCook', event => {
+      this.setState({ chatDisplay: 'none', messageReceived: false });
+    });
+  }
+
   subscribeToUserChanged() {
     this.state.session.on('signal:userChanged', event => {
       let remoteUsers = this.state.subscribers;
@@ -420,6 +429,15 @@ class CookRoom extends Component {
     const signalOptions = {
       data: JSON.stringify(data),
       type: 'userChanged',
+    };
+    this.state.session.signal(signalOptions);
+  }
+
+  // 방장이 시작 누를 때 채팅 없어지고 실시간 공유 시작
+  sendStart() {
+    const signalOptions = {
+      data: true,
+      type: 'startCook',
     };
     this.state.session.signal(signalOptions);
   }
@@ -553,8 +571,12 @@ class CookRoom extends Component {
 
   toggleChat(property) {
     let display = property;
-
+    console.log(display);
     if (display === undefined) {
+      // 방장이 시작하면 신호를 모두에게 보냄
+
+      this.sendStart();
+
       display = this.state.chatDisplay === 'none' ? 'block' : 'none';
     }
     if (display === 'block') {
@@ -562,6 +584,8 @@ class CookRoom extends Component {
     } else {
       console.log('chat', display);
       this.setState({ chatDisplay: display });
+
+      //세션 보내기
     }
   }
 
