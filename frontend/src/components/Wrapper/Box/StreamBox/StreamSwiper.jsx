@@ -17,7 +17,7 @@ import 'swiper/css/pagination';
 
 export default function StreamSwiper(props) {
   const { cookRoom } = props;
-
+  // console.log(cookRoom);
   return (
     <Swiper
       modules={[Navigation]}
@@ -42,7 +42,13 @@ export default function StreamSwiper(props) {
     >
       {cookRoom.map(room => {
         return (
-          <SwiperSlide key={room.cookingRoomId}>
+          <SwiperSlide
+            key={
+              room.cookingRoomDto
+                ? room.cookingRoomDto.cookingRoomId
+                : room.cookingRoomId
+            }
+          >
             <StreamSwiperItem room={room} />
           </SwiperSlide>
         );
