@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+
 import axios from 'axios';
 
 // MUI
-import { Grid, Select, MenuItem, styled, InputBase } from '@mui/material';
+import {
+  Grid,
+  Select,
+  MenuItem,
+  styled,
+  InputBase,
+  Stack,
+} from '@mui/material';
 
 // Component
 import ChefHat from '../../../Rank/ChefHat';
 import ProfileEditButton from './ProfileEditButton';
+import FollowModal from '../../../Modal/Follow/FollowModal';
 
+// Image
 import LikeIcon from '../../../../assets/img/cake-dome.svg';
 
 // Style
@@ -37,6 +48,8 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
   '& #profile-cook-category-inactive': {
     border: 'none',
     padding: 0,
+
+    cursor: 'default',
   },
 
   svg: {
@@ -45,12 +58,12 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function ProfileInformation(props) {
-  const { userId } = useParams();
-  // const { isFollowed, setIsFollowed } = useState();
+  const [isFollowModalOpened, setIsFollowModalOpened] = useState(false);
+  const [clickedContentName, setClickedContentName] = useState('follower');
 
   const { userInformation, isAuthor, isEditActive, setIsEditActive, dispatch } =
     props;
-
+  // 유저 정보 나누기
   const {
     userNickname,
     userCookCategory,
@@ -60,6 +73,43 @@ export default function ProfileInformation(props) {
     followingList,
     rank,
   } = userInformation;
+
+  // 팔로워 카운트
+  const [followerCount, setFollowerCount] = useState(
+    followerList.length > 0
+      ? followerList.filter(({ followFlag }) => {
+          return followFlag === 'CONNECT';
+        }).length
+      : 0
+  );
+
+  // 팔로잉 카운트
+  const [followingCount, setFollowingCount] = useState(
+    followingList.length > 0
+      ? followingList.filter(({ followFlag }) => {
+          return followFlag === 'CONNECT';
+        }).length
+      : 0
+  );
+
+  // 더미 유저 시쿼스
+  const DUMMY_USER_SEQ = 2;
+
+  // 현재 프로필 페이지 유저
+  const { userId } = useParams();
+  const accessToken = useSelector(state => state.user.accessToken);
+
+  // 팔로우 상태
+  const [isFollowed, setIsFollowed] = useState(
+    (() => {
+      if (followerCount > 0) {
+        return followerList.some(({ followId }) => {
+          return followId === DUMMY_USER_SEQ;
+        });
+      }
+      return false;
+    })()
+  );
 
   const cookCategories = [
     { value: 'KOREAN', label: '한식' },
@@ -73,6 +123,7 @@ export default function ProfileInformation(props) {
     { value: 'NONE', label: '없음' },
   ];
 
+  // 선호 분야 변환(한글)
   const selectedCookCategory = cookCategories.filter(category => {
     return userCookCategory === category.value;
   })[0].label;
@@ -80,12 +131,26 @@ export default function ProfileInformation(props) {
   const clickFollowHandler = async () => {
     // 팔로잉은 더미 데이터
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/follow/${userId}/2`,
+      url: `http://i8b206.p.ssafy.io:9000/follow/${DUMMY_USER_SEQ}/${userId}`,
       method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     };
     try {
       const response = await axios(requestInfo);
       console.log(response.data);
+      if (isFollowed) {
+        setIsFollowed(false);
+        setFollowerCount(prev => {
+          return prev - 1;
+        });
+      } else {
+        setIsFollowed(true);
+        setFollowerCount(prev => {
+          return prev + 1;
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -125,31 +190,60 @@ export default function ProfileInformation(props) {
             )}
           </div>
           {/* 팔로우 */}
+          <FollowModal
+            open={isFollowModalOpened}
+            onClose={setIsFollowModalOpened}
+            followerList={followerList}
+            followingList={followingList}
+            clickedContentName={clickedContentName}
+          />
           <div className="follow">
-            <p>
-              팔로워 <span>{followerList.length}</span> | 팔로잉{' '}
-              <span>{followingList.length}</span>
-            </p>
-            {!isAuthor && (
-              <div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    clickFollowHandler();
-                  }}
-                >
-                  팔로우
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    clickFollowHandler();
-                  }}
-                >
-                  팔로우 취소
-                </button>
+            <Stack spacing={2} direction="row">
+              <div
+                className="follow-button-box"
+                onClick={() => {
+                  setClickedContentName('follower');
+                  setIsFollowModalOpened(true);
+                }}
+                aria-hidden
+              >
+                <button type="button">팔로워</button>
+                <span className="follow-value">{followerCount}</span>
               </div>
-            )}
+              <div
+                className="follow-button-box"
+                onClick={() => {
+                  setClickedContentName('following');
+                  setIsFollowModalOpened(true);
+                }}
+                aria-hidden
+              >
+                <button type="button">팔로잉</button>
+                <span className="follow-value">{followingCount}</span>
+              </div>
+              <div className="follow-click-button">
+                {!isFollowed && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clickFollowHandler();
+                    }}
+                  >
+                    팔로우
+                  </button>
+                )}
+                {isFollowed && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clickFollowHandler();
+                    }}
+                  >
+                    팔로우 취소
+                  </button>
+                )}
+              </div>
+            </Stack>
           </div>
         </Grid>
         {/* 랭크, 온도, 선호 분야 */}

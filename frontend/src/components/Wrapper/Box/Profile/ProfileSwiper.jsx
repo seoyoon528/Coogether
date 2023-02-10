@@ -18,12 +18,7 @@ import 'swiper/css/pagination';
 import MyRecipe from './MyRecipe';
 
 // Style
-import { HistoryStyle, MyRecipeStyle } from './ProfileSwiperStyle';
-
-// Image
-import StepCountImage from '../../../../assets/img/list.png';
-import IngredientCountImage from '../../../../assets/img/handbag.png';
-import CookCategoryImage from '../../../../assets/img/cake-dome.svg';
+import { HistoryStyle } from './ProfileSwiperStyle';
 
 export default function ProfileSwiper(props) {
   const { histories, recipes } = props;

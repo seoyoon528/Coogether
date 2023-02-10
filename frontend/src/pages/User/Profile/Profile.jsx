@@ -119,8 +119,8 @@ function Profile() {
       history.replace('/main');
     }
   }, [userId]);
-
-  console.log(state.followerList);
+  console.log(state);
+  console.log(state.followerList, state.followingList);
 
   return (
     <ProfileStyle>
