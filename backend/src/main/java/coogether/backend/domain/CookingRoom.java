@@ -34,11 +34,11 @@ public class CookingRoom {
     private Recipe recipe;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cookingRoom", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cookingRoom", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<History> historyList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cookingRoom", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cookingRoom", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserJoinList> userJoinLists = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
