@@ -1,41 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
+import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
+import { useDispatch, useSelector } from 'react-redux';
 import dummy from '../ingredients.json';
-import { Contents, Circle, Button, Wrapper } from './AllIngredientsStyle';
+import { Contents, Circle, Button, Span } from './AllIngredientsStyle';
 
-function AllIngredients({ category }) {
+function AllIngredients({
+  category,
+  ingredients,
+  allIngredient,
+  sumbitIngredient,
+  favIngredient,
+}) {
+  const accessToken = useSelector(state => state.user.accessToken);
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
-  const [ingredients, setIngredients] = useState([]);
-  const [allIngredient, setAllIngredient] = useState([]);
+
   const handleClick = i => {
-    setselectIngredientId(i);
+    setselectIngredientId(i.ingredientId);
     setVisible(!visible);
+    console.log(i.ingredientId);
   };
+
   const categoryKorean = dummy.categories
     .filter(name => name.id === category)
     .map(name => {
       return <h4>{name.text} 전체</h4>;
     });
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        let query = category;
-        if (query === 'ALL') {
-          query = '';
-        }
-        const response = await axios.get(
-          `http://i8b206.p.ssafy.io:9000/api/ingredient/list/total/${query}`
-        );
-        setIngredients([...response.data.map((v, a) => v.ingredientName)]);
-        // console.log(ingredients);
-      } catch (e) {
-        // console.log(e);
-      }
-    };
-    getData();
-  }, [category]);
+  // // bookmark로 보내는 것
+  // function bookMark() {
+  //   const handleClick = i => {
+  //     setselectIngredientId(i);
+  //   };
+  //   const patchBookmark = async () => {
+  //     await axios.patch(
+  //       `http://i8b206.p.ssafy.io:9000//myIngredient/create/fav/1/${setselectIngredientId}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //         body:
+  //       });
+  //   };
+  // }
+
+  // access 토큰
+  // headers: {
+  //   Authorization: `Bearer ${accessToken}`
+  //  }
 
   const ingredient = ingredients.map(i => {
     return (
@@ -46,51 +60,63 @@ function AllIngredients({ category }) {
             handleClick(i);
           }}
         >
-          {i}
-          {selectIngredientId === i && visible && (
-            <>
-              <Button>즐겨찾기</Button>
-              <Button>내 냉장고</Button>
-            </>
-          )}
+          <img src={i.ingredientIcon} alt="icon" />
         </Circle>
+        {selectIngredientId === i.ingredientId && visible && (
+          <>
+            <Button
+              onClick={() => {
+                favIngredient(i);
+              }}
+            >
+              <BookmarkAddRoundedIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                sumbitIngredient(i);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
+        {i.ingredientName}
       </span>
     );
   });
 
-  useEffect(() => {
-    const getAllData = async () => {
-      try {
-        const response = await axios.get(
-          'http://i8b206.p.ssafy.io:9000/api/ingredient/list/total'
-        );
-        setAllIngredient([...response.data.map((v, a) => v.ingredientName)]);
-        // console.log(ingredients);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getAllData();
-  }, [category]);
-
   const AllIngredient = allIngredient.map(e => {
     return (
-      <span>
+      <Span>
         <Circle
           key={e}
           onClick={() => {
             handleClick(e);
           }}
         >
-          {e}
-          {selectIngredientId === e && visible && (
-            <Wrapper>
-              <Button>즐겨찾기</Button>
-              <Button>내 냉장고</Button>
-            </Wrapper>
-          )}
+          <img src={e.ingredientIcon} alt="icon" />
         </Circle>
-      </span>
+        {selectIngredientId === e.ingredientId && visible && (
+          <>
+            <Button
+              onClick={() => {
+                favIngredient(e);
+              }}
+            >
+              <BookmarkAddRoundedIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                sumbitIngredient(e);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
+        {e.ingredientName}
+        {/* </Circle> */}
+      </Span>
     );
   });
 

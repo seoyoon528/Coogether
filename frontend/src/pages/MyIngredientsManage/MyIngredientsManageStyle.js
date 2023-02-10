@@ -6,4 +6,5 @@ export const Contents = styled.div`
   align-items: center;
   margin-left: 2rem;
   margin-right: 1rem;
+  margin-bottom: 4rem;
 `;
