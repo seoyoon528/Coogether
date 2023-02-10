@@ -156,6 +156,7 @@ function RedirectPage({ history }) {
       dispatch(
         login({
           authenticated: true,
+          userSeq: res.data.user.userSeq,
           userAccountStatus: res.data.user.userAccountStatus,
           userCookCategory: res.data.user.userCookCategory,
           userCreateDate: res.data.user.userCreateDate,

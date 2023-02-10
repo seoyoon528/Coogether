@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+// userseq를 통해 파악할것
 function CheckUserNum({ thisRoom, userNum }) {
   const [nowPerson, setNowPerson] = useState(0);
   async function checkNum() {
