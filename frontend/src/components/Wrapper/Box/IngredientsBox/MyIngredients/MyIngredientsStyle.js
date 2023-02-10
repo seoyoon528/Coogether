@@ -50,6 +50,21 @@ export const Contents = styled.div`
   margin-bottom: 20px;
   padding: 12px;
   /* margin-left: 16rem; */
+  &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1.5px;
+    background: #febd2f;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #febd2f;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
 
   @media screen and (max-width: 1024px) {
     overflow-x: auto;

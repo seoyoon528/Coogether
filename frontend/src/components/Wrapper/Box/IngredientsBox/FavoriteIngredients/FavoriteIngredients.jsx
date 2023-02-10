@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
-import axios from 'axios';
 import { Contents, Circle, Button } from './FavoriteIngredientsStyle';
 // import StreamModal from '../../../../Modal/StreamModal/StreamModal';
 // import StreamModalPicture from '../../../../Modal/StreamModal/StreamModalPicture';
 
-function FavoriteIngredients({ favorite }) {
+function FavoriteIngredients({ favorite, sumbitIngredient, favIngredient }) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const handleClick = i => {
@@ -31,10 +30,18 @@ function FavoriteIngredients({ favorite }) {
           {i}
           {selectIngredientId === i && visible && (
             <>
-              <Button>
+              <Button
+                onClick={() => {
+                  favIngredient(i);
+                }}
+              >
                 <BookmarkRemoveIcon />
               </Button>
-              <Button>
+              <Button
+                onClick={() => {
+                  sumbitIngredient(i);
+                }}
+              >
                 <KitchenRoundedIcon />
               </Button>
             </>

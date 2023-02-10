@@ -21,7 +21,6 @@ function MyIngredientsManage() {
   const [fridge, setFridge] = useState([]);
   const [categoryFridges, setCategoryFridges] = useState([]);
   const [favorite, setFavorite] = useState([]);
-  const [favPatch, setFavPatch] = useState([]);
   const accessToken = useSelector(state => state.user.accessToken);
 
   const TEXT = <p>원하는 재료를 입력해주세요</p>;
@@ -59,39 +58,7 @@ function MyIngredientsManage() {
         `http://i8b206.p.ssafy.io:9000/myIngredient/create/fav/1/${target}`,
         {}
       );
-      let res = -1;
-      res = sendIngredient.data;
-      if (res === '') {
-        const response = await axios.get(
-          'http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/1',
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-      }
-      // 즐겨찾기 api
-      useEffect(() => {
-        const getData = async () => {
-          try {
-            const response = await axios.get(
-              'http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/1',
-              {
-                headers: {
-                  Authorization: `Bearer ${accessToken}`,
-                },
-              }
-            );
-            const a = [...response.data.map((v, a) => v)];
-            setFavorite(a.map(num => num.ingredient));
-            console.log(favorite);
-          } catch (e) {
-            console.log(e);
-          }
-        };
-        getData();
-      }, [category]);
+      console.log(sendIngredient);
     };
     inorOutIngredient(i.ingredientId);
   };
@@ -208,6 +175,8 @@ function MyIngredientsManage() {
       ingredientName={ingredientName}
       ingredientCategory={ingredientCategory}
       favorite={favorite}
+      sumbitIngredient={sumbitIngredient}
+      favIngredient={favIngredient}
     />,
     <MyIngredients
       category={category}
@@ -215,6 +184,8 @@ function MyIngredientsManage() {
       ingredientCategory={ingredientCategory}
       categoryFridges={categoryFridges}
       fridge={fridge}
+      sumbitIngredient={sumbitIngredient}
+      favIngredient={favIngredient}
     />,
     <AllIngredients
       ingredients={ingredients}

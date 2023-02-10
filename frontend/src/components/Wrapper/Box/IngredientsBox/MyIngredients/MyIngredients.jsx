@@ -10,7 +10,13 @@ import {
 } from './MyIngredientsStyle';
 import AllMyIrngredientsModal from '../../../../Modal/AllMyIngredientsModal/AllMyIngredientsModal';
 
-function MyIngredients({ category, fridge, categoryFridges }) {
+function MyIngredients({
+  category,
+  fridge,
+  categoryFridges,
+  sumbitIngredient,
+  favIngredient,
+}) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const handleClick = i => {
@@ -34,10 +40,18 @@ function MyIngredients({ category, fridge, categoryFridges }) {
           {i?.ingredient.ingredientName}
           {selectIngredientId === i && visible && (
             <>
-              <Button>
+              <Button
+                onClick={() => {
+                  sumbitIngredient(i);
+                }}
+              >
                 <BookmarkAddRoundedIcon />
               </Button>
-              <Button>
+              <Button
+                onClick={() => {
+                  favIngredient(i);
+                }}
+              >
                 <KitchenRoundedIcon />
               </Button>
             </>
