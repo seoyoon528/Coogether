@@ -22,15 +22,15 @@ import static javax.persistence.FetchType.LAZY;
 public class Recipe {
 
     @JsonIgnore
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<IngredientList> ingredientList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeStep> recipeStepList = new ArrayList<>();
 
     @JsonIgnore

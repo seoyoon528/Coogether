@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Stack } from '@mui/material';
 
 // Swiper
-import { Navigation, Mousewheel } from 'swiper';
+import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // eslint-disable-next-line
@@ -14,19 +14,17 @@ import 'swiper/css/navigation';
 // eslint-disable-next-line
 import 'swiper/css/pagination';
 
-// Style
-import { HistoryStyle, MyRecipeStyle } from './ProfileSwiperStyle';
+// Component
+import MyRecipe from './MyRecipe';
 
-// Image
-import StepCountImage from '../../../../assets/img/list.png';
-import IngredientCountImage from '../../../../assets/img/handbag.png';
-import CookCategoryImage from '../../../../assets/img/cake-dome.svg';
+// Style
+import { HistoryStyle } from './ProfileSwiperStyle';
 
 export default function ProfileSwiper(props) {
   const { histories, recipes } = props;
   return (
     <Swiper
-      modules={[Navigation, Mousewheel]}
+      modules={[Navigation]}
       spaceBetween={48}
       breakpoints={{
         1536: {
@@ -35,7 +33,6 @@ export default function ProfileSwiper(props) {
       }}
       slidesPerView={3}
       navigation
-      mousewheel
       // onSwiper={swiper => console.log(swiper)}
       // onSlideChange={() => console.log('slide change')}
     >
@@ -67,45 +64,8 @@ export default function ProfileSwiper(props) {
       {recipes &&
         recipes.map(recipe => {
           return (
-            <SwiperSlide key={recipe.id}>
-              <MyRecipeStyle>
-                <div className="my-recipe__image">
-                  <img src={recipe.image} alt="레시피 사진" />
-                </div>
-                <Stack spacing={3}>
-                  <div className="my-recipe__text">
-                    <h4 className="my-recipe__title">{recipe.recipeName}</h4>
-                    <Stack
-                      spacing={2}
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <div className="content__item">
-                        <div className="category">
-                          <img src={CookCategoryImage} alt="재료 아이콘" />
-                          <p>선호</p>
-                        </div>
-                        <p>한식</p>
-                      </div>
-                      <div className="content__item">
-                        <div className="category">
-                          <img src={IngredientCountImage} alt="재료 아이콘" />
-                          <p>재료</p>
-                        </div>
-                        <p>N개</p>
-                      </div>
-                      <div className="content__item">
-                        <div className="category">
-                          <img src={StepCountImage} alt="단계 아이콘" />
-                          <p>과정</p>
-                        </div>
-                        <p>N개</p>
-                      </div>
-                    </Stack>
-                  </div>
-                </Stack>
-              </MyRecipeStyle>
+            <SwiperSlide key={recipe.recipeId}>
+              <MyRecipe recipe={recipe} />
             </SwiperSlide>
           );
         })}

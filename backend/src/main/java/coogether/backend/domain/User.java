@@ -25,39 +25,39 @@ import java.util.List;
 public class User {
 
     @JsonIgnore
-    @OneToMany(mappedBy = "followingUser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "followingUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Follow> followingList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "followerUser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "followerUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Follow> followerList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "reporter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reporter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Report> reporterList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "reported", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reported", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Report> reportedList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MyIngredientManage> myIngredientManageList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<IngredientFav> ingredientFavList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cookingRoomHost", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cookingRoomHost", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CookingRoom> cookingRoomList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<History> historyList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> recipeList = new ArrayList<>();
 
 //    @JsonIgnore

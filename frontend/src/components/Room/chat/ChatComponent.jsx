@@ -19,6 +19,7 @@ export default class ChatComponent extends Component {
       ingredients: [],
       startTime: '',
       recipeIngredient: 'recipe',
+      cookingRoomName: '',
     };
     this.chatScroll = React.createRef();
 
@@ -74,6 +75,7 @@ export default class ChatComponent extends Component {
       }`
     );
     console.log(res);
+    this.setState({ cookingRoomName: res.data.cookingRoomName });
     const recipeId = res.data.recipe.recipeId;
     const resIng = await axios.get(
       `http://i8b206.p.ssafy.io:9000/ingredient/list/${recipeId}`
@@ -157,7 +159,7 @@ export default class ChatComponent extends Component {
     return (
       <C.WaitContainer>
         <C.WaitDivideBox>
-          <C.WaitTitle>오늘은 모두 요리사</C.WaitTitle>
+          <C.WaitTitle>{this.state.cookingRoomName}</C.WaitTitle>
 
           {/* 유저 정보 입력 공간, 사진도 같이 가져와야함 */}
           <C.WrapUserList>
@@ -275,22 +277,39 @@ export default class ChatComponent extends Component {
                         <img
                           src={this.props.userImg}
                           alt="채팅이미지"
-                          style={{ width: '30px', height: '30px' }}
+                          style={{
+                            width: '30px',
+                            height: '30px',
+                            marignBottom: '1vh',
+                          }}
                         />
                       ) : (
                         <img
                           src={this.props.remoteUsers[0].img}
                           alt="채팅이미지"
-                          style={{ width: '30px', height: '30px' }}
+                          style={{
+                            width: '30px',
+                            height: '30px',
+                            marignBottom: '1vh',
+                          }}
                         />
                       )}
-                      <div className="msg-detail">
-                        <div className="msg-info">
+                      <div
+                        className="msg-detail"
+                        style={{ marignBottom: '1vh' }}
+                      >
+                        <div
+                          className="msg-info"
+                          style={{ marginTop: '0.5vh' }}
+                        >
                           <p> {data.nickname}</p>
                         </div>
-                        <div className="msg-content">
+                        <div
+                          className="msg-content"
+                          style={{ marginTop: '1vh' }}
+                        >
                           <span className="triangle" />
-                          <p className="text">{data.message}</p>
+                          <C.TextBox>{data.message}</C.TextBox>
                         </div>
                       </div>
                     </div>
@@ -314,7 +333,9 @@ export default class ChatComponent extends Component {
           </C.ChatContentWrap>
         </C.WaitDivideBox>
         <C.ExitBox>
-          <Link to="/Main">나가기</Link>
+          <Link to="/Main" onClick={() => this.props.onChangeShow()}>
+            나가기
+          </Link>
           <button onClick={this.close}>시작하기</button>
         </C.ExitBox>
       </C.WaitContainer>

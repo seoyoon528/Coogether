@@ -124,9 +124,9 @@ public class CookingRoomService {
                 }
             }
             if (count > 0) {
-                cookingRoomCountDto.setCookingRoom(cookingRoom);
+                cookingRoomCountDto.setCookingRoomDto(new CookingRoomDto(cookingRoom));
                 cookingRoomCountDto.setIngredientCnt(count);
-                System.out.println("cookingRoomCountDto = " + cookingRoomCountDto.getCookingRoom().getCookingRoomId());
+                System.out.println("cookingRoomCountDto = " + cookingRoomCountDto.getCookingRoomDto().getCookingRoomId());
                 System.out.println("count = " + count);
                 cookingRoomCountDtos.add(cookingRoomCountDto);
             }
@@ -142,15 +142,20 @@ public class CookingRoomService {
     }
 
     // 시작 시간 임박 순 추천
-    public List<CookingRoom> getRecommendedRoomListByStartTime() {
+    public List<CookingRoomDto> getRecommendedRoomListByStartTime() {
+        List<CookingRoomDto> cookingRoomDtoList = new ArrayList<>();
         List<CookingRoom> cookingRoomList = cookingRoomRepository.findAll();
 
-        if (cookingRoomList.size() > 10) {
-            List<CookingRoom> cookingRoomsTop10 = cookingRoomList.subList(0, 10);
+        for (CookingRoom cookingRoom : cookingRoomList) {
+            cookingRoomDtoList.add(new CookingRoomDto(cookingRoom));
+        }
+
+        if (cookingRoomDtoList.size() > 10) {
+            List<CookingRoomDto> cookingRoomsTop10 = cookingRoomDtoList.subList(0, 10);
             return cookingRoomsTop10;
         }
 
-        return cookingRoomList;
+        return cookingRoomDtoList;
 
 //        List<CookingRoom> cookingRoomList = em.createQuery("select cr from CookingRoom cr where TIMEDIFF(cr.cookingRoomStartTime ,now()) > 0 order by cr.cookingRoomStartTime asc", CookingRoom.class)
 //                                                .setMaxResults(10)
@@ -159,16 +164,21 @@ public class CookingRoomService {
     }
 
     // 사용자 선호 요리 기반 추천
-    public List<CookingRoom> getRecommendedRoomListByUserCook(Long userSeq) {
+    public List<CookingRoomDto> getRecommendedRoomListByUserCook(Long userSeq) {
         User user = userRepository.findByUserSeq(userSeq);
+        List<CookingRoomDto> cookingRoomDtoList = new ArrayList<>();
         List<CookingRoom> cookingRoomList = cookingRoomRepository.findByCookingRoomByUserCook(enumConvertor(user.getUserCookCategory()));
 
+        for (CookingRoom cookingRoom : cookingRoomList) {
+            cookingRoomDtoList.add(new CookingRoomDto(cookingRoom));
+        }
+
         if (cookingRoomList.size() > 10) {
-            List<CookingRoom> cookingRoomListTop10 = cookingRoomList.subList(0, 10);
+            List<CookingRoomDto> cookingRoomListTop10 = cookingRoomDtoList.subList(0, 10);
             return cookingRoomListTop10;
         }
 
-        return cookingRoomList;
+        return cookingRoomDtoList;
 
 //        List<CookingRoom> cookingRoomList = em.createQuery("select cr from CookingRoom cr where cr.recipe.recipeCategory = :userCookCategory", CookingRoom.class)
 //                        .setParameter("userCookCategory", enumConvertor(user.getUserCookCategory()).toString())

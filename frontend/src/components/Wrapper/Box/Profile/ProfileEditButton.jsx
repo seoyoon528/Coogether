@@ -1,31 +1,46 @@
 import React from 'react';
+
+import { useParams } from 'react-router-dom';
+
 import axios from 'axios';
+
 // MUI
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 
 export default function ProfileEditButton(props) {
-  const { isEditActive, setIsEditActive, className, userInformation } = props;
+  const { userId } = useParams();
+  const {
+    isEditActive,
+    setIsEditActive,
+    className,
+    editData: { userNickname, userCookCategory, userIntroduce },
+  } = props;
+
+  const editProfile = async () => {
+    const requestInfo = {
+      url: `http://i8b206.p.ssafy.io:9000/user/update/${userId}`,
+      method: 'PATCH',
+      params: {
+        nickname: userNickname,
+        cookCategory: userCookCategory,
+        introduce: userIntroduce,
+      },
+    };
+    try {
+      const editResponse = await axios(requestInfo);
+      console.log(editResponse.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <button
       className={className}
-      onClick={async event => {
+      onClick={event => {
         event.preventDefault();
         if (isEditActive) {
-          const formData = new FormData();
-          const requestInfo = {
-            url: '',
-            method: 'POST',
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-            data: '',
-          };
-          try {
-            const response = await axios(requestInfo);
-          } catch (error) {
-            console.log(error);
-          }
+          editProfile();
           setIsEditActive(false);
         } else {
           setIsEditActive(true);
