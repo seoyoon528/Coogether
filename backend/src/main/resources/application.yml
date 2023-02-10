@@ -12,6 +12,10 @@ cloud:
 
 server:
   port: 9000
+  servlet:
+    context-path: /api
+
+
 
 # openvidu server 설정
 OPENVIDU_URL: https://coogether.shop:8443
@@ -33,6 +37,7 @@ spring:
 #    username: root
 #    password: 1234
   servlet:
+
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB

@@ -69,3 +69,28 @@ http://scripts.sil.org/OFL
   font-weight: 900;
   font-display: swap;
 }
+@font-face {
+  font-family: 'GmarketSans Bold';
+  src: url('../assets/font/GmarketSansBold.otf') format('opentype');
+  /* src: url('../assets/font/Pretendard-Black.woff2') format('woff2'); */
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GmarketSans Medium';
+  src: url('../assets/font/GmarketSansMedium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GmarketSans Light';
+  src: url('../assets/font/GmarketSansLight.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Jalnan';
+  src: url('../assets/font/JalnanOTF.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
