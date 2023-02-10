@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
-
-// MUI
-import { Stack } from '@mui/material';
+import React from 'react';
 
 // Swiper
 import { Navigation } from 'swiper';
