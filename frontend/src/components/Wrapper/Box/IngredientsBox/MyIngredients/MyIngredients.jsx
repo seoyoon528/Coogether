@@ -37,26 +37,27 @@ function MyIngredients({
             handleClick(i);
           }}
         >
-          {i?.ingredient.ingredientName}
-          {selectIngredientId === i && visible && (
-            <>
-              <Button
-                onClick={() => {
-                  sumbitIngredient(i);
-                }}
-              >
-                <BookmarkAddRoundedIcon />
-              </Button>
-              <Button
-                onClick={() => {
-                  favIngredient(i);
-                }}
-              >
-                <KitchenRoundedIcon />
-              </Button>
-            </>
-          )}
+          <img src={i?.ingredient.ingredientIcon} alt="icon" />
         </Circle>
+        {i?.ingredient.ingredientName}
+        {selectIngredientId === i && visible && (
+          <>
+            <Button
+              onClick={() => {
+                sumbitIngredient(i);
+              }}
+            >
+              <BookmarkAddRoundedIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                favIngredient(i);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
       </span>
     );
   });
@@ -118,7 +119,7 @@ function MyIngredients({
       </h4>
       {categoryFridge}
       <AppWrap>
-        <Button onClick={onClickButton}>냉장고 전체보기</Button>
+        <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
         {isOpen && (
           <AllMyIrngredientsModal
             open={isOpen}

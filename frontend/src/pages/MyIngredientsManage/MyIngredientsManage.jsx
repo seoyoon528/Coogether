@@ -16,12 +16,14 @@ function MyIngredientsManage() {
   const [ingredients, setIngredients] = useState([]);
   const [allIngredient, setAllIngredient] = useState([]);
   const [enterdItme, setEnterdItme] = useState('');
-  const [ingredientName, setIngredientName] = useState([]);
-  const [ingredientCategory, setIngredientCategory] = useState([]);
   const [fridge, setFridge] = useState([]);
   const [categoryFridges, setCategoryFridges] = useState([]);
   const [favorite, setFavorite] = useState([]);
+  const [searchIngre, setSearchIngre] = useState([]);
+  const [favIngre, setFavIngre] = useState([]);
+  const [myFridge, setMyFridge] = useState([]);
   const accessToken = useSelector(state => state.user.accessToken);
+  const isLogin = useSelector(state => state.user.userSeq);
 
   const TEXT = <p>원하는 재료를 입력해주세요</p>;
 
@@ -35,11 +37,7 @@ function MyIngredientsManage() {
       const allIngre = await axios({
         url: `http://i8b206.p.ssafy.io:9000/myIngredient/search/${enterdItme}`,
       });
-      console.log(allIngre.data);
-
-      setIngredientName([...allIngre.data.map(v => v.ingredientName)]);
-      setIngredientCategory([...allIngre.data.map(v => v.ingredientCategory)]);
-      // console.log(ingredient);
+      setSearchIngre([...allIngre.data.map(v => v)]);
     } catch (error) {
       console.log(error);
     }
@@ -55,20 +53,22 @@ function MyIngredientsManage() {
   const favIngredient = i => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        `http://i8b206.p.ssafy.io:9000/myIngredient/create/fav/1/${target}`,
+        `http://i8b206.p.ssafy.io:9000/myIngredient/create/fav/${isLogin}/${target}`,
         {}
       );
-      console.log(sendIngredient);
+      console.log(sendIngredient.data);
+      setFavIngre([...sendIngredient.data.map(v => v)]);
     };
     inorOutIngredient(i.ingredientId);
   };
+  console.log(favIngre);
 
   // 즐겨찾기 api
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await axios.get(
-          'http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/1',
+          `http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/${isLogin}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -89,13 +89,15 @@ function MyIngredientsManage() {
   const sumbitIngredient = i => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        `http://i8b206.p.ssafy.io:9000/myIngredient/update/1/${target}`,
+        `http://i8b206.p.ssafy.io:9000/myIngredient/update/${isLogin}/${target}`,
         {}
       );
+      setMyFridge([...sendIngredient.data.map(v => v)]);
       console.log(sendIngredient);
     };
     inorOutIngredient(i.ingredientId);
   };
+  console.log(setMyFridge);
 
   // 재료 전체 카테고리 분류 api
   useEffect(() => {
@@ -109,7 +111,7 @@ function MyIngredientsManage() {
           `http://i8b206.p.ssafy.io:9000/ingredient/list/total/${query}`
         );
         setIngredients([...response.data.map((v, a) => v)]);
-        // console.log(ingredients);
+        console.log(ingredients);
       } catch (e) {
         // console.log(e);
       }
@@ -125,7 +127,7 @@ function MyIngredientsManage() {
           'http://i8b206.p.ssafy.io:9000/ingredient/list/total'
         );
         setAllIngredient([...response.data.map((v, a) => v)]);
-        // console.log(allIngredient);
+        console.log(allIngredient);
       } catch (e) {
         console.log(e);
       }
@@ -138,7 +140,7 @@ function MyIngredientsManage() {
     const getData = async () => {
       try {
         const response = await axios.get(
-          'http://i8b206.p.ssafy.io:9000/myIngredient/list/total/1'
+          `http://i8b206.p.ssafy.io:9000/myIngredient/list/total/${isLogin}`
         );
         setFridge([...response.data.map((v, a) => v)]);
         console.log(fridge);
@@ -172,16 +174,13 @@ function MyIngredientsManage() {
   const components = [
     <FavoriteIngredients
       category={category}
-      ingredientName={ingredientName}
-      ingredientCategory={ingredientCategory}
       favorite={favorite}
       sumbitIngredient={sumbitIngredient}
       favIngredient={favIngredient}
+      favIngre={favIngre}
     />,
     <MyIngredients
       category={category}
-      ingredientName={ingredientName}
-      ingredientCategory={ingredientCategory}
       categoryFridges={categoryFridges}
       fridge={fridge}
       sumbitIngredient={sumbitIngredient}
@@ -191,8 +190,6 @@ function MyIngredientsManage() {
       ingredients={ingredients}
       allIngredient={allIngredient}
       category={category}
-      ingredientName={ingredientName}
-      ingredientCategory={ingredientCategory}
       favIngredient={favIngredient}
       sumbitIngredient={sumbitIngredient}
     />,
@@ -218,7 +215,7 @@ function MyIngredientsManage() {
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1}>
           <Box gridColumn="span 1" />
           <Box gridColumn="span 10">
-            <SearchIngredient ingredientName={ingredientName} />
+            <SearchIngredient searchIngre={searchIngre} />
           </Box>
           <Box gridColumn="span 1" />
         </Box>

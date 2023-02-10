@@ -12,13 +12,20 @@ export const Contents = styled.div`
   p {
     display: inline;
   }
-
   &::-webkit-scrollbar {
     width: 0.3rem;
   }
   &::-webkit-scrollbar-thumb {
-    border-radius: 2px;
+    border-radius: 1.5px;
     background: #febd2f;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #febd2f;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
   }
   @media screen and (max-width: 1024px) {
     overflow-x: auto;
@@ -31,10 +38,23 @@ export const Circle = styled.button`
   background-color: #ffffff;
   font-size: smaller;
   text-align: center;
-  line-height: 40px;
+  line-height: 60px;
   /* margin-bottom: 1rem; */
   margin: 0.8rem;
   /* z-index: 1; */
+
+  p {
+    position: absolute;
+    left: 11.1%;
+    bottom: 30%;
+    text-align: center;
+  }
+
+  img {
+    width: 80%;
+    height: 80%;
+    align-items: center;
+  }
 `;
 export const Button = styled.button`
   font-size: xx-small;

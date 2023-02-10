@@ -75,7 +75,7 @@ export const Circle = styled.button`
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #febd2f;
+  background-color: #ffffff;
   font-size: smaller;
   text-align: center;
   line-height: 60px;
@@ -91,5 +91,10 @@ export const Circle = styled.button`
     left: 11.1%;
     bottom: 30%;
     text-align: center;
+  }
+
+  img {
+    width: 80%;
+    height: 80%;
   }
 `;

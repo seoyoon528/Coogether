@@ -4,7 +4,7 @@ import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import { useDispatch, useSelector } from 'react-redux';
 import dummy from '../ingredients.json';
-import { Contents, Circle, Button, Wrapper } from './AllIngredientsStyle';
+import { Contents, Circle, Button, Span } from './AllIngredientsStyle';
 
 function AllIngredients({
   category,
@@ -60,60 +60,63 @@ function AllIngredients({
             handleClick(i);
           }}
         >
-          {selectIngredientId === i.ingredientId && visible && (
-            <>
-              <Button
-                onClick={() => {
-                  favIngredient(i);
-                }}
-              >
-                <BookmarkAddRoundedIcon />
-              </Button>
-              <Button
-                onClick={() => {
-                  sumbitIngredient(i);
-                }}
-              >
-                <KitchenRoundedIcon />
-              </Button>
-            </>
-          )}
-          {i.ingredientName}
+          <img src={i.ingredientIcon} alt="icon" />
         </Circle>
+        {selectIngredientId === i.ingredientId && visible && (
+          <>
+            <Button
+              onClick={() => {
+                favIngredient(i);
+              }}
+            >
+              <BookmarkAddRoundedIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                sumbitIngredient(i);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
+        {i.ingredientName}
       </span>
     );
   });
 
   const AllIngredient = allIngredient.map(e => {
     return (
-      <span>
+      <Span>
         <Circle
           key={e}
           onClick={() => {
             handleClick(e);
           }}
         >
-          {selectIngredientId === e.ingredientId && visible && (
-            <>
-              <Button
-                onClick={() => {
-                  favIngredient(e);
-                }}
-              >
-                <BookmarkAddRoundedIcon />
-              </Button>
-              <Button
-                onClick={() => {
-                  sumbitIngredient(e);
-                }}
-              >
-                <KitchenRoundedIcon />
-              </Button>
-            </>
-          )}
-          {e.ingredientName}
+          <img src={e.ingredientIcon} alt="icon" />
         </Circle>
-      </span>
+        {selectIngredientId === e.ingredientId && visible && (
+          <>
+            <Button
+              onClick={() => {
+                favIngredient(e);
+              }}
+            >
+              <BookmarkAddRoundedIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                sumbitIngredient(e);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
+        {e.ingredientName}
+        {/* </Circle> */}
+      </Span>
     );
   });
 

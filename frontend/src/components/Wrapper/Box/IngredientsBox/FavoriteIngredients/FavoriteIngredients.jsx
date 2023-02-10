@@ -14,39 +14,36 @@ function FavoriteIngredients({ favorite, sumbitIngredient, favIngredient }) {
     setVisible(!visible);
   };
 
-  const favoriteName = favorite.map(num => {
-    return num.ingredientName;
-  });
-
-  const favoriteIngredient = favoriteName.map(i => {
+  const favoriteIngredient = favorite.map(i => {
     return (
       <span>
         <Circle
-          key={i}
+          key={i.ingredientId}
           onClick={() => {
-            handleClick(i);
+            handleClick(i.ingredientId);
           }}
         >
-          {i}
-          {selectIngredientId === i && visible && (
-            <>
-              <Button
-                onClick={() => {
-                  favIngredient(i);
-                }}
-              >
-                <BookmarkRemoveIcon />
-              </Button>
-              <Button
-                onClick={() => {
-                  sumbitIngredient(i);
-                }}
-              >
-                <KitchenRoundedIcon />
-              </Button>
-            </>
-          )}
+          <img src={i.ingredientIcon} alt="icon" />
         </Circle>
+        {i.ingredientName}
+        {selectIngredientId === i && visible && (
+          <>
+            <Button
+              onClick={() => {
+                favIngredient(i);
+              }}
+            >
+              <BookmarkRemoveIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                sumbitIngredient(i);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
       </span>
     );
   });
