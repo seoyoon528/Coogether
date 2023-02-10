@@ -6,15 +6,17 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import userReducer from './AuthSlice';
+import preferReducer from './PreferCookSlice';
 // getDefaultMiddleware 는 persistReducer에러를 없애기 위해 적용
 const reducers = combineReducers({
   user: userReducer,
+  prefer: preferReducer,
 });
 // persisit 설정
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'prefer'],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 
