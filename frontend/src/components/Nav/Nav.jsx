@@ -30,9 +30,7 @@ function Nav() {
           <Box gridColumn="span 1">
             <Navstyle to="/MyIngredients">냉장고</Navstyle>
           </Box>
-          <Box gridColumn="span 1">
-            <Navstyle to="/Rank">랭킹</Navstyle>
-          </Box>
+          <Box gridColumn="span 1" />
           <Box gridColumn="span 1" />
           <Box gridColumn="span 1" />
           <Box gridColumn="span 1" />

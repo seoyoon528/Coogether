@@ -35,7 +35,7 @@ function MyIngredientsManage() {
   const getData = async () => {
     try {
       const allIngre = await axios({
-        url: `http://i8b206.p.ssafy.io:9000/myIngredient/search/${enterdItme}`,
+        url: `http://i8b206.p.ssafy.io:9000/api/myIngredient/search/${enterdItme}`,
       });
       setSearchIngre([...allIngre.data.map(v => v)]);
     } catch (error) {
@@ -53,7 +53,7 @@ function MyIngredientsManage() {
   const favIngredient = i => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        `http://i8b206.p.ssafy.io:9000/myIngredient/create/fav/${isLogin}/${target}`,
+        `http://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
         {}
       );
       console.log(sendIngredient.data);
@@ -68,7 +68,7 @@ function MyIngredientsManage() {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `http://i8b206.p.ssafy.io:9000/myIngredient/list/fav/${isLogin}`,
+          `http://i8b206.p.ssafy.io:9000/api/myIngredient/list/fav/${isLogin}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -89,7 +89,7 @@ function MyIngredientsManage() {
   const sumbitIngredient = i => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        `http://i8b206.p.ssafy.io:9000/myIngredient/update/${isLogin}/${target}`,
+        `http://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
         {}
       );
       setMyFridge([...sendIngredient.data.map(v => v)]);
@@ -108,7 +108,7 @@ function MyIngredientsManage() {
           query = '';
         }
         const response = await axios.get(
-          `http://i8b206.p.ssafy.io:9000/ingredient/list/total/${query}`
+          `http://i8b206.p.ssafy.io:9000/api/ingredient/list/total/${query}`
         );
         setIngredients([...response.data.map((v, a) => v)]);
         console.log(ingredients);
@@ -124,7 +124,7 @@ function MyIngredientsManage() {
     const getAllData = async () => {
       try {
         const response = await axios.get(
-          'http://i8b206.p.ssafy.io:9000/ingredient/list/total'
+          'http://i8b206.p.ssafy.io:9000/api/ingredient/list/total'
         );
         setAllIngredient([...response.data.map((v, a) => v)]);
         console.log(allIngredient);
@@ -140,7 +140,7 @@ function MyIngredientsManage() {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `http://i8b206.p.ssafy.io:9000/myIngredient/list/total/${isLogin}`
+          `http://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/${isLogin}`
         );
         setFridge([...response.data.map((v, a) => v)]);
         console.log(fridge);
@@ -160,7 +160,7 @@ function MyIngredientsManage() {
           query = '';
         }
         const response = await axios.get(
-          `http://i8b206.p.ssafy.io:9000/ingredient/list/my/1/${query}`
+          `http://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`
         );
         setCategoryFridges([...response.data.map((v, a) => v)]);
         console.log(categoryFridges);
@@ -185,6 +185,7 @@ function MyIngredientsManage() {
       fridge={fridge}
       sumbitIngredient={sumbitIngredient}
       favIngredient={favIngredient}
+      myFridge={myFridge}
     />,
     <AllIngredients
       ingredients={ingredients}
