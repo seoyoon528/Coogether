@@ -31,6 +31,8 @@ export const KingWrapper = styled.div`
     font-size: 12px;
     line-height: auto;
     color: #4f4f4f;
+    font-family: Pretendard Variable;
+    font-weight: 500;
   }
   .chefhat {
     margin-left: 10px;
@@ -66,8 +68,11 @@ export const StartTimeWrapper = styled.div`
   width: max-content;
   min-width: 5rem;
   background-color: rgba(0, 0, 0, 0.5);
+  padding: 0 5px;
 
   & p {
+    font-family: 'Pretendard Variable';
+    font-weight: 600;
     text-align: center;
     vertical-align: middle;
     font-size: 14px;
@@ -87,11 +92,12 @@ export const JoinUserWrapper = styled.div`
   /* width: 8rem; */
   border-radius: 0.2rem;
   background-color: rgba(0, 0, 0, 0.5);
-
   width: max-content;
   min-width: 5rem;
-
+  padding: 0 5px;
   & p {
+    font-family: 'Pretendard Variable';
+    font-weight: 600;
     text-align: center;
     vertical-align: middle;
     font-size: 14px;
@@ -113,33 +119,8 @@ export const TagWrapper = styled.div`
   text-align: center;
   vertical-align: middle;
   line-height: auto;
-  color: #ffffff;
+  color: black;
   width: max-content;
   padding: 0 5px;
-`;
-
-export const StyledRoot = styled.div`
-  width: 128.8rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: -8.8rem;
-  button {
-    padding: 0;
-    background: none;
-    border: none;
-  }
-  .swiper {
-    &-wrapper,
-    &-container {
-      width: 120rem;
-      margin: 0;
-    }
-    &-container {
-      margin: 0 3.2rem;
-    }
-    &-button-disabled {
-      visibility: hidden;
-    }
-  }
+  font-weight: 600;
 `;

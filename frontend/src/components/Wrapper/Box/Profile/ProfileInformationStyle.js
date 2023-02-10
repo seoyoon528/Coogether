@@ -25,6 +25,8 @@ export const ProfileInformationStyle = styled.form`
     font-size: 3.2rem;
 
     width: 50%;
+
+    outline: none;
   }
 
   .form__nickname input.active {
@@ -36,13 +38,20 @@ export const ProfileInformationStyle = styled.form`
     margin-top: 0.8rem;
   }
 
-  .follow p {
+  .follow-button-box {
+    display: flex;
+    align-items: center;
+  }
+
+  .follow-button-box button {
+    font-family: 'Pretendard Regular';
+    font-size: 1.6rem;
     color: #505050;
   }
 
-  .follow p span {
+  .follow-button-box span {
     font-family: 'Pretendard Medium';
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: black;
 
     margin-left: 0.8rem;
@@ -100,6 +109,8 @@ export const ProfileInformationStyle = styled.form`
 
     font-family: 'Pretendard Regular';
     font-size: 1.6rem;
+
+    outline: none;
   }
 
   .message__input.exist {

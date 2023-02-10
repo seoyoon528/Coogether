@@ -30,7 +30,12 @@ public class IngredientFavController {
 
         ingredientFavService.addFavIngredient(userSeq,ingredientId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        List<SimpleIngredientFavDto> result = new ArrayList<>();
+        List<IngredientFav> ingredientFavs = ingredientFavService.myIngredientTotalListByCategoryId(userSeq);
+        for (IngredientFav idf : ingredientFavs)
+            result.add(new SimpleIngredientFavDto(idf));
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @ApiOperation(value = "내 즐겨찾기 재료 목록 반환")

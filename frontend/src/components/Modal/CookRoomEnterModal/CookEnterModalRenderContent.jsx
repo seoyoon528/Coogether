@@ -7,7 +7,7 @@ export default function CookEnterModalRenderContent(props) {
 
   const buyIngredient = ingredient => {
     window.open(
-      `https://www.coupang.com/np/search?q=${ingredient}`,
+      `https://front.homeplus.co.kr/express/search?entry=direct&keyword=${ingredient}`,
       '_blank',
       'noopener, noreferrer'
     );
