@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import imgInput from '../../../assets/icon/imgInput.svg';
 import * as SF from './StreamFinishModalStyle';
 
-function StreamFinishModal() {
+function StreamFinishModal({ onChangeShow }) {
+  const history = useHistory();
   const [nowStep, setNowStep] = useState(0);
   const [imgURL, setImgURL] = useState('');
   const inputRef = useRef(null);
@@ -49,6 +51,34 @@ function StreamFinishModal() {
     inputRef.current.click();
   }, []);
 
+  // 전체화면 설정
+  function openFullScreenMode() {
+    if (document.documentElement.requestFullscreen)
+      document.documentElement.requestFullscreen();
+    else if (document.documentElement.webkitRequestFullscreen)
+      // Chrome, Safari (webkit)
+      document.documentElement.webkitRequestFullscreen();
+    else if (document.documentElement.mozRequestFullScreen)
+      // Firefox
+      document.documentElement.mozRequestFullScreen();
+    else if (document.documentElement.msRequestFullscreen)
+      // IE or Edge
+      document.documentElement.msRequestFullscreen();
+  }
+
+  // 전체화면 해제
+  function closeFullScreenMode() {
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.webkitExitFullscreen)
+      // Chrome, Safari (webkit)
+      document.webkitExitFullscreen();
+    else if (document.mozCancelFullScreen)
+      // Firefox
+      document.mozCancelFullScreen();
+    else if (document.msExitFullscreen)
+      // IE or Edge
+      document.msExitFullscreen();
+  }
   return (
     <>
       {nowStep === 0 ? (
@@ -131,7 +161,15 @@ function StreamFinishModal() {
             >
               이전
             </SF.NexBeBten>
-            <SF.NexBeBten>제거</SF.NexBeBten>
+            <SF.NexBeBten
+              onClick={() => {
+                onChangeShow();
+                closeFullScreenMode();
+                history.push('/Main');
+              }}
+            >
+              제거
+            </SF.NexBeBten>
           </SF.NextBeforWrap>
         </SF.FinishWrap>
       )}

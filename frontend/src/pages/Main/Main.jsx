@@ -9,7 +9,7 @@ import Banner from '../../components/Banner/Banner';
 import StreamSwiper from '../../components/Wrapper/Box/StreamBox/StreamSwiper';
 import * as S from './MainStyle';
 
-function Main() {
+function Main({ onChangeShow }, isShow) {
   const [first, setFirst] = useState([]);
   const [second, setSecond] = useState([]);
   const [third, setThird] = useState([]);
@@ -62,6 +62,10 @@ function Main() {
   };
   useEffect(() => {
     getData();
+    // nav와 bottom 이 없을 시, 다시 생성함
+    if (!isShow) {
+      onChangeShow();
+    }
   }, []);
   return (
     <>

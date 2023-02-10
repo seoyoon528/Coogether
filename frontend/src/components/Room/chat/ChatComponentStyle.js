@@ -65,7 +65,7 @@ export const ExitBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 100%;
   height: 14vh;
   padding: 5vh 5vw;
   & > a {
@@ -241,9 +241,11 @@ export const MsgWrap = styled.div`
   }
   & .messageleft {
     text-align: left;
+    margin-top: 2vh;
   }
   & .messageright {
     text-align: right;
+    margin-top: 2vh;
   }
 
   & .user-img {
@@ -273,4 +275,9 @@ export const InputTxt = styled.div`
     height: 5vh;
     margin: 0 0;
   }
+`;
+export const TextBox = styled.span`
+  border-radius: 9px;
+  background-color: #c8ffe8;
+  font-size: 3vh;
 `;

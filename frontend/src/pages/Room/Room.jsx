@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Background } from './RoomStyle';
 import CookRoom from '../../components/Room/CookRoom';
 
-function Room() {
+function Room({ onChangeShow }) {
+  console.log(onChangeShow);
+  useEffect(() => {
+    onChangeShow();
+  }, []);
   const params = useParams();
   const userInfo = useSelector(state => state.user);
   console.log(userInfo);
@@ -19,7 +23,11 @@ function Room() {
 
   return (
     <Background>
-      <CookRoom roomId={roomId} userInfo={userInfo} />
+      <CookRoom
+        roomId={roomId}
+        userInfo={userInfo}
+        onChangeShow={onChangeShow}
+      />
     </Background>
   );
 }
