@@ -23,7 +23,7 @@ function Main({ onChangeShow }, isShow) {
     try {
       const secondData = await axios({
         // 추후 수정
-        url: 'http://i8b206.p.ssafy.io:9000/room/recommend/starttime',
+        url: 'http://i8b206.p.ssafy.io:9000/api/room/recommend/starttime',
         // url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
       if (secondData.data.length > 0) {
@@ -34,7 +34,7 @@ function Main({ onChangeShow }, isShow) {
         // 첫번째 데이터
         const firstData = await axios({
           // 추후 수정
-          url: `http://i8b206.p.ssafy.io:9000/room/recommend/myingredient/${userSeq}`,
+          url: `http://i8b206.p.ssafy.io:9000/api/room/recommend/myingredient/${userSeq}`,
           headers: { Authorization: `Bearer ${userSeq}` },
           // url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
         });
@@ -46,7 +46,7 @@ function Main({ onChangeShow }, isShow) {
         // 세번째 데이터
         const thirdData = await axios({
           // 추후 수정
-          url: `http://i8b206.p.ssafy.io:9000/room/recommend/usercook/${userSeq}`,
+          url: `http://i8b206.p.ssafy.io:9000/api/room/recommend/usercook/${userSeq}`,
           headers: { Authorization: `Bearer ${userSeq}` },
           // url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
         });
