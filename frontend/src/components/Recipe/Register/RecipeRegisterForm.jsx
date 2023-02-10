@@ -69,7 +69,7 @@ function RecipeRegisterForm() {
     formData.append('file', recipeImg);
 
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/recipe/create/${DUMMY_USER_ID}`,
+      url: `http://i8b206.p.ssafy.io:9000/api/recipe/create/${DUMMY_USER_ID}`,
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',

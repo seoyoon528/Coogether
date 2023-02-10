@@ -12,7 +12,7 @@ function SearchMakeCookRoom(props) {
   useEffect(async () => {
     try {
       const getRecipe = await axios({
-        url: 'http://i8b206.p.ssafy.io:9000/recipe/list/total',
+        url: 'http://i8b206.p.ssafy.io:9000/api/recipe/list/total',
       });
       setRecipe(getRecipe.data);
     } catch (error) {
