@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useSelector } from 'react-redux';
+
+import axios from 'axios';
 
 // MUI
-import { Grid, Select, MenuItem, styled, InputBase } from '@mui/material';
+import {
+  Grid,
+  Select,
+  MenuItem,
+  styled,
+  InputBase,
+  Stack,
+} from '@mui/material';
 
 // Component
 import ChefHat from '../../../Rank/ChefHat';
 import ProfileEditButton from './ProfileEditButton';
+import FollowModal from '../../../Modal/Follow/FollowModal';
 
+// Image
 import LikeIcon from '../../../../assets/img/cake-dome.svg';
+import FireIcon from '../../../../assets/img/fire.png';
 
 // Style
 import { ProfileInformationStyle } from './ProfileInformationStyle';
 
+// Select input Style
 const CategoryInput = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     display: 'flex',
@@ -33,6 +48,8 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
   '& #profile-cook-category-inactive': {
     border: 'none',
     padding: 0,
+
+    cursor: 'default',
   },
 
   svg: {
@@ -41,9 +58,17 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function ProfileInformation(props) {
-  const { userInformation, isAuthor, isEditActive, setIsEditActive, dispatch } =
-    props;
-
+  // Props
+  const {
+    userInformation,
+    isAuthor,
+    isEditActive,
+    setIsEditActive,
+    dispatch,
+    loginUserSeq,
+    profileUserSeq,
+  } = props;
+  // 유저 정보 나누기 (userInformation 변수를 사용하기 위해서 다시 나눔)
   const {
     userNickname,
     userCookCategory,
@@ -54,6 +79,43 @@ export default function ProfileInformation(props) {
     rank,
   } = userInformation;
 
+  // Redux
+  const accessToken = useSelector(state => state.user.accessToken);
+
+  // useState
+  const [isFollowModalOpened, setIsFollowModalOpened] = useState(false);
+  const [isFollowed, setIsFollowed] = useState();
+  const [clickedContentName, setClickedContentName] = useState('follower'); // 팔로워 선택 or 팔로잉 선택
+  const [followerCount, setFollowerCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+
+  // useEffect
+  useEffect(() => {
+    // follower 수 체크 및 팔로우 여부 확인
+    if (followerList.length > 0) {
+      setFollowerCount(
+        followerList.filter(({ followFlag }) => {
+          return followFlag === 'CONNECT';
+        }).length
+      );
+      // 팔로우 여부 확인
+      setIsFollowed(
+        followerList.some(({ followId, followFlag }) => {
+          return followId === loginUserSeq && followFlag === 'CONNECT';
+        })
+      );
+    }
+    // following 수 체크
+    if (followingList.length > 0) {
+      setFollowingCount(
+        followingList.filter(({ followFlag }) => {
+          return followFlag === 'CONNECT';
+        }).length
+      );
+    }
+  }, [followerList, followingList]);
+
+  // select options
   const cookCategories = [
     { value: 'KOREAN', label: '한식' },
     { value: 'CHINESE', label: '중식' },
@@ -66,9 +128,46 @@ export default function ProfileInformation(props) {
     { value: 'NONE', label: '없음' },
   ];
 
+  // 선호 분야 변환(한글)
   const selectedCookCategory = cookCategories.filter(category => {
     return userCookCategory === category.value;
   })[0].label;
+
+  // Function
+  // 팔로우 함수
+  const follow = () => {
+    setIsFollowed(false);
+    setFollowerCount(prev => {
+      return prev - 1;
+    });
+  };
+  // 언팔로우 함수
+  const unfollow = () => {
+    setIsFollowed(true);
+    setFollowerCount(prev => {
+      return prev + 1;
+    });
+  };
+  // 팔로우 버튼 클릭
+  const clickFollowHandler = async () => {
+    const requestInfo = {
+      url: `http://i8b206.p.ssafy.io:9000/api/follow/${loginUserSeq}/${profileUserSeq}`, // 팔로잉 REST API
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    try {
+      await axios(requestInfo);
+      if (isFollowed) {
+        follow();
+      } else {
+        unfollow();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <ProfileInformationStyle>
@@ -88,7 +187,7 @@ export default function ProfileInformation(props) {
               value={userNickname}
               onChange={event => {
                 const userNickname = event.target.value;
-                dispatch({ type: 'userNickname', userNickname });
+                dispatch({ type: 'edit', payload: { userNickname } });
               }}
               readOnly={!isEditActive}
               maxLength="10"
@@ -98,17 +197,67 @@ export default function ProfileInformation(props) {
               <ProfileEditButton
                 setIsEditActive={setIsEditActive}
                 isEditActive={isEditActive}
-                userInformation={userInformation}
+                editData={{ userNickname, userCookCategory, userIntroduce }}
                 className="form__button"
               />
             )}
           </div>
           {/* 팔로우 */}
+          <FollowModal
+            open={isFollowModalOpened}
+            onClose={setIsFollowModalOpened}
+            followerList={followerList}
+            followingList={followingList}
+            clickedContentName={clickedContentName}
+            loginUserSeq={loginUserSeq}
+          />
           <div className="follow">
-            <p>
-              팔로워 <span>{followerList.length}</span> | 팔로잉{' '}
-              <span>{followingList.length}</span>
-            </p>
+            <Stack spacing={2} direction="row">
+              <div
+                className="follow-button-box"
+                onClick={() => {
+                  setClickedContentName('follower');
+                  setIsFollowModalOpened(true);
+                }}
+                aria-hidden
+              >
+                <button type="button">팔로워</button>
+                <span className="follow-value">{followerCount}</span>
+              </div>
+              <div
+                className="follow-button-box"
+                onClick={() => {
+                  setClickedContentName('following');
+                  setIsFollowModalOpened(true);
+                }}
+                aria-hidden
+              >
+                <button type="button">팔로잉</button>
+                <span className="follow-value">{followingCount}</span>
+              </div>
+              <div className="follow-click-button">
+                {!isFollowed && loginUserSeq && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clickFollowHandler();
+                    }}
+                  >
+                    팔로우
+                  </button>
+                )}
+                {isFollowed && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clickFollowHandler();
+                    }}
+                  >
+                    팔로우 취소
+                  </button>
+                )}
+              </div>
+            </Stack>
           </div>
         </Grid>
         {/* 랭크, 온도, 선호 분야 */}
@@ -130,10 +279,7 @@ export default function ProfileInformation(props) {
                 <Grid item xs={4}>
                   <div className="item">
                     <div className="icon">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/637/637651.png"
-                        alt="온도 아이콘"
-                      />
+                      <img src={FireIcon} alt="온도 아이콘" />
                       <p>온도</p>
                     </div>
                     <div className="user-information-value-box">
@@ -162,8 +308,8 @@ export default function ProfileInformation(props) {
                           }
                         )[0].value;
                         dispatch({
-                          type: 'userCookCategory',
-                          userCookCategory,
+                          type: 'edit',
+                          payload: { userCookCategory },
                         });
                       }}
                       id={`profile-cook-category${
@@ -206,7 +352,7 @@ export default function ProfileInformation(props) {
               value={userIntroduce}
               onChange={event => {
                 const userIntroduce = event.target.value;
-                dispatch({ type: 'userIntroduce', userIntroduce });
+                dispatch({ type: 'edit', payload: { userIntroduce } });
               }}
               placeholder="상태 메시지를 입력하세요"
             />

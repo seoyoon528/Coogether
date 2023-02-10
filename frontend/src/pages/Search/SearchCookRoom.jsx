@@ -9,13 +9,13 @@ import * as S from './SearchCookRoomStyle';
 
 /** 해당 위치에서 api 요청(요리방리스트 get) 보내면 될 것 같음 */
 
-const LIST_URL = 'http://i8b206.p.ssafy.io:9000/room/list';
-const SEARCH_URL = 'http://i8b206.p.ssafy.io:9000/room/search';
+const LIST_URL = 'http://i8b206.p.ssafy.io:9000/api/room/list';
+const SEARCH_URL = 'http://i8b206.p.ssafy.io:9000/api/room/search';
 
 function SearchCookRoom() {
   const [cookRoom, setCookRoom] = useState([]);
   const [enterdItme, setEnterdItme] = useState('');
-  const TEXT = <p>참여하고 싶은 요리방 이름을 입력하세요</p>;
+  const TEXT = <p>만들고 싶은 요리를 검색하세요</p>;
 
   // 로딩중인지 체크
   const [load, setLoad] = useState(null);

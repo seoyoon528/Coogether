@@ -35,7 +35,7 @@ function MyIngredientsManage() {
   const getData = async () => {
     try {
       const allIngre = await axios({
-        url: `http://i8b206.p.ssafy.io:9000/myIngredient/search/${enterdItme}`,
+        url: `http://i8b206.p.ssafy.io:9000/api/myIngredient/search/${enterdItme}`,
       });
       setSearchIngre([...allIngre.data.map(v => v)]);
     } catch (error) {

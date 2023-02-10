@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Box } from '@mui/material';
 
 import { Background, H3, Button } from './MakeCookRoomStyle';
 
-import NextBtn from '../../components/Btn/NextBtn/NextBtn';
 import MakeBasicInfo from '../../components/Wrapper/Box/MakeCookRoomBox/MakeBasicInfo';
 import MakeDetailInfo from '../../components/Wrapper/Box/MakeCookRoomBox/MakeDetailInfo';
 import StreamModal from '../../components/Modal/StreamModal/StreamModal';
@@ -14,6 +14,7 @@ import MakeTimeInput from '../../components/Wrapper/Box/MakeCookRoomBox/MakeTime
 import SearchMakeCookRoom from '../../components/Wrapper/Box/MakeCookRoomBox/SearchMakeCookRoom';
 
 function MakeCoomRoom() {
+  const userSeq = useSelector(state => state.user.userSeq);
   const history = useHistory();
   // 방송 제목
   const [streamName, setStreamName] = useState('');
@@ -49,10 +50,12 @@ function MakeCoomRoom() {
     // console.log(streamName, streamTime, cookImage, announce, selectRecipe);
     try {
       const postData = await axios({
-        url: `http://i8b206.p.ssafy.io:9000/room/create/1/${selectRecipe.recipeId}`,
-        // url: `http://i8b206.p.ssafy.io:9000/room/create/${user}/${selectRecipe.recipeId}`,
+        url: `http://i8b206.p.ssafy.io:9000/api/room/create/${userSeq}/${selectRecipe.recipeId}`,
         method: 'POST',
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userSeq}`,
+        },
         data: formData,
       });
       // console.log(postData.data);

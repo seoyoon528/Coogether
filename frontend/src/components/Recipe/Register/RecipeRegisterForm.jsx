@@ -15,7 +15,7 @@ import RecipeOrders from './RecipeOrders';
 import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 function RecipeRegisterForm() {
-  const history = useHistory;
+  const history = useHistory();
 
   const DUMMY_USER_ID = 1;
 
@@ -34,9 +34,7 @@ function RecipeRegisterForm() {
   ]);
 
   // form 제출
-  const recipeSubmitHandler = async event => {
-    event.preventDefault();
-
+  const recipeSubmitHandler = async () => {
     // 전송하는 데이터 가공 및 변수명 변경
     const recipeName = cookNameRef.current.value;
     const recipeCategory = selectedCategory;
@@ -71,7 +69,7 @@ function RecipeRegisterForm() {
     formData.append('file', recipeImg);
 
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/recipe/create/${DUMMY_USER_ID}`,
+      url: `http://i8b206.p.ssafy.io:9000/api/recipe/create/${DUMMY_USER_ID}`,
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -81,6 +79,7 @@ function RecipeRegisterForm() {
 
     try {
       const response = await axios(requestInfo);
+      console.log(response.data);
       history.replace(`/profile/${DUMMY_USER_ID}`);
     } catch (error) {
       console.log(error);
@@ -109,7 +108,12 @@ function RecipeRegisterForm() {
             gridColumn="span 9"
             sx={{ display: 'flex', justifyContent: 'center' }}
           >
-            <button>등록</button>
+            <NextBtn
+              size="medium"
+              name="등록"
+              onClick={recipeSubmitHandler}
+              color="yellow"
+            />
           </Box>
         </Box>
       </Stack>

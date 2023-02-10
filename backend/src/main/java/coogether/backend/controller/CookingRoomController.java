@@ -105,15 +105,14 @@ public class CookingRoomController {
     @ApiOperation(value = "요리방 추천 - 시작 시간 임박순")
     @GetMapping("/room/recommend/starttime")
     public ResponseEntity roomListByRecommendStartTime() {
-
-        List<CookingRoom> cookingRoomList = cookingRoomService.getRecommendedRoomListByStartTime();
+        List<CookingRoomDto> cookingRoomList = cookingRoomService.getRecommendedRoomListByStartTime();
         return ResponseEntity.status(HttpStatus.OK).body(cookingRoomList);
     }
 
     @ApiOperation(value = "요리방 추천 - 사용자 선호 요리 기반")
     @GetMapping("/room/recommend/usercook/{userSeq}")
     public ResponseEntity roomListByRecommendUserCook(@PathVariable("userSeq") Long userSeq) {
-        List<CookingRoom> cookingRoomList = cookingRoomService.getRecommendedRoomListByUserCook(userSeq);
+        List<CookingRoomDto> cookingRoomList = cookingRoomService.getRecommendedRoomListByUserCook(userSeq);
         return ResponseEntity.status(HttpStatus.OK).body(cookingRoomList);
     }
 }

@@ -22,7 +22,7 @@ var localUser = new UserModel();
 // 서버 URL 지정
 // const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'http://i8b206.p.ssafy.io:9000/';
+const APPLICATION_SERVER_URL = 'http://i8b206.p.ssafy.io:9000/api/';
 // const APPLICATION_SERVER_URL =
 //   'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
 
@@ -52,7 +52,8 @@ class CookRoom extends Component {
       nowStep: 0,
       open: false,
     };
-
+    this.openFullScreenMode = this.openFullScreenMode.bind(this);
+    this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
     this.modalOpen = this.modalOpen.bind(this);
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
@@ -167,7 +168,7 @@ class CookRoom extends Component {
   // 임시 로직 - 해당 레시피의 id를 props에서 받아올것
   async getRecipe() {
     const response = await axios.get(
-      'http://i8b206.p.ssafy.io:9000/recipestep/list/3'
+      'http://i8b206.p.ssafy.io:9000/api/recipestep/list/3'
     );
     console.log(response.data);
     this.setState({
@@ -570,6 +571,35 @@ class CookRoom extends Component {
     });
   }
 
+  // 전체화면 설정
+  openFullScreenMode() {
+    if (document.documentElement.requestFullscreen)
+      document.documentElement.requestFullscreen();
+    else if (document.documentElement.webkitRequestFullscreen)
+      // Chrome, Safari (webkit)
+      document.documentElement.webkitRequestFullscreen();
+    else if (document.documentElement.mozRequestFullScreen)
+      // Firefox
+      document.documentElement.mozRequestFullScreen();
+    else if (document.documentElement.msRequestFullscreen)
+      // IE or Edge
+      document.documentElement.msRequestFullscreen();
+  }
+
+  // 전체화면 해제
+  closeFullScreenMode() {
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.webkitExitFullscreen)
+      // Chrome, Safari (webkit)
+      document.webkitExitFullscreen();
+    else if (document.mozCancelFullScreen)
+      // Firefox
+      document.mozCancelFullScreen();
+    else if (document.msExitFullscreen)
+      // IE or Edge
+      document.msExitFullscreen();
+  }
+
   render() {
     const mySessionId = this.state.mySessionId;
     const localUser = this.state.localUser;
@@ -605,7 +635,7 @@ class CookRoom extends Component {
                   p: 4,
                 }}
               >
-                <StreamFinishModal />
+                <StreamFinishModal onChangeShow={this.props.onChangeShow} />
               </Box>
             </Modal>
           </div>
@@ -623,6 +653,7 @@ class CookRoom extends Component {
               close={this.toggleChat}
               messageReceived={this.checkNotification}
               recipe={this.state.recipe}
+              onChangeShow={this.props.onChangeShow}
             />
           )}
         <DialogExtensionComponent
@@ -701,6 +732,7 @@ class CookRoom extends Component {
               switchCamera={this.switchCamera}
               leaveSession={this.leaveSession}
               toggleChat={this.toggleChat}
+              onChangeShow={this.props.onChangeShow}
             />
           </C.CookContainer>
         )}

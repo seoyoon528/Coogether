@@ -30,6 +30,7 @@ public class CookingRoomRepositoryImpl implements CookingRoomRepositoryCustom{
                 .select(new QCookingRoomDto(cookingRoom))
                 .from(cookingRoom)
                 .where(cookingRoom.cookingRoomStartTime.gt(LocalDateTime.now()))
+                .orderBy(cookingRoom.cookingRoomStartTime.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();

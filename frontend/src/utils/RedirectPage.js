@@ -14,53 +14,9 @@ import { login } from '../store/AuthSlice';
 import { Background } from '../pages/User/SignIn/SigninStyle';
 import RedirectImg from './RedirectImg';
 
-export function SelectLabels({ preferCookArr }) {
-  const [age, setAge] = useState('');
-  const [userImg, setUserImg] = useState('');
+function RedirectPage() {
   const history = useHistory();
 
-  const handleChange = event => {
-    setAge(event.target.value);
-  };
-
-  return (
-    <div>
-      <FormControl sx={{ m: 1, minWidth: 220 }}>
-        <Select
-          value={age}
-          onChange={handleChange}
-          displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
-          {preferCookArr.map((v, a) => {
-            return <MenuItem value={v[0]}>{v[0]}</MenuItem>;
-          })}
-        </Select>
-      </FormControl>
-    </div>
-  );
-}
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
-function RedirectPage({ history }) {
   const dispatch = useDispatch();
   // 쿼리스트링을 백엔드에 송신
   const [isRegistered, setIsregisterd] = useState(true);
@@ -121,7 +77,7 @@ function RedirectPage({ history }) {
     formData.append('file', userImg);
 
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/user/signup`,
+      url: `http://i8b206.p.ssafy.io:9000/api/user/signup`,
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -131,6 +87,7 @@ function RedirectPage({ history }) {
     try {
       const submitUserForm = await axios(requestInfo);
       console.log(submitUserForm);
+
       history.push('/main');
     } catch (err) {
       console.log(err);
@@ -143,7 +100,7 @@ function RedirectPage({ history }) {
     const code = new URL(window.location.href).searchParams.get('code');
     const res = await axios.get(
       // `http://localhost:9000/user/login?code=${code}`
-      `http://i8b206.p.ssafy.io:9000/user/login?code=${code}`
+      `http://i8b206.p.ssafy.io:9000/api/user/login?code=${code}`
     );
     console.log(res);
     // loginsuccess false이면
@@ -174,6 +131,7 @@ function RedirectPage({ history }) {
         })
       );
       console.log(res);
+
       history.push('/main');
     }
   };
@@ -237,15 +195,6 @@ function RedirectPage({ history }) {
                 onChange={nickNameHandler}
               />
             </Box>
-            {/* <input
-              onChange={nickNameHandler}
-              style={{
-                height: '7vh',
-                width: '20vw',
-                border: '0px solid black',
-              }}
-              placeholder="닉네임을 작성해주세요"
-            /> */}
           </div>
           <div
             style={{
