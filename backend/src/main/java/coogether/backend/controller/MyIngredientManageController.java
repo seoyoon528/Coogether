@@ -37,7 +37,8 @@ public class MyIngredientManageController {
     @ApiOperation(value = "내 냉장고에 재료 추가하는 메소드 (최초등록/재등록/제거) * flag : {IN, OUT}")
     @PatchMapping("/myIngredient/update/{userSeq}/{ingredientId}")
     public ResponseEntity updateMyIngredientByIngredientId(@PathVariable("userSeq") Long userSeq, @PathVariable("ingredientId") Long ingredientId) {
-        MyIngredientManage myIngredientManage = myIngredientManageService.updateMyIngredientByIngredientId(userSeq,ingredientId);
+
+        myIngredientManageService.updateMyIngredientByIngredientId(userSeq,ingredientId);
 
         List<MyIngredientManageDto> result = new ArrayList<>();
         List<MyIngredientManage> myIngredientManages = myIngredientManageService.myIngredientTotalListByUserSeq(userSeq);
