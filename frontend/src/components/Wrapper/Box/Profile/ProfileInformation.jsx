@@ -149,7 +149,7 @@ export default function ProfileInformation(props) {
   // 팔로우 버튼 클릭
   const clickFollowHandler = async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/follow/${loginUserSeq}/${profileUserSeq}`, // 팔로잉 REST API
+      url: `http://i8b206.p.ssafy.io:9000/api/follow/${loginUserSeq}/${profileUserSeq}`, // 팔로잉 REST API
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${accessToken}`,
