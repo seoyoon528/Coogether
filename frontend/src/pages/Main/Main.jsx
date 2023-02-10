@@ -16,8 +16,6 @@ function Main({ onChangeShow }, isShow) {
   const [isIn, setIsIn] = useState(false);
 
   const user = useSelector(state => state.user.userId);
-  const target = useSelector(state => state.prefer);
-  console.log(target.KOREAN);
 
   const getData = async () => {
     try {
