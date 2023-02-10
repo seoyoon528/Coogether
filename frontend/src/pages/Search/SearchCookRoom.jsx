@@ -65,7 +65,7 @@ function SearchCookRoom() {
     setCookRoom([]);
     setPage(0);
   };
-  console.log(page);
+  // console.log(page);
 
   const getData = useCallback(async () => {
     setLoad(true);
@@ -77,7 +77,7 @@ function SearchCookRoom() {
             : `${SEARCH_URL}/${enterdItme}?page=${page}&size=15`
         }`,
       });
-      console.log(allCookRoom.data);
+      // console.log(allCookRoom.data);
       if (page === allCookRoom.data.totalPages) {
         endRef.current = true;
       }
@@ -97,7 +97,9 @@ function SearchCookRoom() {
   // console.log(cookRoom);
 
   const SK = Array.from({ length: 15 }, (_, index) => (
-    <Skeleton key={index} variant="rectangular" width={255} height={216} />
+    <Grid item xs={6} md={4} lg={3} key={index}>
+      <Skeleton variant="rectangular" width={255} height={216} />
+    </Grid>
   ));
   // console.log(SK);
 
@@ -117,9 +119,16 @@ function SearchCookRoom() {
           TEXT={TEXT}
         />
         <br />
+        <hr />
         <StreamList cookRoom={cookRoom} />
         {load && (
-          <Grid container justifyContent="space-evenly">
+          <Grid
+            container
+            columns={12}
+            columnSpacing={5}
+            rowGap={3}
+            justifyContent="space-between"
+          >
             {SK}
           </Grid>
         )}

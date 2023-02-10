@@ -60,6 +60,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	//aws s3 서버
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+	
 	// Openvidu 의존성
 	implementation group: 'io.openvidu', name: 'openvidu-java-client', version: '2.23.0'
 }

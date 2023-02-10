@@ -1,20 +1,36 @@
-import React from 'react';
-import { StreamContents } from './MakeDetailInfoStyle';
+import React, { useRef } from 'react';
+import { StreamContents, StreamContentsInput } from './MakeDetailInfoStyle';
 
 function MakeBasicInfo(props) {
-  const { detailInputs, onChange: setDetailInputs } = props;
+  const { setAnnounce } = props;
+
+  const inputRef = useRef();
+
+  const formSubmitHandler = event => {
+    event.preventDefault();
+
+    const inputItem = inputRef.current.value;
+    if (inputItem.trim().length === 0) {
+      return;
+    }
+    setAnnounce(inputItem);
+  };
+
   return (
     <>
       <StreamContents>
         <p>공지 사항</p>
-        <input
+        <div>필수</div>
+      </StreamContents>
+
+      <form onChange={formSubmitHandler}>
+        <StreamContentsInput
           type="text"
           required
-          value={detailInputs}
-          onChange={e => setDetailInputs(e.target.value)}
+          ref={inputRef}
           placeholder="공지 사항을 입력해주세요"
         />
-      </StreamContents>
+      </form>
     </>
   );
 }

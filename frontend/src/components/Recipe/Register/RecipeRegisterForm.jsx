@@ -1,4 +1,7 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import axios from 'axios';
 
 // MUI
 import { Button, Stack, Box } from '@mui/material';
@@ -12,6 +15,10 @@ import RecipeOrders from './RecipeOrders';
 import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 function RecipeRegisterForm() {
+  const history = useHistory;
+
+  const DUMMY_USER_ID = 1;
+
   // 요리 이름
   const cookNameRef = useRef();
   // 요리 분류
@@ -27,20 +34,61 @@ function RecipeRegisterForm() {
   ]);
 
   // form 제출
-  const recipeSubmitHandler = event => {
+  const recipeSubmitHandler = async event => {
     event.preventDefault();
 
-    console.log(
-      cookNameRef.current.value,
-      selectedCategory,
-      cookImage,
-      recipeIngredients,
-      recipeOrders
+    // 전송하는 데이터 가공 및 변수명 변경
+    const recipeName = cookNameRef.current.value;
+    const recipeCategory = selectedCategory;
+    const recipeImg = cookImage;
+    const ingredientListRequest = recipeIngredients.map(
+      ({ ingredientId, ingredientAmount }) => {
+        return { ingredientId, ingredientAmount };
+      }
     );
+    const recipeStepRequest = recipeOrders.map(({ content }, idx) => {
+      return { recipeStepNum: idx + 1, recipeStepContent: content };
+    });
+    const recipeType = 'CUSTOM';
+
+    // 이미지를 제외한 전송 데이터 객체로 묶기
+    const sendingData = {
+      recipeName,
+      recipeCategory,
+      ingredientListRequest,
+      recipeStepRequest,
+      recipeType,
+    };
+
+    // formData에 전송할 데이터 담기
+    const formData = new FormData();
+    // 객체
+    formData.append(
+      'recipeRequest',
+      new Blob([JSON.stringify(sendingData)], { type: 'application/json' })
+    );
+    // 파일
+    formData.append('file', recipeImg);
+
+    const requestInfo = {
+      url: `http://i8b206.p.ssafy.io:9000/recipe/create/${DUMMY_USER_ID}`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data: formData,
+    };
+
+    try {
+      const response = await axios(requestInfo);
+      history.replace(`/profile/${DUMMY_USER_ID}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <form className="recipe-register__form">
+    <form className="recipe-register__form" onSubmit={recipeSubmitHandler}>
       <Stack spacing={5}>
         <RecipeCookName cookNameRef={cookNameRef} />
         <RecipeFoodCategory
@@ -61,12 +109,7 @@ function RecipeRegisterForm() {
             gridColumn="span 9"
             sx={{ display: 'flex', justifyContent: 'center' }}
           >
-            <NextBtn
-              onClick={recipeSubmitHandler}
-              name="등록"
-              size="small"
-              color="yellow"
-            />
+            <button>등록</button>
           </Box>
         </Box>
       </Stack>

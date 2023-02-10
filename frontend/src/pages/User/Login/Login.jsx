@@ -11,7 +11,7 @@ function Login({ history }) {
   const userInfo = useSelector(state => state.user);
   const dispatch = useDispatch();
   const REDIRECT_URI = 'http://localhost:3000/login/oauth2/code/kakao';
-  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const REST_API_KEY = 'b674e8f9c243d9c4425264edb0f647a9';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   // 로그아웃 로직
   if (isLogin) {
@@ -25,8 +25,6 @@ function Login({ history }) {
         <a href={KAKAO_AUTH_URL}>
           <img src={KakaoLogin} alt="카카오아이콘" />
         </a>
-        <img src={GoogleLogin} alt="구글아이콘" />
-        <img src={NaverLogin} alt="네이버아이콘" />
       </L.loginBackground>
     );
   }

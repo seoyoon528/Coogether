@@ -51,7 +51,8 @@ public class CookingRoomDto {
         this.cookingRoomId = cookingRoom.getCookingRoomId();
         this.cookingRoomHost = cookingRoom.getCookingRoomHost().getUserNickname();
         this.cookingRoomName = cookingRoom.getCookingRoomName();
-        this.cookingRoomImg = cookingRoom.getCookingRoomImg();
+        this.cookingRoomImg = cookingRoom.getCookingRoomImg()
+                != null ? cookingRoom.getCookingRoomImg() : "https://s3.ap-northeast-2.amazonaws.com/my.first.example.sss.bucket/img/cookwaitingimg.jpg";
         this.cookingRoomStartTime = cookingRoom.getCookingRoomStartTime();
         this.cookingRoomStatus = cookingRoom.getCookingRoomStatus();
         this.cookingRoomNotice = cookingRoom.getCookingRoomNotice();

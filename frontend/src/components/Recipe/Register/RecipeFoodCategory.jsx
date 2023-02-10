@@ -19,15 +19,15 @@ const CategoryInput = styled(InputBase)(({ theme }) => ({
 export default function RecipeFoodCategory(props) {
   const { selectedCategory, onChange: setSelectedCategory } = props;
   const foodCategories = [
-    { value: 'korean', label: '한식' },
-    { value: 'chinese', label: '중식' },
-    { value: 'western', label: '양식' },
-    { value: 'japanese', label: '일식' },
-    { value: 'dessert', label: '베이킹/디저트' },
-    { value: 'asian', label: '아시안' },
-    { value: 'bunsik', label: '분식' },
-    { value: 'etc', label: '기타' },
-    { value: 'none', label: '없음' },
+    { value: 'KOREAN', label: '한식' },
+    { value: 'CHINESE', label: '중식' },
+    { value: 'WESTERN', label: '양식' },
+    { value: 'JAPANESE', label: '일식' },
+    { value: 'DESSERT', label: '베이킹/디저트' },
+    { value: 'ASIAN', label: '아시안' },
+    { value: 'BUNSIK', label: '분식' },
+    { value: 'ETC', label: '기타' },
+    { value: 'NONE', label: '없음' },
   ];
 
   return (
@@ -37,6 +37,7 @@ export default function RecipeFoodCategory(props) {
       </Box>
       <Box gridColumn="span 9">
         <Select
+          name="recipeCategory"
           fullWidth
           value={selectedCategory}
           onChange={event => {
@@ -58,7 +59,7 @@ export default function RecipeFoodCategory(props) {
             return (
               <MenuItem
                 key={category.label}
-                value={category.label}
+                value={category.value}
                 sx={{
                   padding: '1.6rem',
                   fontFamily: 'Pretendard Regular',

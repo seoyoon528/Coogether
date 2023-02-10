@@ -13,7 +13,7 @@ export default function RecipeCookName(props) {
       <Box gridColumn="span 9">
         <input
           type="text"
-          name=""
+          name="recipeName"
           id="recipe-cook-name__input"
           className="recipe-register-form__input"
           ref={cookNameRef}

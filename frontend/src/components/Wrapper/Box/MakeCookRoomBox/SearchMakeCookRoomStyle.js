@@ -1,13 +1,28 @@
 import styled from 'styled-components';
 
 export const StreamContents = styled.div`
-  /* display: flex; */
+  display: flex;
+  /* flex-direction: row; */
   text-align: center;
   /* margin-bottom: 4rem; */
+  margin-bottom: 1rem;
+  align-items: center;
   p {
     text-align: left;
-    margin-bottom: 1rem;
     font-weight: 600;
-    font-size: 14px;
+  }
+
+  & div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    border-radius: 0.95rem;
+    height: 21px;
+    width: 38px;
+    background-color: #ff0000;
+    font-family: 'Pretendard ExtraLight';
+    color: #ffffff;
+    font-size: medium;
   }
 `;

@@ -15,4 +15,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>, RecipeRep
     List<Recipe> findByRecipeName(@Param("recipeName") String recipeName);
 
     Recipe findByRecipeId(Long recipeId);
+
+    @Query("select r from Recipe r where r.user.userSeq = :userSeq and r.recipeType = 'CUSTOM' ")
+    List<Recipe> findByUserSeq(@Param("userSeq") Long userSeq);
 }

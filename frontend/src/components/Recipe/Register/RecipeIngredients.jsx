@@ -30,6 +30,8 @@ export default function RecipeIngredients(props) {
     }
   }, []);
 
+  console.log(storedIngredients);
+
   //   ingredient amount 입력
   const amountInputHandler = (idx, ingredientAmount) => {
     setRecipeIngredients(prev => {
@@ -47,22 +49,6 @@ export default function RecipeIngredients(props) {
       return [...ingredients];
     });
   };
-
-  // // ingredient 입력 항목 추가
-  // const addInputBoxHnadler = payload => {
-  //   const name = payload || '';
-  //   setRecipeIngredients(prev => {
-  //     return [
-  //       ...prev,
-  //       {
-  //         id: `ingredient-${
-  //           prev.length !== 0 ? prev[prev.length - 1].id + 1 : 1
-  //         }`,
-  //         name,
-  //       },
-  //     ];
-  //   });
-  // };
 
   return (
     <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
@@ -126,6 +112,7 @@ export default function RecipeIngredients(props) {
                 renderInput={params => (
                   <TextField
                     {...params}
+                    name="ingredientListRequest"
                     placeholder="재료를 검색하세요"
                     sx={{ border: 'none' }}
                   />
@@ -146,12 +133,6 @@ export default function RecipeIngredients(props) {
           );
         })}
       </Box>
-      {/* <Box gridColumn="span 2" />
-      <Box gridColumn="span 9" sx={{ mx: 'auto' }}>
-        <Button variant="contained" onClick={addInputBoxHnadler}>
-          <p>추가</p>
-        </Button>
-      </Box> */}
     </Box>
   );
 }

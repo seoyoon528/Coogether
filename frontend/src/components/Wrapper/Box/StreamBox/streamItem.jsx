@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import * as S from './streamItemStyle';
 
+// Component
+import ChefHat from '../../../Rank/ChefHat';
+import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
+
 function StreamItem({ room }) {
+  // CookRoomEnterModal
+  const [isCookRoomEnterModalOpened, setIsCookRoomEnterModalOpened] =
+    useState(false);
+
   const {
     cookingRoomId,
     cookingRoomImg,
@@ -19,29 +27,45 @@ function StreamItem({ room }) {
   const START = `${hour}: ${minute}`;
   return (
     <S.CookRoomItemWrapper>
-      <S.CookRoomItemImg src={cookingRoomImg} alt="img" />
-      <S.StartUserWrapper>
+      <S.CookRoomItemImg
+        src={cookingRoomImg}
+        alt="img"
+        onClick={() => {
+          setIsCookRoomEnterModalOpened(true);
+        }}
+      />
+      <S.StartUserWrapper
+        onClick={() => {
+          setIsCookRoomEnterModalOpened(true);
+        }}
+      >
         <S.JoinUserWrapper>
-          <p>{userJoinLists ? userJoinLists.length : 0}명</p>
+          <p>요리사 {userJoinLists ? userJoinLists.length : 0}명</p>
         </S.JoinUserWrapper>
         <S.StartTimeWrapper>
           <p>{START} 시작</p>
         </S.StartTimeWrapper>
       </S.StartUserWrapper>
-      <Link
-        to={{
-          pathname: `/Room/${cookingRoomId}`,
-          state: { targetTime: cookingRoomStartTime },
+      <S.roomTitle
+        onClick={() => {
+          setIsCookRoomEnterModalOpened(true);
         }}
       >
-        <S.roomTitle>{cookingRoomName}</S.roomTitle>
-      </Link>
+        {cookingRoomName}
+      </S.roomTitle>
       <S.KingWrapper>
         <p>{cookingRoomHost}</p>
+        <ChefHat color="red" className="chefhat" />
       </S.KingWrapper>
       <S.TagWrapper>
-        <span>#{recipe.recipeName}</span>
+        {/* <span>#{recipe.recipeName}</span> */}#{recipe.recipeName}
       </S.TagWrapper>
+      <CookRoomEnterModal
+        isCookRoomEnterModalOpened={isCookRoomEnterModalOpened}
+        setIsCookRoomEnterModalOpened={setIsCookRoomEnterModalOpened}
+        cookingRoomId={cookingRoomId}
+        recipe={recipe}
+      />
     </S.CookRoomItemWrapper>
   );
 }

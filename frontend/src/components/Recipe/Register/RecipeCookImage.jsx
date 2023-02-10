@@ -33,9 +33,10 @@ export default function RecipeCookImage(props) {
             setCookImage(event.target.files[0]);
           }}
           type="file"
-          accept="image/*"
+          accept=".jpg, .jpeg, .png"
           id="recipe-cook-image"
           hidden
+          name="recipeImg"
         />
       </Box>
     </Box>

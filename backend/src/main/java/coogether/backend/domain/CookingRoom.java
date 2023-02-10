@@ -18,7 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "cooking_room")
 public class CookingRoom {
@@ -48,7 +48,7 @@ public class CookingRoom {
     @Column(name = "cooking_room_name", length = 30, nullable = false)
     private String cookingRoomName;
 
-    @Column(name = "cooking_room_img", length = 100, nullable = false)
+    @Column(name = "cooking_room_img", length = 1000, nullable = false)
     private String cookingRoomImg;
 
     @Column(name = "cooking_room_start_time", updatable = false, nullable = false)

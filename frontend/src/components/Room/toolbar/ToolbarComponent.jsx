@@ -1,11 +1,15 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import './ToolbarComponent.css';
-
+import * as T from './ToolbarCom';
 export default class ToolbarComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { fullscreen: false };
+
+    // step을 여기서 따로 두기
+    this.state = { fullscreen: false, toolNowStep: 0 };
+    this.openModal = this.openModal.bind(this);
+    this.nextStep = this.nextStep.bind(this);
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
@@ -15,6 +19,14 @@ export default class ToolbarComponent extends Component {
     this.switchCamera = this.switchCamera.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
+  }
+  openModal() {
+    this.props.modalOpen();
+  }
+
+  nextStep() {
+    this.props.nextStep();
+    this.setState({ toolNowStep: this.state.toolNowStep + 1 });
   }
 
   kickStatusChanged() {
@@ -57,7 +69,7 @@ export default class ToolbarComponent extends Component {
     const mySessionId = this.props.sessionId;
     const localUser = this.props.user;
     return (
-      <div className="toolbar" id="header">
+      <T.ToolContainer>
         <div className="toolbar">
           <div id="navSessionInfo">
             {this.props.sessionId && (
@@ -135,6 +147,12 @@ export default class ToolbarComponent extends Component {
                 <span>전체화면</span>
               )}
             </span>
+            {this.props.recipe.length - 1 <= this.state.toolNowStep ? (
+              <button onClick={this.openModal}>요리 마치기</button>
+            ) : (
+              <button onClick={this.nextStep}>다음 단계로</button>
+            )}
+
             <span
               color="secondary"
               className="navButton"
@@ -145,7 +163,7 @@ export default class ToolbarComponent extends Component {
             </span>
           </div>
         </div>
-      </div>
+      </T.ToolContainer>
     );
   }
 }

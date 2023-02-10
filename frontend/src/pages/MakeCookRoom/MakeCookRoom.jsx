@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { Box } from '@mui/material';
+
 import { Background, H3, Button } from './MakeCookRoomStyle';
+
+import NextBtn from '../../components/Btn/NextBtn/NextBtn';
 import MakeBasicInfo from '../../components/Wrapper/Box/MakeCookRoomBox/MakeBasicInfo';
 import MakeDetailInfo from '../../components/Wrapper/Box/MakeCookRoomBox/MakeDetailInfo';
 import StreamModal from '../../components/Modal/StreamModal/StreamModal';
@@ -9,14 +14,17 @@ import MakeTimeInput from '../../components/Wrapper/Box/MakeCookRoomBox/MakeTime
 import SearchMakeCookRoom from '../../components/Wrapper/Box/MakeCookRoomBox/SearchMakeCookRoom';
 
 function MakeCoomRoom() {
+  const history = useHistory();
   // 방송 제목
   const [streamName, setStreamName] = useState('');
   // 요리 시간
   const [streamTime, setStreamTime] = useState('');
+  // 공지사항
+  const [announce, setAnnounce] = useState('');
   // 요리 사진
   const [cookImage, setCookImage] = useState('');
-  // 공지사항
-  const [detailInputs, setDetailInputs] = useState('');
+  // 레시피
+  const [selectRecipe, setSelectRecipe] = useState('');
 
   // 모달 열기
   const [isOpen, setIsOpen] = useState(false);
@@ -24,9 +32,34 @@ function MakeCoomRoom() {
     setIsOpen(true);
   };
 
-  const roomSubmitHandler = event => {
-    event.preventDefault();
-    console.log(streamName, cookImage, detailInputs);
+  const roomSubmitHandler = async () => {
+    const sendingData = {
+      cookingRoomName: streamName,
+      cookingRoomNotice: announce,
+      cookingRoomStartTime: streamTime,
+      recipeName: selectRecipe.recipeName,
+    };
+    const formData = new FormData();
+    formData.append(
+      'cookingRoomRequest',
+      new Blob([JSON.stringify(sendingData)], { type: 'application/json' })
+    );
+    formData.append('file', cookImage);
+    console.log(cookImage.Js);
+    // console.log(streamName, streamTime, cookImage, announce, selectRecipe);
+    try {
+      const postData = await axios({
+        url: `http://i8b206.p.ssafy.io:9000/room/create/1/${selectRecipe.recipeId}`,
+        // url: `http://i8b206.p.ssafy.io:9000/room/create/${user}/${selectRecipe.recipeId}`,
+        method: 'POST',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        data: formData,
+      });
+      // console.log(postData.data);
+      history.push(`/Room/${postData.data}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -35,19 +68,17 @@ function MakeCoomRoom() {
         <Box gridColumn="span 6" />
         <Box gridColumn="span 4">
           <H3>요리방 만들기</H3>
-          <MakeBasicInfo streamName={streamName} onChange={setStreamName} />
-          <MakeTimeInput streamTime={streamTime} onChange={setStreamTime} />
-          <SearchMakeCookRoom />
-          <MakeDetailInfo
-            detailInputs={detailInputs}
-            onChange={setDetailInputs}
-          />
+          <MakeBasicInfo setStreamName={setStreamName} />
+          <MakeTimeInput setStreamTime={setStreamTime} />
+          <SearchMakeCookRoom setSelectRecipe={setSelectRecipe} />
+          <MakeDetailInfo setAnnounce={setAnnounce} />
           <MakeImage cookImage={cookImage} onChange={setCookImage} />
+
           <Button onClick={onClickButton}>생성 완료</Button>
           {isOpen && (
             <StreamModal
               open={isOpen}
-              onClick={roomSubmitHandler}
+              roomSubmitHandler={roomSubmitHandler}
               onClose={() => {
                 setIsOpen(false);
               }}

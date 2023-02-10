@@ -1,7 +1,7 @@
 #header {
   color: #ffffff;
   background-color: #333333;
-  padding: 0 14px 0 0;
+  padding: 0 0 0 0;
   position: absolute;
   top: 0;
   left: 0;
@@ -69,6 +69,7 @@
   margin: 0;
   padding: 0;
   border: 0;
+  top: 0px;
   font-size: 100%;
   font-family: Arial, Helvetica, sans-serif;
   vertical-align: baseline;
@@ -284,7 +285,7 @@
 }
 
 .OT_subscriber_error > p {
-  padding: 20px;
+  padding: 0px;
 }
 
 /* The publisher/subscriber name/mute background */

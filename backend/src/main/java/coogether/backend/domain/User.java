@@ -60,7 +60,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Recipe> recipeList = new ArrayList<>();
 
-    @JsonIgnore
+//    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_seq")
@@ -75,10 +75,10 @@ public class User {
     @Column(name = "user_nickname", length = 30, nullable = false)
     private String userNickname;
 
-    @Column(name = "user_email", length = 50, nullable = false)
+    @Column(name = "user_email", length = 50, nullable = true)
     private String userEmail;
 
-    @Column(name = "user_img", length = 100, nullable = true)
+    @Column(name = "user_img", length = 1000, nullable = true)
     private String userImg;
 
     @Column(name = "user_introduce", length = 300, nullable = true)
@@ -112,7 +112,8 @@ public class User {
     private EnumRoleType userRoleType;
 
     @Builder
-    public User(String userId, String userName, String userNickname, String userEmail, String userImg, String userIntroduce, EnumUserCookCategory userCookCategory, EnumUserAccountStatus userAccountStatus, int userTemp, LocalDateTime userCreateDate, LocalDateTime userLastLoginDate, EnumSnsType userSnsType, EnumRoleType userRoleType) {
+    public User(Long userSeq, String userId, String userName, String userNickname, String userEmail, String userImg, String userIntroduce, EnumUserCookCategory userCookCategory, EnumUserAccountStatus userAccountStatus, int userTemp, LocalDateTime userCreateDate, LocalDateTime userLastLoginDate, EnumSnsType userSnsType, EnumRoleType userRoleType) {
+        this.userSeq = userSeq;
         this.userId = userId;
         this.userName = userName;
         this.userNickname = userNickname;

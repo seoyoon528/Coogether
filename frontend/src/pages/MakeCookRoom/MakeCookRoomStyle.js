@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import loginBg from '../../assets/img/loginBackground.jpeg';
 
 export const Background = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   text-align: center;
   position: relative;
   background-size: cover;
@@ -37,6 +37,7 @@ export const Button = styled.button`
   height: 32px;
   margin-bottom: 2rem;
   border-radius: 10px;
+  margin-top: 1.5rem;
 
   &:hover {
     background-color: #febd2f;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import axios from 'axios';
@@ -52,13 +52,90 @@ const DUMMY_DATA = {
     },
   ],
 };
+const findRank = temp => {
+  let rank;
+  if (temp >= 60) {
+    rank = '보라';
+  } else if (temp >= 50) {
+    rank = '남색';
+  } else if (temp >= 40) {
+    rank = '파랑';
+  } else if (temp >= 30) {
+    rank = '초록';
+  } else if (temp >= 20) {
+    rank = '노랑';
+  } else if (temp >= 10) {
+    rank = '주황';
+  } else {
+    rank = '빨강';
+  }
+
+  return rank;
+};
+
 function Profile() {
   // 유저ID
   const { userId } = useParams();
-  // 유저 상세 정보
-  const [userData, setUserData] = useState({});
+  // Page history
   const history = useHistory();
 
+  // 유저 상태 초기화
+  const initialState = {
+    userImg: '',
+    userNickname: '',
+    userTemp: 0,
+    userCookCategory: '',
+    userIntroduce: '',
+    followerList: [],
+    followingList: [],
+    rank: '',
+  };
+  // 유저 상태 reducer
+  const reducer = (
+    state,
+    {
+      type,
+      userNickname,
+      userCookCategory,
+      userIntroduce,
+      userImg,
+      userTemp,
+      followerList,
+      followingList,
+      rank,
+    }
+  ) => {
+    switch (type) {
+      case 'userNickname':
+        return { ...state, userNickname };
+      case 'userCookCategory':
+        return { ...state, userCookCategory };
+      case 'userIntroduce':
+        return { ...state, userIntroduce };
+      case 'userImg':
+        return { ...state, userImg };
+      default:
+        return {
+          userNickname,
+          userCookCategory,
+          userIntroduce,
+          userImg,
+          userTemp,
+          followerList,
+          followingList,
+          rank,
+        };
+    }
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // 로그인 유저와 프로필 유저 일치 여부
+  const [isAuthor, setIsAuthor] = useState(true);
+
+  // 수정 활성화 여부
+  const [isEditActive, setIsEditActive] = useState(false);
+
+  // 프로필 페이지 유저의 정보를 불러오기(userId가 바뀌면 함수 실행)
   useEffect(async () => {
     const requestInfo = {
       url: `http://i8b206.p.ssafy.io:9000/user/${userId}`,
@@ -66,25 +143,11 @@ function Profile() {
     };
     try {
       const response = await axios(requestInfo);
-      const data = await response.data;
-      let rank;
-      if (data.userTemp >= 70) {
-        rank = 'purple';
-      } else if (data.userTemp >= 60) {
-        rank = 'navy';
-      } else if (data.userTemp >= 50) {
-        rank = 'blue';
-      } else if (data.userTemp >= 40) {
-        rank = 'green';
-      } else if (data.userTemp >= 30) {
-        rank = 'yellow';
-      } else if (data.userTemp >= 20) {
-        rank = 'orange';
-      } else {
-        rank = 'red';
-      }
-      data.rank = rank;
-      setUserData(data);
+      const userData = await response.data;
+      // 랭크 확인
+      const rank = findRank(userData.userTemp);
+      // 불러온 정보 저장
+      dispatch({ ...userData, rank });
     } catch (error) {
       if (error.response.status === 400) {
         // 일단 alert로 처리함
@@ -94,26 +157,7 @@ function Profile() {
     }
   }, [userId]);
 
-  const {
-    userImg,
-    userNickname,
-    userTemp,
-    userCookCategory,
-    userIntroduce,
-    followerList,
-    followingList,
-    rank,
-  } = userData;
-
-  const userInformation = {
-    userNickname,
-    userTemp,
-    userCookCategory,
-    rank,
-    followerCnt: followerList?.length,
-    followingCnt: followingList?.length,
-    userIntroduce,
-  };
+  // 더미 데이터
   const histories = [];
   for (let i = 0; i < 8; i += 1) {
     const data = { ...DUMMY_DATA.cookHistories[0] };
@@ -129,20 +173,28 @@ function Profile() {
 
   return (
     <ProfileStyle>
-      {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>}
-      {Object.keys(userData).length > 0 && (
+      {/* {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>} */}
+      {state.rank && (
         <Stack spacing={5} className="profile">
           <UserInfoBox className="user-information">
             <ProfileImage
               image={DUMMY_DATA.image}
-              userNickname={userNickname}
+              userNickname={state.userNickname}
+              isAuthor={isAuthor}
+              dispatch={dispatch}
+              isEditActive={isEditActive}
+              setIsEditActive={setIsEditActive}
             />
-            <ProfileInformation userInformation={userInformation} />
+            <ProfileInformation
+              userInformation={state}
+              isAuthor={isAuthor}
+              dispatch={dispatch}
+              isEditActive={isEditActive}
+              setIsEditActive={setIsEditActive}
+            />
           </UserInfoBox>
           <hr />
-          {histories.length > 0 && (
-            <UserHistory sectionName="요리 기록" histories={histories} />
-          )}
+          <UserHistory sectionName="요리 기록" histories={histories} />
           {recipes.length > 0 && (
             <UserHistory sectionName="등록한 레시피" recipes={recipes} />
           )}
