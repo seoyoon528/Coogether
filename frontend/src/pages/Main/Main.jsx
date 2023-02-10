@@ -15,14 +15,15 @@ function Main() {
   const [third, setThird] = useState([]);
   const [isIn, setIsIn] = useState(false);
 
-  const user = useSelector(state => state.user.userId);
+  const userSeq = useSelector(state => state.user.userSeq);
 
   const getData = async () => {
     try {
       const refrigeratorDAta = await axios({
         // 유저 id 추가해야 함
+        // url: `http://i8b206.p.ssafy.io:9000/myIngredient/list/total/${userSeq}`,
+        // headers: { Authorization: `Bearer ${userSeq}` },
         url: 'http://i8b206.p.ssafy.io:9000/myIngredient/list/total/1',
-        // url: `http://i8b206.p.ssafy.io:9000/myIngredient/list/total/${user}`,
       });
       if (refrigeratorDAta.data.length > 0) {
         setIsIn(true);
@@ -30,6 +31,8 @@ function Main() {
 
       const firstData = await axios({
         // 추후 수정
+        // url: `http://i8b206.p.ssafy.io:9000/room/recommend/myingredient/${userSeq}`,
+        // headers: { Authorization: `Bearer ${userSeq}` },
         url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
       // console.log(firstData);
@@ -37,6 +40,7 @@ function Main() {
 
       const secondData = await axios({
         // 추후 수정
+        // url: 'http://i8b206.p.ssafy.io:9000/room/recommend/starttime',
         url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
       // console.log(firstData);
@@ -44,6 +48,8 @@ function Main() {
 
       const thirdData = await axios({
         // 추후 수정
+        // url: `http://i8b206.p.ssafy.io:9000/room/recommend/usercook/${userSeq}`,
+        // headers: { Authorization: `Bearer ${userSeq}` }
         url: 'http://i8b206.p.ssafy.io:9000/room/list?size=5',
       });
       // console.log(firstData);
