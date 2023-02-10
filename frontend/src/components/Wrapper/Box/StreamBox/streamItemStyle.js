@@ -30,6 +30,8 @@ export const KingWrapper = styled.div`
     font-size: 12px;
     line-height: auto;
     color: #4f4f4f;
+    font-family: Pretendard Variable;
+    font-weight: 500;
   }
   .chefhat {
     margin-left: 10px;
@@ -39,6 +41,7 @@ export const KingWrapper = styled.div`
 `;
 
 export const roomTitle = styled.h4`
+  font-family: 'Pretendard ExtraBold';
   position: absolute;
   top: 165px;
   text-align: left;
@@ -65,8 +68,11 @@ export const StartTimeWrapper = styled.div`
   width: max-content;
   min-width: 5rem;
   background-color: rgba(0, 0, 0, 0.5);
+  padding: 0 5px;
 
   & p {
+    font-family: 'Pretendard Variable';
+    font-weight: 600;
     text-align: center;
     vertical-align: middle;
     font-size: 14px;
@@ -88,7 +94,10 @@ export const JoinUserWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   width: max-content;
   min-width: 5rem;
+  padding: 0 5px;
   & p {
+    font-family: 'Pretendard Variable';
+    font-weight: 600;
     text-align: center;
     vertical-align: middle;
     font-size: 14px;
@@ -110,9 +119,10 @@ export const TagWrapper = styled.div`
   text-align: center;
   vertical-align: middle;
   line-height: auto;
-  color: #ffffff;
+  color: black;
   width: max-content;
   padding: 0 5px;
+  font-weight: 600;
 
   /* & span {
     font-family: 'Pretendard ExtraLight';
