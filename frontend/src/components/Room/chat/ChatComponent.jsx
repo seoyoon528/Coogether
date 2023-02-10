@@ -70,7 +70,7 @@ export default class ChatComponent extends Component {
   // 재료,시작시간 가져오기
   async ingredient() {
     const res = await axios.get(
-      `http://i8b206.p.ssafy.io:9000/room/${
+      `http://i8b206.p.ssafy.io:9000/api/room/${
         this.props.user.getStreamManager().stream.session.sessionId
       }`
     );
@@ -78,7 +78,7 @@ export default class ChatComponent extends Component {
     this.setState({ cookingRoomName: res.data.cookingRoomName });
     const recipeId = res.data.recipe.recipeId;
     const resIng = await axios.get(
-      `http://i8b206.p.ssafy.io:9000/ingredient/list/${recipeId}`
+      `http://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`
     );
     const targetTime = new Date(res.data.cookingRoomStartTime);
     const targetH = targetTime.getHours();

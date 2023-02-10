@@ -131,7 +131,7 @@ export default function ProfileInformation(props) {
   const clickFollowHandler = async () => {
     // 팔로잉은 더미 데이터
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/follow/${DUMMY_USER_SEQ}/${userId}`,
+      url: `http://i8b206.p.ssafy.io:9000/api/follow/${DUMMY_USER_SEQ}/${userId}`,
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${accessToken}`,
