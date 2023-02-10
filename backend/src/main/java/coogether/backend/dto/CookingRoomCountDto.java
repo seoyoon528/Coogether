@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class CookingRoomCountDto implements Comparable<CookingRoomCountDto> {
-    private CookingRoom cookingRoom;
+    private CookingRoomDto cookingRoomDto;
     private int ingredientCnt;
 
     @Override

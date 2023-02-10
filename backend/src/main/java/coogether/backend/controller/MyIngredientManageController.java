@@ -38,7 +38,12 @@ public class MyIngredientManageController {
     @PatchMapping("/myIngredient/update/{userSeq}/{ingredientId}")
     public ResponseEntity updateMyIngredientByIngredientId(@PathVariable("userSeq") Long userSeq, @PathVariable("ingredientId") Long ingredientId) {
 
-        MyIngredientManage result = myIngredientManageService.updateMyIngredientByIngredientId(userSeq,ingredientId);
+        myIngredientManageService.updateMyIngredientByIngredientId(userSeq,ingredientId);
+
+        List<MyIngredientManageDto> result = new ArrayList<>();
+        List<MyIngredientManage> myIngredientManages = myIngredientManageService.myIngredientTotalListByUserSeq(userSeq);
+        for (MyIngredientManage mm : myIngredientManages)
+            result.add(new MyIngredientManageDto(mm));
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
