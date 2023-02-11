@@ -11,6 +11,7 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,8 +32,8 @@ public class UserDto {
     private LocalDateTime userLastLoginDate;
     private EnumSnsType userSnsType;
     ////////////////////////////////////
-    private List<Follow> followingList;
-    private List<Follow> followerList;
+    private List<FollowingDto> followingList;
+    private List<FollowerDto> followerList;
 
     @QueryProjection
     public UserDto(User user){
@@ -51,8 +52,10 @@ public class UserDto {
         this.userSnsType = user.getUserSnsType();
 
         ////////////////////////////////////
-        this.followingList = user.getFollowingList();
-        this.followerList = user.getFollowerList();
+        this.followingList = user.getFollowingList()
+                .stream().map(x-> new FollowingDto(x)).collect(Collectors.toList());
+        this.followerList =  user.getFollowerList()
+                .stream().map(x-> new FollowerDto(x)).collect(Collectors.toList());
 
     }
 
