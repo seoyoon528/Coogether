@@ -97,6 +97,10 @@ export const JoinUserWrapper = styled.div`
   width: max-content;
   min-width: 5rem;
   padding: 0 5px;
+
+  @media (max-width: 1250px) {
+    display: none;
+  }
   & p {
     font-family: 'Pretendard Variable';
     font-weight: 600;

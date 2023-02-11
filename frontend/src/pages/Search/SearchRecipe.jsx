@@ -73,8 +73,14 @@ function SearchRecipe() {
     setPage(0);
   };
 
-  const changeHandler = () => {
-    setIsCustom(!isCustom);
+  const baekChangeHandler = () => {
+    setIsCustom(true);
+    setRecepi([]);
+    setPage(0);
+    endRef.current = false;
+  };
+  const customChangeHandler = () => {
+    setIsCustom(false);
     setRecepi([]);
     setPage(0);
     endRef.current = false;
@@ -137,8 +143,8 @@ function SearchRecipe() {
         <br />
         <hr />
         {/* 레시피 타입 전환 */}
-        <button onClick={changeHandler}>커스텀</button>
-        <button onClick={changeHandler}>백종원</button>
+        <button onClick={baekChangeHandler}>커스텀</button>
+        <button onClick={customChangeHandler}>백종원</button>
         <RecipeBoxList recepi={recepi} />
         {/* 스켈레톤 */}
         {load && (
