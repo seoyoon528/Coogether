@@ -15,6 +15,7 @@ import SearchMakeCookRoom from '../../components/Wrapper/Box/MakeCookRoomBox/Sea
 
 function MakeCoomRoom() {
   const userSeq = useSelector(state => state.user.userSeq);
+  const accessToken = useSelector(state => state.user.accessToken);
   const history = useHistory();
   // 방송 제목
   const [streamName, setStreamName] = useState('');
@@ -54,7 +55,7 @@ function MakeCoomRoom() {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${userSeq}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         data: formData,
       });
