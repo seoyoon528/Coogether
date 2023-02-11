@@ -235,28 +235,30 @@ export default function ProfileInformation(props) {
                 <button type="button">팔로잉</button>
                 <span className="follow-value">{followingCount}</span>
               </div>
-              <div className="follow-click-button">
-                {!isFollowed && loginUserSeq && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      clickFollowHandler();
-                    }}
-                  >
-                    팔로우
-                  </button>
-                )}
-                {isFollowed && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      clickFollowHandler();
-                    }}
-                  >
-                    팔로우 취소
-                  </button>
-                )}
-              </div>
+              {!isAuthor && (
+                <div className="follow-click-button">
+                  {!isFollowed && loginUserSeq && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        clickFollowHandler();
+                      }}
+                    >
+                      팔로우
+                    </button>
+                  )}
+                  {isFollowed && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        clickFollowHandler();
+                      }}
+                    >
+                      팔로우 취소
+                    </button>
+                  )}
+                </div>
+              )}
             </Stack>
           </div>
         </Grid>

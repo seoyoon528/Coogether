@@ -116,7 +116,7 @@ function Profile() {
   return (
     <ProfileStyle>
       {/* {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>} */}
-      {state.rank && (
+      {state.userCookCategory && (
         <Stack spacing={5} className="profile">
           <UserInfoBox className="user-information">
             <ProfileImage
