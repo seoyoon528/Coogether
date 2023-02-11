@@ -52,8 +52,7 @@ class CookRoom extends Component {
       nowStep: 0,
       open: false,
     };
-    this.openFullScreenMode = this.openFullScreenMode.bind(this);
-    this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
+
     this.modalOpen = this.modalOpen.bind(this);
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
@@ -62,8 +61,7 @@ class CookRoom extends Component {
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
     this.killUser = this.killUser.bind(this);
-    // 레시피 가져오기
-    this.getRecipe = this.getRecipe.bind(this);
+
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
     // 전체 화면으로
@@ -79,9 +77,7 @@ class CookRoom extends Component {
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
   }
-  componentWillMount() {
-    this.getRecipe();
-  }
+
   componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload);
     this.joinSession();
@@ -166,17 +162,6 @@ class CookRoom extends Component {
           error.message
         );
       });
-  }
-
-  // 임시 로직 - 해당 레시피의 id를 props에서 받아올것
-  async getRecipe() {
-    const response = await axios.get(
-      'http://i8b206.p.ssafy.io:9000/api/recipestep/list/3'
-    );
-    console.log(response.data);
-    this.setState({
-      recipe: response.data,
-    });
   }
 
   async connectWebCam() {
