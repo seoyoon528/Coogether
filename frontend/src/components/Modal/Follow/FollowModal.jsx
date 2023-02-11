@@ -7,6 +7,9 @@ import { Dialog } from '@mui/material';
 import FollowModalContent from './FollowModalContent';
 import FollowModalHeader from './FollowModalHeader';
 
+// Style
+import { FollowModalStyle } from './FollowModalStyle';
+
 export default function FollowModal(props) {
   // Props
   const {
@@ -28,28 +31,29 @@ export default function FollowModal(props) {
         onClose(false);
       }}
       fullWidth
-      maxWidth="sm"
+      maxWidth="xs"
     >
-      <FollowModalHeader
-        activeContent={activeContent}
-        setActiveContent={setActiveContent}
-      />
-      {activeContent === 'follower' && (
-        <FollowModalContent
-          loginUserSeq={loginUserSeq}
-          userList={followerList.filter(({ followId, followFlag }) => {
-            return followFlag === 'CONNECT' && followId !== loginUserSeq;
-          })}
+      <FollowModalStyle>
+        <FollowModalHeader
+          activeContent={activeContent}
+          setActiveContent={setActiveContent}
         />
-      )}
-      {activeContent === 'following' && (
-        <FollowModalContent
-          loginUserSeq={loginUserSeq}
-          userList={followingList.filter(({ followId, followFlag }) => {
-            return followFlag === 'CONNECT' && followId !== loginUserSeq;
-          })}
-        />
-      )}
+        {activeContent === 'follower' && (
+          <FollowModalContent
+            onClose={onClose}
+            userList={followerList.filter(({ followId, followFlag }) => {
+              return followFlag === 'CONNECT' && followId !== loginUserSeq;
+            })}
+          />
+        )}
+        {activeContent === 'following' && (
+          <FollowModalContent
+            userList={followingList.filter(({ followId, followFlag }) => {
+              return followFlag === 'CONNECT' && followId !== loginUserSeq;
+            })}
+          />
+        )}
+      </FollowModalStyle>
     </Dialog>
   );
 }

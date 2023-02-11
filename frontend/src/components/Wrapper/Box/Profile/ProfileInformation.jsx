@@ -151,7 +151,7 @@ export default function ProfileInformation(props) {
   // 팔로우 버튼 클릭
   const clickFollowHandler = async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/follow/${loginUserSeq}/${profileUserSeq}`, // 팔로잉 REST API
+      url: `https://i8b206.p.ssafy.io:9000/api/follow/${loginUserSeq}/${profileUserSeq}`, // 팔로잉 REST API
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -235,28 +235,30 @@ export default function ProfileInformation(props) {
                 <button type="button">팔로잉</button>
                 <span className="follow-value">{followingCount}</span>
               </div>
-              <div className="follow-click-button">
-                {!isFollowed && loginUserSeq && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      clickFollowHandler();
-                    }}
-                  >
-                    팔로우
-                  </button>
-                )}
-                {isFollowed && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      clickFollowHandler();
-                    }}
-                  >
-                    팔로우 취소
-                  </button>
-                )}
-              </div>
+              {!isAuthor && (
+                <div className="follow-click-button">
+                  {!isFollowed && loginUserSeq && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        clickFollowHandler();
+                      }}
+                    >
+                      팔로우
+                    </button>
+                  )}
+                  {isFollowed && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        clickFollowHandler();
+                      }}
+                    >
+                      팔로우 취소
+                    </button>
+                  )}
+                </div>
+              )}
             </Stack>
           </div>
         </Grid>
