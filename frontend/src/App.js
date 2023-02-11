@@ -32,7 +32,7 @@ function App() {
           <Redirect to="/Main" />
         </Route> */}
         <Route path="/" exact>
-          <Baby />
+          <Baby onChangeShow={onChangeShow} />
         </Route>
         <Route path="/Main" exact>
           <Route component={Main} onChangeShow={onChangeShow} isShow={isShow} />

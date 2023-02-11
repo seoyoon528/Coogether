@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-export default function Baby() {
+export default function Baby(props) {
+  const { onChangeShow } = props;
+  useEffect(() => {
+    onChangeShow();
+  }, []);
+
   return (
     <div>
       <img
