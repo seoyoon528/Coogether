@@ -54,6 +54,27 @@ export default function FollowModalUser(props) {
     }
   }, [loginUserSeq, userSeq]);
 
+  // function
+  const clickFollowHandler = async () => {
+    const requestInfo = {
+      url: `https://i8b206.p.ssafy.io:9000/api/follow/${loginUserSeq}/${userSeq}`, // 팔로잉 REST API
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    try {
+      await axios(requestInfo);
+      if (isFollowed) {
+        setIsFollowed(false);
+      } else {
+        setIsFollowed(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <FollowModalUserStyle>
       <Grid container columnSpacing={3} rowSpacing={3} columns={12}>
@@ -69,7 +90,7 @@ export default function FollowModalUser(props) {
             <img src={userImg} alt={`${userNickname} 프로필 이미지`} />
           </div>
         </Grid>
-        <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Grid item xs={5} sx={{ display: 'flex', alignItems: 'center' }}>
           <div className="user-nickname">
             <p
               onClick={() => {
@@ -84,13 +105,29 @@ export default function FollowModalUser(props) {
         </Grid>
         <Grid
           item
-          xs={3}
+          xs={4}
           sx={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}
         >
           {loginUserSeq && userSeq !== loginUserSeq && (
             <div className="follow-action-button">
-              {!isFollowed && <button type="button">팔로우</button>}
-              {isFollowed && <button type="button">팔로우 취소</button>}
+              {!isFollowed && (
+                <button
+                  className="yellow-button"
+                  type="button"
+                  onClick={clickFollowHandler}
+                >
+                  팔로우
+                </button>
+              )}
+              {isFollowed && (
+                <button
+                  className="gray-button"
+                  type="button"
+                  onClick={clickFollowHandler}
+                >
+                  팔로우 취소
+                </button>
+              )}
             </div>
           )}
         </Grid>

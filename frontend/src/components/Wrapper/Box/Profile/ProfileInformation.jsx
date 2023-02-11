@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
@@ -18,6 +17,7 @@ import {
 import ChefHat from '../../../Rank/ChefHat';
 import ProfileEditButton from './ProfileEditButton';
 import FollowModal from '../../../Modal/Follow/FollowModal';
+import NextBtn from '../../../Btn/NextBtn/NextBtn';
 
 // Image
 import LikeIcon from '../../../../assets/img/cake-dome.svg';
@@ -271,17 +271,24 @@ export default function ProfileInformation(props) {
               {!isAuthor && loginUserSeq && (
                 <div className="follow-click-button">
                   {!isFollowed && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        clickFollowHandler();
-                      }}
-                    >
-                      팔로우
-                    </button>
+                    // <button
+                    //   type="button"
+                    //   onClick={() => {
+                    //     clickFollowHandler();
+                    //   }}
+                    // >
+                    //   팔로우
+                    // </button>
+                    <NextBtn
+                      size="small"
+                      onClick={clickFollowHandler}
+                      color="yellow"
+                      name="팔로우"
+                    />
                   )}
                   {isFollowed && (
                     <button
+                      id="unfollow-button"
                       type="button"
                       onClick={() => {
                         clickFollowHandler();
