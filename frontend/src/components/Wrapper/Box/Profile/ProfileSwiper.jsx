@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { useHistory } from 'react-router-dom';
-
 // Swiper
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -17,15 +15,11 @@ import 'swiper/css/pagination';
 import MyRecipe from './MyRecipe';
 
 // Style
-import { HistoryStyle } from './ProfileSwiperStyle';
-import SwiperSlideImage from './SwiperSlideImage';
+import MyHistoyItem from './MyHistoyItem';
 
 export default function ProfileSwiper(props) {
   // Props
   const { histories: cookHistories, recipes } = props;
-
-  // useHistory
-  const history = useHistory();
 
   return (
     <Swiper
@@ -51,40 +45,18 @@ export default function ProfileSwiper(props) {
               userJoinLists,
               cookingRoomName,
               cookingRoomStartTime,
-              recipe: { recipeName },
+              recipe,
             },
           }) => {
             return (
               <SwiperSlide key={historyId}>
-                <HistoryStyle>
-                  <SwiperSlideImage
-                    historyImg={historyImg}
-                    recipeName={recipeName}
-                  />
-                  <div className="history__text">
-                    <div>
-                      <h4 className="history__title">{cookingRoomName}</h4>
-                      <div className="history__content">
-                        <p className="cook">
-                          {userJoinLists.map(({ userSeq, userNickname }) => {
-                            return (
-                              <span
-                                key={userSeq}
-                                onClick={() => {
-                                  history.push(`/profile/${userSeq}`);
-                                }}
-                                aria-hidden
-                              >
-                                {userNickname}
-                              </span>
-                            );
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="date">{cookingRoomStartTime}</p>
-                  </div>
-                </HistoryStyle>
+                <MyHistoyItem
+                  historyImg={historyImg}
+                  userJoinLists={userJoinLists}
+                  cookingRoomName={cookingRoomName}
+                  cookingRoomStartTime={cookingRoomStartTime}
+                  recipe={recipe}
+                />
               </SwiperSlide>
             );
           }

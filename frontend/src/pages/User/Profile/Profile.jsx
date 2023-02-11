@@ -116,11 +116,7 @@ function Profile() {
       const payload = { ...userData, rank, cookHistories, recipes };
       dispatch({ payload });
     } catch (error) {
-      if (error.response.status === 400) {
-        // 일단 alert로 처리함
-        alert('없는 유저입니다');
-      }
-      history.replace('/main');
+      history.replace('/404');
     }
   }, [profileUserSeq]);
 
@@ -137,7 +133,7 @@ function Profile() {
       {/* {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>} */}
       {state.userTemp !== null && (
         <Stack spacing={5} className="profile">
-          <UserInfoBox className="user-information">
+          <UserInfoBox className="user-information-box">
             <ProfileImage
               image={state.userImg}
               userNickname={state.userNickname}

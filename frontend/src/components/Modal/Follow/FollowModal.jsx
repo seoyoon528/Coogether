@@ -19,6 +19,7 @@ export default function FollowModal(props) {
     followingList,
     clickedContentName,
     setFollowingCount,
+    isAuthor,
   } = props;
 
   // useState
@@ -44,6 +45,7 @@ export default function FollowModal(props) {
         />
         {activeContent === 'follower' && (
           <FollowModalContent
+            isAuthor={isAuthor}
             setFollowingCount={setFollowingCount}
             onClose={onClose}
             userList={followerList.filter(({ followFlag }) => {
@@ -54,6 +56,7 @@ export default function FollowModal(props) {
         {activeContent === 'following' && (
           <FollowModalContent
             setFollowingCount={setFollowingCount}
+            isAuthor={isAuthor}
             onClose={onClose}
             userList={followingList.filter(({ followFlag }) => {
               return followFlag === 'CONNECT';

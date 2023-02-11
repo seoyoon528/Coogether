@@ -8,7 +8,6 @@ import RecipeContent from '../../Recipe/Modal/RecipeContent';
 
 export default function RecipeDetail(props) {
   const { open, onClose, recipe } = props;
-  console.log(recipe);
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">

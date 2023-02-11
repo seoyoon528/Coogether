@@ -8,11 +8,16 @@ function UserInfoBox(props) {
   const { className, children } = props;
 
   return (
-    <Grid container columnSpacing={13} column={12} className={className}>
-      <Grid item xs={4}>
+    <Grid
+      container
+      columnSpacing={{ xs: 5, lg: 10 }}
+      column={12}
+      className={className}
+    >
+      <Grid item xs={3}>
         {children[0]}
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={9}>
         {children[1]}
       </Grid>
     </Grid>

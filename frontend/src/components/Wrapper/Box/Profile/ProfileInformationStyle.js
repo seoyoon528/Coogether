@@ -22,7 +22,7 @@ export const ProfileInformationStyle = styled.form`
     border: none;
 
     font-family: 'Pretendard Bold';
-    font-size: 3.2rem;
+    font-size: 2.4rem;
 
     width: 50%;
 
@@ -83,7 +83,7 @@ export const ProfileInformationStyle = styled.form`
   }
 
   .item {
-    width: 60%;
+    width: 100%;
 
     text-align: center;
   }
