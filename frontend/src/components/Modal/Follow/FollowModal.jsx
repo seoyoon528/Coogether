@@ -12,8 +12,14 @@ import { FollowModalStyle } from './FollowModalStyle';
 
 export default function FollowModal(props) {
   // Props
-  const { open, onClose, followerList, followingList, clickedContentName } =
-    props;
+  const {
+    open,
+    onClose,
+    followerList,
+    followingList,
+    clickedContentName,
+    setFollowingCount,
+  } = props;
 
   // useState
   const [activeContent, setActiveContent] = useState(clickedContentName);
@@ -38,6 +44,7 @@ export default function FollowModal(props) {
         />
         {activeContent === 'follower' && (
           <FollowModalContent
+            setFollowingCount={setFollowingCount}
             onClose={onClose}
             userList={followerList.filter(({ followFlag }) => {
               return followFlag === 'CONNECT';
@@ -46,6 +53,7 @@ export default function FollowModal(props) {
         )}
         {activeContent === 'following' && (
           <FollowModalContent
+            setFollowingCount={setFollowingCount}
             onClose={onClose}
             userList={followingList.filter(({ followFlag }) => {
               return followFlag === 'CONNECT';

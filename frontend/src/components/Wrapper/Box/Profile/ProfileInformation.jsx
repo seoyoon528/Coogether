@@ -243,6 +243,7 @@ export default function ProfileInformation(props) {
             followerList={followerList}
             followingList={followingList}
             clickedContentName={clickedContentName}
+            setFollowingCount={setFollowingCount}
           />
           <div className="follow">
             <Stack spacing={2} direction="row">
@@ -271,14 +272,6 @@ export default function ProfileInformation(props) {
               {!isAuthor && loginUserSeq && (
                 <div className="follow-click-button">
                   {!isFollowed && (
-                    // <button
-                    //   type="button"
-                    //   onClick={() => {
-                    //     clickFollowHandler();
-                    //   }}
-                    // >
-                    //   팔로우
-                    // </button>
                     <NextBtn
                       size="small"
                       onClick={clickFollowHandler}

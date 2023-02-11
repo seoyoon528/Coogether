@@ -8,7 +8,7 @@ import { FollowModalContentStyle } from './FollowModalContentStyle';
 
 export default function FollowModalContent(props) {
   // Props
-  const { userList, onClose } = props;
+  const { userList, onClose, setFollowingCount } = props;
 
   return (
     <FollowModalContentStyle>
@@ -22,6 +22,7 @@ export default function FollowModalContent(props) {
               userSeq={userSeq}
               userNickname={userNickname}
               userImg={userImg}
+              setFollowingCount={setFollowingCount}
             />
           );
         })}
@@ -36,6 +37,7 @@ export default function FollowModalContent(props) {
                 userSeq={userSeq}
                 userNickname={userNickname}
                 userImg={userImg}
+                setFollowingCount={setFollowingCount}
               />
             );
           }
