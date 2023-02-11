@@ -4,85 +4,83 @@ import cn from 'classnames';
 
 import './verticalC.css';
 
-export const data = {
-  leadingText: 'All about',
-  slides: [
-    {
-      introline: 'dogs',
-      id: 'dogs',
-      content: {
-        image: 'https://via.placeholder.com/400x200?text=Dogs',
-        copy: 'Dog ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-      },
+export const data = [
+  {
+    introline: 'dogs',
+    id: 'dogs',
+    content: {
+      image: 'https://via.placeholder.com/400x200?text=Dogs',
+      copy: 'Dog ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
     },
-    {
-      introline: 'elephants',
-      id: 'elephants',
-      content: {
-        image: 'https://via.placeholder.com/400x200?text=Elephants',
-        copy: 'Elephant ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-      },
+  },
+  {
+    introline: 'elephants',
+    id: 'elephants',
+    content: {
+      image: 'https://via.placeholder.com/400x200?text=Elephants',
+      copy: 'Elephant ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
     },
-    {
-      introline: 'bears',
-      id: 'bears',
-      content: {
-        image: 'https://via.placeholder.com/400x200?text=Bears',
-        copy: 'Bears ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-      },
+  },
+  {
+    introline: 'bears',
+    id: 'bears',
+    content: {
+      image: 'https://via.placeholder.com/400x200?text=Bears',
+      copy: 'Bears ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
     },
-    {
-      introline: 'lizards',
-      id: 'lizards',
-      content: {
-        image: 'https://via.placeholder.com/400x200?text=Lizards',
-        copy: 'Lizards ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-      },
+  },
+  {
+    introline: 'lizards',
+    id: 'lizards',
+    content: {
+      image: 'https://via.placeholder.com/400x200?text=Lizards',
+      copy: 'Lizards ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
     },
-    {
-      introline: 'snakes',
-      id: 'snakes',
-      content: {
-        image: 'https://via.placeholder.com/400x200?text=Snakes',
-        copy: 'Snakes ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-      },
+  },
+  {
+    introline: 'snakes',
+    id: 'snakes',
+    content: {
+      image: 'https://via.placeholder.com/400x200?text=Snakes',
+      copy: 'Snakes ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
     },
-    {
-      introline: 'cats',
-      id: 'cats',
-      content: {
-        image: 'https://via.placeholder.com/400x200?text=Cats',
-        copy: 'Cats ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-      },
+  },
+  {
+    introline: 'cats',
+    id: 'cats',
+    content: {
+      image: 'https://via.placeholder.com/400x200?text=Cats',
+      copy: 'Cats ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
     },
-    {
-      introline: 'giraffes',
-      id: 'giraffes',
-      content: {
-        image: 'https://via.placeholder.com/400x200?text=Giraffes',
-        copy: 'Giraffes ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-      },
+  },
+  {
+    introline: 'giraffes',
+    id: 'giraffes',
+    content: {
+      image: 'https://via.placeholder.com/400x200?text=Giraffes',
+      copy: 'Giraffes ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
     },
-    {
-      introline: 'owls',
-      id: 'owls',
-      content: {
-        image: 'https://via.placeholder.com/400x200?text=Owls',
-        copy: 'Owls ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-      },
+  },
+  {
+    introline: 'owls',
+    id: 'owls',
+    content: {
+      image: 'https://via.placeholder.com/400x200?text=Owls',
+      copy: 'Owls ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
     },
-    {
-      introline: 'horses',
-      id: 'horses',
-      content: {
-        image: 'https://via.placeholder.com/400x200?text=horses',
-        copy: 'Horses ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-      },
+  },
+  {
+    introline: 'horses',
+    id: 'horses',
+    content: {
+      image: 'https://via.placeholder.com/400x200?text=horses',
+      copy: 'Horses ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
     },
-  ],
-};
+  },
+];
 
 const VerticalC = ({ data }) => {
+  console.log(data);
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Used to determine which items appear above the active item
@@ -147,7 +145,7 @@ const VerticalC = ({ data }) => {
             className="carousel-button prev"
             onClick={() => handleClick('prev')}
           >
-            <Prev />
+            이전
           </button>
 
           <div className="carousel">
@@ -180,15 +178,8 @@ const VerticalC = ({ data }) => {
             className="carousel-button next"
             onClick={() => handleClick('next')}
           >
-            <Next />
+            이후
           </button>
-        </div>
-        <div className="content">
-          <img
-            src={data[activeIndex].content.image}
-            alt={data[activeIndex].content.introline}
-          />
-          <p>{data[activeIndex].content.copy}</p>
         </div>
       </section>
     </div>
