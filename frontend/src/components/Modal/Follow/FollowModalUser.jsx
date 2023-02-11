@@ -12,7 +12,7 @@ import { FollowModalUserStyle } from './FollowModalUserStyle';
 
 export default function FollowModalUser(props) {
   // Props
-  const { userSeq, userNickname, userImg, onClose } = props;
+  const { userSeq, userNickname, userImg, onClose, setFollowingCount } = props;
 
   // useHistory
   const history = useHistory();
@@ -66,9 +66,15 @@ export default function FollowModalUser(props) {
     try {
       await axios(requestInfo);
       if (isFollowed) {
+        setFollowingCount(prev => {
+          return prev - 1;
+        });
         setIsFollowed(false);
       } else {
         setIsFollowed(true);
+        setFollowingCount(prev => {
+          return prev + 1;
+        });
       }
     } catch (error) {
       console.log(error);
