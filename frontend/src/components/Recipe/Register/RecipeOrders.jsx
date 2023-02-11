@@ -8,8 +8,10 @@ import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 export default function RecipeOrders(props) {
+  // Props
   const { recipeOrders, onClick: setRecipeOrders } = props;
 
+  // function
   // 순서 추가
   const addRecipeOrder = () => {
     setRecipeOrders(prev => {

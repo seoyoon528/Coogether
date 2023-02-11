@@ -1,8 +1,10 @@
 import React from 'react';
 
+// MUI
 import { Stack } from '@mui/material';
 
 export default function RecipeOrders(props) {
+  // Props
   const { orders } = props;
 
   return (

@@ -5,12 +5,14 @@ import { Box, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
 export default function RecipeIngredientsInput(props) {
+  // Props
   const {
     ingredient: { ingredientName, ingredientAmount },
     amountInputHandler,
     deleteIngredientInput,
     idx,
   } = props;
+
   return (
     <Box display="grid" gridTemplateColumns="repeat(10, 1fr)" gap={2}>
       <Box gridColumn="span 9" className="recipe-cook-ingredient__input">
