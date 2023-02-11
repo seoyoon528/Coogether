@@ -47,6 +47,7 @@ function Nav() {
           <Box gridColumn="span 1" />
           <Box gridColumn="span 1" />
           <Box gridColumn="span 1" />
+          <Box gridColumn="span 1" />
           <Box grid-column="span 1">
             {!isLogin ? (
               <Loginstyle to="/Login">Login</Loginstyle>
