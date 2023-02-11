@@ -1,5 +1,6 @@
 package coogether.backend.config.jwt;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
@@ -18,6 +20,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
         // 권한 없이 접근시 403 에러 발생
+        log.debug("인가 실패(권한 없는 접근). 403 에러 발생");
         response.sendError(HttpServletResponse.SC_FORBIDDEN); //403
     }
 }
