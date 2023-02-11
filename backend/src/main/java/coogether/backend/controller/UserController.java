@@ -1,15 +1,15 @@
 package coogether.backend.controller;
 
 
+import coogether.backend.domain.Follow;
 import coogether.backend.domain.User;
 import coogether.backend.domain.status.EnumSnsType;
 import coogether.backend.domain.status.EnumUserAccountStatus;
 import coogether.backend.domain.status.EnumUserCookCategory;
-import coogether.backend.dto.UserDto;
-import coogether.backend.dto.UserRankDto;
-import coogether.backend.dto.UserUpdateDto;
+import coogether.backend.dto.*;
 import coogether.backend.dto.simple.SimpleUserDto;
 import coogether.backend.repository.user.UserRepository;
+import coogether.backend.service.FollowService;
 import coogether.backend.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -31,6 +31,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final FollowService followService;
 
     @ApiOperation(value = "유저 전체 목록을 반환하는 메소드")
     @GetMapping("/user/list")
@@ -49,7 +50,20 @@ public class UserController {
     @GetMapping("/user/{userSeq}")
     public ResponseEntity userInfoById(@PathVariable("userSeq") Long userSeq) {
         User user = userService.getUserInfoById(userSeq);
-        return ResponseEntity.ok().body(new UserDto(user));
+
+        // 유저 seq로 팔로워 조회
+        List<FollowerDto> followerDtoList = new ArrayList<>();
+        List<Follow> follow1 = followService.getFollowerById(userSeq);
+        for (Follow f : follow1)
+            followerDtoList.add(new FollowerDto(f));
+
+        // 유저 seq로 팔로잉 조회
+        List<FollowingDto> followingDtoList = new ArrayList<>();
+        List<Follow> follow2 = followService.getFollowingById(userSeq);
+        for (Follow f : follow2)
+            followingDtoList.add(new FollowingDto(f));
+
+        return ResponseEntity.ok().body(new UserDto(user,followerDtoList,followingDtoList));
     }
 
     @ApiOperation(value = "유저 이름으로 유저 정보 검색")
