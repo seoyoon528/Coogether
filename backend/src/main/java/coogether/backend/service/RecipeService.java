@@ -80,4 +80,12 @@ public class RecipeService {
 
         return result;
     }
+
+    public Page<SimpleRecipeDto> getRecipeCustomPaging(Pageable pageable) {
+        return recipeRepository.customRecipePage(pageable);
+    }
+
+    public Page<SimpleRecipeDto> getRecipeBaekPaging(Pageable pageable) {
+        return recipeRepository.baekRecipePage(pageable);
+    }
 }
