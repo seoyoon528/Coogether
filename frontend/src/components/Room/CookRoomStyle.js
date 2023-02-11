@@ -62,3 +62,48 @@ export const CookExitBox = styled.div`
   width: 90%;
   height: 14vh;
 `;
+export const AfterBeforeRecipe = styled.div`
+  display: inline-block;
+  width: 90%;
+  height: 45%;
+
+  color: grey;
+  overflow: hidden;
+`;
+export const BeforeRecipe = styled.div`
+  display: inline-block;
+  width: 90%;
+  height: 35%;
+
+  color: grey;
+  overflow: hidden;
+`;
+export const NowRecipe = styled.div`
+  display: flex;
+  width: 90%;
+  height: 15%;
+  align-items: center;
+  justify-content: center;
+`;
+export const RecipeTxt = styled.div`
+  font-size: 200%;
+  display: flex;
+  width: 100%;
+  height: 30%;
+  align-items: center;
+  justify-content: center;
+`;
+export const NowRecipeTxt = styled.div`
+  font-size: 150%;
+  width: 100%;
+  font-size: 300%;
+  font-weight: 700;
+`;
+export const RecipeTitle = styled.div`
+  display: inline-block;
+  width: 80%;
+  height: 15%;
+  font-size: 500%;
+  font-weight: 900;
+  border-bottom: solid 3px #febd2f;
+`;

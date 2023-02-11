@@ -27,7 +27,7 @@ export default function StreamSwiper(props) {
       grabCursor
       breakpoints={{
         640: {
-          slidesPerView: 2,
+          slidesPerView: 3,
           spaceBetween: 20,
         },
         768: {

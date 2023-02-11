@@ -24,6 +24,7 @@ public class UserJoinListDto {
     private LocalDateTime userJoinRegTime;
 
     ///////////////////////////
+    private Long userSeq;
     private String userNickname;
     @QueryProjection
     public UserJoinListDto(UserJoinList userJoinList) {
@@ -31,7 +32,7 @@ public class UserJoinListDto {
 //        this.user = new SimpleUserDto(userJoinList.getUser());
         this.userJoinListId = userJoinList.getUserJoinListId();
         this.userJoinRegTime = userJoinList.getUserJoinRegTime();
-
+        this.userSeq = userJoinList.getUser().getUserSeq();
         this.userNickname = userJoinList.getUser().getUserNickname();
     }
 }

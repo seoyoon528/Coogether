@@ -10,7 +10,7 @@ import CheckUserNum from './models/CheckUserNum';
 import UserModel from './models/user-model';
 import ToolbarComponent from './toolbar/ToolbarComponent';
 import { thisTypeAnnotation } from '@babel/types';
-
+import VerticalC, { data } from './verticalCarousel/VerticalC';
 // mui import
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -22,7 +22,7 @@ var localUser = new UserModel();
 // 서버 URL 지정
 // const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'http://i8b206.p.ssafy.io:9000/api/';
+const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
 // const APPLICATION_SERVER_URL =
 //   'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
 
@@ -51,9 +51,9 @@ class CookRoom extends Component {
       recipe: undefined,
       nowStep: 0,
       open: false,
+      recipeName: '',
     };
-    this.openFullScreenMode = this.openFullScreenMode.bind(this);
-    this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
+
     this.modalOpen = this.modalOpen.bind(this);
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
@@ -62,10 +62,13 @@ class CookRoom extends Component {
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
     this.killUser = this.killUser.bind(this);
-    // 레시피 가져오기
     this.getRecipe = this.getRecipe.bind(this);
+
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
+    // 전체 화면으로
+    this.openFullScreenMode = this.openFullScreenMode.bind(this);
+    this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
 
     this.nicknameChanged = this.nicknameChanged.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -76,9 +79,7 @@ class CookRoom extends Component {
     this.toggleChat = this.toggleChat.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
   }
-  componentWillMount() {
-    this.getRecipe();
-  }
+
   componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload);
     this.joinSession();
@@ -137,6 +138,12 @@ class CookRoom extends Component {
       }
     }
   }
+
+  // 레시피 chat에서 가져오기
+
+  getRecipe(getInfo) {
+    this.setState({ recipe: getInfo[0], recipeName: getInfo[1] });
+  }
   // 연결 시 유저 이름과 유저 사진 동시에 전송
   connect(token) {
     this.state.session
@@ -163,17 +170,6 @@ class CookRoom extends Component {
           error.message
         );
       });
-  }
-
-  // 임시 로직 - 해당 레시피의 id를 props에서 받아올것
-  async getRecipe() {
-    const response = await axios.get(
-      'http://i8b206.p.ssafy.io:9000/api/recipestep/list/3'
-    );
-    console.log(response.data);
-    this.setState({
-      recipe: response.data,
-    });
   }
 
   async connectWebCam() {
@@ -391,6 +387,7 @@ class CookRoom extends Component {
   chattoCook() {
     this.state.session.on('signal:startCook', event => {
       this.setState({ chatDisplay: 'none', messageReceived: false });
+      this.openFullScreenMode();
     });
   }
 
@@ -666,6 +663,7 @@ class CookRoom extends Component {
         ) : (
           ''
         )}
+
         {localUser !== undefined &&
           this.state.chatDisplay !== 'none' &&
           localUser.getStreamManager() !== undefined && (
@@ -676,7 +674,7 @@ class CookRoom extends Component {
               chatDisplay={this.state.chatDisplay}
               close={this.toggleChat}
               messageReceived={this.checkNotification}
-              recipe={this.state.recipe}
+              getRecipe={this.getRecipe}
               onChangeShow={this.props.onChangeShow}
             />
           )}
@@ -708,34 +706,82 @@ class CookRoom extends Component {
               ))}
             </C.CookDivideBox>
             <C.CookDivideBox>
-              <div>레시피 이름(props로 받을것)</div>
-              {this.state.recipe
-                .filter((v, a) => a < Number(this.state.nowStep))
-                .map(v => {
-                  return (
-                    <div style={{ fontSize: '10px' }}>
-                      {v.recipeStepContent}
-                    </div>
-                  );
-                })}
-              {this.state.recipe
-                .filter((v, a) => a === Number(this.state.nowStep))
-                .map(v => {
-                  return (
-                    <div style={{ fontSize: '30px', top: '50%' }}>
-                      {v.recipeStepContent}
-                    </div>
-                  );
-                })}
-              {this.state.recipe
-                .filter((v, a) => a > Number(this.state.nowStep))
-                .map(v => {
-                  return (
-                    <div style={{ fontSize: '10px' }}>
-                      {v.recipeStepContent}
-                    </div>
-                  );
-                })}
+              {/* <VerticalC data={this.state.recipe} /> */}
+              <C.RecipeTitle>{this.state.recipeName}</C.RecipeTitle>
+              <C.BeforeRecipe>
+                <C.RecipeTxt>
+                  {Number(this.state.nowStep) - 3 >= 0
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) - 3)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+                <C.RecipeTxt>
+                  {' '}
+                  {Number(this.state.nowStep) - 2 >= 0
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) - 2)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+                <C.RecipeTxt>
+                  {' '}
+                  {Number(this.state.nowStep) - 1 >= 0
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) - 1)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+              </C.BeforeRecipe>
+              <C.NowRecipe>
+                {this.state.recipe
+                  .filter((v, a) => a === Number(this.state.nowStep))
+                  .map(v => {
+                    return (
+                      <C.NowRecipeTxt>{v.recipeStepContent}</C.NowRecipeTxt>
+                    );
+                  })}
+              </C.NowRecipe>
+              <C.BeforeRecipe>
+                <C.RecipeTxt>
+                  {Number(this.state.nowStep) + 1 <=
+                  this.state.recipe.length - 1
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) + 1)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+                <C.RecipeTxt>
+                  {' '}
+                  {Number(this.state.nowStep) + 2 <=
+                  this.state.recipe.length - 1
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) + 2)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+                <C.RecipeTxt>
+                  {' '}
+                  {Number(this.state.nowStep) + 3 <=
+                  this.state.recipe.length - 1
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) + 3)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+              </C.BeforeRecipe>
             </C.CookDivideBox>
 
             <ToolbarComponent

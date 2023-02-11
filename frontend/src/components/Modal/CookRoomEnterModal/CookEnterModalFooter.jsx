@@ -8,13 +8,14 @@ import NextBtn from '../../Btn/NextBtn/NextBtn';
 export default function CookEnterModalFooter(props) {
   const { setIsCookRoomEnterModalOpened, cookingRoomId } = props;
   const userSeq = useSelector(state => state.user.userSeq);
+  const accessToken = useSelector(state => state.user.accessToken);
   const history = useHistory();
 
   const cookRoomEnterHandler = async () => {
     const enter = await axios({
-      // url : `http://i8b206.p.ssafy.io:9000/api/room/1/1`
-      url: `http://i8b206.p.ssafy.io:9000/api/room/${cookingRoomId}/${userSeq}`,
-      headers: { Authorization: `Bearer ${userSeq}` },
+      // url : `https://i8b206.p.ssafy.io:9000/api/room/1/1`
+      url: `https://i8b206.p.ssafy.io:9000/api/room/${cookingRoomId}/${userSeq}`,
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
     history.push(`/Room/${cookingRoomId}`);
   };

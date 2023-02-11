@@ -12,7 +12,7 @@ function Login({ onChangeShow }) {
   const isLogin = useSelector(state => state.user.authenticated);
   const userInfo = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const REDIRECT_URI = 'http://localhost:3000/login/oauth2/code/kakao';
+  const REDIRECT_URI = 'https://i8b206.p.ssafy.io/login/oauth2/code/kakao';
   const REST_API_KEY = 'b674e8f9c243d9c4425264edb0f647a9';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   // 로그아웃 로직

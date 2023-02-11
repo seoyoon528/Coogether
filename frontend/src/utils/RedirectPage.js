@@ -77,7 +77,7 @@ function RedirectPage() {
     formData.append('file', userImg);
 
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/user/signup`,
+      url: `https://i8b206.p.ssafy.io:9000/api/user/signup`,
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -100,7 +100,7 @@ function RedirectPage() {
     const code = new URL(window.location.href).searchParams.get('code');
     const res = await axios.get(
       // `http://localhost:9000/user/login?code=${code}`
-      `http://i8b206.p.ssafy.io:9000/api/user/login?code=${code}`
+      `https://i8b206.p.ssafy.io:9000/api/user/login?code=${code}`
     );
     console.log(res);
     // loginsuccess false이면

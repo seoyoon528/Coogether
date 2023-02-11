@@ -62,41 +62,36 @@ export default class StreamComponent extends Component {
       <S.StreamBox subscribeNum={this.props.subscribeNum + 1}>
         {this.props.user !== undefined &&
         this.props.user.getStreamManager() !== undefined ? (
-          <div className="streamComponent">
+          <S.StreamComponent>
             <OvVideoComponent
               user={this.props.user}
               mutedSound={this.state.mutedSound}
             />
-            <div id="statusIcons">
+
+            <S.StatusIcons>
               {!this.props.user.isVideoActive() ? (
-                <div id="camIcon">카메라 끄기</div>
+                <S.CamMicIcon>카메라 Off</S.CamMicIcon>
               ) : null}
 
               {!this.props.user.isAudioActive() ? (
-                <div id="micIcon">음소거</div>
+                <S.CamMicIcon>음소거</S.CamMicIcon>
               ) : null}
-            </div>
-            <div>
-              {/* 음소거 선택 */}
-              {!this.props.user.isLocal() && (
-                <span id="volumeButton" onClick={this.toggleSound}>
-                  {this.state.mutedSound ? (
-                    <button color="secondary">음소거</button>
-                  ) : (
-                    <button color="secondary">소리 켜기</button>
-                  )}
-                </span>
-              )}
-            </div>
-            <div></div>
+            </S.StatusIcons>
+            {/* 음소거 선택 */}
+            {/* {!this.props.user.isLocal() && (
+              <S.ControlIcon onClick={this.toggleSound}>
+                {this.state.mutedSound ? 'Mute' : 'Sound On'}
+              </S.ControlIcon>
+            )} */}
+            {/* 강퇴 */}
             {!this.props.user.isLocal() && this.props.kicktrigger && (
-              <button id="volumeButton" onClick={this.killUser}>
-                강퇴
-              </button>
+              <S.ControlIcon onClick={this.killUser}>
+                <S.ControlTxt>강퇴</S.ControlTxt>
+              </S.ControlIcon>
             )}
-          </div>
+            <S.NickName>{this.props.user.getNickname()}</S.NickName>
+          </S.StreamComponent>
         ) : null}
-        <S.NickName>{this.props.user.getNickname()}</S.NickName>
       </S.StreamBox>
     );
   }

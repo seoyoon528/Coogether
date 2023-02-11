@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 // MUI
@@ -12,40 +12,28 @@ import { MyRecipeStyle } from './ProfileSwiperStyle';
 import StepCountImage from '../../../../assets/img/list.png';
 import IngredientCountImage from '../../../../assets/img/handbag.png';
 import CookCategoryImage from '../../../../assets/img/cake-dome.svg';
-
-const ChnageCategoryToKorean = category => {
-  switch (category) {
-    case 'KOREAN':
-      return '한식';
-    case 'JAPANESE':
-      return '일식';
-    case 'CHINESE':
-      return '중식';
-    case 'WESTERN':
-      return '양식';
-    case 'DESSERT':
-      return '디저트';
-    case 'ASIAN':
-      return '아시안';
-    case 'BUNSIK':
-      return '분식';
-    case 'NONE':
-      return '없음';
-    default:
-      return '기타';
-  }
-};
+import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
 
 export default function MyRecipe(props) {
-  const {
-    recipe: { recipeImg, recipeName, recipeId, recipeContent, recipeCategory },
-  } = props;
+  // Props
+  const { recipe } = props;
 
+  // useState
   const [ingredientsCount, setIngredientsCount] = useState(0);
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
+  // Redux
+  const category = useSelector(state => {
+    return state.prefer;
+  });
+
+  const { recipeImg, recipeName, recipeId, recipeContent, recipeCategory } =
+    recipe;
+
+  // useEffect
   useEffect(async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`,
+      url: `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`,
       method: 'GET',
     };
     try {
@@ -58,46 +46,58 @@ export default function MyRecipe(props) {
   }, [recipeId]);
 
   const recipeSteps = recipeContent.split('\n').length;
-  const category = ChnageCategoryToKorean(recipeCategory);
+
+  // function
+  const closeModal = () => {
+    setIsModalOpened(false);
+  };
 
   return (
     <MyRecipeStyle>
-      <div className="my-recipe__image">
-        <img src={recipeImg} alt="레시피 사진" />
-      </div>
-      <Stack spacing={3}>
-        <div className="my-recipe__text">
-          <h4 className="my-recipe__title">{recipeName}</h4>
-          <Stack
-            spacing={2}
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <div className="content__item">
-              <div className="category">
-                <img src={CookCategoryImage} alt="재료 아이콘" />
-                <p>선호</p>
-              </div>
-              <p>{category}</p>
-            </div>
-            <div className="content__item">
-              <div className="category">
-                <img src={IngredientCountImage} alt="재료 아이콘" />
-                <p>재료</p>
-              </div>
-              <p>{ingredientsCount}</p>
-            </div>
-            <div className="content__item">
-              <div className="category">
-                <img src={StepCountImage} alt="단계 아이콘" />
-                <p>과정</p>
-              </div>
-              <p>{recipeSteps}개</p>
-            </div>
-          </Stack>
+      <RecipeDetail open={isModalOpened} onClose={closeModal} recipe={recipe} />
+      <div
+        onClick={() => {
+          setIsModalOpened(true);
+        }}
+        aria-hidden
+      >
+        <div className="my-recipe__image">
+          <img src={recipeImg} alt="레시피 사진" />
         </div>
-      </Stack>
+        <Stack spacing={3}>
+          <div className="my-recipe__text">
+            <h4 className="my-recipe__title">{recipeName}</h4>
+            <Stack
+              spacing={2}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <div className="content__item">
+                <div className="category">
+                  <img src={CookCategoryImage} alt="재료 아이콘" />
+                  <p>선호</p>
+                </div>
+                <p>{category[recipeCategory]}</p>
+              </div>
+              <div className="content__item">
+                <div className="category">
+                  <img src={IngredientCountImage} alt="재료 아이콘" />
+                  <p>재료</p>
+                </div>
+                <p>{ingredientsCount}개</p>
+              </div>
+              <div className="content__item">
+                <div className="category">
+                  <img src={StepCountImage} alt="단계 아이콘" />
+                  <p>과정</p>
+                </div>
+                <p>{recipeSteps}개</p>
+              </div>
+            </Stack>
+          </div>
+        </Stack>
+      </div>
     </MyRecipeStyle>
   );
 }

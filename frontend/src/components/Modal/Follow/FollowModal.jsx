@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // MUI
 import { Dialog } from '@mui/material';
@@ -6,6 +6,9 @@ import { Dialog } from '@mui/material';
 // Component
 import FollowModalContent from './FollowModalContent';
 import FollowModalHeader from './FollowModalHeader';
+
+// Style
+import { FollowModalStyle } from './FollowModalStyle';
 
 export default function FollowModal(props) {
   // Props
@@ -15,11 +18,16 @@ export default function FollowModal(props) {
     followerList,
     followingList,
     clickedContentName,
-    loginUserSeq,
+    setFollowingCount,
+    isAuthor,
   } = props;
 
   // useState
   const [activeContent, setActiveContent] = useState(clickedContentName);
+
+  useEffect(() => {
+    setActiveContent(clickedContentName);
+  }, [clickedContentName]);
 
   return (
     <Dialog
@@ -28,28 +36,34 @@ export default function FollowModal(props) {
         onClose(false);
       }}
       fullWidth
-      maxWidth="sm"
+      maxWidth="xs"
     >
-      <FollowModalHeader
-        activeContent={activeContent}
-        setActiveContent={setActiveContent}
-      />
-      {activeContent === 'follower' && (
-        <FollowModalContent
-          loginUserSeq={loginUserSeq}
-          userList={followerList.filter(({ followId, followFlag }) => {
-            return followFlag === 'CONNECT' && followId !== loginUserSeq;
-          })}
+      <FollowModalStyle>
+        <FollowModalHeader
+          activeContent={activeContent}
+          setActiveContent={setActiveContent}
         />
-      )}
-      {activeContent === 'following' && (
-        <FollowModalContent
-          loginUserSeq={loginUserSeq}
-          userList={followingList.filter(({ followId, followFlag }) => {
-            return followFlag === 'CONNECT' && followId !== loginUserSeq;
-          })}
-        />
-      )}
+        {activeContent === 'follower' && (
+          <FollowModalContent
+            isAuthor={isAuthor}
+            setFollowingCount={setFollowingCount}
+            onClose={onClose}
+            userList={followerList.filter(({ followFlag }) => {
+              return followFlag === 'CONNECT';
+            })}
+          />
+        )}
+        {activeContent === 'following' && (
+          <FollowModalContent
+            setFollowingCount={setFollowingCount}
+            isAuthor={isAuthor}
+            onClose={onClose}
+            userList={followingList.filter(({ followFlag }) => {
+              return followFlag === 'CONNECT';
+            })}
+          />
+        )}
+      </FollowModalStyle>
     </Dialog>
   );
 }

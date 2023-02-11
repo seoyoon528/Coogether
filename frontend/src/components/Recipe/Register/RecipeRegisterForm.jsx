@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import axios from 'axios';
 
 // MUI
-import { Button, Stack, Box } from '@mui/material';
+import { Stack, Box } from '@mui/material';
 
 // Component
 import RecipeCookName from './RecipeCookName';
@@ -15,24 +16,26 @@ import RecipeOrders from './RecipeOrders';
 import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 function RecipeRegisterForm() {
+  // useHistory
   const history = useHistory();
 
-  const DUMMY_USER_ID = 1;
+  // Redux
+  const { userSeq } = useSelector(state => {
+    return state.user;
+  });
+  const accessToken = useSelector(state => state.user.accessToken);
 
-  // 요리 이름
+  // useRef, useState
   const cookNameRef = useRef();
-  // 요리 분류
   const [selectedCategory, setSelectedCategory] = useState('no-select');
-  // 요리 이미지
   const [cookImage, setCookImage] = useState('');
-  // 요리 재료
   const [recipeIngredients, setRecipeIngredients] = useState([]);
-  // 요리 순서
   const [recipeOrders, setRecipeOrders] = useState([
     { id: 'order-1' },
     { id: 'order-2' },
   ]);
 
+  // function
   // form 제출
   const recipeSubmitHandler = async () => {
     // 전송하는 데이터 가공 및 변수명 변경
@@ -69,10 +72,11 @@ function RecipeRegisterForm() {
     formData.append('file', recipeImg);
 
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/recipe/create/${DUMMY_USER_ID}`,
+      url: `https://i8b206.p.ssafy.io:9000/api/recipe/create/${userSeq}`,
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${accessToken}`,
       },
       data: formData,
     };
@@ -80,7 +84,7 @@ function RecipeRegisterForm() {
     try {
       const response = await axios(requestInfo);
       console.log(response.data);
-      history.replace(`/profile/${DUMMY_USER_ID}`);
+      history.replace(`/profile/${userSeq}`);
     } catch (error) {
       console.log(error);
     }

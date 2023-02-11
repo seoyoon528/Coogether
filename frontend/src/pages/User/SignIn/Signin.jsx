@@ -60,7 +60,7 @@ function Signin({ userId, userName, email }) {
       userCookCategory: prefer,
     };
     const submitUserForm = await axios.post(
-      'http://localhost:9000/signup',
+      'https://i8b206.p.ssafy.io:9000/api/signup',
       userFormPayload
     );
     console.log(submitUserForm);

@@ -15,6 +15,7 @@ import SearchMakeCookRoom from '../../components/Wrapper/Box/MakeCookRoomBox/Sea
 
 function MakeCoomRoom() {
   const userSeq = useSelector(state => state.user.userSeq);
+  const accessToken = useSelector(state => state.user.accessToken);
   const history = useHistory();
   // 방송 제목
   const [streamName, setStreamName] = useState('');
@@ -50,11 +51,11 @@ function MakeCoomRoom() {
     // console.log(streamName, streamTime, cookImage, announce, selectRecipe);
     try {
       const postData = await axios({
-        url: `http://i8b206.p.ssafy.io:9000/api/room/create/${userSeq}/${selectRecipe.recipeId}`,
+        url: `https://i8b206.p.ssafy.io:9000/api/room/create/${userSeq}/${selectRecipe.recipeId}`,
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${userSeq}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         data: formData,
       });

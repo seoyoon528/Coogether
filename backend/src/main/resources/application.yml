@@ -15,6 +15,13 @@ server:
   servlet:
     context-path: /api
 
+  ssl:
+    enabled: true
+    #key-store: keystore.p12
+    key-store: classpath:keystore.p12 #(로컬뿐 아닌 개발서버에서도 사용하려면)
+    key-store-password: 123456
+    key-store-type: PKCS12
+    #key-alias: bns-ssl
 
 
 # openvidu server 설정
@@ -86,7 +93,7 @@ spring:
               - account_email
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:3000/login/oauth2/code/kakao
+            redirect-uri: https://i8b206.p.ssafy.io/login/oauth2/code/kakao
             client-authentication-method: POST
 
         provider:

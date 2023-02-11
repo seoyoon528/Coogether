@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
@@ -18,16 +17,17 @@ import {
 import ChefHat from '../../../Rank/ChefHat';
 import ProfileEditButton from './ProfileEditButton';
 import FollowModal from '../../../Modal/Follow/FollowModal';
+import NextBtn from '../../../Btn/NextBtn/NextBtn';
 
 // Image
-import LikeIcon from '../../../../assets/img/cake-dome.svg';
+import LikeIcon from '../../../../assets/img/dining.png';
 import FireIcon from '../../../../assets/img/fire.png';
 
 // Style
 import { ProfileInformationStyle } from './ProfileInformationStyle';
 
 // Select input Style
-const CategoryInput = styled(InputBase)(({ theme }) => ({
+const CategoryInput = styled(InputBase)(() => ({
   '& .MuiInputBase-input': {
     display: 'flex',
     alignItems: 'center',
@@ -80,7 +80,17 @@ export default function ProfileInformation(props) {
   } = userInformation;
 
   // Redux
+  const category = useSelector(state => {
+    return state.prefer;
+  });
   const accessToken = useSelector(state => state.user.accessToken);
+  const {
+    userImg: loginUserImg,
+    userTemp: loginUserTemp,
+    userNickname: loginUserNickname,
+  } = useSelector(state => {
+    return state.user;
+  });
 
   // useState
   const [isFollowModalOpened, setIsFollowModalOpened] = useState(false);
@@ -88,22 +98,25 @@ export default function ProfileInformation(props) {
   const [clickedContentName, setClickedContentName] = useState('follower'); // 팔로워 선택 or 팔로잉 선택
   const [followerCount, setFollowerCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
+  const [isInFollowerList, setIsInFollowerList] = useState(false);
 
   // useEffect
   useEffect(() => {
-    // follower 수 체크 및 팔로우 여부 확인
     if (followerList.length > 0) {
-      setFollowerCount(
-        followerList.filter(({ followFlag }) => {
-          return followFlag === 'CONNECT';
-        }).length
-      );
-      // 팔로우 여부 확인
-      setIsFollowed(
-        followerList.some(({ followId, followFlag }) => {
-          return followId === loginUserSeq && followFlag === 'CONNECT';
-        })
-      );
+      let followerCount = 0;
+      followerList.forEach(({ followFlag, followerUser: { userSeq } }) => {
+        // 팔로워 수 카운트
+        if (followFlag === 'CONNECT') {
+          followerCount += 1;
+          if (userSeq === loginUserSeq) {
+            setIsFollowed(true); // 팔로워 여부 저장
+          }
+        }
+        if (userSeq === loginUserSeq) {
+          setIsInFollowerList(true); // 팔로워 리스트에 현재 로그인 유저가 있는지 저장
+        }
+      });
+      setFollowerCount(followerCount);
     }
     // following 수 체크
     if (followingList.length > 0) {
@@ -113,7 +126,7 @@ export default function ProfileInformation(props) {
         }).length
       );
     }
-  }, [followerList, followingList]);
+  }, [followerList, followingList, loginUserSeq, profileUserSeq]);
 
   // select options
   const cookCategories = [
@@ -128,30 +141,51 @@ export default function ProfileInformation(props) {
     { value: 'NONE', label: '없음' },
   ];
 
-  // 선호 분야 변환(한글)
-  const selectedCookCategory = cookCategories.filter(category => {
-    return userCookCategory === category.value;
-  })[0].label;
-
   // Function
   // 팔로우 함수
   const follow = () => {
-    setIsFollowed(false);
-    setFollowerCount(prev => {
-      return prev - 1;
-    });
-  };
-  // 언팔로우 함수
-  const unfollow = () => {
     setIsFollowed(true);
     setFollowerCount(prev => {
       return prev + 1;
     });
+    const sendingFollowList = [...followerList];
+    if (isInFollowerList) {
+      sendingFollowList.forEach(({ followerUser: { userSeq } }, idx) => {
+        if (userSeq === loginUserSeq) {
+          sendingFollowList[idx].followFlag = 'CONNECT';
+        }
+      });
+    } else {
+      sendingFollowList.push({
+        followFlag: 'CONNECT',
+        followerUser: {
+          userImg: loginUserImg,
+          userNickname: loginUserNickname,
+          userTemp: loginUserTemp,
+          userSeq: loginUserSeq,
+        },
+      });
+    }
+    dispatch({ type: 'edit', followerList: sendingFollowList });
+  };
+  // 언팔로우 함수
+  const unfollow = () => {
+    setIsFollowed(false);
+    setFollowerCount(prev => {
+      return prev - 1;
+    });
+    const sendingFollowList = [...followerList];
+    sendingFollowList.forEach(({ followerUser: { userSeq } }, idx) => {
+      if (userSeq === loginUserSeq) {
+        sendingFollowList[idx].followFlag = 'DISCONNECT';
+      }
+    });
+    dispatch({ type: 'edit', followerList: sendingFollowList });
   };
   // 팔로우 버튼 클릭
   const clickFollowHandler = async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/follow/${loginUserSeq}/${profileUserSeq}`, // 팔로잉 REST API
+      url: `https://i8b206.p.ssafy.io:9000/api/follow/${loginUserSeq}/${profileUserSeq}`, // 팔로잉 REST API
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -160,9 +194,9 @@ export default function ProfileInformation(props) {
     try {
       await axios(requestInfo);
       if (isFollowed) {
-        follow();
-      } else {
         unfollow();
+      } else {
+        follow();
       }
     } catch (error) {
       console.log(error);
@@ -175,7 +209,7 @@ export default function ProfileInformation(props) {
         container
         direction="column"
         justifyContent="space-between"
-        rowSpacing={{ xs: 2, md: 4, lg: 8 }}
+        rowSpacing={{ xs: 2, md: 2, lg: 3 }}
         columns={1}
       >
         {/* 닉네임 */}
@@ -209,7 +243,8 @@ export default function ProfileInformation(props) {
             followerList={followerList}
             followingList={followingList}
             clickedContentName={clickedContentName}
-            loginUserSeq={loginUserSeq}
+            isAuthor={isAuthor}
+            setFollowingCount={setFollowingCount}
           />
           <div className="follow">
             <Stack spacing={2} direction="row">
@@ -235,28 +270,29 @@ export default function ProfileInformation(props) {
                 <button type="button">팔로잉</button>
                 <span className="follow-value">{followingCount}</span>
               </div>
-              <div className="follow-click-button">
-                {!isFollowed && loginUserSeq && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      clickFollowHandler();
-                    }}
-                  >
-                    팔로우
-                  </button>
-                )}
-                {isFollowed && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      clickFollowHandler();
-                    }}
-                  >
-                    팔로우 취소
-                  </button>
-                )}
-              </div>
+              {!isAuthor && loginUserSeq && (
+                <div className="follow-click-button">
+                  {!isFollowed && (
+                    <NextBtn
+                      size="small"
+                      onClick={clickFollowHandler}
+                      color="yellow"
+                      name="팔로우"
+                    />
+                  )}
+                  {isFollowed && (
+                    <button
+                      id="unfollow-button"
+                      type="button"
+                      onClick={() => {
+                        clickFollowHandler();
+                      }}
+                    >
+                      팔로우 취소
+                    </button>
+                  )}
+                </div>
+              )}
             </Stack>
           </div>
         </Grid>
@@ -264,8 +300,8 @@ export default function ProfileInformation(props) {
         <Grid item xs={1}>
           <Grid container columns={12}>
             <Grid item xs={6}>
-              <Grid container columns={12} columnSpacing={1}>
-                <Grid item xs={4}>
+              <Grid container columns={12} columnSpacing={{ xs: 5 }}>
+                <Grid item xs={3} lg={2}>
                   <div className="item">
                     <div className="icon">
                       <ChefHat color={rank} />
@@ -276,7 +312,7 @@ export default function ProfileInformation(props) {
                     </div>
                   </div>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3} lg={2}>
                   <div className="item">
                     <div className="icon">
                       <img src={FireIcon} alt="온도 아이콘" />
@@ -291,7 +327,7 @@ export default function ProfileInformation(props) {
                     </div>
                   </div>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3} lg={2}>
                   <div className="item">
                     <div className="icon">
                       <img src={LikeIcon} alt="선호분야 아이콘" />
@@ -300,7 +336,7 @@ export default function ProfileInformation(props) {
                     <Select
                       readOnly={!isEditActive}
                       fullWidth
-                      value={selectedCookCategory}
+                      value={category[userCookCategory]}
                       onChange={event => {
                         const userCookCategory = cookCategories.filter(
                           category => {

@@ -20,6 +20,10 @@ export const SearchFormLabel = styled.label`
     line-height: auto;
     color: #4f4f4f;
   }
+  input::placeholder {
+    /* padding-left: 10px; */
+    text-align: center;
+  }
   button {
     position: absolute;
     top: 1.4rem;

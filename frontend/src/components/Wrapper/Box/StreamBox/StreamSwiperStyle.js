@@ -24,6 +24,7 @@ export const KingWrapper = styled.div`
   position: absolute;
   top: 195px;
   height: 14px;
+  align-items: flex-end;
 
   & p {
     text-align: left;
@@ -35,9 +36,10 @@ export const KingWrapper = styled.div`
     font-weight: 500;
   }
   .chefhat {
-    margin-left: 10px;
-    width: 10px;
-    height: 10px;
+    /* padding-right: 5px; */
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
   }
 `;
 
@@ -121,6 +123,6 @@ export const TagWrapper = styled.div`
   line-height: auto;
   color: black;
   width: max-content;
-  padding: 0 5px;
+  padding: 0 10px;
   font-weight: 600;
 `;

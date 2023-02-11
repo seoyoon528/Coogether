@@ -16,10 +16,12 @@ export default class ChatComponent extends Component {
     this.state = {
       messageList: [],
       message: '',
+      resStep: [],
       ingredients: [],
       startTime: '',
       recipeIngredient: 'recipe',
       cookingRoomName: '',
+      recipeName: '',
     };
     this.chatScroll = React.createRef();
 
@@ -27,8 +29,7 @@ export default class ChatComponent extends Component {
     this.handlePressKey = this.handlePressKey.bind(this);
     this.close = this.close.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
-    this.openFullScreenMode = this.openFullScreenMode.bind(this);
-    this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
+
     this.recipeIngredient = this.recipeIngredient.bind(this);
     // 재료 가져오기
     this.ingredient = this.ingredient.bind(this);
@@ -70,21 +71,30 @@ export default class ChatComponent extends Component {
   // 재료,시작시간 가져오기
   async ingredient() {
     const res = await axios.get(
-      `http://i8b206.p.ssafy.io:9000/api/room/${
+      `https://i8b206.p.ssafy.io:9000/api/room/${
         this.props.user.getStreamManager().stream.session.sessionId
       }`
     );
     console.log(res);
-    this.setState({ cookingRoomName: res.data.cookingRoomName });
+    this.setState({
+      cookingRoomName: res.data.cookingRoomName,
+      recipeName: res.data.recipe.recipeName,
+    });
     const recipeId = res.data.recipe.recipeId;
     const resIng = await axios.get(
-      `http://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`
+      `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`
     );
+    const resStep = await axios.get(
+      `https://i8b206.p.ssafy.io:9000/api/recipestep/list/${recipeId}`
+    );
+    //레시피 정보 video로 보냄
+    this.props.getRecipe([resStep.data, res.data.recipe.recipeName]);
     const targetTime = new Date(res.data.cookingRoomStartTime);
     const targetH = targetTime.getHours();
     const targetM = targetTime.getMinutes();
     this.setState({ startTime: `${targetH}:${targetM}` });
     this.setState({ ingredients: resIng.data });
+    this.setState({ resStep: resStep.data });
   }
   // 레시피 재료 전환
   recipeIngredient(target) {
@@ -122,37 +132,7 @@ export default class ChatComponent extends Component {
   }
 
   close() {
-    this.openFullScreenMode();
     this.props.close(undefined);
-  }
-
-  // 전체화면 설정
-  openFullScreenMode() {
-    if (document.documentElement.requestFullscreen)
-      document.documentElement.requestFullscreen();
-    else if (document.documentElement.webkitRequestFullscreen)
-      // Chrome, Safari (webkit)
-      document.documentElement.webkitRequestFullscreen();
-    else if (document.documentElement.mozRequestFullScreen)
-      // Firefox
-      document.documentElement.mozRequestFullScreen();
-    else if (document.documentElement.msRequestFullscreen)
-      // IE or Edge
-      document.documentElement.msRequestFullscreen();
-  }
-
-  // 전체화면 해제
-  closeFullScreenMode() {
-    if (document.exitFullscreen) document.exitFullscreen();
-    else if (document.webkitExitFullscreen)
-      // Chrome, Safari (webkit)
-      document.webkitExitFullscreen();
-    else if (document.mozCancelFullScreen)
-      // Firefox
-      document.mozCancelFullScreen();
-    else if (document.msExitFullscreen)
-      // IE or Edge
-      document.msExitFullscreen();
   }
 
   render() {
@@ -201,8 +181,8 @@ export default class ChatComponent extends Component {
                   />
                   {this.state.startTime} 시작
                 </div>
-                <h1>레시피 이름</h1>
-                {this.props.recipe.map(v => {
+                <h1>{this.state.recipeName}</h1>
+                {this.state.resStep.map(v => {
                   return (
                     <C.StepTitle>
                       {v.recipeStepNum < 10
@@ -230,7 +210,7 @@ export default class ChatComponent extends Component {
                   />
                   {this.state.startTime} 시작
                 </div>
-                <h1>레시피 이름</h1>
+                <h1>{this.state.recipeName}</h1>
                 {this.state.ingredients.map(v => {
                   return (
                     <C.StepIngTitle>

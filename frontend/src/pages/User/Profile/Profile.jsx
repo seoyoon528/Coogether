@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
@@ -39,11 +39,18 @@ const findRank = temp => {
 };
 
 function Profile() {
+  // 페이지 상단으로 스크롤 이동
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   // useReducer
   const initialState = {
     userImg: '',
     userNickname: '',
-    userTemp: 0,
+    userTemp: null,
     userCookCategory: '',
     userIntroduce: '',
     followerList: [],
@@ -70,6 +77,7 @@ function Profile() {
   const { userSeq: loginUserSeq } = useSelector(state => {
     return state.user;
   });
+  const accessToken = useSelector(state => state.user.accessToken);
 
   // useParams
   const { userId: profileUserSeq } = useParams();
@@ -85,8 +93,11 @@ function Profile() {
   // 프로필 페이지 유저의 정보를 불러오기(userId가 바뀌면 함수 실행)
   useEffect(async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/user/${profileUserSeq}`,
+      url: `https://i8b206.p.ssafy.io:9000/api/user/${profileUserSeq}`,
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     };
     try {
       const userDataResponse = await axios(requestInfo);
@@ -94,31 +105,35 @@ function Profile() {
       // 랭크 확인
       const rank = findRank(userData.userTemp);
       // 히스토리 요청 및 저장
-      requestInfo.url = `http://i8b206.p.ssafy.io:9000/api/history/${profileUserSeq}`;
+      requestInfo.url = `https://i8b206.p.ssafy.io:9000/api/history/${profileUserSeq}`;
       const cookHistoryResponse = await axios(requestInfo);
       const cookHistories = await cookHistoryResponse.data;
       // 커스텀 레시피 요청 및 저장
-      requestInfo.url = `http://i8b206.p.ssafy.io:9000/api/recipe/list/${profileUserSeq}`;
+      requestInfo.url = `https://i8b206.p.ssafy.io:9000/api/recipe/list/${profileUserSeq}`;
       const recipeResponse = await axios(requestInfo);
       const recipes = await recipeResponse.data;
       // 불러온 정보 저장
       const payload = { ...userData, rank, cookHistories, recipes };
       dispatch({ payload });
     } catch (error) {
-      if (error.response.status === 400) {
-        // 일단 alert로 처리함
-        alert('없는 유저입니다');
-      }
-      history.replace('/main');
+      history.replace('/404');
     }
   }, [profileUserSeq]);
+
+  useEffect(() => {
+    if (loginUserSeq === +profileUserSeq) {
+      setIsAuthor(true);
+    } else {
+      setIsAuthor(false);
+    }
+  }, [loginUserSeq, profileUserSeq]);
 
   return (
     <ProfileStyle>
       {/* {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>} */}
-      {state.rank && (
+      {state.userTemp !== null && (
         <Stack spacing={5} className="profile">
-          <UserInfoBox className="user-information">
+          <UserInfoBox className="user-information-box">
             <ProfileImage
               image={state.userImg}
               userNickname={state.userNickname}
@@ -145,7 +160,6 @@ function Profile() {
           {state.recipes.length > 0 && (
             <UserHistory sectionName="등록한 레시피" recipes={state.recipes} />
           )}
-          <UserHistory />
         </Stack>
       )}
     </ProfileStyle>
