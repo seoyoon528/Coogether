@@ -45,7 +45,7 @@ export default function MyRecipe(props) {
 
   useEffect(async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`,
+      url: `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`,
       method: 'GET',
     };
     try {

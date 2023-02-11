@@ -19,7 +19,7 @@ export default function ProfileEditButton(props) {
 
   const editProfile = async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/user/update/${userId}`,
+      url: `https://i8b206.p.ssafy.io:9000/api/user/update/${userId}`,
       method: 'PATCH',
       params: {
         nickname: userNickname,

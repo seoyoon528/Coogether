@@ -85,7 +85,7 @@ function Profile() {
   // 프로필 페이지 유저의 정보를 불러오기(userId가 바뀌면 함수 실행)
   useEffect(async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/user/${profileUserSeq}`,
+      url: `https://i8b206.p.ssafy.io:9000/api/user/${profileUserSeq}`,
       method: 'GET',
     };
     try {
@@ -94,11 +94,11 @@ function Profile() {
       // 랭크 확인
       const rank = findRank(userData.userTemp);
       // 히스토리 요청 및 저장
-      requestInfo.url = `http://i8b206.p.ssafy.io:9000/api/history/${profileUserSeq}`;
+      requestInfo.url = `https://i8b206.p.ssafy.io:9000/api/history/${profileUserSeq}`;
       const cookHistoryResponse = await axios(requestInfo);
       const cookHistories = await cookHistoryResponse.data;
       // 커스텀 레시피 요청 및 저장
-      requestInfo.url = `http://i8b206.p.ssafy.io:9000/api/recipe/list/${profileUserSeq}`;
+      requestInfo.url = `https://i8b206.p.ssafy.io:9000/api/recipe/list/${profileUserSeq}`;
       const recipeResponse = await axios(requestInfo);
       const recipes = await recipeResponse.data;
       // 불러온 정보 저장
@@ -116,7 +116,7 @@ function Profile() {
   return (
     <ProfileStyle>
       {/* {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>} */}
-      {state.rank && (
+      {state.userCookCategory && (
         <Stack spacing={5} className="profile">
           <UserInfoBox className="user-information">
             <ProfileImage

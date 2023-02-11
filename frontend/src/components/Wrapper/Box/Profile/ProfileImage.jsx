@@ -8,7 +8,7 @@ function ProfileImage(props) {
   return (
     <ProfileImageStyle>
       {image !== '' && <img src={image} alt="프로필 사진" />}
-      {image === '' && (
+      {!image && (
         <div className="profile__Nickname">
           <h1>{userNickname}</h1>
         </div>
