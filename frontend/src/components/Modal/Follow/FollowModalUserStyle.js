@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const FollowModalUserStyle = styled.section`
-  height: 25%;
-
   display: flex;
   align-items: center;
+
+  margin-bottom: 2.4rem;
 
   .user-profile-image {
     position: relative;

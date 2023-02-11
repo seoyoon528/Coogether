@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // MUI
 import { Dialog } from '@mui/material';
@@ -12,17 +12,15 @@ import { FollowModalStyle } from './FollowModalStyle';
 
 export default function FollowModal(props) {
   // Props
-  const {
-    open,
-    onClose,
-    followerList,
-    followingList,
-    clickedContentName,
-    loginUserSeq,
-  } = props;
+  const { open, onClose, followerList, followingList, clickedContentName } =
+    props;
 
   // useState
   const [activeContent, setActiveContent] = useState(clickedContentName);
+
+  useEffect(() => {
+    setActiveContent(clickedContentName);
+  }, [clickedContentName]);
 
   return (
     <Dialog
@@ -41,16 +39,16 @@ export default function FollowModal(props) {
         {activeContent === 'follower' && (
           <FollowModalContent
             onClose={onClose}
-            userList={followerList.filter(({ followId, followFlag }) => {
-              return followFlag === 'CONNECT' && followId !== loginUserSeq;
+            userList={followerList.filter(({ followFlag }) => {
+              return followFlag === 'CONNECT';
             })}
           />
         )}
         {activeContent === 'following' && (
           <FollowModalContent
             onClose={onClose}
-            userList={followingList.filter(({ followId, followFlag }) => {
-              return followFlag === 'CONNECT' && followId !== loginUserSeq;
+            userList={followingList.filter(({ followFlag }) => {
+              return followFlag === 'CONNECT';
             })}
           />
         )}

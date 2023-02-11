@@ -4,7 +4,9 @@ import React from 'react';
 import { FollowModalHeaderStyle } from './FollowModalHeaderStyle';
 
 export default function FollowModalHeader(props) {
+  // Props
   const { activeContent, setActiveContent } = props;
+
   return (
     <FollowModalHeaderStyle>
       <button
