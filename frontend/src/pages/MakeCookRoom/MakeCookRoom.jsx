@@ -50,7 +50,7 @@ function MakeCoomRoom() {
     // console.log(streamName, streamTime, cookImage, announce, selectRecipe);
     try {
       const postData = await axios({
-        url: `http://i8b206.p.ssafy.io:9000/api/room/create/${userSeq}/${selectRecipe.recipeId}`,
+        url: `https://i8b206.p.ssafy.io:9000/api/room/create/${userSeq}/${selectRecipe.recipeId}`,
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
