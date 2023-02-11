@@ -10,7 +10,7 @@ import CheckUserNum from './models/CheckUserNum';
 import UserModel from './models/user-model';
 import ToolbarComponent from './toolbar/ToolbarComponent';
 import { thisTypeAnnotation } from '@babel/types';
-
+import VerticalC, { data } from './verticalCarousel/VerticalC';
 // mui import
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -663,6 +663,7 @@ class CookRoom extends Component {
         ) : (
           ''
         )}
+
         {localUser !== undefined &&
           this.state.chatDisplay !== 'none' &&
           localUser.getStreamManager() !== undefined && (
@@ -681,6 +682,7 @@ class CookRoom extends Component {
           showDialog={this.state.showExtensionDialog}
           cancelClicked={this.closeDialogExtension}
         />
+        <VerticalC data={data} />
         {this.state.chatDisplay === 'none' && (
           <C.CookContainer>
             <C.CookDivideBox>
