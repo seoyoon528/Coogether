@@ -1,23 +1,31 @@
+import React from 'react';
+
 // MUI
 import { Box, Select, MenuItem, styled, InputBase } from '@mui/material';
 
+// Select Input 스타일
 const CategoryInput = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
+    position: 'relative',
+
     display: 'flex',
     alignItems: 'center',
-    borderRadius: 4,
-    position: 'relative',
-    backgroundColor: 'white',
+
     border: '0.5px solid #505050',
-    fontSize: '1.6rem',
+    borderRadius: 4,
+
     padding: '1.6rem',
-    // Use the system font instead of the default Roboto font.
+    backgroundColor: 'white',
+
+    fontSize: '1.6rem',
     fontFamily: 'Pretendard Medium',
   },
 }));
 
 export default function RecipeFoodCategory(props) {
+  // Props
   const { selectedCategory, onChange: setSelectedCategory } = props;
+
   const foodCategories = [
     { value: 'KOREAN', label: '한식' },
     { value: 'CHINESE', label: '중식' },
