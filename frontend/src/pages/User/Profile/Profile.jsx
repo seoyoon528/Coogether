@@ -112,6 +112,7 @@ function Profile() {
       history.replace('/main');
     }
   }, [profileUserSeq]);
+  console.log(state.userImg);
 
   return (
     <ProfileStyle>
