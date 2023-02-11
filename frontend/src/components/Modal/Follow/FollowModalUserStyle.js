@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const FollowModalUserStyle = styled.section`
-  height: 25%;
-
   display: flex;
   align-items: center;
+
+  margin-bottom: 2.4rem;
 
   .user-profile-image {
     position: relative;
@@ -39,6 +39,31 @@ export const FollowModalUserStyle = styled.section`
   }
 
   .follow-action-button button {
-    padding: 0;
+    border-radius: 4px;
+
+    font-size: 1.6rem;
+    font-family: 'Pretendard Regular';
+
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+
+  .yellow-button {
+    background-color: #ffdb8d;
+  }
+
+  .yellow-button:hover {
+    background-color: #febd2f;
+  }
+
+  .gray-button {
+    background-color: #dee2e6;
+  }
+
+  .gray-button:hover {
+    background-color: #adb5bd;
+    color: white;
   }
 `;

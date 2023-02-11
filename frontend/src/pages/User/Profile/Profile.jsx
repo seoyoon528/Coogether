@@ -70,6 +70,7 @@ function Profile() {
   const { userSeq: loginUserSeq } = useSelector(state => {
     return state.user;
   });
+  const accessToken = useSelector(state => state.user.accessToken);
 
   // useParams
   const { userId: profileUserSeq } = useParams();
@@ -87,6 +88,9 @@ function Profile() {
     const requestInfo = {
       url: `https://i8b206.p.ssafy.io:9000/api/user/${profileUserSeq}`,
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     };
     try {
       const userDataResponse = await axios(requestInfo);
@@ -112,7 +116,14 @@ function Profile() {
       history.replace('/main');
     }
   }, [profileUserSeq]);
-  console.log(state);
+
+  useEffect(() => {
+    if (loginUserSeq === +profileUserSeq) {
+      setIsAuthor(true);
+    } else {
+      setIsAuthor(false);
+    }
+  }, [loginUserSeq, profileUserSeq]);
 
   return (
     <ProfileStyle>
