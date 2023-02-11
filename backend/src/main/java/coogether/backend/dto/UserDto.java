@@ -2,6 +2,7 @@ package coogether.backend.dto;
 
 
 import com.querydsl.core.annotations.QueryProjection;
+import coogether.backend.controller.FollowController;
 import coogether.backend.domain.Follow;
 import coogether.backend.domain.User;
 import coogether.backend.domain.status.EnumSnsType;
@@ -32,8 +33,8 @@ public class UserDto {
     private LocalDateTime userLastLoginDate;
     private EnumSnsType userSnsType;
     ////////////////////////////////////
-    private List<FollowingDto> followingList;
-    private List<FollowerDto> followerList;
+    private List<FollowingDto> followingList= new ArrayList<>();;
+    private List<FollowerDto> followerList= new ArrayList<>();;
 
     @QueryProjection
     public UserDto(User user){
@@ -52,12 +53,30 @@ public class UserDto {
         this.userSnsType = user.getUserSnsType();
 
         ////////////////////////////////////
-        this.followingList = user.getFollowingList()
-                .stream().map(x-> new FollowingDto(x)).collect(Collectors.toList());
-        this.followerList =  user.getFollowerList()
-                .stream().map(x-> new FollowerDto(x)).collect(Collectors.toList());
-
+//        this.followingList = user.getFollowingList()
+//                .stream().map(x-> new FollowingDto(x)).collect(Collectors.toList());
+//        this.followerList =  user.getFollowerList()
+//                .stream().map(x-> new FollowerDto(x)).collect(Collectors.toList());
     }
 
+    @QueryProjection
+    public UserDto(User user, List<FollowerDto> followerDtoList, List<FollowingDto> followingDtoList) {
+        this.userSeq = user.getUserSeq();
+        this.userId = user.getUserId();
+        this.userName = user.getUserName();
+        this.userNickname = user.getUserNickname();
+        this.userEmail = user.getUserEmail();
+        this.userImg = user.getUserImg();
+        this.userIntroduce = user.getUserIntroduce();
+        this.userCookCategory = user.getUserCookCategory();
+        this.userAccountStatus = user.getUserAccountStatus();
+        this.userTemp = user.getUserTemp();
+        this.userCreateDate = user.getUserCreateDate();
+        this.userLastLoginDate = user.getUserLastLoginDate();
+        this.userSnsType = user.getUserSnsType();
 
+        ////////////////////////////////////
+        this.followingList = followingDtoList;
+        this.followerList = followerDtoList;
+    }
 }
