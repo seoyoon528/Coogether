@@ -88,4 +88,12 @@ public class RecipeService {
     public Page<SimpleRecipeDto> getRecipeBaekPaging(Pageable pageable) {
         return recipeRepository.baekRecipePage(pageable);
     }
+
+    public Page<SimpleRecipeDto> getRecipeCustomListPagingByRecipeName(String recipeName, Pageable pageable) {
+        return recipeRepository.getRecipeCustomListPagingByRecipeName(recipeName,pageable);
+    }
+
+    public Page<SimpleRecipeDto> getRecipeBaekListPagingByRecipeName(String recipeName, Pageable pageable) {
+        return recipeRepository.getRecipeBaekListPagingByRecipeName(recipeName,pageable);
+    }
 }

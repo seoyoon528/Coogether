@@ -111,4 +111,16 @@ public class RecipeController {
 
         return recipeService.getRecipeBaekPaging(pageable);
     }
+
+    @ApiOperation(value = "레시피 이름으로 커스텀 레시피 목록 전체를 반환하는 메소드 (페이징가능 size, page)")
+    @GetMapping("/recipe/search/custom/{recipeName}")
+    public Page<SimpleRecipeDto> recipeCustomListByRecipeName(@PathVariable("recipeName") String recipeName, Pageable pageable) {
+        return recipeService.getRecipeCustomListPagingByRecipeName(recipeName, pageable);
+    }
+
+    @ApiOperation(value = "레시피 이름으로 백종원 레시피 목록 전체를 반환하는 메소드 (페이징가능 size, page)")
+    @GetMapping("/recipe/search/baek/{recipeName}")
+    public Page<SimpleRecipeDto> recipeBaekListByRecipeName(@PathVariable("recipeName") String recipeName, Pageable pageable) {
+        return recipeService.getRecipeBaekListPagingByRecipeName(recipeName, pageable);
+    }
 }
