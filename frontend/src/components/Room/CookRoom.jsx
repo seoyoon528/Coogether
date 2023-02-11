@@ -22,7 +22,7 @@ var localUser = new UserModel();
 // 서버 URL 지정
 // const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'http://i8b206.p.ssafy.io:9000/api/';
+const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
 // const APPLICATION_SERVER_URL =
 //   'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
 
@@ -51,6 +51,7 @@ class CookRoom extends Component {
       recipe: undefined,
       nowStep: 0,
       open: false,
+      recipeName: '',
     };
 
     this.modalOpen = this.modalOpen.bind(this);
@@ -61,6 +62,7 @@ class CookRoom extends Component {
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
     this.killUser = this.killUser.bind(this);
+    this.getRecipe = this.getRecipe.bind(this);
 
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
@@ -135,6 +137,12 @@ class CookRoom extends Component {
         alert('There was an error getting the token:', error.message);
       }
     }
+  }
+
+  // 레시피 chat에서 가져오기
+
+  getRecipe(getInfo) {
+    this.setState({ recipe: getInfo[0], recipeName: getInfo[1] });
   }
   // 연결 시 유저 이름과 유저 사진 동시에 전송
   connect(token) {
@@ -665,7 +673,7 @@ class CookRoom extends Component {
               chatDisplay={this.state.chatDisplay}
               close={this.toggleChat}
               messageReceived={this.checkNotification}
-              recipe={this.state.recipe}
+              getRecipe={this.getRecipe}
               onChangeShow={this.props.onChangeShow}
             />
           )}
@@ -697,7 +705,7 @@ class CookRoom extends Component {
               ))}
             </C.CookDivideBox>
             <C.CookDivideBox>
-              <div>레시피 이름(props로 받을것)</div>
+              <div>{this.state.recipeName}</div>
               {this.state.recipe
                 .filter((v, a) => a < Number(this.state.nowStep))
                 .map(v => {

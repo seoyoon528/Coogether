@@ -6,8 +6,8 @@ import RecipeBoxList from '../../components/Wrapper/Box/RecipeBox/RecipeBoxList 
 import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
 import * as S from './SearchRecipeStyle';
 
-const LIST_URL = 'http://i8b206.p.ssafy.io:9000/api/recipe/list';
-const SEARCH_URL = 'http://i8b206.p.ssafy.io:9000/api/recipe/search';
+const LIST_URL = 'https://i8b206.p.ssafy.io:9000/api/recipe/list';
+const SEARCH_URL = 'https://i8b206.p.ssafy.io:9000/api/recipe/search';
 
 function SearchRecipe() {
   const [enterdItme, setEnterdItme] = useState('');

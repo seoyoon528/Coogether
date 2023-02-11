@@ -16,10 +16,12 @@ export default class ChatComponent extends Component {
     this.state = {
       messageList: [],
       message: '',
+      resStep: [],
       ingredients: [],
       startTime: '',
       recipeIngredient: 'recipe',
       cookingRoomName: '',
+      recipeName: '',
     };
     this.chatScroll = React.createRef();
 
@@ -69,21 +71,30 @@ export default class ChatComponent extends Component {
   // 재료,시작시간 가져오기
   async ingredient() {
     const res = await axios.get(
-      `http://i8b206.p.ssafy.io:9000/api/room/${
+      `https://i8b206.p.ssafy.io:9000/api/room/${
         this.props.user.getStreamManager().stream.session.sessionId
       }`
     );
     console.log(res);
-    this.setState({ cookingRoomName: res.data.cookingRoomName });
+    this.setState({
+      cookingRoomName: res.data.cookingRoomName,
+      recipeName: res.data.recipe.recipeName,
+    });
     const recipeId = res.data.recipe.recipeId;
     const resIng = await axios.get(
-      `http://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`
+      `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`
     );
+    const resStep = await axios.get(
+      `https://i8b206.p.ssafy.io:9000/api/recipestep/list/${recipeId}`
+    );
+    //레시피 정보 video로 보냄
+    this.props.getRecipe([resStep.data, res.data.recipe.recipeName]);
     const targetTime = new Date(res.data.cookingRoomStartTime);
     const targetH = targetTime.getHours();
     const targetM = targetTime.getMinutes();
     this.setState({ startTime: `${targetH}:${targetM}` });
     this.setState({ ingredients: resIng.data });
+    this.setState({ resStep: resStep.data });
   }
   // 레시피 재료 전환
   recipeIngredient(target) {
@@ -170,8 +181,8 @@ export default class ChatComponent extends Component {
                   />
                   {this.state.startTime} 시작
                 </div>
-                <h1>레시피 이름</h1>
-                {this.state.ingredients.map(v => {
+                <h1>{this.state.recipeName}</h1>
+                {this.state.resStep.map(v => {
                   return (
                     <C.StepTitle>
                       {v.recipeStepNum < 10
@@ -199,7 +210,7 @@ export default class ChatComponent extends Component {
                   />
                   {this.state.startTime} 시작
                 </div>
-                <h1>레시피 이름</h1>
+                <h1>{this.state.recipeName}</h1>
                 {this.state.ingredients.map(v => {
                   return (
                     <C.StepIngTitle>
