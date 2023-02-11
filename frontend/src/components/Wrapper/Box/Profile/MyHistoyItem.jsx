@@ -19,7 +19,7 @@ export default function MyHistoyItem(props) {
   } = props;
 
   // useHistory
-  const history = useHistory;
+  const history = useHistory();
 
   // useState
   const [isModalOpened, setIsModalOpened] = useState(false);
