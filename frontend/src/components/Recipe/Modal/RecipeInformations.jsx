@@ -1,6 +1,12 @@
 import React from 'react';
 
+// MUI
 import { Stack, Grid } from '@mui/material';
+
+// IMAGE
+import IngredientsImage from '../../../assets/img/cake-dome.svg';
+import StepsImage from '../../../assets/img/list.png';
+import CopyrightImage from '../../../assets/img/copyright.png';
 
 export default function RecipeInformations(props) {
   const { name, category, author, contentCount, ingredientCount, date } = props;
@@ -12,10 +18,7 @@ export default function RecipeInformations(props) {
           <Grid item xs={4}>
             <li className="information__item">
               <div className="information__item__category">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/2940/2940816.png"
-                  alt="재료 아이콘"
-                />
+                <img src={IngredientsImage} alt="재료 아이콘" />
                 <p>재료</p>
               </div>
               <p>{ingredientCount}</p>
@@ -24,10 +27,7 @@ export default function RecipeInformations(props) {
           <Grid item xs={4}>
             <li className="information__item">
               <div className="information__item__category">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/3078/3078984.png"
-                  alt="과정 아이콘"
-                />
+                <img src={StepsImage} alt="과정 아이콘" />
                 <p>과정</p>
               </div>
               <p>{contentCount}</p>
@@ -36,10 +36,7 @@ export default function RecipeInformations(props) {
           <Grid item xs={4}>
             <li className="information__item">
               <div className="information__item__category">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/1627/1627309.png"
-                  alt="출처 아이콘"
-                />
+                <img src={CopyrightImage} alt="출처 아이콘" />
                 <p>출처</p>
               </div>
               <p>{author}</p>
