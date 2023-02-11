@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
@@ -12,7 +12,14 @@ import { FollowModalUserStyle } from './FollowModalUserStyle';
 
 export default function FollowModalUser(props) {
   // Props
-  const { userSeq, userNickname, userImg, onClose, setFollowingCount } = props;
+  const {
+    userSeq,
+    userNickname,
+    userImg,
+    onClose,
+    setFollowingCount,
+    isAuthor,
+  } = props;
 
   // useHistory
   const history = useHistory();
@@ -66,15 +73,19 @@ export default function FollowModalUser(props) {
     try {
       await axios(requestInfo);
       if (isFollowed) {
-        setFollowingCount(prev => {
-          return prev - 1;
-        });
         setIsFollowed(false);
+        if (isAuthor) {
+          setFollowingCount(prev => {
+            return prev - 1;
+          });
+        }
       } else {
         setIsFollowed(true);
-        setFollowingCount(prev => {
-          return prev + 1;
-        });
+        if (isAuthor) {
+          setFollowingCount(prev => {
+            return prev + 1;
+          });
+        }
       }
     } catch (error) {
       console.log(error);

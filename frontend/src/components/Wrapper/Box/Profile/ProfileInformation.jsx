@@ -20,14 +20,14 @@ import FollowModal from '../../../Modal/Follow/FollowModal';
 import NextBtn from '../../../Btn/NextBtn/NextBtn';
 
 // Image
-import LikeIcon from '../../../../assets/img/cake-dome.svg';
+import LikeIcon from '../../../../assets/img/dining.png';
 import FireIcon from '../../../../assets/img/fire.png';
 
 // Style
 import { ProfileInformationStyle } from './ProfileInformationStyle';
 
 // Select input Style
-const CategoryInput = styled(InputBase)(({ theme }) => ({
+const CategoryInput = styled(InputBase)(() => ({
   '& .MuiInputBase-input': {
     display: 'flex',
     alignItems: 'center',
@@ -209,7 +209,7 @@ export default function ProfileInformation(props) {
         container
         direction="column"
         justifyContent="space-between"
-        rowSpacing={{ xs: 2, md: 4, lg: 8 }}
+        rowSpacing={{ xs: 2, md: 2, lg: 3 }}
         columns={1}
       >
         {/* 닉네임 */}
@@ -243,6 +243,7 @@ export default function ProfileInformation(props) {
             followerList={followerList}
             followingList={followingList}
             clickedContentName={clickedContentName}
+            isAuthor={isAuthor}
             setFollowingCount={setFollowingCount}
           />
           <div className="follow">
@@ -299,8 +300,8 @@ export default function ProfileInformation(props) {
         <Grid item xs={1}>
           <Grid container columns={12}>
             <Grid item xs={6}>
-              <Grid container columns={12} columnSpacing={1}>
-                <Grid item xs={4}>
+              <Grid container columns={12} columnSpacing={{ xs: 5 }}>
+                <Grid item xs={3} lg={2}>
                   <div className="item">
                     <div className="icon">
                       <ChefHat color={rank} />
@@ -311,7 +312,7 @@ export default function ProfileInformation(props) {
                     </div>
                   </div>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3} lg={2}>
                   <div className="item">
                     <div className="icon">
                       <img src={FireIcon} alt="온도 아이콘" />
@@ -326,7 +327,7 @@ export default function ProfileInformation(props) {
                     </div>
                   </div>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3} lg={2}>
                   <div className="item">
                     <div className="icon">
                       <img src={LikeIcon} alt="선호분야 아이콘" />

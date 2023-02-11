@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 
 export default function SwiperSlideImage(props) {
   // Props
-  const { historyImg, recipeName } = props;
+  const { historyImg, recipeName, setIsModalOpened } = props;
 
   // useState
   const [isImageError, setIsImageError] = useState(false);
 
   return (
-    <div className="history__image">
+    <div
+      className="history__image"
+      onClick={() => {
+        setIsModalOpened(true);
+      }}
+      aria-hidden
+    >
       {!isImageError && (
         <img
           src={historyImg}
