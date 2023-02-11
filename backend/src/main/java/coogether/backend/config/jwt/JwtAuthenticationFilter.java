@@ -1,6 +1,7 @@
 package coogether.backend.config.jwt;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@Slf4j
+@Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -33,11 +34,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 1. Request Header 에서 토큰을 꺼냄
         String jwt = resolveToken(request);
+        log.debug("JwtAuthenticationFilter :: 넘어온 Token => " + jwt);
 
         // 2. validateToken 메서드로 토큰의 유효성을 검사
         // 정상 토큰이면 해당 토큰이 authentication 을 뱉으므로 이걸 가져와서 SecurityContext 에 저장
         if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
             Authentication authentication = jwtProvider.getAuthentication(jwt);
+            log.debug("JwtAuthenticationFilter :: 넘어온 Authentication => " + authentication);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 

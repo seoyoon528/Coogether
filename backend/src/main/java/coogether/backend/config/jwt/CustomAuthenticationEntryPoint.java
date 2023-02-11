@@ -1,5 +1,6 @@
 package coogether.backend.config.jwt;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ AuthenticationEntryPoint
 (ExceptionController -> CAuthenticationEntryPointException 호출)
 */
 
+@Slf4j
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
@@ -23,6 +25,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             HttpServletResponse response,
             AuthenticationException authException) throws IOException {
 
+        log.debug("인증 실패(잘못된 JWT 토큰). 401 에러 발생");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED); //401 에러 발생시키기
     }
 }

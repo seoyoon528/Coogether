@@ -18,6 +18,7 @@ function Main({ onChangeShow }, isShow) {
   const [isInThird, setIsInThird] = useState(false);
 
   const userSeq = useSelector(state => state.user.userSeq);
+  const accessToken = useSelector(state => state.user.accessToken);
 
   const getData = async () => {
     try {
@@ -35,7 +36,7 @@ function Main({ onChangeShow }, isShow) {
         const firstData = await axios({
           // 추후 수정
           url: `https://i8b206.p.ssafy.io:9000/api/room/recommend/myingredient/${userSeq}`,
-          headers: { Authorization: `Bearer ${userSeq}` },
+          headers: { Authorization: `Bearer ${accessToken}` },
           // url: 'https://i8b206.p.ssafy.io:9000/api/room/list?size=5',
         });
         if (firstData.data.length > 0) {
@@ -47,7 +48,7 @@ function Main({ onChangeShow }, isShow) {
         const thirdData = await axios({
           // 추후 수정
           url: `https://i8b206.p.ssafy.io:9000/api/room/recommend/usercook/${userSeq}`,
-          headers: { Authorization: `Bearer ${userSeq}` },
+          headers: { Authorization: `Bearer ${accessToken}` },
           // url: 'https://i8b206.p.ssafy.io:9000/api/room/list?size=5',
         });
         // console.log(thirdData);

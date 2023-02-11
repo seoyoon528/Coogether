@@ -4,7 +4,9 @@ import React from 'react';
 import { Grid } from '@mui/material';
 
 function UserInfoBox(props) {
+  // Props
   const { className, children } = props;
+
   return (
     <Grid container columnSpacing={13} column={12} className={className}>
       <Grid item xs={4}>

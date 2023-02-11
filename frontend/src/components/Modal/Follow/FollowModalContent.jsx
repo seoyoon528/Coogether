@@ -7,19 +7,41 @@ import FollowModalUser from './FollowModalUser';
 import { FollowModalContentStyle } from './FollowModalContentStyle';
 
 export default function FollowModalContent(props) {
-  const { userList, onClose } = props;
+  // Props
+  const { userList, onClose, setFollowingCount } = props;
 
   return (
     <FollowModalContentStyle>
-      {userList.map(({ followId }) => {
-        return (
-          <FollowModalUser
-            key={followId}
-            followId={followId}
-            onClose={onClose}
-          />
-        );
-      })}
+      {userList.length > 0 &&
+        userList[0].followerUser &&
+        userList.map(({ followerUser: { userImg, userNickname, userSeq } }) => {
+          return (
+            <FollowModalUser
+              key={userSeq}
+              onClose={onClose}
+              userSeq={userSeq}
+              userNickname={userNickname}
+              userImg={userImg}
+              setFollowingCount={setFollowingCount}
+            />
+          );
+        })}
+      {userList.length > 0 &&
+        userList[0].followingUser &&
+        userList.map(
+          ({ followingUser: { userImg, userNickname, userSeq } }) => {
+            return (
+              <FollowModalUser
+                key={userSeq}
+                onClose={onClose}
+                userSeq={userSeq}
+                userNickname={userNickname}
+                userImg={userImg}
+                setFollowingCount={setFollowingCount}
+              />
+            );
+          }
+        )}
     </FollowModalContentStyle>
   );
 }

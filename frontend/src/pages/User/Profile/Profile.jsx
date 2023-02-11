@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
@@ -39,6 +39,13 @@ const findRank = temp => {
 };
 
 function Profile() {
+  // 페이지 상단으로 스크롤 이동
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   // useReducer
   const initialState = {
     userImg: '',
@@ -70,6 +77,7 @@ function Profile() {
   const { userSeq: loginUserSeq } = useSelector(state => {
     return state.user;
   });
+  const accessToken = useSelector(state => state.user.accessToken);
 
   // useParams
   const { userId: profileUserSeq } = useParams();
@@ -87,6 +95,9 @@ function Profile() {
     const requestInfo = {
       url: `https://i8b206.p.ssafy.io:9000/api/user/${profileUserSeq}`,
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     };
     try {
       const userDataResponse = await axios(requestInfo);
@@ -112,7 +123,14 @@ function Profile() {
       history.replace('/main');
     }
   }, [profileUserSeq]);
-  console.log(state);
+
+  useEffect(() => {
+    if (loginUserSeq === +profileUserSeq) {
+      setIsAuthor(true);
+    } else {
+      setIsAuthor(false);
+    }
+  }, [loginUserSeq, profileUserSeq]);
 
   return (
     <ProfileStyle>

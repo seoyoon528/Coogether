@@ -5,6 +5,7 @@ import coogether.backend.dto.token.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 
 //@RequiredArgsConstructor
-//@Slf4j
+@Slf4j
 @Component
 public class JwtProvider {
     private final Key key;
@@ -37,6 +38,7 @@ public class JwtProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
+    /* JWT 토큰 생성 */
     public TokenDto generateTokenDto(String userId) {
         long now = (new Date()).getTime();
 
@@ -64,6 +66,7 @@ public class JwtProvider {
                 .build();
     }
 
+    /* JWT로 인증정보 조회 */
     public Authentication getAuthentication(String accessToken) {
 
         // 토큰 복호화
@@ -94,17 +97,13 @@ public class JwtProvider {
                     .parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            System.out.println("JWT 서명의 형식이 잘못되었습니다.");
-//            log.info("JWT 서명의 형식이 잘못되었습니다.");
+            log.info("JWT 서명의 형식이 잘못되었습니다.");
         } catch (ExpiredJwtException e) {
-            System.out.println("만료된 JWT 입니다.");
-//            log.info("만료된 JWT 입니다.");
+            log.info("만료된 JWT 입니다.");
         } catch (UnsupportedJwtException e) {
-            System.out.println("지원하지 않는 JWT 입니다.");
-//            log.info("지원하지 않는 JWT 입니다.");
+            log.info("지원하지 않는 JWT 입니다.");
         } catch (IllegalArgumentException e) {
-            System.out.println("잘못된 JWT 입니다.");
-//            log.info("잘못된 JWT 입니다.");
+            log.info("잘못된 JWT 입니다.");
         }
         return false;
     }

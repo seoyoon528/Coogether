@@ -2,7 +2,9 @@ package coogether.backend.repository.recipe;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import coogether.backend.domain.QUser;
 import coogether.backend.domain.Recipe;
+import coogether.backend.domain.status.EnumRecipeType;
 import coogether.backend.dto.RecipeDto;
 import coogether.backend.dto.simple.QSimpleRecipeDto;
 import coogether.backend.dto.simple.SimpleRecipeDto;
@@ -48,6 +50,76 @@ public class RecipeRepositoryImpl implements  RecipeRepositoryCustom{
                 .select(new QSimpleRecipeDto(recipe))
                 .from(recipe)
                 .where(recipe.recipeName.contains(recipeName))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Recipe> countQuery = queryFactory
+                .select(recipe)
+                .from(recipe)
+                .where(recipe.recipeName.contains(recipeName));
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount);
+    }
+
+    @Override
+    public Page<SimpleRecipeDto> customRecipePage(Pageable pageable) {
+        List<SimpleRecipeDto> content = queryFactory
+                .select(new QSimpleRecipeDto(recipe))
+                .from(recipe)
+                .where(recipe.recipeType.eq(EnumRecipeType.CUSTOM))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Recipe> countQuery = queryFactory
+                .select(recipe)
+                .from(recipe);
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount);
+    }
+
+    @Override
+    public Page<SimpleRecipeDto> baekRecipePage(Pageable pageable) {
+        List<SimpleRecipeDto> content = queryFactory
+                .select(new QSimpleRecipeDto(recipe))
+                .from(recipe)
+                .where(recipe.recipeType.eq(EnumRecipeType.BAEK))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Recipe> countQuery = queryFactory
+                .select(recipe)
+                .from(recipe);
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount);
+    }
+
+    @Override
+    public Page<SimpleRecipeDto> getRecipeCustomListPagingByRecipeName(String recipeName, Pageable pageable) {
+        List<SimpleRecipeDto> content = queryFactory
+                .select(new QSimpleRecipeDto(recipe))
+                .from(recipe)
+                .where(recipe.recipeName.contains(recipeName).and(recipe.recipeType.eq(EnumRecipeType.CUSTOM)))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Recipe> countQuery = queryFactory
+                .select(recipe)
+                .from(recipe)
+                .where(recipe.recipeName.contains(recipeName));
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount);
+    }
+
+    @Override
+    public Page<SimpleRecipeDto> getRecipeBaekListPagingByRecipeName(String recipeName, Pageable pageable) {
+        List<SimpleRecipeDto> content = queryFactory
+                .select(new QSimpleRecipeDto(recipe))
+                .from(recipe)
+                .where(recipe.recipeName.contains(recipeName).and(recipe.recipeType.eq(EnumRecipeType.BAEK)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();

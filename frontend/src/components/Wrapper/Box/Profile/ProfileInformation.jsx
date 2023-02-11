@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
@@ -18,6 +17,7 @@ import {
 import ChefHat from '../../../Rank/ChefHat';
 import ProfileEditButton from './ProfileEditButton';
 import FollowModal from '../../../Modal/Follow/FollowModal';
+import NextBtn from '../../../Btn/NextBtn/NextBtn';
 
 // Image
 import LikeIcon from '../../../../assets/img/cake-dome.svg';
@@ -80,6 +80,9 @@ export default function ProfileInformation(props) {
   } = userInformation;
 
   // Redux
+  const category = useSelector(state => {
+    return state.prefer;
+  });
   const accessToken = useSelector(state => state.user.accessToken);
   const {
     userImg: loginUserImg,
@@ -123,7 +126,7 @@ export default function ProfileInformation(props) {
         }).length
       );
     }
-  }, [followerList, followingList]);
+  }, [followerList, followingList, loginUserSeq, profileUserSeq]);
 
   // select options
   const cookCategories = [
@@ -138,15 +141,13 @@ export default function ProfileInformation(props) {
     { value: 'NONE', label: '없음' },
   ];
 
-  // 선호 분야 변환(한글)
-  const selectedCookCategory = cookCategories.filter(category => {
-    return userCookCategory === category.value;
-  })[0].label;
-
   // Function
   // 팔로우 함수
   const follow = () => {
     setIsFollowed(true);
+    setFollowerCount(prev => {
+      return prev + 1;
+    });
     const sendingFollowList = [...followerList];
     if (isInFollowerList) {
       sendingFollowList.forEach(({ followerUser: { userSeq } }, idx) => {
@@ -157,7 +158,6 @@ export default function ProfileInformation(props) {
     } else {
       sendingFollowList.push({
         followFlag: 'CONNECT',
-        followerId: followerList.length + 1,
         followerUser: {
           userImg: loginUserImg,
           userNickname: loginUserNickname,
@@ -171,6 +171,9 @@ export default function ProfileInformation(props) {
   // 언팔로우 함수
   const unfollow = () => {
     setIsFollowed(false);
+    setFollowerCount(prev => {
+      return prev - 1;
+    });
     const sendingFollowList = [...followerList];
     sendingFollowList.forEach(({ followerUser: { userSeq } }, idx) => {
       if (userSeq === loginUserSeq) {
@@ -240,7 +243,7 @@ export default function ProfileInformation(props) {
             followerList={followerList}
             followingList={followingList}
             clickedContentName={clickedContentName}
-            loginUserSeq={loginUserSeq}
+            setFollowingCount={setFollowingCount}
           />
           <div className="follow">
             <Stack spacing={2} direction="row">
@@ -266,20 +269,19 @@ export default function ProfileInformation(props) {
                 <button type="button">팔로잉</button>
                 <span className="follow-value">{followingCount}</span>
               </div>
-              {!isAuthor && (
+              {!isAuthor && loginUserSeq && (
                 <div className="follow-click-button">
-                  {!isFollowed && loginUserSeq && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        clickFollowHandler();
-                      }}
-                    >
-                      팔로우
-                    </button>
+                  {!isFollowed && (
+                    <NextBtn
+                      size="small"
+                      onClick={clickFollowHandler}
+                      color="yellow"
+                      name="팔로우"
+                    />
                   )}
                   {isFollowed && (
                     <button
+                      id="unfollow-button"
                       type="button"
                       onClick={() => {
                         clickFollowHandler();
@@ -333,7 +335,7 @@ export default function ProfileInformation(props) {
                     <Select
                       readOnly={!isEditActive}
                       fullWidth
-                      value={selectedCookCategory}
+                      value={category[userCookCategory]}
                       onChange={event => {
                         const userCookCategory = cookCategories.filter(
                           category => {
