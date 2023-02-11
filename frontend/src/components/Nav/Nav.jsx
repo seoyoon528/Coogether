@@ -1,13 +1,23 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Avatar } from '@mui/material';
 import Mainlogo from '../../assets/img/mainlogo.png';
-import { Navstyle, NavbarBlock, Line, Imgstyle, Loginstyle } from './NavStyle';
+import {
+  Navstyle,
+  NavbarBlock,
+  Line,
+  Imgstyle,
+  Loginstyle,
+  LoginAvatar,
+  LoginStatus,
+} from './NavStyle';
 import { logout } from '../../store/AuthSlice';
 
 function Nav() {
   const isLogin = useSelector(state => state.user.authenticated);
+  const userImg = useSelector(state => state.user.userImg);
+  const userId = useSelector(state => state.user.userSeq);
   const dispatch = useDispatch();
   return (
     <>
@@ -30,9 +40,6 @@ function Nav() {
           <Box gridColumn="span 1">
             <Navstyle to="/MyIngredients">냉장고</Navstyle>
           </Box>
-          <Box gridColumn="span 1">
-            <Navstyle to="/Rank">랭킹</Navstyle>
-          </Box>
           <Box gridColumn="span 1" />
           <Box gridColumn="span 1" />
           <Box gridColumn="span 1" />
@@ -44,14 +51,19 @@ function Nav() {
             {!isLogin ? (
               <Loginstyle to="/Login">Login</Loginstyle>
             ) : (
-              <Loginstyle
-                to="/Main"
-                onClick={() => {
-                  dispatch(logout());
-                }}
-              >
-                Logout
-              </Loginstyle>
+              <LoginStatus>
+                <LoginAvatar to={`/profile/${userId}`}>
+                  <Avatar src={userImg} />
+                </LoginAvatar>
+                <Loginstyle
+                  to="/Main"
+                  onClick={() => {
+                    dispatch(logout());
+                  }}
+                >
+                  Logout
+                </Loginstyle>
+              </LoginStatus>
             )}
           </Box>
           {/* </NavbarBlock> */}

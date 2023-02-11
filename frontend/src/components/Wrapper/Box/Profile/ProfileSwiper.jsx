@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useHistory } from 'react-router-dom';
+
 // Swiper
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -16,9 +18,15 @@ import MyRecipe from './MyRecipe';
 
 // Style
 import { HistoryStyle } from './ProfileSwiperStyle';
+import SwiperSlideImage from './SwiperSlideImage';
 
 export default function ProfileSwiper(props) {
-  const { histories, recipes } = props;
+  // Props
+  const { histories: cookHistories, recipes } = props;
+
+  // useHistory
+  const history = useHistory();
+
   return (
     <Swiper
       modules={[Navigation]}
@@ -33,31 +41,54 @@ export default function ProfileSwiper(props) {
       // onSwiper={swiper => console.log(swiper)}
       // onSlideChange={() => console.log('slide change')}
     >
-      {histories &&
-        histories.map(history => {
-          return (
-            <SwiperSlide key={history.id}>
-              <HistoryStyle>
-                <div className="history__image">
-                  <img src={history.image} alt="요리 사진" />
-                </div>
-                <div className="history__text">
-                  <div>
-                    <h4 className="history__title">{history.title}</h4>
-                    <div className="history__content">
-                      <p className="cook">
-                        {history.cooks.map(cook => {
-                          return <span key={cook}>{cook}</span>;
-                        })}
-                      </p>
+      {cookHistories &&
+        cookHistories.length > 0 &&
+        cookHistories.map(
+          ({
+            historyId,
+            historyImg,
+            cookingRoom: {
+              userJoinLists,
+              cookingRoomName,
+              cookingRoomStartTime,
+              recipe: { recipeName },
+            },
+          }) => {
+            return (
+              <SwiperSlide key={historyId}>
+                <HistoryStyle>
+                  <SwiperSlideImage
+                    historyImg={historyImg}
+                    recipeName={recipeName}
+                  />
+                  <div className="history__text">
+                    <div>
+                      <h4 className="history__title">{cookingRoomName}</h4>
+                      <div className="history__content">
+                        <p className="cook">
+                          {userJoinLists.map(({ userSeq, userNickname }) => {
+                            return (
+                              <span
+                                key={userSeq}
+                                onClick={() => {
+                                  history.push(`/profile/${userSeq}`);
+                                }}
+                                aria-hidden
+                              >
+                                {userNickname}
+                              </span>
+                            );
+                          })}
+                        </p>
+                      </div>
                     </div>
+                    <p className="date">{cookingRoomStartTime}</p>
                   </div>
-                  <p className="date">{history.date}</p>
-                </div>
-              </HistoryStyle>
-            </SwiperSlide>
-          );
-        })}
+                </HistoryStyle>
+              </SwiperSlide>
+            );
+          }
+        )}
       {recipes &&
         recipes.map(recipe => {
           return (

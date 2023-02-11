@@ -48,6 +48,7 @@ export default function FollowModal(props) {
         )}
         {activeContent === 'following' && (
           <FollowModalContent
+            onClose={onClose}
             userList={followingList.filter(({ followId, followFlag }) => {
               return followFlag === 'CONNECT' && followId !== loginUserSeq;
             })}
