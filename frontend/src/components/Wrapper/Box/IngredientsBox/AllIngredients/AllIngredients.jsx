@@ -36,7 +36,7 @@ function AllIngredients({
   //   };
   //   const patchBookmark = async () => {
   //     await axios.patch(
-  //       `http://i8b206.p.ssafy.io:9000//myIngredient/create/fav/1/${setselectIngredientId}`,
+  //       `https://i8b206.p.ssafy.io:9000//myIngredient/create/fav/1/${setselectIngredientId}`,
   //       {
   //         headers: {
   //           Authorization: `Bearer ${accessToken}`,

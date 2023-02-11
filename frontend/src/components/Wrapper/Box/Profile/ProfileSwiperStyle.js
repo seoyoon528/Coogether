@@ -29,6 +29,10 @@ export const HistoryStyle = styled.div`
   .history__title {
     margin-bottom: 1.6rem;
     cursor: pointer;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .cook {

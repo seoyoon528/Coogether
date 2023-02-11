@@ -8,18 +8,17 @@ import { Box, Autocomplete, TextField } from '@mui/material';
 // Component
 import RecipeIngredientsInput from './RecipeIngredientsInput';
 
-// Style
-
 export default function RecipeIngredients(props) {
+  // Props
   const { recipeIngredients, setRecipeIngredients } = props;
 
+  // useState
   const [storedIngredients, setStoredIngredients] = useState([]);
 
-  // console.log(searchedIngredient);
-
+  // useEffect
   useEffect(async () => {
     const requestInfo = {
-      url: 'http://i8b206.p.ssafy.io:9000/api/ingredient/list/total',
+      url: 'https://i8b206.p.ssafy.io:9000/api/ingredient/list/total',
       method: 'GET',
     };
     try {
@@ -30,9 +29,8 @@ export default function RecipeIngredients(props) {
     }
   }, []);
 
-  console.log(storedIngredients);
-
-  //   ingredient amount 입력
+  // function
+  // ingredient amount 입력
   const amountInputHandler = (idx, ingredientAmount) => {
     setRecipeIngredients(prev => {
       const ingredients = prev;

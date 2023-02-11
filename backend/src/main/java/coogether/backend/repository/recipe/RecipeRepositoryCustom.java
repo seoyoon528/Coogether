@@ -10,4 +10,12 @@ public interface RecipeRepositoryCustom {
     Page<RecipeDto> searchRecipePage(Pageable pageable);
 
     Page<SimpleRecipeDto> getRecipeListPagingByRecipeName(String recipeName, Pageable pageable);
+
+    Page<SimpleRecipeDto> customRecipePage(Pageable pageable);
+
+    Page<SimpleRecipeDto> baekRecipePage(Pageable pageable);
+
+    Page<SimpleRecipeDto> getRecipeCustomListPagingByRecipeName(String recipeName, Pageable pageable);
+
+    Page<SimpleRecipeDto> getRecipeBaekListPagingByRecipeName(String recipeName, Pageable pageable);
 }

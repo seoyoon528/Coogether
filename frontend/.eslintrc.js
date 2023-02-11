@@ -25,5 +25,6 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 'off', // label 사용시 input을 label 안에 작성하도록 하는 기능 off,
     'react/jsx-no-useless-fragment': 'off', // 불필요한 프래그먼트 사용에 경고
     'react/jsx-props-no-spreading': 'off', // props spread 오류를 꺼둠
+    'no-nested-ternary': 'off', // 중첩 삼항 연산자 허용
   },
 };

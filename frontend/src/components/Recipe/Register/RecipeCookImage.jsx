@@ -1,10 +1,13 @@
 import React from 'react';
 
+// MUI
 import { SvgIcon, Box } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 export default function RecipeCookImage(props) {
+  // Props
   const { cookImage, onChange: setCookImage } = props;
+
   let renderingImage;
   if (cookImage) {
     renderingImage = URL.createObjectURL(cookImage);

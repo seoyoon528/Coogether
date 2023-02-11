@@ -9,14 +9,16 @@ import ProfileSwiper from './ProfileSwiper';
 import { UserHistoryStyle, NoHistory } from './UserHistoryStyle';
 
 export default function UserHistory(props) {
+  // Props
   const { sectionName, histories, recipes } = props;
+
+  // useHistory
   const history = useHistory();
 
   return (
     <UserHistoryStyle>
       <h3>{sectionName}</h3>
-      {((histories && histories.length > 0) ||
-        (recipes && recipes.length > 0)) && (
+      {((histories && histories.length > 0) || recipes) && (
         <ProfileSwiper histories={histories} recipes={recipes} />
       )}
       {histories && histories.length === 0 && (

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import * as S from './streamItemStyle';
+import ChefDeco from '../../../../assets/img/chef-deco.png';
 
 // Component
-import ChefHat from '../../../Rank/ChefHat';
 import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
 
 function StreamItem({ room }) {
@@ -24,7 +24,7 @@ function StreamItem({ room }) {
   const StartTime = new Date(cookingRoomStartTime);
   const hour = StartTime.getHours();
   const minute = StartTime.getMinutes();
-  const START = `${hour}: ${minute}`;
+  const START = `${hour}:${minute}`;
   return (
     <S.CookRoomItemWrapper>
       <S.CookRoomItemImg
@@ -54,8 +54,8 @@ function StreamItem({ room }) {
         {cookingRoomName}
       </S.roomTitle>
       <S.KingWrapper>
+        <img src={ChefDeco} alt="" className="chefhat" />
         <p>{cookingRoomHost}</p>
-        <ChefHat color="red" className="chefhat" />
       </S.KingWrapper>
       <S.TagWrapper>
         {/* <span>#{recipe.recipeName}</span> */}#{recipe.recipeName}

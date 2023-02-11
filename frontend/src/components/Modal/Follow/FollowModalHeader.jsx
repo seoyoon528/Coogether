@@ -1,15 +1,30 @@
 import React from 'react';
 
+// Style
+import { FollowModalHeaderStyle } from './FollowModalHeaderStyle';
+
 export default function FollowModalHeader(props) {
+  // Props
   const { activeContent, setActiveContent } = props;
+
   return (
-    <header>
-      <button className={activeContent === 'follower' ? 'active' : ''}>
+    <FollowModalHeaderStyle>
+      <button
+        className={activeContent === 'follower' ? 'active' : ''}
+        onClick={() => {
+          setActiveContent('follower');
+        }}
+      >
         팔로워
       </button>
-      <button className={activeContent === 'following' ? 'active' : ''}>
+      <button
+        className={activeContent === 'following' ? 'active' : ''}
+        onClick={() => {
+          setActiveContent('following');
+        }}
+      >
         팔로잉
       </button>
-    </header>
+    </FollowModalHeaderStyle>
   );
 }

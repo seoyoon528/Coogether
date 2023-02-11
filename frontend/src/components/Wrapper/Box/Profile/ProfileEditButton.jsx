@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 
 export default function ProfileEditButton(props) {
-  const { userId } = useParams();
+  // Props
   const {
     isEditActive,
     setIsEditActive,
@@ -17,14 +17,24 @@ export default function ProfileEditButton(props) {
     editData: { userNickname, userCookCategory, userIntroduce },
   } = props;
 
+  // useParams
+  const { userId } = useParams();
+
+  // Redux
+  const accessToken = useSelector(state => state.user.accessToken);
+
+  // function
   const editProfile = async () => {
     const requestInfo = {
-      url: `http://i8b206.p.ssafy.io:9000/api/user/update/${userId}`,
+      url: `https://i8b206.p.ssafy.io:9000/api/user/update/${userId}`,
       method: 'PATCH',
       params: {
         nickname: userNickname,
         cookCategory: userCookCategory,
         introduce: userIntroduce,
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
     };
     try {
@@ -34,6 +44,7 @@ export default function ProfileEditButton(props) {
       console.log(error);
     }
   };
+
   return (
     <button
       className={className}

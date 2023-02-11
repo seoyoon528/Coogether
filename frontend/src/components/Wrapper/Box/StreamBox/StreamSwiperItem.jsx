@@ -3,6 +3,7 @@ import { Stack } from '@mui/material';
 import * as S from './StreamSwiperStyle';
 import ChefHat from '../../../Rank/ChefHat';
 import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
+import ChefDeco from '../../../../assets/img/chef-deco.png';
 
 function StreamSwiperItem(props) {
   const { room } = props;
@@ -82,12 +83,12 @@ function StreamSwiperItem(props) {
             {isDto ? room.cookingRoomDto.cookingRoomName : room.cookingRoomName}
           </S.roomTitle>
           <S.KingWrapper>
+            <img src={ChefDeco} alt="" className="chefhat" />
             <p>
               {isDto
                 ? room.cookingRoomDto.cookingRoomHost
                 : room.cookingRoomHost}
             </p>
-            <ChefHat color="red" className="chefhat" />
           </S.KingWrapper>
           <S.TagWrapper>
             #
