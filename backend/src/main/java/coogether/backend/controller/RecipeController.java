@@ -97,4 +97,18 @@ public class RecipeController {
         List<SimpleRecipeDto> result = recipeService.getRecipeListUser(userSeq);
         return ResponseEntity.ok().body(result);
     }
+
+    @ApiOperation(value = "사용자 커스텀 레시피를 반환하는 메소드 (페이징가능 size, page)")
+    @GetMapping("/recipe/list/custom")
+    public Page<SimpleRecipeDto> recipeListCustom(Pageable pageable) {
+
+        return recipeService.getRecipeCustomPaging(pageable);
+    }
+
+    @ApiOperation(value = "백종원 레시피를 반환하는 메소드 (페이징가능 size, page)")
+    @GetMapping("/recipe/list/baek")
+    public Page<SimpleRecipeDto> recipeListBaek(Pageable pageable) {
+
+        return recipeService.getRecipeBaekPaging(pageable);
+    }
 }
