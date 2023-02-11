@@ -61,11 +61,11 @@ public class CookingRoomController {
     public ResponseEntity addCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq, @RequestHeader(value = "Authorization") String token) {
 
         // 토큰 유효 확인 및 유저 정보(UseqSeq) 가져오기
-        if (!jwtProvider.validateToken(token)) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body("유효하지 않은 토큰입니다.");
-        }
+//        if (!jwtProvider.validateToken(token)) {
+//            return ResponseEntity
+//                    .status(HttpStatus.UNAUTHORIZED)
+//                    .body("유효하지 않은 토큰입니다.");
+//        }
 
         Boolean check = cookingRoomService.addUserJoin(userSeq, cookingRoomId);
         System.out.println("check = " + check);
