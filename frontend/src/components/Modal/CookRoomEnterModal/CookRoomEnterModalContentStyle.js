@@ -2,9 +2,12 @@ import styled from 'styled-components';
 
 export const CookRoomEnterModalContentStyle = styled.section`
   display: flex;
-  margin: 4rem;
   flex-direction: column;
   align-items: center;
+
+  margin: 4rem;
+
+  height: 80vh;
 
   // Header
   header {
@@ -23,17 +26,23 @@ export const CookRoomEnterModalContentStyle = styled.section`
     margin-top: 1.6rem;
 
     width: 100%;
+    height: 90%;
   }
 
   .modal__cook-name {
     border: 2px solid #febd2f;
     border-radius: 4px;
+
     width: 50%;
-    text-align: center;
     padding: 1.6rem;
+    margin-bottom: 1.6rem;
+
+    text-align: center;
   }
 
   .modal__ingredients-box {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,14 +54,44 @@ export const CookRoomEnterModalContentStyle = styled.section`
     border-radius: 4px;
 
     width: 90%;
+    height: 100%;
   }
 
   .change-button-box {
+    position: absolute;
+    transform: translate(0, -50%);
     z-index: 1;
+
+    width: 50%;
+    height: 4rem;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: #fbe3b3;
+    border-radius: 70px;
   }
+
+  .change-button {
+    font-size: 1.6rem;
+    font-family: 'Pretendard Medium';
+
+    height: 90%;
+    width: 48%;
+  }
+
+  .change-button.active {
+    background-color: #febd2f;
+    border-radius: 70px;
+  }
+
   .modal__ingredients-contents {
-    padding: 4rem;
+    margin-top: 3.2rem;
+    margin-bottom: 3.2rem;
     text-align: center;
+
+    overflow: auto;
   }
 
   .ingredient_button {
