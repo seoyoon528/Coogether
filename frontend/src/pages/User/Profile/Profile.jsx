@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
@@ -39,6 +39,13 @@ const findRank = temp => {
 };
 
 function Profile() {
+  // 페이지 상단으로 스크롤 이동
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   // useReducer
   const initialState = {
     userImg: '',

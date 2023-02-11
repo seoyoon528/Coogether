@@ -126,7 +126,7 @@ export default function ProfileInformation(props) {
         }).length
       );
     }
-  }, [followerList, followingList]);
+  }, [followerList, followingList, loginUserSeq, profileUserSeq]);
 
   // select options
   const cookCategories = [
