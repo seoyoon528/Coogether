@@ -682,7 +682,6 @@ class CookRoom extends Component {
           showDialog={this.state.showExtensionDialog}
           cancelClicked={this.closeDialogExtension}
         />
-        <VerticalC data={data} />
         {this.state.chatDisplay === 'none' && (
           <C.CookContainer>
             <C.CookDivideBox>
@@ -707,34 +706,82 @@ class CookRoom extends Component {
               ))}
             </C.CookDivideBox>
             <C.CookDivideBox>
-              <div>{this.state.recipeName}</div>
-              {this.state.recipe
-                .filter((v, a) => a < Number(this.state.nowStep))
-                .map(v => {
-                  return (
-                    <div style={{ fontSize: '10px' }}>
-                      {v.recipeStepContent}
-                    </div>
-                  );
-                })}
-              {this.state.recipe
-                .filter((v, a) => a === Number(this.state.nowStep))
-                .map(v => {
-                  return (
-                    <div style={{ fontSize: '30px', top: '50%' }}>
-                      {v.recipeStepContent}
-                    </div>
-                  );
-                })}
-              {this.state.recipe
-                .filter((v, a) => a > Number(this.state.nowStep))
-                .map(v => {
-                  return (
-                    <div style={{ fontSize: '10px' }}>
-                      {v.recipeStepContent}
-                    </div>
-                  );
-                })}
+              {/* <VerticalC data={this.state.recipe} /> */}
+              <C.RecipeTitle>{this.state.recipeName}</C.RecipeTitle>
+              <C.BeforeRecipe>
+                <C.RecipeTxt>
+                  {Number(this.state.nowStep) - 3 >= 0
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) - 3)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+                <C.RecipeTxt>
+                  {' '}
+                  {Number(this.state.nowStep) - 2 >= 0
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) - 2)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+                <C.RecipeTxt>
+                  {' '}
+                  {Number(this.state.nowStep) - 1 >= 0
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) - 1)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+              </C.BeforeRecipe>
+              <C.NowRecipe>
+                {this.state.recipe
+                  .filter((v, a) => a === Number(this.state.nowStep))
+                  .map(v => {
+                    return (
+                      <C.NowRecipeTxt>{v.recipeStepContent}</C.NowRecipeTxt>
+                    );
+                  })}
+              </C.NowRecipe>
+              <C.BeforeRecipe>
+                <C.RecipeTxt>
+                  {Number(this.state.nowStep) + 1 <=
+                  this.state.recipe.length - 1
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) + 1)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+                <C.RecipeTxt>
+                  {' '}
+                  {Number(this.state.nowStep) + 2 <=
+                  this.state.recipe.length - 1
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) + 2)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+                <C.RecipeTxt>
+                  {' '}
+                  {Number(this.state.nowStep) + 3 <=
+                  this.state.recipe.length - 1
+                    ? this.state.recipe
+                        .filter((v, a) => a === Number(this.state.nowStep) + 3)
+                        .map(v => {
+                          return v.recipeStepContent;
+                        })
+                    : ' '}
+                </C.RecipeTxt>
+              </C.BeforeRecipe>
             </C.CookDivideBox>
 
             <ToolbarComponent
