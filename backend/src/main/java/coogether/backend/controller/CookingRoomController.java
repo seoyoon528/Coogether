@@ -1,6 +1,7 @@
 package coogether.backend.controller;
 
 
+import coogether.backend.config.jwt.JwtProvider;
 import coogether.backend.domain.CookingRoom;
 import coogether.backend.dto.CookingRoomCountDto;
 import coogether.backend.dto.CookingRoomDto;
@@ -10,6 +11,7 @@ import coogether.backend.service.file.S3Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CookingRoomController {
 
+    private final JwtProvider jwtProvider;
     private final CookingRoomService cookingRoomService;
     private final S3Service s3Service;
 
@@ -55,7 +58,14 @@ public class CookingRoomController {
 
     @ApiOperation(value = "요리방 입장 (대기방)")
     @GetMapping("/room/{cookingRoomId}/{userSeq}")
-    public ResponseEntity addCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq) {
+    public ResponseEntity addCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq, @RequestHeader(value = "Authorization") String token) {
+
+        // 토큰 유효 확인 및 유저 정보(UseqSeq) 가져오기
+        if (!jwtProvider.validateToken(token)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("유효하지 않은 토큰입니다.");
+        }
 
         Boolean check = cookingRoomService.addUserJoin(userSeq, cookingRoomId);
         System.out.println("check = " + check);
