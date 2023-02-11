@@ -81,6 +81,13 @@ export default function ProfileInformation(props) {
 
   // Redux
   const accessToken = useSelector(state => state.user.accessToken);
+  const {
+    userImg: loginUserImg,
+    userTemp: loginUserTemp,
+    userNickname: loginUserNickname,
+  } = useSelector(state => {
+    return state.user;
+  });
 
   // useState
   const [isFollowModalOpened, setIsFollowModalOpened] = useState(false);
@@ -88,22 +95,25 @@ export default function ProfileInformation(props) {
   const [clickedContentName, setClickedContentName] = useState('follower'); // 팔로워 선택 or 팔로잉 선택
   const [followerCount, setFollowerCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
+  const [isInFollowerList, setIsInFollowerList] = useState(false);
 
   // useEffect
   useEffect(() => {
-    // follower 수 체크 및 팔로우 여부 확인
     if (followerList.length > 0) {
-      setFollowerCount(
-        followerList.filter(({ followFlag }) => {
-          return followFlag === 'CONNECT';
-        }).length
-      );
-      // 팔로우 여부 확인
-      setIsFollowed(
-        followerList.some(({ followId, followFlag }) => {
-          return followId === loginUserSeq && followFlag === 'CONNECT';
-        })
-      );
+      let followerCount = 0;
+      followerList.forEach(({ followFlag, followerUser: { userSeq } }) => {
+        // 팔로워 수 카운트
+        if (followFlag === 'CONNECT') {
+          followerCount += 1;
+          if (userSeq === loginUserSeq) {
+            setIsFollowed(true); // 팔로워 여부 저장
+          }
+        }
+        if (userSeq === loginUserSeq) {
+          setIsInFollowerList(true); // 팔로워 리스트에 현재 로그인 유저가 있는지 저장
+        }
+      });
+      setFollowerCount(followerCount);
     }
     // following 수 체크
     if (followingList.length > 0) {
@@ -136,17 +146,38 @@ export default function ProfileInformation(props) {
   // Function
   // 팔로우 함수
   const follow = () => {
-    setIsFollowed(false);
-    setFollowerCount(prev => {
-      return prev - 1;
-    });
+    setIsFollowed(true);
+    const sendingFollowList = [...followerList];
+    if (isInFollowerList) {
+      sendingFollowList.forEach(({ followerUser: { userSeq } }, idx) => {
+        if (userSeq === loginUserSeq) {
+          sendingFollowList[idx].followFlag = 'CONNECT';
+        }
+      });
+    } else {
+      sendingFollowList.push({
+        followFlag: 'CONNECT',
+        followerId: followerList.length + 1,
+        followerUser: {
+          userImg: loginUserImg,
+          userNickname: loginUserNickname,
+          userTemp: loginUserTemp,
+          userSeq: loginUserSeq,
+        },
+      });
+    }
+    dispatch({ type: 'edit', followerList: sendingFollowList });
   };
   // 언팔로우 함수
   const unfollow = () => {
-    setIsFollowed(true);
-    setFollowerCount(prev => {
-      return prev + 1;
+    setIsFollowed(false);
+    const sendingFollowList = [...followerList];
+    sendingFollowList.forEach(({ followerUser: { userSeq } }, idx) => {
+      if (userSeq === loginUserSeq) {
+        sendingFollowList[idx].followFlag = 'DISCONNECT';
+      }
     });
+    dispatch({ type: 'edit', followerList: sendingFollowList });
   };
   // 팔로우 버튼 클릭
   const clickFollowHandler = async () => {
@@ -160,9 +191,9 @@ export default function ProfileInformation(props) {
     try {
       await axios(requestInfo);
       if (isFollowed) {
-        follow();
-      } else {
         unfollow();
+      } else {
+        follow();
       }
     } catch (error) {
       console.log(error);

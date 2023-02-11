@@ -43,7 +43,7 @@ function Profile() {
   const initialState = {
     userImg: '',
     userNickname: '',
-    userTemp: 0,
+    userTemp: null,
     userCookCategory: '',
     userIntroduce: '',
     followerList: [],
@@ -112,12 +112,12 @@ function Profile() {
       history.replace('/main');
     }
   }, [profileUserSeq]);
-  console.log(state.userImg);
+  console.log(state);
 
   return (
     <ProfileStyle>
       {/* {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>} */}
-      {state.userCookCategory && (
+      {state.userTemp !== null && (
         <Stack spacing={5} className="profile">
           <UserInfoBox className="user-information">
             <ProfileImage
@@ -146,7 +146,6 @@ function Profile() {
           {state.recipes.length > 0 && (
             <UserHistory sectionName="등록한 레시피" recipes={state.recipes} />
           )}
-          <UserHistory />
         </Stack>
       )}
     </ProfileStyle>
