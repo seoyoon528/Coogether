@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import './ToolbarComponent.css';
-import * as T from './ToolbarCom';
+import * as T from './ToolbarComponentStyle';
 import { Link } from 'react-router-dom';
 export default class ToolbarComponent extends Component {
   constructor(props) {
@@ -107,48 +107,30 @@ export default class ToolbarComponent extends Component {
     const localUser = this.props.user;
     return (
       <T.ToolContainer>
-        <div className="toolbar">
-          <div id="navSessionInfo">
-            {this.props.sessionId && (
-              <div id="titleContent">
-                <span id="session-title">{mySessionId}</span>
-              </div>
-            )}
-          </div>
+        <T.ToolBar>
+          {localUser !== undefined && localUser.isAudioActive() ? (
+            <button onClick={this.micStatusChanged}>음소거</button>
+          ) : (
+            <button onClick={this.micStatusChanged}>마이크 켜기</button>
+          )}
+          {localUser !== undefined && localUser.isVideoActive() ? (
+            <button onClick={this.camStatusChanged}>화면끄기</button>
+          ) : (
+            <button onClick={this.camStatusChanged}>화면켜기</button>
+          )}
+          {this.props.recipe.length - 1 <= this.state.toolNowStep ? (
+            <button onClick={this.openModal}>요리 마치기</button>
+          ) : (
+            <button onClick={this.nextStep}>다음단계</button>
+          )}
+          <button>신고하기</button>
+          {!this.props.kicktrigger ? (
+            <button onClick={this.kickStatusChanged}>내보내기</button>
+          ) : (
+            <button onClick={this.kickStatusChanged}>취소</button>
+          )}
 
-          <div className="buttonsContent">
-            {!this.props.kicktrigger ? (
-              <button onClick={this.kickStatusChanged}>강퇴시키기</button>
-            ) : (
-              <button onClick={this.kickStatusChanged}>취소</button>
-            )}
-            <span
-              color="inherit"
-              className="navButton"
-              id="navMicButton"
-              onClick={this.micStatusChanged}
-            >
-              {localUser !== undefined && localUser.isAudioActive() ? (
-                <span>음소거</span>
-              ) : (
-                <span>마이크 켜기</span>
-              )}
-            </span>
-
-            <span
-              color="inherit"
-              className="navButton"
-              id="navCamButton"
-              onClick={this.camStatusChanged}
-            >
-              {localUser !== undefined && localUser.isVideoActive() ? (
-                <span>카메라 끄기</span>
-              ) : (
-                <span>카메라 켜기</span>
-              )}
-            </span>
-
-            {/* <span
+          {/* <span
               color="inherit"
               className="navButton"
               onClick={this.screenShare}
@@ -173,34 +155,22 @@ export default class ToolbarComponent extends Component {
             >
               카메라 바꾸기
             </span> */}
-            <span
+          {/* <span
               color="inherit"
               className="navButton"
               onClick={this.toggleFullscreen}
             >
               {localUser !== undefined && this.state.fullscreen ? (
-                <span>전체화면 끄기</span>
+                <span>전체화면끄기</span>
               ) : (
                 <span>전체화면</span>
               )}
-            </span>
-            {this.props.recipe.length - 1 <= this.state.toolNowStep ? (
-              <button onClick={this.openModal}>요리 마치기</button>
-            ) : (
-              <button onClick={this.nextStep}>다음 단계로</button>
-            )}
+            </span> */}
 
-            <Link
-              to="/Main"
-              color="secondary"
-              className="navButton"
-              onClick={this.leaveSession}
-              id="navLeaveButton"
-            >
-              나가기
-            </Link>
-          </div>
-        </div>
+          <Link to="/Main" onClick={this.leaveSession}>
+            <button>나가기</button>
+          </Link>
+        </T.ToolBar>
       </T.ToolContainer>
     );
   }

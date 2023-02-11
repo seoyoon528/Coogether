@@ -4,81 +4,6 @@ import cn from 'classnames';
 
 import './verticalC.css';
 
-export const data = [
-  {
-    introline: 'dogs',
-    id: 'dogs',
-    content: {
-      image: 'https://via.placeholder.com/400x200?text=Dogs',
-      copy: 'Dog ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-    },
-  },
-  {
-    introline: 'elephants',
-    id: 'elephants',
-    content: {
-      image: 'https://via.placeholder.com/400x200?text=Elephants',
-      copy: 'Elephant ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-    },
-  },
-  {
-    introline: 'bears',
-    id: 'bears',
-    content: {
-      image: 'https://via.placeholder.com/400x200?text=Bears',
-      copy: 'Bears ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-    },
-  },
-  {
-    introline: 'lizards',
-    id: 'lizards',
-    content: {
-      image: 'https://via.placeholder.com/400x200?text=Lizards',
-      copy: 'Lizards ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-    },
-  },
-  {
-    introline: 'snakes',
-    id: 'snakes',
-    content: {
-      image: 'https://via.placeholder.com/400x200?text=Snakes',
-      copy: 'Snakes ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-    },
-  },
-  {
-    introline: 'cats',
-    id: 'cats',
-    content: {
-      image: 'https://via.placeholder.com/400x200?text=Cats',
-      copy: 'Cats ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-    },
-  },
-  {
-    introline: 'giraffes',
-    id: 'giraffes',
-    content: {
-      image: 'https://via.placeholder.com/400x200?text=Giraffes',
-      copy: 'Giraffes ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-    },
-  },
-  {
-    introline: 'owls',
-    id: 'owls',
-    content: {
-      image: 'https://via.placeholder.com/400x200?text=Owls',
-      copy: 'Owls ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-    },
-  },
-  {
-    introline: 'horses',
-    id: 'horses',
-    content: {
-      image: 'https://via.placeholder.com/400x200?text=horses',
-      copy: 'Horses ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus.',
-    },
-  },
-];
-
 const VerticalC = ({ data }) => {
   console.log(data);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -87,7 +12,7 @@ const VerticalC = ({ data }) => {
   const halfwayIndex = Math.ceil(data.length / 2);
 
   // Usd to determine the height/spacing of each item
-  const itemHeight = 52;
+  const itemHeight = 92;
 
   // Used to determine at what point an item is moved from the top to the bottom
   const shuffleThreshold = halfwayIndex * itemHeight;
@@ -161,12 +86,12 @@ const VerticalC = ({ data }) => {
                         Math.abs(determinePlacement(i)) <=
                         visibleStyleThreshold,
                     })}
-                    key={item.id}
+                    key={item}
                     style={{
                       transform: `translateY(${determinePlacement(i)}px)`,
                     }}
                   >
-                    {item.introline}
+                    {item.recipeStepContent}
                   </button>
                 ))}
               </div>
