@@ -53,9 +53,11 @@ class CookRoom extends Component {
       open: false,
       recipeName: '',
       nowVideo: '',
+      isHost: false,
     };
 
     this.modalOpen = this.modalOpen.bind(this);
+
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
@@ -64,6 +66,8 @@ class CookRoom extends Component {
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
     this.killUser = this.killUser.bind(this);
     this.getRecipe = this.getRecipe.bind(this);
+    // 방장인지 확인
+    this.isHost = this.isHost.bind(this);
 
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
@@ -140,6 +144,12 @@ class CookRoom extends Component {
         alert('There was an error getting the token:', error.message);
       }
     }
+  }
+
+  // 방장인지 확인
+
+  isHost(checkOutput) {
+    this.setState({ isHost: checkOutput });
   }
 
   // 비디오 클릭
@@ -692,6 +702,7 @@ class CookRoom extends Component {
               messageReceived={this.checkNotification}
               getRecipe={this.getRecipe}
               onChangeShow={this.props.onChangeShow}
+              isHost={this.isHost}
             />
           )}
         <DialogExtensionComponent
@@ -881,6 +892,7 @@ class CookRoom extends Component {
               leaveSession={this.leaveSession}
               toggleChat={this.toggleChat}
               onChangeShow={this.props.onChangeShow}
+              isHost={this.state.isHost}
             />
           </C.CookContainer>
         )}

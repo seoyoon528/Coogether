@@ -22,6 +22,7 @@ export default class ChatComponent extends Component {
       recipeIngredient: 'recipe',
       cookingRoomName: '',
       recipeName: '',
+      isHost: false,
     };
     this.chatScroll = React.createRef();
 
@@ -79,8 +80,14 @@ export default class ChatComponent extends Component {
     this.setState({
       cookingRoomName: res.data.cookingRoomName,
       recipeName: res.data.recipe.recipeName,
+      // 방 생성 유저와 현재 유저를 비교하여, 방장인지 파악
+      isHost: this.props.user.getNickname() === res.data.cookingRoomHost,
     });
+    this.props.isHost(
+      this.props.user.getNickname() === res.data.cookingRoomHost
+    );
     const recipeId = res.data.recipe.recipeId;
+
     const resIng = await axios.get(
       `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`
     );

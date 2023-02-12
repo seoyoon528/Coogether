@@ -119,16 +119,21 @@ export default class ToolbarComponent extends Component {
           ) : (
             <button onClick={this.camStatusChanged}>화면켜기</button>
           )}
-          {this.props.recipe.length - 1 <= this.state.toolNowStep ? (
+          {this.props.isHost &&
+          this.props.recipe.length - 1 <= this.state.toolNowStep ? (
             <button onClick={this.nextStep}>요리 마치기</button>
           ) : (
-            <button onClick={this.nextStep}>다음단계</button>
+            this.props.isHost && (
+              <button onClick={this.nextStep}>다음단계</button>
+            )
           )}
           <button>신고하기</button>
-          {!this.props.kicktrigger ? (
+          {this.props.isHost && !this.props.kicktrigger ? (
             <button onClick={this.kickStatusChanged}>내보내기</button>
           ) : (
-            <button onClick={this.kickStatusChanged}>취소</button>
+            this.props.isHost && (
+              <button onClick={this.kickStatusChanged}>취소</button>
+            )
           )}
 
           {/* <span
