@@ -49,6 +49,10 @@ export const roomTitle = styled.h4`
   vertical-align: top;
   line-height: auto;
   color: #000000;
+  width: 130px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const StartUserWrapper = styled.div`

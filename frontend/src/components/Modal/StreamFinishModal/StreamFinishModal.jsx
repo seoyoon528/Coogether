@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import imgInput from '../../../assets/icon/imgInput.svg';
 import * as SF from './StreamFinishModalStyle';
+import RedirectImg from '../../../utils/RedirectImg';
 
 function StreamFinishModal({ onChangeShow }) {
+  const userInfo = useSelector(state => state.user);
   const history = useHistory();
   const [nowStep, setNowStep] = useState(0);
   const [imgURL, setImgURL] = useState('');
+  const [userImg, setUserImg] = useState('');
   const inputRef = useRef(null);
   // 이미지 업로드
   const onUploadImage = useCallback(e => {
@@ -79,13 +83,60 @@ function StreamFinishModal({ onChangeShow }) {
       // IE or Edge
       document.msExitFullscreen();
   }
+
+  const userImgHandler = event => {
+    setUserImg(event);
+  };
+
+  // 이미지와 재료 삭제 동시에 업로드
+
+  const submitRegister = async () => {
+    const userFormPayload = {
+      id: userInfo.data.user.userId, // /user/login의 response로 넘어온 "user" : {"userId": "KAKAO_2309429382o348"}
+      name: userInfo.data.user.userName, // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
+      email: userInfo.data.user.userEmail, // /user/login의 response로 넘어온 "user" : {"userEmail": "5120a@naver.com"}
+      // nickname: nickName,
+      // profileImg: '',
+      // userIntroduce: `안녕하세요 ${userInfo.data.user.userName}입니다.`,
+      // userCookCategory: prefer[1],
+    };
+    console.log(userFormPayload);
+    // 이석훈 - 로컬 작업으로만 진행하기 때문에 merge때 배포 주소로 바꿀것
+    // formdata에 전송할 데이터 담기
+    const formData = new FormData();
+    formData.append(
+      'requestDto',
+      new Blob([JSON.stringify(userFormPayload)], { type: 'application/json' })
+    );
+    // 파일
+    formData.append('file', userImg);
+
+    const requestInfo = {
+      url: `https://i8b206.p.ssafy.io:9000/api/user/signup`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data: formData,
+    };
+    try {
+      const submitUserForm = await axios(requestInfo);
+      console.log(submitUserForm);
+
+      history.push('/main');
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       {nowStep === 0 ? (
         <SF.FinishWrap>
           <SF.FinishTitle>완성된 요리 사진을 올려 주세요!</SF.FinishTitle>
           <SF.SubTitle>등록한 사진은 히스토리에 저장됩니다</SF.SubTitle>
-          <input
+          <RedirectImg userImgHandler={userImgHandler} />
+
+          {/* <input
             type="file"
             accept="image/*"
             ref={inputRef}
@@ -103,10 +154,17 @@ function StreamFinishModal({ onChangeShow }) {
             ) : (
               <img src={imgURL} alt="이미지 미리보기" />
             )}
-          </SF.ImgBox>
-          <SF.ImgUploadBtn onClick={onUploadImageButtonClick}>
+          </SF.ImgBox> */}
+
+          <button
+            onClick={submitRegister}
+            style={{ background: '#FFDB8D', borderRadius: '4px' }}
+          >
             사진 촬영
-          </SF.ImgUploadBtn>
+          </button>
+          {/* <SF.ImgUploadBtn onClick={onUploadImageButtonClick}>
+            사진 촬영
+          </SF.ImgUploadBtn> */}
 
           <SF.NextBeforWrap>
             <SF.NexBeBten style={{ opacity: '0', cursor: 'default' }}>
@@ -130,23 +188,6 @@ function StreamFinishModal({ onChangeShow }) {
           <SF.CheckBox>
             <FormGroup>
               <FormControlLabel control={<Checkbox />} label="당근" />
-              <FormControlLabel control={<Checkbox />} label="호박" />
-              <FormControlLabel control={<Checkbox />} label="고기" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
-              <FormControlLabel control={<Checkbox />} label="주스" />
             </FormGroup>
           </SF.CheckBox>
           <SF.ImgUploadBtn style={{ opacity: '0', cursor: 'default' }}>

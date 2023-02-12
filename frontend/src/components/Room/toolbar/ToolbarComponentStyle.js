@@ -4,6 +4,7 @@ export const ToolContainer = styled.div`
   display: flex;
   height: 6vh;
   width: 100%;
+  marign-top: 4%;
   justify-content: center;
   align-items: center;
 `;

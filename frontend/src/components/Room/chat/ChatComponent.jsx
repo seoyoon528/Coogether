@@ -288,7 +288,6 @@ export default class ChatComponent extends Component {
                           className="msg-content"
                           style={{ marginTop: '1vh' }}
                         >
-                          <span className="triangle" />
                           <C.TextBox>{data.message}</C.TextBox>
                         </div>
                       </div>
