@@ -15,17 +15,26 @@ function FavoriteIngredients({
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const handleClick = i => {
-    setselectIngredientId(i);
+    console.log(i);
+    setselectIngredientId(i.ingredientId);
     setVisible(!visible);
+    console.log(i.ingredientId);
+  };
+
+  const handleClickTwo = e => {
+    console.log(e);
+    setselectIngredientId(e.ingredient.ingredientId);
+    setVisible(!visible);
+    console.log(e.ingredient.ingredientId);
   };
 
   const favoriteIngredient = favorite.map(i => {
     return (
       <span>
         <Circle
-          key={i.ingredientId}
+          key={i}
           onClick={() => {
-            handleClick(i.ingredientId);
+            handleClick(i);
           }}
         >
           <img src={i.ingredientIcon} alt="icon" />
@@ -35,14 +44,15 @@ function FavoriteIngredients({
           <>
             <Button
               onClick={() => {
-                favIngredient(i.ingredientId);
+                console.log(i);
+                favIngredient(i);
               }}
             >
               <BookmarkRemoveIcon />
             </Button>
             <Button
               onClick={() => {
-                sumbitIngredient(i.ingredientId);
+                sumbitIngredient(i);
               }}
             >
               <KitchenRoundedIcon />
@@ -58,9 +68,9 @@ function FavoriteIngredients({
     return (
       <span>
         <Circle
-          key={f.ingredient.ingredientId}
+          key={f}
           onClick={() => {
-            handleClick(f.ingredient.ingredientId);
+            handleClickTwo(f);
           }}
         >
           <img src={f.ingredient.ingredientIcon} alt="icon" />
@@ -70,14 +80,14 @@ function FavoriteIngredients({
           <>
             <Button
               onClick={() => {
-                favIngredient(f.ingredient.ingredientId);
+                favIngredient(f);
               }}
             >
               <BookmarkRemoveIcon />
             </Button>
             <Button
               onClick={() => {
-                sumbitIngredient(f.ingredient.ingredientId);
+                sumbitIngredient(f);
               }}
             >
               <KitchenRoundedIcon />

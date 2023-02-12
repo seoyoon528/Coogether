@@ -29,29 +29,8 @@ function AllIngredients({
       return <h4>{name.text} 전체</h4>;
     });
 
-  // // bookmark로 보내는 것
-  // function bookMark() {
-  //   const handleClick = i => {
-  //     setselectIngredientId(i);
-  //   };
-  //   const patchBookmark = async () => {
-  //     await axios.patch(
-  //       `https://i8b206.p.ssafy.io:9000//myIngredient/create/fav/1/${setselectIngredientId}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //         body:
-  //       });
-  //   };
-  // }
-
-  // access 토큰
-  // headers: {
-  //   Authorization: `Bearer ${accessToken}`
-  //  }
-
   const ingredient = ingredients.map(i => {
+    console.log(i);
     return (
       <span>
         <Circle
@@ -62,10 +41,12 @@ function AllIngredients({
         >
           <img src={i.ingredientIcon} alt="icon" />
         </Circle>
+        {i.ingredientName}
         {selectIngredientId === i.ingredientId && visible && (
           <>
             <Button
               onClick={() => {
+                console.log(i);
                 favIngredient(i);
               }}
             >
@@ -73,6 +54,7 @@ function AllIngredients({
             </Button>
             <Button
               onClick={() => {
+                console.log(i);
                 sumbitIngredient(i);
               }}
             >
@@ -80,26 +62,29 @@ function AllIngredients({
             </Button>
           </>
         )}
-        {i.ingredientName}
       </span>
     );
   });
 
   const AllIngredient = allIngredient.map(e => {
+    console.log(e);
     return (
       <Span>
         <Circle
           key={e}
           onClick={() => {
+            console.log(e);
             handleClick(e);
           }}
         >
           <img src={e.ingredientIcon} alt="icon" />
         </Circle>
+        {e.ingredientName}
         {selectIngredientId === e.ingredientId && visible && (
           <>
             <Button
               onClick={() => {
+                console.log(e);
                 favIngredient(e);
               }}
             >
@@ -107,6 +92,7 @@ function AllIngredients({
             </Button>
             <Button
               onClick={() => {
+                console.log(e);
                 sumbitIngredient(e);
               }}
             >
@@ -114,7 +100,6 @@ function AllIngredients({
             </Button>
           </>
         )}
-        {e.ingredientName}
         {/* </Circle> */}
       </Span>
     );

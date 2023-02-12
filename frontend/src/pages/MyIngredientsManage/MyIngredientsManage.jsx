@@ -61,7 +61,6 @@ function MyIngredientsManage() {
     };
     inorOutIngredient(i.ingredientId);
   };
-  console.log(favIngre);
 
   // 즐겨찾기 api
   useEffect(() => {
@@ -77,7 +76,6 @@ function MyIngredientsManage() {
         );
         const a = [...response.data.map((v, a) => v)];
         setFavorite(a.map(num => num.ingredient));
-        console.log(favorite);
       } catch (e) {
         console.log(e);
       }
@@ -93,47 +91,9 @@ function MyIngredientsManage() {
         {}
       );
       setMyFridge([...sendIngredient.data.map(v => v)]);
-      console.log(sendIngredient);
     };
     inorOutIngredient(i.ingredientId);
   };
-  console.log(setMyFridge);
-
-  // 재료 전체 카테고리 분류 api
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        let query = category;
-        if (query === 'ALL') {
-          query = '';
-        }
-        const response = await axios.get(
-          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/total/${query}`
-        );
-        setIngredients([...response.data.map((v, a) => v)]);
-        console.log(ingredients);
-      } catch (e) {
-        // console.log(e);
-      }
-    };
-    getData();
-  }, [category]);
-
-  // 재료 전체 api
-  useEffect(() => {
-    const getAllData = async () => {
-      try {
-        const response = await axios.get(
-          'https://i8b206.p.ssafy.io:9000/api/ingredient/list/total'
-        );
-        setAllIngredient([...response.data.map((v, a) => v)]);
-        console.log(allIngredient);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getAllData();
-  }, [category]);
 
   // 유저별 냉장고 재료 api
   useEffect(() => {
@@ -160,15 +120,48 @@ function MyIngredientsManage() {
           query = '';
         }
         const response = await axios.get(
-          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`
+          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/${isLogin}/${query}`
         );
         setCategoryFridges([...response.data.map((v, a) => v)]);
-        console.log(categoryFridges);
       } catch (e) {
-        // console.log(e);
+        console.log(e);
       }
     };
     getData();
+  }, [category]);
+
+  // 재료 전체 카테고리 분류 api
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let query = category;
+        if (query === 'ALL') {
+          query = '';
+        }
+        const response = await axios.get(
+          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/total/${query}`
+        );
+        setIngredients([...response.data.map((v, a) => v)]);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getData();
+  }, [category]);
+
+  // 재료 전체 api
+  useEffect(() => {
+    const getAllData = async () => {
+      try {
+        const response = await axios.get(
+          'https://i8b206.p.ssafy.io:9000/api/ingredient/list/total'
+        );
+        setAllIngredient([...response.data.map((v, a) => v)]);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getAllData();
   }, [category]);
 
   const components = [
