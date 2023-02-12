@@ -71,6 +71,8 @@ class CookRoom extends Component {
 
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
+    // 이전 단계로 넘어가기
+    this.beforeStep = this.beforeStep.bind(this);
     // 전체 화면으로
     this.openFullScreenMode = this.openFullScreenMode.bind(this);
     this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
@@ -230,6 +232,7 @@ class CookRoom extends Component {
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
     this.clickNextStep();
+    this.clickBeforeStep();
     this.chattoCook();
     this.subscribeToStreamDestroyed();
     this.killSession();
@@ -327,6 +330,14 @@ class CookRoom extends Component {
 
     this.state.session.signal(signalOptions);
   }
+  beforeStep() {
+    const signalOptions = {
+      data: Number(this.state.nowStep) - 1,
+      type: 'beforeStep',
+    };
+
+    this.state.session.signal(signalOptions);
+  }
 
   nicknameChanged(nickname) {
     let localUser = this.state.localUser;
@@ -407,6 +418,11 @@ class CookRoom extends Component {
       if (this.state.nowStep > this.state.recipe.length - 1) {
         this.closeFullScreenMode();
       }
+    });
+  }
+  clickBeforeStep() {
+    this.state.session.on('signal:beforeStep', event => {
+      this.setState({ nowStep: event.data });
     });
   }
   // 채팅방이 없어지고 다음 단계로 이동
@@ -878,6 +894,7 @@ class CookRoom extends Component {
               nowStep={this.state.nowStep}
               modalOpen={this.modalOpen}
               nextStep={this.nextStep}
+              beforeStep={this.beforeStep}
               sessionId={mySessionId}
               user={localUser}
               showNotification={this.state.messageReceived}

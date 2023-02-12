@@ -11,6 +11,7 @@ export default class ToolbarComponent extends Component {
     this.state = { fullscreen: true, toolNowStep: 0 };
     this.openModal = this.openModal.bind(this);
     this.nextStep = this.nextStep.bind(this);
+    this.beforeStep = this.beforeStep.bind(this);
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
@@ -30,6 +31,10 @@ export default class ToolbarComponent extends Component {
   nextStep() {
     this.props.nextStep();
     this.setState({ toolNowStep: this.state.toolNowStep + 1 });
+  }
+  beforeStep() {
+    this.props.beforeStep();
+    this.setState({ toolNowStep: this.state.toolNowStep - 1 });
   }
 
   kickStatusChanged() {
@@ -126,6 +131,11 @@ export default class ToolbarComponent extends Component {
             this.props.isHost && (
               <button onClick={this.nextStep}>다음단계</button>
             )
+          )}
+          {this.state.toolNowStep > 0 ? (
+            <button onClick={this.beforeStep}>이전단계</button>
+          ) : (
+            ''
           )}
           <button>신고하기</button>
           {this.props.isHost && !this.props.kicktrigger ? (
