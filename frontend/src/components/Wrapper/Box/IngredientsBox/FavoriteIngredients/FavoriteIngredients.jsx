@@ -15,17 +15,58 @@ function FavoriteIngredients({
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const handleClick = i => {
-    setselectIngredientId(i);
+    setselectIngredientId(i.ingredientId);
     setVisible(!visible);
   };
+  const handleClickTwo = i => {
+    setselectIngredientId(i.ingredient.ingredientId);
+    setVisible(!visible);
+    console.log(i.ingredient.ingredientId);
+  };
+  const afterPatch = favIngre.map(i => {
+    console.log(i.ingredient.ingredientId);
+    return (
+      <span>
+        <Circle
+          key={i}
+          onClick={() => {
+            handleClickTwo(i);
+          }}
+        >
+          <img src={i.ingredient.ingredientIcon} alt="icon" />
+        </Circle>
+        {i.ingredient.ingredientName}
+        {selectIngredientId === i.ingredient.ingredientId && visible && (
+          <>
+            <Button
+              onClick={() => {
+                console.log(i.ingredient);
+                favIngredient(i.ingredient);
+              }}
+            >
+              <BookmarkRemoveIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                console.log(i.ingredient);
+                sumbitIngredient(i.ingredient);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
+      </span>
+    );
+  });
 
   const favoriteIngredient = favorite.map(i => {
     return (
       <span>
         <Circle
-          key={i.ingredientId}
+          key={i}
           onClick={() => {
-            handleClick(i.ingredientId);
+            handleClick(i);
           }}
         >
           <img src={i.ingredientIcon} alt="icon" />
@@ -35,14 +76,16 @@ function FavoriteIngredients({
           <>
             <Button
               onClick={() => {
-                favIngredient(i.ingredientId);
+                console.log(i);
+                favIngredient(i);
               }}
             >
               <BookmarkRemoveIcon />
             </Button>
             <Button
               onClick={() => {
-                sumbitIngredient(i.ingredientId);
+                console.log(i);
+                sumbitIngredient(i);
               }}
             >
               <KitchenRoundedIcon />
@@ -52,55 +95,6 @@ function FavoriteIngredients({
       </span>
     );
   });
-
-  const afterPatch = favIngre.map(f => {
-    console.log(f);
-    return (
-      <span>
-        <Circle
-          key={f.ingredient.ingredientId}
-          onClick={() => {
-            handleClick(f.ingredient.ingredientId);
-          }}
-        >
-          <img src={f.ingredient.ingredientIcon} alt="icon" />
-        </Circle>
-        {f.ingredient.ingredientName}
-        {selectIngredientId === f.ingredient.ingredientId && visible && (
-          <>
-            <Button
-              onClick={() => {
-                favIngredient(f.ingredient.ingredientId);
-              }}
-            >
-              <BookmarkRemoveIcon />
-            </Button>
-            <Button
-              onClick={() => {
-                sumbitIngredient(f.ingredient.ingredientId);
-              }}
-            >
-              <KitchenRoundedIcon />
-            </Button>
-          </>
-        )}
-      </span>
-    );
-  });
-
-  if (favIngre.length > 0) {
-    return (
-      <div>
-        <Contents>
-          <h4>
-            즐겨찾기
-            <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
-          </h4>
-          {afterPatch}
-        </Contents>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -109,7 +103,7 @@ function FavoriteIngredients({
           즐겨찾기
           <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
         </h4>
-        {favoriteIngredient}
+        {favIngre.length > 0 ? afterPatch : favoriteIngredient}
       </Contents>
     </div>
   );

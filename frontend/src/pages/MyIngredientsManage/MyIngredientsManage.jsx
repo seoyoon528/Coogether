@@ -53,7 +53,7 @@ function MyIngredientsManage() {
   const favIngredient = i => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
+        `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
         {}
       );
       console.log(sendIngredient.data);
@@ -61,14 +61,13 @@ function MyIngredientsManage() {
     };
     inorOutIngredient(i.ingredientId);
   };
-  console.log(favIngre);
 
   // 즐겨찾기 api
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/fav/${isLogin}`,
+          `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/fav/1`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -77,7 +76,6 @@ function MyIngredientsManage() {
         );
         const a = [...response.data.map((v, a) => v)];
         setFavorite(a.map(num => num.ingredient));
-        console.log(favorite);
       } catch (e) {
         console.log(e);
       }
@@ -86,61 +84,24 @@ function MyIngredientsManage() {
   }, [category]);
 
   // 내 냉장고 patch
-  const sumbitIngredient = i => {
+  const sumbitIngredient = f => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
+        `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${target}`,
         {}
       );
-      setMyFridge([...sendIngredient.data.map(v => v)]);
       console.log(sendIngredient);
+      setMyFridge([...sendIngredient.data.map(v => v)]);
     };
-    inorOutIngredient(i.ingredientId);
+    inorOutIngredient(f.ingredientId);
   };
-  console.log(setMyFridge);
-
-  // 재료 전체 카테고리 분류 api
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        let query = category;
-        if (query === 'ALL') {
-          query = '';
-        }
-        const response = await axios.get(
-          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/total/${query}`
-        );
-        setIngredients([...response.data.map((v, a) => v)]);
-        console.log(ingredients);
-      } catch (e) {
-        // console.log(e);
-      }
-    };
-    getData();
-  }, [category]);
-
-  // 재료 전체 api
-  useEffect(() => {
-    const getAllData = async () => {
-      try {
-        const response = await axios.get(
-          'https://i8b206.p.ssafy.io:9000/api/ingredient/list/total'
-        );
-        setAllIngredient([...response.data.map((v, a) => v)]);
-        console.log(allIngredient);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getAllData();
-  }, [category]);
 
   // 유저별 냉장고 재료 api
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/${isLogin}`
+          `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/1`
         );
         setFridge([...response.data.map((v, a) => v)]);
         console.log(fridge);
@@ -163,12 +124,45 @@ function MyIngredientsManage() {
           `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`
         );
         setCategoryFridges([...response.data.map((v, a) => v)]);
-        console.log(categoryFridges);
       } catch (e) {
-        // console.log(e);
+        console.log(e);
       }
     };
     getData();
+  }, [category]);
+
+  // 재료 전체 카테고리 분류 api
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let query = category;
+        if (query === 'ALL') {
+          query = '';
+        }
+        const response = await axios.get(
+          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/total/${query}`
+        );
+        setIngredients([...response.data.map((v, a) => v)]);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getData();
+  }, [category]);
+
+  // 재료 전체 api
+  useEffect(() => {
+    const getAllData = async () => {
+      try {
+        const response = await axios.get(
+          'https://i8b206.p.ssafy.io:9000/api/ingredient/list/total'
+        );
+        setAllIngredient([...response.data.map((v, a) => v)]);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getAllData();
   }, [category]);
 
   const components = [
@@ -216,7 +210,11 @@ function MyIngredientsManage() {
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1}>
           <Box gridColumn="span 1" />
           <Box gridColumn="span 10">
-            <SearchIngredient searchIngre={searchIngre} />
+            <SearchIngredient
+              searchIngre={searchIngre}
+              favIngredient={favIngredient}
+              sumbitIngredient={sumbitIngredient}
+            />
           </Box>
           <Box gridColumn="span 1" />
         </Box>

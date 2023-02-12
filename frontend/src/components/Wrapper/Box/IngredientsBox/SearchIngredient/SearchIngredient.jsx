@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
+import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import { Contents, Circle, Button, Box } from './SearchIngredientStyle';
 
-function SearchIngredient({ searchIngre }) {
+function SearchIngredient({ searchIngre, favIngredient, sumbitIngredient }) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   console.log(searchIngre);
@@ -31,8 +33,20 @@ function SearchIngredient({ searchIngre }) {
                 {i.ingredientName}
                 {selectIngredientId === i.ingredientId && visible && (
                   <>
-                    <Button>즐겨찾기</Button>
-                    <Button>내 냉장고</Button>
+                    <Button
+                      onClick={() => {
+                        favIngredient(i);
+                      }}
+                    >
+                      <BookmarkAddRoundedIcon />
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        sumbitIngredient(i);
+                      }}
+                    >
+                      <KitchenRoundedIcon />
+                    </Button>
                   </>
                 )}
               </span>
