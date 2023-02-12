@@ -83,13 +83,37 @@ export const ProfileInformationStyle = styled.form`
   }
 
   .item {
-    width: 110%;
+    width: 100%;
 
     text-align: center;
   }
 
   .icon img {
     width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    .item {
+      width: 120%;
+
+      text-align: center;
+    }
+
+    .item img {
+      width: 80%;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .item {
+      width: 200%;
+
+      text-align: center;
+    }
+
+    .item img {
+      width: 80%;
+    }
   }
 
   .item p {
@@ -109,6 +133,8 @@ export const ProfileInformationStyle = styled.form`
 
     display: flex;
     justify-content: center;
+
+    width: 100%;
   }
 
   // 메시지
