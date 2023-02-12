@@ -391,7 +391,7 @@ class CookRoom extends Component {
   }
   clickNextStep() {
     this.state.session.on('signal:nextStep', event => {
-      console.log(event);
+      console.log(event, this.state.recipe.length);
       this.setState({ nowStep: event.data });
     });
   }
