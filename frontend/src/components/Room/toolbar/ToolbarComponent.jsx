@@ -120,7 +120,7 @@ export default class ToolbarComponent extends Component {
             <button onClick={this.camStatusChanged}>화면켜기</button>
           )}
           {this.props.recipe.length - 1 <= this.state.toolNowStep ? (
-            <button onClick={this.openModal}>요리 마치기</button>
+            <button onClick={this.nextStep}>요리 마치기</button>
           ) : (
             <button onClick={this.nextStep}>다음단계</button>
           )}

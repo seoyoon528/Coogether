@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function StreamHistoryModal() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div />;
 }
 
-export default StreamHistoryModal
+export default StreamHistoryModal;
