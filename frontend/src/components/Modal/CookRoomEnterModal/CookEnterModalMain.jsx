@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import CookEnterModalRenderContent from './CookEnterModalRenderContent';
 
 export default function CookEnterModalMain(props) {
+  // Props
   const { recipeName, recipeIngredients, notHavingIngredients } = props;
-  const [clickedButton, setClickedButton] = useState('all');
 
-  console.log(clickedButton);
+  // useState
+  const [clickedButton, setClickedButton] = useState('all');
 
   return (
     <main>

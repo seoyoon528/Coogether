@@ -4,7 +4,7 @@ import React from 'react';
 import { Stack, Grid } from '@mui/material';
 
 // IMAGE
-import IngredientsImage from '../../../assets/img/cake-dome.svg';
+import IngredientsImage from '../../../assets/img/handbag.png';
 import StepsImage from '../../../assets/img/list.png';
 import CopyrightImage from '../../../assets/img/copyright.png';
 
@@ -12,11 +12,11 @@ export default function RecipeInformations(props) {
   // Props
   const {
     name,
-    category,
-    author,
+    // category,
+    // author,
     contentCount,
     ingredientCount,
-    date,
+    // date,
     nickname,
   } = props;
   return (
