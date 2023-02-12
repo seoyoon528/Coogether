@@ -301,7 +301,7 @@ export default function ProfileInformation(props) {
           <Grid container columns={12}>
             <Grid item xs={6}>
               <Grid container columns={12} columnSpacing={{ xs: 5 }}>
-                <Grid item xs={3} lg={2}>
+                <Grid item xs={3} xl={2}>
                   <div className="item">
                     <div className="icon">
                       <ChefHat color={rank} />
@@ -312,7 +312,7 @@ export default function ProfileInformation(props) {
                     </div>
                   </div>
                 </Grid>
-                <Grid item xs={3} lg={2}>
+                <Grid item xs={3} xl={2}>
                   <div className="item">
                     <div className="icon">
                       <img src={FireIcon} alt="온도 아이콘" />
@@ -327,7 +327,7 @@ export default function ProfileInformation(props) {
                     </div>
                   </div>
                 </Grid>
-                <Grid item xs={3} lg={2}>
+                <Grid item xs={3} xl={2}>
                   <div className="item">
                     <div className="icon">
                       <img src={LikeIcon} alt="선호분야 아이콘" />
@@ -336,7 +336,11 @@ export default function ProfileInformation(props) {
                     <Select
                       readOnly={!isEditActive}
                       fullWidth
-                      value={category[userCookCategory]}
+                      value={
+                        category[userCookCategory] === '베이킹/디저트'
+                          ? '디저트'
+                          : category[userCookCategory]
+                      }
                       onChange={event => {
                         const userCookCategory = cookCategories.filter(
                           category => {
