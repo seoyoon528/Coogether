@@ -83,7 +83,7 @@ export const ProfileInformationStyle = styled.form`
   }
 
   .item {
-    width: 100%;
+    width: 110%;
 
     text-align: center;
   }
