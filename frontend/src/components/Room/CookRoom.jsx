@@ -393,6 +393,10 @@ class CookRoom extends Component {
     this.state.session.on('signal:nextStep', event => {
       console.log(event, this.state.recipe.length);
       this.setState({ nowStep: event.data });
+      // 요리가 완료되면 닫기
+      if (this.state.nowStep > this.state.recipe.length - 1) {
+        this.closeFullScreenMode();
+      }
     });
   }
   // 채팅방이 없어지고 다음 단계로 이동
@@ -645,10 +649,10 @@ class CookRoom extends Component {
           thisRoom={this.props.roomId}
         />
         {this.state.chatDisplay === 'none' &&
-        this.state.nowStep >= this.state.recipe.length - 1 ? (
+        this.state.nowStep > this.state.recipe.length - 1 ? (
           <div>
             <Modal
-              open={this.state.open}
+              open={this.state.nowStep > this.state.recipe.length - 1}
               onClose={this.modalOpen}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
