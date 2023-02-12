@@ -23,21 +23,27 @@ export default function CookEnterModalRenderContent(props) {
       className="modal__ingredients-contents"
       justifyContent="space-evenly"
     >
-      {ingredients.map(({ ingredient: { ingredientId, ingredientName } }) => {
-        return (
-          <Grid item xs={6} key={ingredientId}>
-            <button
-              className="ingredient_button"
-              type="button"
-              onClick={() => {
-                buyIngredient(ingredientName);
-              }}
-            >
-              {ingredientName}
-            </button>
-          </Grid>
-        );
-      })}
+      {ingredients.map(
+        ({ ingredient: { ingredientId, ingredientName, ingredientIcon } }) => {
+          return (
+            <Grid item xs={6} key={ingredientId}>
+              <div className="ingredient_icon">
+                <img src={ingredientIcon} alt="" />
+              </div>
+              <p>{ingredientName}</p>
+              {/* <button
+                className="ingredient_button"
+                type="button"
+                onClick={() => {
+                  buyIngredient(ingredientName);
+                }}
+              >
+                {ingredientName}
+              </button> */}
+            </Grid>
+          );
+        }
+      )}
     </Grid>
   );
 }

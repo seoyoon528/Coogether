@@ -26,7 +26,7 @@ export const CookRoomEnterModalContentStyle = styled.section`
     margin-top: 1.6rem;
 
     width: 100%;
-    height: 90%;
+    height: 80%;
   }
 
   .modal__cook-name {
@@ -54,7 +54,7 @@ export const CookRoomEnterModalContentStyle = styled.section`
     border-radius: 4px;
 
     width: 90%;
-    height: 100%;
+    height: 70%;
   }
 
   .change-button-box {
@@ -92,6 +92,18 @@ export const CookRoomEnterModalContentStyle = styled.section`
     text-align: center;
 
     overflow: auto;
+  }
+
+  .ingredient_icon {
+    width: 100%;
+
+    margin-bottom: 1.6rem;
+  }
+
+  .ingredient_icon img {
+    width: 25%;
+    height: 25%;
+    border: 25%;
   }
 
   .ingredient_button {
