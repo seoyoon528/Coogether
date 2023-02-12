@@ -12,6 +12,8 @@ import ToolbarComponent from './toolbar/ToolbarComponent';
 import { thisTypeAnnotation } from '@babel/types';
 import VerticalC, { data } from './verticalCarousel/VerticalC';
 // mui import
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -54,6 +56,7 @@ class CookRoom extends Component {
       recipeName: '',
       nowVideo: '',
       isHost: false,
+      carouselIdx: 0,
     };
 
     this.modalOpen = this.modalOpen.bind(this);
@@ -78,6 +81,11 @@ class CookRoom extends Component {
     this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
     // 비디오 클릭 감시
     this.videoClick = this.videoClick.bind(this);
+
+    // 캐러셀 앞
+    this.beforeVideo = this.beforeVideo.bind(this);
+    // 캐러셀 뒤
+    this.afterVideo = this.afterVideo.bind(this);
 
     this.nicknameChanged = this.nicknameChanged.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -662,6 +670,18 @@ class CookRoom extends Component {
       // IE or Edge
       document.msExitFullscreen();
   }
+  // 캐러셀 이전 사람들
+  beforeVideo() {
+    if (this.state.carouselIdx > 0) {
+      this.setState({ carouselIdx: this.state.carouselIdx - 1 });
+    }
+  }
+  // 캐러셀 이후 사람들
+  afterVideo() {
+    if (this.state.carouselIdx < (this.state.subscribers.length + 1) / 2 - 1) {
+      this.setState({ carouselIdx: this.state.carouselIdx + 1 });
+    }
+  }
 
   render() {
     const mySessionId = this.state.mySessionId;
@@ -741,39 +761,53 @@ class CookRoom extends Component {
                     />
                   </C.FocusVideo>
                   <C.CarouselVideo>
-                    {/* 현재 큰화면이 아닌 유저들만 캐러셀에 나옴 */}
-                    {localUser !== undefined &&
-                      this.state.nowVideo !== localUser &&
-                      localUser.getStreamManager() !== undefined && (
-                        <StreamComponent
-                          nowFocus={this.state.nowVideo}
-                          user={localUser}
-                          handleNickname={this.nicknameChanged}
-                          subscribeNum={this.state.subscribers.length}
-                          videoClick={this.videoClick}
-                          style={{
-                            width:
-                              this.state.nowVideo === localUser
-                                ? '100px'
-                                : '10px',
-                          }}
-                        />
-                      )}
-                    {this.state.subscribers
-                      .filter(v => v !== this.state.nowVideo)
-                      .map((sub, i) => (
-                        <StreamComponent
-                          nowFocus={this.state.nowVideo}
-                          key={i}
-                          user={sub}
-                          streamId={sub.streamManager.stream.streamId}
-                          kicktrigger={this.state.kicktrigger}
-                          kickStatusChanged={this.kickStatusChanged}
-                          killUser={this.killUser}
-                          subscribeNum={this.state.subscribers.length}
-                          videoClick={this.videoClick}
-                        />
-                      ))}
+                    <ArrowBackIosIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={this.beforeVideo}
+                    />
+                    <C.OutFocusVideo>
+                      {/* 현재 큰화면이 아닌 유저들만 캐러셀에 나옴 */}
+                      {/* {localUser !== undefined &&
+                        this.state.nowVideo !== localUser &&
+                        localUser.getStreamManager() !== undefined && (
+                          <StreamComponent
+                            nowFocus={this.state.nowVideo}
+                            user={localUser}
+                            handleNickname={this.nicknameChanged}
+                            subscribeNum={this.state.subscribers.length}
+                            videoClick={this.videoClick}
+                          />
+                        )} */}
+                      {[localUser, ...this.state.subscribers]
+                        .filter(v => v !== this.state.nowVideo)
+                        .map((sub, i) => {
+                          console.log(i);
+                          return (
+                            (i === this.state.carouselIdx * 2 ||
+                              i === this.state.carouselIdx * 2 + 1) && (
+                              <StreamComponent
+                                nowFocus={this.state.nowVideo}
+                                key={i}
+                                user={sub}
+                                streamId={sub.streamManager.stream.streamId}
+                                kicktrigger={
+                                  sub !== localUser && this.state.kicktrigger
+                                }
+                                kickStatusChanged={
+                                  sub !== localUser && this.kickStatusChanged
+                                }
+                                killUser={sub !== localUser && this.killUser}
+                                subscribeNum={this.state.subscribers.length}
+                                videoClick={this.videoClick}
+                              />
+                            )
+                          );
+                        })}
+                    </C.OutFocusVideo>
+                    <ArrowForwardIosIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={this.afterVideo}
+                    />
                   </C.CarouselVideo>
                 </>
               ) : (

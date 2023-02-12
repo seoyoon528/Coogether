@@ -27,8 +27,14 @@ export const FocusVideo = styled.div`
 export const CarouselVideo = styled.div`
   width: 100%;
   height: 20%;
-  flex: none;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+`;
+export const OutFocusVideo = styled.div`
+  width: 90%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export const RecipeDivideBox = styled.div`
