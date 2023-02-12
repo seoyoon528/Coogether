@@ -95,10 +95,17 @@ function StreamFinishModal({ onChangeShow }) {
       id: userInfo.data.user.userId, // /user/login의 response로 넘어온 "user" : {"userId": "KAKAO_2309429382o348"}
       name: userInfo.data.user.userName, // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
       email: userInfo.data.user.userEmail, // /user/login의 response로 넘어온 "user" : {"userEmail": "5120a@naver.com"}
+<<<<<<< HEAD
       // nickname: nickName,
       // profileImg: '',
       // userIntroduce: `안녕하세요 ${userInfo.data.user.userName}입니다.`,
       // userCookCategory: prefer[1],
+=======
+      nickname: nickName,
+      profileImg: '',
+      userIntroduce: `안녕하세요 ${userInfo.data.user.userName}입니다.`,
+      userCookCategory: prefer[1],
+>>>>>>> e4c99c40cf440981a4bd914737852c81e49a98f1
     };
     console.log(userFormPayload);
     // 이석훈 - 로컬 작업으로만 진행하기 때문에 merge때 배포 주소로 바꿀것
