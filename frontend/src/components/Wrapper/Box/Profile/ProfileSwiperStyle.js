@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HistoryStyle = styled.div`
-  height: 40rem;
+  /* height: 40rem; */
 
   border: 0.5px dashed #505050;
   border-radius: 4px;
@@ -60,6 +60,8 @@ export const MyRecipeStyle = styled.div`
 
   border: 0.5px dashed #505050;
   border-radius: 4px;
+
+  margin-bottom: 3.2rem;
 
   cursor: pointer;
 
