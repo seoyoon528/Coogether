@@ -45,8 +45,6 @@ export default function CookRoomEnterModal(props) {
       };
       const myIngredientsResponse = await axios(requestInfo);
       const myIngredients = await myIngredientsResponse.data;
-      console.log('----------------------------');
-      console.log(myIngredients);
 
       setNotHavingIngredients(
         recipeIngredients.filter(

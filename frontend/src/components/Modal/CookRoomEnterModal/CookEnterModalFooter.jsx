@@ -12,8 +12,7 @@ export default function CookEnterModalFooter(props) {
   const history = useHistory();
 
   const cookRoomEnterHandler = async () => {
-    const enter = await axios({
-      // url : `https://i8b206.p.ssafy.io:9000/api/room/1/1`
+    await axios({
       url: `https://i8b206.p.ssafy.io:9000/api/room/${cookingRoomId}/${userSeq}`,
       headers: { Authorization: `Bearer ${accessToken}` },
     });
