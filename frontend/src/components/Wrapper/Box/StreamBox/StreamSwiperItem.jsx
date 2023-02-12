@@ -14,6 +14,30 @@ function StreamSwiperItem(props) {
   if (room.cookingRoomDto) {
     isDto = true;
   }
+  let hour;
+  let minute;
+  if (isDto) {
+    const startTime = new Date(room.cookingRoomDto.cookingRoomStartTime);
+    hour = startTime.getHours();
+    minute = startTime.getMinutes();
+    if (hour < 10) {
+      hour = `0${hour}`;
+    }
+    if (minute < 10) {
+      minute = `0${minute}`;
+    }
+  } else {
+    const startTime = new Date(room.cookingRoomStartTime);
+    hour = startTime.getHours();
+    minute = startTime.getMinutes();
+    if (hour < 10) {
+      hour = `0${hour}`;
+    }
+    if (minute < 10) {
+      minute = `0${minute}`;
+    }
+  }
+  const START = `${hour}:${minute}`;
 
   return (
     <>
@@ -54,25 +78,7 @@ function StreamSwiperItem(props) {
               )}
             </S.JoinUserWrapper>
             <S.StartTimeWrapper>
-              {isDto ? (
-                <p>
-                  {`${new Date(
-                    room.cookingRoomDto.cookingRoomStartTime
-                  ).getHours()}:${new Date(
-                    room.cookingRoomDto.cookingRoomStartTime
-                  ).getMinutes()}`}
-                  시작
-                </p>
-              ) : (
-                <p>
-                  {`${new Date(
-                    room.cookingRoomStartTime
-                  ).getHours()}:${new Date(
-                    room.cookingRoomStartTime
-                  ).getMinutes()}`}
-                  시작
-                </p>
-              )}
+              <p>{START}시작</p>
             </S.StartTimeWrapper>
           </S.StartUserWrapper>
           <S.roomTitle
