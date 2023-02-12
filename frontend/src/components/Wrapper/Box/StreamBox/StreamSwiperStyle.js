@@ -50,6 +50,12 @@ export const roomTitle = styled.h4`
   vertical-align: top;
   line-height: auto;
   color: #000000;
+  display: inline-block;
+
+  width: 130px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const StartUserWrapper = styled.div`
@@ -80,6 +86,9 @@ export const StartTimeWrapper = styled.div`
     font-size: 14px;
     line-height: auto;
     color: #ffffff;
+    @media (max-width: 1250px) {
+      font-size: 10px;
+    }
   }
 `;
 
@@ -98,9 +107,6 @@ export const JoinUserWrapper = styled.div`
   min-width: 5rem;
   padding: 0 5px;
 
-  @media (max-width: 1250px) {
-    display: none;
-  }
   & p {
     font-family: 'Pretendard Variable';
     font-weight: 600;
@@ -109,6 +115,9 @@ export const JoinUserWrapper = styled.div`
     font-size: 14px;
     line-height: auto;
     color: #ffffff;
+    @media (max-width: 1250px) {
+      font-size: 10px;
+    }
   }
 `;
 
