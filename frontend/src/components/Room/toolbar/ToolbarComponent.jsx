@@ -65,6 +65,7 @@ export default class ToolbarComponent extends Component {
   }
 
   leaveSession() {
+    this.closeFullScreenMode();
     this.props.onChangeShow();
     this.props.leaveSession();
   }
