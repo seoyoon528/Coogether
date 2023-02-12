@@ -133,3 +133,31 @@ export const Bottom = styled.div`
     display: none;
   }
 `;
+
+export const Circle = styled.button`
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  font-size: smaller;
+  text-align: center;
+  line-height: 48px;
+  /* margin-bottom: 1rem; */
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  z-index: 1;
+  position: relative;
+
+  p {
+    position: absolute;
+    left: 11.1%;
+    bottom: 30%;
+    text-align: center;
+  }
+
+  img {
+    width: 80%;
+    height: 80%;
+  }
+`;

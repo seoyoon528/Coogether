@@ -18,11 +18,47 @@ function FavoriteIngredients({
     setselectIngredientId(i.ingredientId);
     setVisible(!visible);
   };
-
-  const handleClickTwo = e => {
-    setselectIngredientId(e.ingredient.ingredientId);
+  const handleClickTwo = i => {
+    setselectIngredientId(i.ingredient.ingredientId);
     setVisible(!visible);
+    console.log(i.ingredient.ingredientId);
   };
+  const afterPatch = favIngre.map(i => {
+    console.log(i.ingredient.ingredientId);
+    return (
+      <span>
+        <Circle
+          key={i}
+          onClick={() => {
+            handleClickTwo(i);
+          }}
+        >
+          <img src={i.ingredient.ingredientIcon} alt="icon" />
+        </Circle>
+        {i.ingredient.ingredientName}
+        {selectIngredientId === i.ingredient.ingredientId && visible && (
+          <>
+            <Button
+              onClick={() => {
+                console.log(i.ingredient);
+                favIngredient(i.ingredient);
+              }}
+            >
+              <BookmarkRemoveIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                console.log(i.ingredient);
+                sumbitIngredient(i.ingredient);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
+      </span>
+    );
+  });
 
   const favoriteIngredient = favorite.map(i => {
     return (
@@ -48,6 +84,7 @@ function FavoriteIngredients({
             </Button>
             <Button
               onClick={() => {
+                console.log(i);
                 sumbitIngredient(i);
               }}
             >
@@ -59,55 +96,6 @@ function FavoriteIngredients({
     );
   });
 
-  const afterPatch = favIngre.map(f => {
-    console.log(f);
-    return (
-      <span>
-        <Circle
-          key={f}
-          onClick={() => {
-            handleClickTwo(f);
-          }}
-        >
-          <img src={f.ingredient.ingredientIcon} alt="icon" />
-        </Circle>
-        {f.ingredient.ingredientName}
-        {selectIngredientId === f.ingredient.ingredientId && visible && (
-          <>
-            <Button
-              onClick={() => {
-                favIngredient(f);
-              }}
-            >
-              <BookmarkRemoveIcon />
-            </Button>
-            <Button
-              onClick={() => {
-                sumbitIngredient(f);
-              }}
-            >
-              <KitchenRoundedIcon />
-            </Button>
-          </>
-        )}
-      </span>
-    );
-  });
-
-  if (favIngre.length > 0) {
-    return (
-      <div>
-        <Contents>
-          <h4>
-            즐겨찾기
-            <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
-          </h4>
-          {afterPatch}
-        </Contents>
-      </div>
-    );
-  }
-
   return (
     <div>
       <Contents>
@@ -115,7 +103,7 @@ function FavoriteIngredients({
           즐겨찾기
           <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
         </h4>
-        {favoriteIngredient}
+        {favIngre.length > 0 ? afterPatch : favoriteIngredient}
       </Contents>
     </div>
   );

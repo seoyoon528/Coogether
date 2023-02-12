@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const Contents = styled.div`
   background: #fff8ea;
-  height: 88px;
+  height: 120px;
   margin-bottom: 4px;
-  margin-top: 8px;
+  margin-top: 4px;
   padding: 12px;
   /* margin-left: 16rem; */
 
@@ -31,7 +31,7 @@ export const Contents = styled.div`
     overflow-x: auto;
   }
 `;
-export const Circle = styled.button`
+export const Circle = styled.div`
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -40,8 +40,11 @@ export const Circle = styled.button`
   text-align: center;
   line-height: 60px;
   /* margin-bottom: 1rem; */
-  margin: 0.8rem;
-  /* z-index: 1; */
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  z-index: 1;
+  position: relative;
 
   p {
     position: absolute;
@@ -53,7 +56,6 @@ export const Circle = styled.button`
   img {
     width: 80%;
     height: 80%;
-    align-items: center;
   }
 `;
 export const Button = styled.button`
@@ -61,8 +63,8 @@ export const Button = styled.button`
   float: left;
   width: 50%;
   width: 50px;
-  /* z-index: 2; */
-  position: absolute;
+  z-index: 1;
+  /* position: absolute; */
   /* height: 14px; */
   /* justify-content: center;
   text-align: center; */
@@ -73,7 +75,7 @@ export const Button = styled.button`
 
   &:hover {
     color: #febd2f;
-    background-color: rgb(0, 0, 0, 0.5);
+    /* background-color: rgb(0, 0, 0, 0.5); */
   }
 `;
 
