@@ -15,17 +15,13 @@ function FavoriteIngredients({
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const handleClick = i => {
-    console.log(i);
     setselectIngredientId(i.ingredientId);
     setVisible(!visible);
-    console.log(i.ingredientId);
   };
 
   const handleClickTwo = e => {
-    console.log(e);
     setselectIngredientId(e.ingredient.ingredientId);
     setVisible(!visible);
-    console.log(e.ingredient.ingredientId);
   };
 
   const favoriteIngredient = favorite.map(i => {

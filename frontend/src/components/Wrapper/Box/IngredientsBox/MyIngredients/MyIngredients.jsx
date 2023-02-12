@@ -21,11 +21,8 @@ function MyIngredients({
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const handleClick = i => {
-    console.log(i);
-    console.log(i?.ingredient);
     setselectIngredientId(i?.ingredient.ingredientId);
     setVisible(!visible);
-    console.log(i?.ingredient.ingredientId);
   };
   const [isOpen, setIsOpen] = useState(false);
   const onClickButton = () => {
@@ -34,11 +31,9 @@ function MyIngredients({
   const handleClickTwo = i => {
     setselectIngredientId(i.ingredientId);
     setVisible(!visible);
-    console.log(i.ingredientId);
   };
 
   const fridgeIngredient = fridge.map(i => {
-    console.log(i);
     return (
       <span>
         <Circle
@@ -106,7 +101,6 @@ function MyIngredients({
   });
 
   const afterPatch = myFridge.map(f => {
-    console.log(f);
     return (
       <span>
         <Circle
@@ -140,30 +134,6 @@ function MyIngredients({
     );
   });
 
-  if (myFridge.status === 200) {
-    return (
-      <div>
-        <Contents>
-          <h4>
-            내 냉장고에 있는 재료
-            <KitchenRoundedIcon style={{ fontSize: '20px' }} />
-          </h4>
-          <AppWrap>
-            <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
-            {isOpen && (
-              <AllMyIrngredientsModal
-                open={isOpen}
-                onClose={() => {
-                  setIsOpen(false);
-                }}
-              />
-            )}
-          </AppWrap>
-          {afterPatch}
-        </Contents>
-      </div>
-    );
-  }
   return (
     <div>
       <Contents>
@@ -182,7 +152,7 @@ function MyIngredients({
             />
           )}
         </AppWrap>
-        {fridgeIngredient}
+        {myFridge.length > 0 ? afterPatch : fridgeIngredient}
       </Contents>
     </div>
   );

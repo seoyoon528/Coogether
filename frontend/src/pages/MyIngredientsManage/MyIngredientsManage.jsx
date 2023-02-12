@@ -90,6 +90,7 @@ function MyIngredientsManage() {
         `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
         {}
       );
+      console.log(sendIngredient);
       setMyFridge([...sendIngredient.data.map(v => v)]);
     };
     inorOutIngredient(i.ingredientId);

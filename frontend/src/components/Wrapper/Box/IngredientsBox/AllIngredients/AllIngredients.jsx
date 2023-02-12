@@ -20,7 +20,6 @@ function AllIngredients({
   const handleClick = i => {
     setselectIngredientId(i.ingredientId);
     setVisible(!visible);
-    console.log(i.ingredientId);
   };
 
   const categoryKorean = dummy.categories
@@ -30,7 +29,6 @@ function AllIngredients({
     });
 
   const ingredient = ingredients.map(i => {
-    console.log(i);
     return (
       <span>
         <Circle
@@ -46,7 +44,6 @@ function AllIngredients({
           <>
             <Button
               onClick={() => {
-                console.log(i);
                 favIngredient(i);
               }}
             >
@@ -54,7 +51,6 @@ function AllIngredients({
             </Button>
             <Button
               onClick={() => {
-                console.log(i);
                 sumbitIngredient(i);
               }}
             >
@@ -67,13 +63,11 @@ function AllIngredients({
   });
 
   const AllIngredient = allIngredient.map(e => {
-    console.log(e);
     return (
       <Span>
         <Circle
           key={e}
           onClick={() => {
-            console.log(e);
             handleClick(e);
           }}
         >
@@ -84,7 +78,6 @@ function AllIngredients({
           <>
             <Button
               onClick={() => {
-                console.log(e);
                 favIngredient(e);
               }}
             >
@@ -92,7 +85,6 @@ function AllIngredients({
             </Button>
             <Button
               onClick={() => {
-                console.log(e);
                 sumbitIngredient(e);
               }}
             >
