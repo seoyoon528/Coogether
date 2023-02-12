@@ -14,12 +14,24 @@ export const RecipeContentStyle = styled.div`
     justify-content: space-between;
   }
 
+  .information__item {
+    position: relative;
+  }
+
   .information__item > p {
     margin-top: 1.6rem;
     text-align: center;
 
     font-family: 'Pretendard Bold';
     font-size: 2rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #recipe-author-nickname:hover {
+    position: absolute;
   }
 
   .information__item__category {
@@ -44,11 +56,13 @@ export const RecipeContentStyle = styled.div`
     border-radius: 4px;
   }
 
+  // Ingredients
   .ingredients__item {
     display: flex;
     justify-content: space-between;
 
     margin-top: 1.6rem;
+    padding-bottom: 0.8rem;
   }
 
   .ingredients__item p {
@@ -60,8 +74,10 @@ export const RecipeContentStyle = styled.div`
     opacity: 80%;
   }
 
+  // Orders
   .orders__item {
     margin-top: 1.6rem;
+    padding-bottom: 0.8rem;
   }
 
   .orders__item.small {
