@@ -20,7 +20,6 @@ function AllIngredients({
   const handleClick = i => {
     setselectIngredientId(i.ingredientId);
     setVisible(!visible);
-    console.log(i.ingredientId);
   };
 
   const categoryKorean = dummy.categories
@@ -28,28 +27,6 @@ function AllIngredients({
     .map(name => {
       return <h4>{name.text} 전체</h4>;
     });
-
-  // // bookmark로 보내는 것
-  // function bookMark() {
-  //   const handleClick = i => {
-  //     setselectIngredientId(i);
-  //   };
-  //   const patchBookmark = async () => {
-  //     await axios.patch(
-  //       `https://i8b206.p.ssafy.io:9000//myIngredient/create/fav/1/${setselectIngredientId}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //         body:
-  //       });
-  //   };
-  // }
-
-  // access 토큰
-  // headers: {
-  //   Authorization: `Bearer ${accessToken}`
-  //  }
 
   const ingredient = ingredients.map(i => {
     return (
@@ -62,6 +39,7 @@ function AllIngredients({
         >
           <img src={i.ingredientIcon} alt="icon" />
         </Circle>
+        {i.ingredientName}
         {selectIngredientId === i.ingredientId && visible && (
           <>
             <Button
@@ -80,7 +58,6 @@ function AllIngredients({
             </Button>
           </>
         )}
-        {i.ingredientName}
       </span>
     );
   });
@@ -96,6 +73,7 @@ function AllIngredients({
         >
           <img src={e.ingredientIcon} alt="icon" />
         </Circle>
+        {e.ingredientName}
         {selectIngredientId === e.ingredientId && visible && (
           <>
             <Button
@@ -114,7 +92,6 @@ function AllIngredients({
             </Button>
           </>
         )}
-        {e.ingredientName}
         {/* </Circle> */}
       </Span>
     );

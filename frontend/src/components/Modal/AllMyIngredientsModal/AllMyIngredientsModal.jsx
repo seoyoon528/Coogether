@@ -12,8 +12,9 @@ import React, { useState } from 'react';
 //   Button,
 // } from './AllMyIngredientsModalStyle';
 import './AllMyIngredientsModal.scss';
+import { Circle } from './AllMyIngredientsModalStyle';
 
-function AllMyIngredientsModal({ onClose }) {
+function AllMyIngredientsModal({ onClose, fridge }) {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
@@ -22,6 +23,23 @@ function AllMyIngredientsModal({ onClose }) {
   const handleClose = () => {
     onClose?.();
   };
+
+  const fridgeIngredient = fridge.map(i => {
+    return (
+      <span>
+        <Circle
+          key={i}
+          onClick={() => {
+            handleClick(i);
+          }}
+        >
+          <img src={i?.ingredient.ingredientIcon} alt="icon" />
+        </Circle>
+        {i?.ingredient.ingredientName}
+      </span>
+    );
+  });
+
   return (
     // <Overlay onClick={handleClose}>
     //   <ModalWrap oEnClick={e => e.stopPropagation()}>
@@ -50,6 +68,7 @@ function AllMyIngredientsModal({ onClose }) {
             onClick={handleClick}
           />
           <div className="shelves" />
+          {fridgeIngredient}
           {/* <div className="fly" /> */}
         </div>
       </div>

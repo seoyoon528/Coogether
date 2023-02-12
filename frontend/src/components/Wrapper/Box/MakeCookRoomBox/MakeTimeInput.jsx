@@ -20,11 +20,14 @@ function MakeBasicInfo(props) {
 
   const timeCheckHandler = e => {
     const t = e.target.value;
+    console.log(t.slice(0, 2));
+    console.log(t.slice(3, 5));
     setHour(t.slice(0, 2));
     setMinute(t.slice(3, 5));
   };
   useEffect(() => {
     const T = `${YEAR}-${MONTH}-${DAY}T${hour}:${minute}:00`;
+    console.log(T);
     setStreamTime(T);
   }, [hour, minute]);
   const setTimeHandler = () => {};

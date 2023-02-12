@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import {
@@ -16,11 +16,12 @@ function MyIngredients({
   categoryFridges,
   sumbitIngredient,
   favIngredient,
+  myFridge,
 }) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const handleClick = i => {
-    setselectIngredientId(i);
+    setselectIngredientId(i?.ingredient.ingredientId);
     setVisible(!visible);
   };
   const [isOpen, setIsOpen] = useState(false);
@@ -28,30 +29,68 @@ function MyIngredients({
     setIsOpen(true);
   };
 
-  const fridgeIngredient = fridge.map(i => {
+  const afterPatch = myFridge.map(f => {
     return (
       <span>
         <Circle
-          key={i?.ingredient.ingredientId}
+          key={f}
           onClick={() => {
-            handleClick(i);
+            handleClick(f);
           }}
         >
-          <img src={i?.ingredient.ingredientIcon} alt="icon" />
+          <img src={f.ingredient.ingredientIcon} alt="icon" />
         </Circle>
-        {i?.ingredient.ingredientName}
-        {selectIngredientId === i && visible && (
+        {f.ingredient.ingredientName}
+        {selectIngredientId === f.ingredient.ingredientId && visible && (
           <>
             <Button
               onClick={() => {
-                sumbitIngredient(i);
+                console.log(f.ingredient);
+                favIngredient(f.ingredient);
               }}
             >
               <BookmarkAddRoundedIcon />
             </Button>
             <Button
               onClick={() => {
-                favIngredient(i);
+                console.log(f.ingredient);
+                sumbitIngredient(f.ingredient);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
+      </span>
+    );
+  });
+
+  const fridgeIngredient = fridge.map(f => {
+    return (
+      <span>
+        <Circle
+          key={f}
+          onClick={() => {
+            handleClick(f);
+          }}
+        >
+          <img src={f?.ingredient.ingredientIcon} alt="icon" />
+        </Circle>
+        {f?.ingredient.ingredientName}
+        {selectIngredientId === f?.ingredient.ingredientId && visible && (
+          <>
+            <Button
+              onClick={() => {
+                console.log(f.ingredient);
+                favIngredient(f.ingredient);
+              }}
+            >
+              <BookmarkAddRoundedIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                console.log(f.ingredient);
+                sumbitIngredient(f.ingredient);
               }}
             >
               <KitchenRoundedIcon />
@@ -66,70 +105,58 @@ function MyIngredients({
     return (
       <span>
         <Circle
-          key={i.ingredientId}
+          key={i}
           onClick={() => {
-            handleClick(i.ingredientId);
+            handleClick(i);
           }}
         >
-          {selectIngredientId === i && visible && (
-            <>
-              <Button>
-                <BookmarkAddRoundedIcon />
-              </Button>
-              <Button>
-                <KitchenRoundedIcon />
-              </Button>
-            </>
-          )}
-          {i.ingredientName}
+          <img src={i.ingredient?.ingredientIcon} alt="icon" />
         </Circle>
+        {i.ingredient?.ingredientName}
+        {selectIngredientId === i.ingredient?.ingredientId && visible && (
+          <>
+            <Button
+              onClick={() => {
+                favIngredient(i);
+              }}
+            >
+              <BookmarkAddRoundedIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                sumbitIngredient(i);
+              }}
+            >
+              <KitchenRoundedIcon />
+            </Button>
+          </>
+        )}
       </span>
     );
   });
 
-  if (category === 'ALL') {
-    return (
-      <div>
-        <Contents>
-          <h4>
-            내 냉장고에 있는 재료
-            <KitchenRoundedIcon style={{ fontSize: '20px' }} />
-          </h4>
-          <AppWrap>
-            <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
-            {isOpen && (
-              <AllMyIrngredientsModal
-                open={isOpen}
-                onClose={() => {
-                  setIsOpen(false);
-                }}
-              />
-            )}
-          </AppWrap>
-          {fridgeIngredient}
-        </Contents>
-      </div>
-    );
-  }
   return (
-    <Contents>
-      <h4>
-        내 냉장고에 있는 재료
-        <KitchenRoundedIcon style={{ fontSize: '20px' }} />
-      </h4>
-      {categoryFridge}
-      <AppWrap>
-        <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
-        {isOpen && (
-          <AllMyIrngredientsModal
-            open={isOpen}
-            onClose={() => {
-              setIsOpen(false);
-            }}
-          />
-        )}
-      </AppWrap>
-    </Contents>
+    <div>
+      <Contents>
+        <h4>
+          내 냉장고에 있는 재료
+          <KitchenRoundedIcon style={{ fontSize: '20px' }} />
+        </h4>
+        <AppWrap>
+          <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
+          {isOpen && (
+            <AllMyIrngredientsModal
+              fridge={fridge}
+              open={isOpen}
+              onClose={() => {
+                setIsOpen(false);
+              }}
+            />
+          )}
+        </AppWrap>
+        {myFridge.length > 0 ? afterPatch : fridgeIngredient}
+      </Contents>
+    </div>
   );
 }
 
