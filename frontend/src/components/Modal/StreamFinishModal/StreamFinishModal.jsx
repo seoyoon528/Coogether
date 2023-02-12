@@ -73,14 +73,18 @@ function StreamFinishModal({ onChangeShow }) {
         params.pathname.split('/')[params.pathname.split('/').length - 1]
       }`,
       {
-        Authorization: `Bearer ${accessToken}`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       }
     );
     const { recipeId } = res.data.recipe;
     const myIng = await axios.get(
       `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/cooking/${userInfo.userSeq}/${recipeId}`,
       {
-        Authorization: `Bearer ${accessToken}`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       }
     );
     console.log(myIng.data.map((v, i) => v.ingredient.ingredientName));
@@ -108,6 +112,7 @@ function StreamFinishModal({ onChangeShow }) {
       }/${params.pathname.split('/')[params.pathname.split('/').length - 1]}`,
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'multipart/form-data',
       },
       data: formData,
@@ -125,6 +130,7 @@ function StreamFinishModal({ onChangeShow }) {
       url: `https://i8b206.p.ssafy.io:9000/api/myIngredient/delete/${userInfo.userSeq}/${deleteIngredientList}`,
       method: 'PATCH',
       data: {},
+      Authorization: `Bearer ${accessToken}`,
     };
     try {
       const IngDelForm = await axios(IngDelRequestInfo);
@@ -139,6 +145,7 @@ function StreamFinishModal({ onChangeShow }) {
       url: `https://i8b206.p.ssafy.io:9000/api/room/${
         params.pathname.split('/')[params.pathname.split('/').length - 1]
       }/${userInfo.userSeq}`,
+      Authorization: `Bearer ${accessToken}`,
       method: 'DELETE',
     };
     try {
