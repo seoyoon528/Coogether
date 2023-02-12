@@ -382,10 +382,10 @@ class CookRoom extends Component {
   killSession() {
     this.state.session.on('signal:kickout', event => {
       let remoteUsers = this.state.subscribers;
-      console.log(event);
       if (event.data === this.state.myUserName) {
-        this.leaveSession();
+        this.state.session.disconnect();
         alert('강퇴당했습니다');
+        window.location = '/Main';
       }
     });
   }
