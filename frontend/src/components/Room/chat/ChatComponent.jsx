@@ -2,7 +2,7 @@
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CarouselBtn from '../../Btn/CarouselBtn/CarouselBtn';
-
+import { useSelector } from 'react-redux';
 import * as C from './ChatComponentStyle';
 
 import axios from 'axios';
@@ -22,6 +22,8 @@ export default class ChatComponent extends Component {
       recipeIngredient: 'recipe',
       cookingRoomName: '',
       recipeName: '',
+      isHost: false,
+      accessToken: '',
     };
     this.chatScroll = React.createRef();
 
@@ -36,6 +38,10 @@ export default class ChatComponent extends Component {
   }
   componentWillMount() {
     this.ingredient();
+    const mapStateToProps = state =>
+      // accessToken: state.user.accessToken,
+      console.log(state);
+    mapStateToProps();
   }
   componentDidMount() {
     this.props.user
@@ -73,19 +79,40 @@ export default class ChatComponent extends Component {
     const res = await axios.get(
       `https://i8b206.p.ssafy.io:9000/api/room/${
         this.props.user.getStreamManager().stream.session.sessionId
-      }`
+      }`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.accessToken}`,
+        },
+      }
     );
     console.log(res);
     this.setState({
       cookingRoomName: res.data.cookingRoomName,
       recipeName: res.data.recipe.recipeName,
+      // 방 생성 유저와 현재 유저를 비교하여, 방장인지 파악
+      isHost: this.props.user.getNickname() === res.data.cookingRoomHost,
     });
+    this.props.isHost(
+      this.props.user.getNickname() === res.data.cookingRoomHost
+    );
     const recipeId = res.data.recipe.recipeId;
+
     const resIng = await axios.get(
-      `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`
+      `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.accessToken}`,
+        },
+      }
     );
     const resStep = await axios.get(
-      `https://i8b206.p.ssafy.io:9000/api/recipestep/list/${recipeId}`
+      `https://i8b206.p.ssafy.io:9000/api/recipestep/list/${recipeId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.accessToken}`,
+        },
+      }
     );
     //레시피 정보 video로 보냄
     this.props.getRecipe([resStep.data, res.data.recipe.recipeName]);

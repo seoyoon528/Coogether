@@ -34,6 +34,7 @@ export const StatusIcons = styled.div`
   position: absolute;
   bottom: 0px;
   left: 0px;
+  border-radius: 0 0 4px 4px;
   background: #febd2f;
 
   height: fit-content;

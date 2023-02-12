@@ -12,6 +12,8 @@ import ToolbarComponent from './toolbar/ToolbarComponent';
 import { thisTypeAnnotation } from '@babel/types';
 import VerticalC, { data } from './verticalCarousel/VerticalC';
 // mui import
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -53,9 +55,12 @@ class CookRoom extends Component {
       open: false,
       recipeName: '',
       nowVideo: '',
+      isHost: false,
+      carouselIdx: 0,
     };
 
     this.modalOpen = this.modalOpen.bind(this);
+
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
@@ -64,14 +69,23 @@ class CookRoom extends Component {
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
     this.killUser = this.killUser.bind(this);
     this.getRecipe = this.getRecipe.bind(this);
+    // 방장인지 확인
+    this.isHost = this.isHost.bind(this);
 
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
+    // 이전 단계로 넘어가기
+    this.beforeStep = this.beforeStep.bind(this);
     // 전체 화면으로
     this.openFullScreenMode = this.openFullScreenMode.bind(this);
     this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
     // 비디오 클릭 감시
     this.videoClick = this.videoClick.bind(this);
+
+    // 캐러셀 앞
+    this.beforeVideo = this.beforeVideo.bind(this);
+    // 캐러셀 뒤
+    this.afterVideo = this.afterVideo.bind(this);
 
     this.nicknameChanged = this.nicknameChanged.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -140,6 +154,12 @@ class CookRoom extends Component {
         alert('There was an error getting the token:', error.message);
       }
     }
+  }
+
+  // 방장인지 확인
+
+  isHost(checkOutput) {
+    this.setState({ isHost: checkOutput });
   }
 
   // 비디오 클릭
@@ -220,6 +240,7 @@ class CookRoom extends Component {
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
     this.clickNextStep();
+    this.clickBeforeStep();
     this.chattoCook();
     this.subscribeToStreamDestroyed();
     this.killSession();
@@ -317,6 +338,14 @@ class CookRoom extends Component {
 
     this.state.session.signal(signalOptions);
   }
+  beforeStep() {
+    const signalOptions = {
+      data: Number(this.state.nowStep) - 1,
+      type: 'beforeStep',
+    };
+
+    this.state.session.signal(signalOptions);
+  }
 
   nicknameChanged(nickname) {
     let localUser = this.state.localUser;
@@ -397,6 +426,11 @@ class CookRoom extends Component {
       if (this.state.nowStep > this.state.recipe.length - 1) {
         this.closeFullScreenMode();
       }
+    });
+  }
+  clickBeforeStep() {
+    this.state.session.on('signal:beforeStep', event => {
+      this.setState({ nowStep: event.data });
     });
   }
   // 채팅방이 없어지고 다음 단계로 이동
@@ -636,6 +670,18 @@ class CookRoom extends Component {
       // IE or Edge
       document.msExitFullscreen();
   }
+  // 캐러셀 이전 사람들
+  beforeVideo() {
+    if (this.state.carouselIdx > 0) {
+      this.setState({ carouselIdx: this.state.carouselIdx - 1 });
+    }
+  }
+  // 캐러셀 이후 사람들
+  afterVideo() {
+    if (this.state.carouselIdx < (this.state.subscribers.length + 1) / 2 - 1) {
+      this.setState({ carouselIdx: this.state.carouselIdx + 1 });
+    }
+  }
 
   render() {
     const mySessionId = this.state.mySessionId;
@@ -692,6 +738,7 @@ class CookRoom extends Component {
               messageReceived={this.checkNotification}
               getRecipe={this.getRecipe}
               onChangeShow={this.props.onChangeShow}
+              isHost={this.isHost}
             />
           )}
         <DialogExtensionComponent
@@ -714,39 +761,53 @@ class CookRoom extends Component {
                     />
                   </C.FocusVideo>
                   <C.CarouselVideo>
-                    {/* 현재 큰화면이 아닌 유저들만 캐러셀에 나옴 */}
-                    {localUser !== undefined &&
-                      this.state.nowVideo !== localUser &&
-                      localUser.getStreamManager() !== undefined && (
-                        <StreamComponent
-                          nowFocus={this.state.nowVideo}
-                          user={localUser}
-                          handleNickname={this.nicknameChanged}
-                          subscribeNum={this.state.subscribers.length}
-                          videoClick={this.videoClick}
-                          style={{
-                            width:
-                              this.state.nowVideo === localUser
-                                ? '100px'
-                                : '10px',
-                          }}
-                        />
-                      )}
-                    {this.state.subscribers
-                      .filter(v => v !== this.state.nowVideo)
-                      .map((sub, i) => (
-                        <StreamComponent
-                          nowFocus={this.state.nowVideo}
-                          key={i}
-                          user={sub}
-                          streamId={sub.streamManager.stream.streamId}
-                          kicktrigger={this.state.kicktrigger}
-                          kickStatusChanged={this.kickStatusChanged}
-                          killUser={this.killUser}
-                          subscribeNum={this.state.subscribers.length}
-                          videoClick={this.videoClick}
-                        />
-                      ))}
+                    <ArrowBackIosIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={this.beforeVideo}
+                    />
+                    <C.OutFocusVideo>
+                      {/* 현재 큰화면이 아닌 유저들만 캐러셀에 나옴 */}
+                      {/* {localUser !== undefined &&
+                        this.state.nowVideo !== localUser &&
+                        localUser.getStreamManager() !== undefined && (
+                          <StreamComponent
+                            nowFocus={this.state.nowVideo}
+                            user={localUser}
+                            handleNickname={this.nicknameChanged}
+                            subscribeNum={this.state.subscribers.length}
+                            videoClick={this.videoClick}
+                          />
+                        )} */}
+                      {[localUser, ...this.state.subscribers]
+                        .filter(v => v !== this.state.nowVideo)
+                        .map((sub, i) => {
+                          console.log(i);
+                          return (
+                            (i === this.state.carouselIdx * 2 ||
+                              i === this.state.carouselIdx * 2 + 1) && (
+                              <StreamComponent
+                                nowFocus={this.state.nowVideo}
+                                key={i}
+                                user={sub}
+                                streamId={sub.streamManager.stream.streamId}
+                                kicktrigger={
+                                  sub !== localUser && this.state.kicktrigger
+                                }
+                                kickStatusChanged={
+                                  sub !== localUser && this.kickStatusChanged
+                                }
+                                killUser={sub !== localUser && this.killUser}
+                                subscribeNum={this.state.subscribers.length}
+                                videoClick={this.videoClick}
+                              />
+                            )
+                          );
+                        })}
+                    </C.OutFocusVideo>
+                    <ArrowForwardIosIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={this.afterVideo}
+                    />
                   </C.CarouselVideo>
                 </>
               ) : (
@@ -867,6 +928,7 @@ class CookRoom extends Component {
               nowStep={this.state.nowStep}
               modalOpen={this.modalOpen}
               nextStep={this.nextStep}
+              beforeStep={this.beforeStep}
               sessionId={mySessionId}
               user={localUser}
               showNotification={this.state.messageReceived}
@@ -881,6 +943,7 @@ class CookRoom extends Component {
               leaveSession={this.leaveSession}
               toggleChat={this.toggleChat}
               onChangeShow={this.props.onChangeShow}
+              isHost={this.state.isHost}
             />
           </C.CookContainer>
         )}
