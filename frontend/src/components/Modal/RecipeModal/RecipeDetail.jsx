@@ -7,6 +7,7 @@ import { Dialog } from '@mui/material';
 import RecipeContent from '../../Recipe/Modal/RecipeContent';
 
 export default function RecipeDetail(props) {
+  // Props
   const { open, onClose, recipe } = props;
 
   return (

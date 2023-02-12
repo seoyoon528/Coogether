@@ -24,6 +24,7 @@ function RecipeDetailModalContent(props) {
       recipeName,
       recipeType,
       recipeCreatedDate,
+      recipeHostNickname,
     },
   } = props;
 
@@ -46,7 +47,13 @@ function RecipeDetailModalContent(props) {
 
   return (
     <RecipeContentStyle onClick={onClose}>
-      <Grid container columnSpacing={2} rowSpacing={8} columns={12}>
+      <Grid
+        container
+        columnSpacing={2}
+        rowSpacing={8}
+        columns={12}
+        justifyContent="space-between"
+      >
         <Grid item xs={5} className="recipe-detail__information">
           <RecipeInformations
             name={recipeName}
@@ -55,9 +62,9 @@ function RecipeDetailModalContent(props) {
             ingredientCount={ingredients.length}
             contentCount={recipeOrders.length}
             date={recipeCreatedDate}
+            nickname={recipeHostNickname}
           />
         </Grid>
-        <Grid item xs={1} />
         <Grid item xs={6}>
           <div className="information__image">
             <img src={recipeImg} alt="food" />
