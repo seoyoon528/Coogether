@@ -44,6 +44,7 @@ export default class OvVideoComponent extends Component {
         id={'video-' + this.props.user.getStreamManager().stream.streamId}
         ref={this.videoRef}
         muted={this.props.mutedSound}
+        style={{ borderRadius: '4px' }}
       />
     );
   }

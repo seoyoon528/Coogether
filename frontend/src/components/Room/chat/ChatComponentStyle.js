@@ -279,5 +279,5 @@ export const InputTxt = styled.div`
 export const TextBox = styled.span`
   border-radius: 9px;
   background-color: #c8ffe8;
-  font-size: 3vh;
+  font-size: 1vh;
 `;

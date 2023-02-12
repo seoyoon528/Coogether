@@ -59,10 +59,17 @@ export default class StreamComponent extends Component {
 
   render() {
     return (
-      <S.StreamBox subscribeNum={this.props.subscribeNum + 1}>
+      <S.StreamBox
+        isFocused={this.props.nowFocus === this.props.user}
+        subscribeNum={this.props.subscribeNum + 1}
+      >
         {this.props.user !== undefined &&
         this.props.user.getStreamManager() !== undefined ? (
-          <S.StreamComponent>
+          <S.StreamComponent
+            onClick={() => {
+              this.props.videoClick(this.props.user);
+            }}
+          >
             <OvVideoComponent
               user={this.props.user}
               mutedSound={this.state.mutedSound}
@@ -84,14 +91,15 @@ export default class StreamComponent extends Component {
               </S.ControlIcon>
             )} */}
             {/* 강퇴 */}
-            {!this.props.user.isLocal() && this.props.kicktrigger && (
-              <S.ControlIcon onClick={this.killUser}>
-                <S.ControlTxt>강퇴</S.ControlTxt>
-              </S.ControlIcon>
-            )}
+
             <S.NickName>{this.props.user.getNickname()}</S.NickName>
           </S.StreamComponent>
         ) : null}
+        {!this.props.user.isLocal() && this.props.kicktrigger && (
+          <S.ControlIcon onClick={this.killUser}>
+            <S.ControlTxt>강퇴</S.ControlTxt>
+          </S.ControlIcon>
+        )}
       </S.StreamBox>
     );
   }

@@ -1,11 +1,14 @@
+/* eslint-disable */
 import styled from 'styled-components';
 
 export const StreamBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: ${props => (props.isFocused ? '100%' : `50%`)};
   height: ${props =>
-    props.subscribeNum <= 2
+    props.isFocused
+      ? '100%'
+      : props.subscribeNum <= 2
       ? '50%'
       : `${100 / Math.ceil(props.subscribeNum / 2)}%`};
 `;
@@ -55,11 +58,12 @@ export const ControlTxt = styled.button`
   max-width: 100px;
   max-height: 20px;
   border-radius: 5px;
-  font-size: 200%;
+  font-size: 180%;
   background-color: #ffaf00;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #ffffff;
 `;
 export const CookTitle = styled.h1`
   font-family: 'Pretendard Variable';

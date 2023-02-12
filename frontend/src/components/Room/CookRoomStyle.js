@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import cookBackround from '../../assets/img/cookBackground.svg';
 
 export const CookContainer = styled.div`
   display: absolute;
@@ -19,6 +20,29 @@ export const CookDivideBox = styled.div`
   justify-content: space-around;
   flex-flow: row wrap;
 `;
+export const FocusVideo = styled.div`
+  width: 100%;
+  height: 80%;
+`;
+export const CarouselVideo = styled.div`
+  width: 100%;
+  height: 20%;
+  flex: none;
+  overflow: hidden;
+`;
+
+export const RecipeDivideBox = styled.div`
+  width: 48vw;
+  height: 75vh;
+  float: left;
+  display: flex;
+  background-image: url(${cookBackround});
+  background-size: cover;
+  align-content: space-around;
+  justify-content: space-around;
+  flex-flow: row wrap;
+`;
+
 export const CookTitle = styled.h1`
   font-family: 'Pretendard Variable';
   font-style: normal;

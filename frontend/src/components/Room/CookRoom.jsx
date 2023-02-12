@@ -52,6 +52,7 @@ class CookRoom extends Component {
       nowStep: 0,
       open: false,
       recipeName: '',
+      nowVideo: '',
     };
 
     this.modalOpen = this.modalOpen.bind(this);
@@ -69,6 +70,8 @@ class CookRoom extends Component {
     // 전체 화면으로
     this.openFullScreenMode = this.openFullScreenMode.bind(this);
     this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
+    // 비디오 클릭 감시
+    this.videoClick = this.videoClick.bind(this);
 
     this.nicknameChanged = this.nicknameChanged.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -136,6 +139,15 @@ class CookRoom extends Component {
         }
         alert('There was an error getting the token:', error.message);
       }
+    }
+  }
+
+  // 비디오 클릭
+  videoClick(user) {
+    if (this.state.nowVideo === user) {
+      this.setState({ nowVideo: '' });
+    } else {
+      this.setState({ nowVideo: user });
     }
   }
 
@@ -372,14 +384,14 @@ class CookRoom extends Component {
       let remoteUsers = this.state.subscribers;
       console.log(event);
       if (event.data === this.state.myUserName) {
-        alert('강퇴당했습니다');
         this.leaveSession();
+        alert('강퇴당했습니다');
       }
     });
   }
   clickNextStep() {
     this.state.session.on('signal:nextStep', event => {
-      console.log(event);
+      console.log(event, this.state.recipe.length);
       this.setState({ nowStep: event.data });
     });
   }
@@ -685,27 +697,90 @@ class CookRoom extends Component {
         {this.state.chatDisplay === 'none' && (
           <C.CookContainer>
             <C.CookDivideBox>
-              {localUser !== undefined &&
-                localUser.getStreamManager() !== undefined && (
-                  <StreamComponent
-                    user={localUser}
-                    handleNickname={this.nicknameChanged}
-                    subscribeNum={this.state.subscribers.length}
-                  />
-                )}
-              {this.state.subscribers.map((sub, i) => (
-                <StreamComponent
-                  key={i}
-                  user={sub}
-                  streamId={sub.streamManager.stream.streamId}
-                  kicktrigger={this.state.kicktrigger}
-                  kickStatusChanged={this.kickStatusChanged}
-                  killUser={this.killUser}
-                  subscribeNum={this.state.subscribers.length}
-                />
-              ))}
+              {/* this.state.nowVideo 와 같으면 큰 화면으로 이동 */}
+              {this.state.nowVideo !== '' ? (
+                <>
+                  <C.FocusVideo>
+                    <StreamComponent
+                      nowFocus={this.state.nowVideo}
+                      user={this.state.nowVideo}
+                      handleNickname={this.nicknameChanged}
+                      subscribeNum={this.state.subscribers.length}
+                      videoClick={this.videoClick}
+                    />
+                  </C.FocusVideo>
+                  <C.CarouselVideo>
+                    {/* 현재 큰화면이 아닌 유저들만 캐러셀에 나옴 */}
+                    {localUser !== undefined &&
+                      this.state.nowVideo !== localUser &&
+                      localUser.getStreamManager() !== undefined && (
+                        <StreamComponent
+                          nowFocus={this.state.nowVideo}
+                          user={localUser}
+                          handleNickname={this.nicknameChanged}
+                          subscribeNum={this.state.subscribers.length}
+                          videoClick={this.videoClick}
+                          style={{
+                            width:
+                              this.state.nowVideo === localUser
+                                ? '100px'
+                                : '10px',
+                          }}
+                        />
+                      )}
+                    {this.state.subscribers
+                      .filter(v => v !== this.state.nowVideo)
+                      .map((sub, i) => (
+                        <StreamComponent
+                          nowFocus={this.state.nowVideo}
+                          key={i}
+                          user={sub}
+                          streamId={sub.streamManager.stream.streamId}
+                          kicktrigger={this.state.kicktrigger}
+                          kickStatusChanged={this.kickStatusChanged}
+                          killUser={this.killUser}
+                          subscribeNum={this.state.subscribers.length}
+                          videoClick={this.videoClick}
+                        />
+                      ))}
+                  </C.CarouselVideo>
+                </>
+              ) : (
+                /* this.state.nowVideo가 없으면 일반 화면 */
+                <>
+                  {localUser !== undefined &&
+                    localUser.getStreamManager() !== undefined && (
+                      <StreamComponent
+                        nowFocus={this.state.nowVideo}
+                        user={localUser}
+                        handleNickname={this.nicknameChanged}
+                        subscribeNum={this.state.subscribers.length}
+                        videoClick={this.videoClick}
+                        style={{
+                          width:
+                            this.state.nowVideo === localUser
+                              ? '100px'
+                              : '10px',
+                        }}
+                      />
+                    )}
+                  {this.state.subscribers.map((sub, i) => (
+                    <StreamComponent
+                      nowFocus={this.state.nowVideo}
+                      key={i}
+                      user={sub}
+                      streamId={sub.streamManager.stream.streamId}
+                      kicktrigger={this.state.kicktrigger}
+                      kickStatusChanged={this.kickStatusChanged}
+                      killUser={this.killUser}
+                      subscribeNum={this.state.subscribers.length}
+                      videoClick={this.videoClick}
+                    />
+                  ))}
+                </>
+              )}
             </C.CookDivideBox>
-            <C.CookDivideBox>
+            <C.RecipeDivideBox>
               {/* <VerticalC data={this.state.recipe} /> */}
               <C.RecipeTitle>{this.state.recipeName}</C.RecipeTitle>
               <C.BeforeRecipe>
@@ -771,7 +846,6 @@ class CookRoom extends Component {
                     : ' '}
                 </C.RecipeTxt>
                 <C.RecipeTxt>
-                  {' '}
                   {Number(this.state.nowStep) + 3 <=
                   this.state.recipe.length - 1
                     ? this.state.recipe
@@ -782,7 +856,7 @@ class CookRoom extends Component {
                     : ' '}
                 </C.RecipeTxt>
               </C.BeforeRecipe>
-            </C.CookDivideBox>
+            </C.RecipeDivideBox>
 
             <ToolbarComponent
               recipe={this.state.recipe}
