@@ -26,16 +26,16 @@ export default function StreamSwiper(props) {
       navigation
       grabCursor
       breakpoints={{
-        640: {
-          slidesPerView: 3,
+        600: {
+          slidesPerView: 2,
           spaceBetween: 20,
         },
-        768: {
-          slidesPerView: 4,
+        900: {
+          slidesPerView: 3,
           spaceBetween: 40,
         },
-        980: {
-          slidesPerView: 5,
+        1200: {
+          slidesPerView: 4,
           spaceBetween: 50,
         },
       }}
