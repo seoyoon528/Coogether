@@ -112,15 +112,6 @@ function AllIngredients({
       <Contents>
         {categoryKorean}
         {ingredient}
-        {/* {ingredientName.length === 0
-          ? ingredient
-          : ingredientName
-              .filter(
-                (element, index) => category === ingredientCategory[index]
-              )
-              .map((element, index) => {
-                return <div key={element}>{element}</div>;
-              })} */}
       </Contents>
     </div>
   );
