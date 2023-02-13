@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 
 import * as S from './streamItemStyle';
 import ChefDeco from '../../../../assets/img/chef-deco.png';
@@ -8,10 +9,13 @@ import ChefDeco from '../../../../assets/img/chef-deco.png';
 import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
 
 function StreamItem({ room }) {
+  const history = useHistory();
   // CookRoomEnterModal
   const [isCookRoomEnterModalOpened, setIsCookRoomEnterModalOpened] =
     useState(false);
-
+  const userSeq = useSelector(state => {
+    return state.user.userSeq;
+  });
   const {
     cookingRoomId,
     cookingRoomImg,
@@ -38,12 +42,20 @@ function StreamItem({ room }) {
         src={cookingRoomImg}
         alt="img"
         onClick={() => {
-          setIsCookRoomEnterModalOpened(true);
+          if (userSeq) {
+            setIsCookRoomEnterModalOpened(true);
+          } else {
+            history.push('/login');
+          }
         }}
       />
       <S.StartUserWrapper
         onClick={() => {
-          setIsCookRoomEnterModalOpened(true);
+          if (userSeq) {
+            setIsCookRoomEnterModalOpened(true);
+          } else {
+            history.push('/login');
+          }
         }}
       >
         <S.JoinUserWrapper>
@@ -55,7 +67,11 @@ function StreamItem({ room }) {
       </S.StartUserWrapper>
       <S.roomTitle
         onClick={() => {
-          setIsCookRoomEnterModalOpened(true);
+          if (userSeq) {
+            setIsCookRoomEnterModalOpened(true);
+          } else {
+            history.push('/login');
+          }
         }}
       >
         {cookingRoomName}
