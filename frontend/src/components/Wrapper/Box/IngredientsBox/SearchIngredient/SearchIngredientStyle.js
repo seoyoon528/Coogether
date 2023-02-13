@@ -6,6 +6,8 @@ export const Contents = styled.div`
   margin-bottom: 4px;
   margin-top: 4px;
   padding: 12px;
+  overflow-y: auto;
+  overflow-x: auto;
   /* margin-left: 16rem; */
 
   h4,
@@ -83,4 +85,9 @@ export const Box = styled.div`
   margin: 0;
   padding: 0;
   width: 80px;
+  /* float: left; */
+`;
+
+export const H4 = styled.h4`
+  float: left;
 `;
