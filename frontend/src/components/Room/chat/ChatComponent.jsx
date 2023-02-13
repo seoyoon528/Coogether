@@ -342,7 +342,7 @@ export default class ChatComponent extends Component {
           <Link to="/Main" onClick={() => this.props.onChangeShow()}>
             나가기
           </Link>
-          <button onClick={this.close}>시작하기</button>
+          {this.state.isHost && <button onClick={this.close}>시작하기</button>}
         </C.ExitBox>
       </C.WaitContainer>
     );

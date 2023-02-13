@@ -73,6 +73,7 @@ export default class ToolbarComponent extends Component {
     this.closeFullScreenMode();
     this.props.onChangeShow();
     this.props.leaveSession();
+    this.props.DelRoomRequestInfo();
   }
 
   toggleChat() {
