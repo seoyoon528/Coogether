@@ -1,5 +1,6 @@
 /* eslint-disable */
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { OpenVidu } from 'openvidu-browser';
 import React, { Component } from 'react';
 import ChatComponent from './chat/ChatComponent';
@@ -20,19 +21,22 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import StreamFinishModal from '../Modal/StreamFinishModal/StreamFinishModal';
-
+function accessToken() {
+  const getToken = useSelector(state => state.user.accessToken);
+  return getToken;
+}
 var localUser = new UserModel();
 // 서버 URL 지정
 // const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
-// const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
-const APPLICATION_SERVER_URL =
-  'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
+const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
+// const APPLICATION_SERVER_URL =
+//   'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
 
 class CookRoom extends Component {
   constructor(props) {
     super(props);
-
+    console.log(this.props);
     this.hasBeenUpdated = false;
     let sessionName = this.props.roomId;
 
@@ -60,7 +64,7 @@ class CookRoom extends Component {
       carouselIdx: 0,
       isReport: false,
     };
-
+    this.DelRoomRequestInfo = this.DelRoomRequestInfo.bind(this);
     this.modalOpen = this.modalOpen.bind(this);
     this.isReport = this.isReport.bind(this);
     this.joinSession = this.joinSession.bind(this);
@@ -689,6 +693,21 @@ class CookRoom extends Component {
     }
   }
 
+  // 방 나가기
+  async DelRoomRequestInfo() {
+    const outRoom = axios.delete(
+      `https://i8b206.p.ssafy.io:9000/api/room/${this.state.mySessionId}/${this.props.userInfo.userSeq}`,
+      { Authorization: `Bearer ${accessToken()}` }
+    );
+
+    try {
+      const DelRoomForm = await outRoom;
+      history.push('/main');
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   render() {
     const mySessionId = this.state.mySessionId;
     const localUser = this.state.localUser;
@@ -958,6 +977,7 @@ class CookRoom extends Component {
             </C.RecipeDivideBox>
             <C.ToolbarMargin>
               <ToolbarComponent
+                DelRoomRequestInfo={this.DelRoomRequestInfo}
                 isReport={this.isReport}
                 recipe={this.state.recipe}
                 nowStep={this.state.nowStep}

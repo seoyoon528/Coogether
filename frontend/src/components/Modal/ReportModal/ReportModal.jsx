@@ -5,7 +5,11 @@ import { useHistory, useLocation } from 'react-router-dom';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import imgInput from '../../../assets/icon/imgInput.svg';
+import { useTheme, StyledEngineProvider } from '@mui/material/styles';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import * as R from './ReportModalStyle';
 
 function ReportModal({ onChangeShow }) {
@@ -19,6 +23,13 @@ function ReportModal({ onChangeShow }) {
   const [myIng, setMyIng] = useState([]);
   const inputRef = useRef(null);
   const [willDel, setWillDel] = useState([]);
+  const reportCategory = [
+    ['유해한 게시물', 'HARMFUL'],
+    ['비방 • 욕설', 'DISGUST'],
+    ['음란물 유포', 'PORN'],
+    ['부적절한 광고', 'AD'],
+    ['기타', 'ETC'],
+  ];
 
   // 삭제할 재료 control
   const delHandler = target => {
