@@ -75,10 +75,10 @@ export const Loginstyle = styled(NavLink)`
 
 export const LoginAvatar = styled(NavLink)`
   cursor: pointer;
-  margin-top: 1.5rem;
+  /* margin-top: 1.5rem;
   margin-left: 3.5rem;
   margin-right: 2rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1.5rem; */
 
   display: flex;
 
@@ -89,5 +89,4 @@ export const LoginAvatar = styled(NavLink)`
 
 export const LoginStatus = styled.div`
   display: flex;
-  align-items: center;
 `;
