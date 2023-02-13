@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import * as R from './ReportModalStyle';
 
 function ReportModal({ userInfo, subscribers, isReport }) {
+  console.log(subscribers);
   // 쿡룸에서 props로 가져오는 거로 바꾸기
   const params = useLocation();
   const { accessToken } = userInfo;
@@ -54,6 +55,7 @@ function ReportModal({ userInfo, subscribers, isReport }) {
   return (
     <>
       <R.ReportTitle>닉네임을 신고하시겠습니까?</R.ReportTitle>
+      {willDel}
       <FormControl sx={{ m: 1, width: 200 }}>
         <InputLabel id="select-label">신고할 유저</InputLabel>
         <Select
