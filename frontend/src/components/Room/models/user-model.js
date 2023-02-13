@@ -15,6 +15,8 @@ class UserModel {
 
   img;
 
+  userSeq;
+
   // 'remote' | 'local'
   // 초기 유저는 음성, 비디오 꺼진 상태로
 
@@ -27,6 +29,7 @@ class UserModel {
     this.streamManager = null;
     this.type = 'local';
     this.img = '';
+    this.userSeq = '';
   }
 
   isAudioActive() {
@@ -93,6 +96,10 @@ class UserModel {
 
   setImg(url) {
     this.img = url;
+  }
+
+  setUserSeq(seq) {
+    this.userSeq = seq;
   }
 }
 
