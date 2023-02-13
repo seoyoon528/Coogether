@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './CarouselBtnStyle';
 
 function CarouselBtn(props) {
-  const { left, right, recipeIngredient } = props;
+  const [selectedOption, setSelectedOption] = useState('left');
+  const { left, right, recipeIngredient, percent } = props;
+
   return (
-    <S.Container>
+    <S.Container percent={percent}>
       <S.SwitchWrapper>
-        <input id="monthly" type="radio" name="switch" checked />
-        <input id="yearly" type="radio" name="switch" />
+        <input
+          id="monthly"
+          type="radio"
+          name="switch"
+          checked={selectedOption === 'left'}
+        />
+        <input
+          id="yearly"
+          type="radio"
+          name="switch"
+          checked={selectedOption === 'right'}
+        />
         <S.Label
           htmlFor="monthly"
           onClick={() => {
+            setSelectedOption('left');
             recipeIngredient('left');
           }}
         >
@@ -19,6 +32,7 @@ function CarouselBtn(props) {
         <S.Label
           htmlFor="yearly"
           onClick={() => {
+            setSelectedOption('right');
             recipeIngredient('right');
           }}
         >

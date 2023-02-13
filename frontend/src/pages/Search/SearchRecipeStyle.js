@@ -14,6 +14,10 @@ export const RecepiContainer = styled.section`
   }
 `;
 
+export const UnderLine = styled.hr`
+  border: 0.1rem solid #febd2f;
+`;
+
 export const SearchMainHeader = styled.h2`
   text-align: center;
   vertical-align: middle;
@@ -30,4 +34,10 @@ export const SearchSubHeader = styled.p`
   line-height: auto;
   color: #4f4f4f;
   padding: 1.6rem;
+`;
+
+export const BtnContainer = styled.div`
+  display: inline-block;
+
+  height: 30px;
 `;

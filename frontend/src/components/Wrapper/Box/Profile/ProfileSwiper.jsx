@@ -13,62 +13,66 @@ import 'swiper/css/pagination';
 
 // Component
 import MyRecipe from './MyRecipe';
+import MyHistoyItem from './MyHistoyItem';
 
 // Style
-import MyHistoyItem from './MyHistoyItem';
+import { ProfileSwiperStyle } from './ProfileSwiperStyle';
 
 export default function ProfileSwiper(props) {
   // Props
   const { histories: cookHistories, recipes } = props;
 
+  // useRef
   return (
-    <Swiper
-      modules={[Navigation]}
-      spaceBetween={48}
-      breakpoints={{
-        1536: {
-          slidesPerView: 4,
-        },
-      }}
-      slidesPerView={3}
-      navigation
-      // onSwiper={swiper => console.log(swiper)}
-      // onSlideChange={() => console.log('slide change')}
-    >
-      {cookHistories &&
-        cookHistories.length > 0 &&
-        cookHistories.map(
-          ({
-            historyId,
-            historyImg,
-            cookingRoom: {
-              userJoinLists,
-              cookingRoomName,
-              cookingRoomStartTime,
-              recipe,
-            },
-          }) => {
+    <ProfileSwiperStyle>
+      <Swiper
+        modules={[Navigation]}
+        navigation
+        spaceBetween={48}
+        breakpoints={{
+          1536: {
+            slidesPerView: 4,
+          },
+        }}
+        slidesPerView={3}
+        // onSwiper={swiper => console.log(swiper)}
+        // onSlideChange={() => console.log('slide change')}
+      >
+        {cookHistories &&
+          cookHistories.length > 0 &&
+          cookHistories.map(
+            ({
+              historyId,
+              historyImg,
+              cookingRoom: {
+                userJoinLists,
+                cookingRoomName,
+                cookingRoomStartTime,
+                recipe,
+              },
+            }) => {
+              return (
+                <SwiperSlide key={historyId}>
+                  <MyHistoyItem
+                    historyImg={historyImg}
+                    userJoinLists={userJoinLists}
+                    cookingRoomName={cookingRoomName}
+                    cookingRoomStartTime={cookingRoomStartTime}
+                    recipe={recipe}
+                  />
+                </SwiperSlide>
+              );
+            }
+          )}
+        {recipes &&
+          recipes.map(recipe => {
             return (
-              <SwiperSlide key={historyId}>
-                <MyHistoyItem
-                  historyImg={historyImg}
-                  userJoinLists={userJoinLists}
-                  cookingRoomName={cookingRoomName}
-                  cookingRoomStartTime={cookingRoomStartTime}
-                  recipe={recipe}
-                />
+              <SwiperSlide key={recipe.recipeId}>
+                <MyRecipe recipe={recipe} />
               </SwiperSlide>
             );
-          }
-        )}
-      {recipes &&
-        recipes.map(recipe => {
-          return (
-            <SwiperSlide key={recipe.recipeId}>
-              <MyRecipe recipe={recipe} />
-            </SwiperSlide>
-          );
-        })}
-    </Swiper>
+          })}
+      </Swiper>
+    </ProfileSwiperStyle>
   );
 }

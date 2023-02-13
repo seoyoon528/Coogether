@@ -5,6 +5,7 @@ import { Skeleton, Grid } from '@mui/material';
 import RecipeBoxList from '../../components/Wrapper/Box/RecipeBox/RecipeBoxList ';
 import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
 import * as S from './SearchRecipeStyle';
+import CarouselBtn from '../../components/Btn/CarouselBtn/CarouselBtn';
 
 // 백종원
 const LIST_URL = 'https://i8b206.p.ssafy.io:9000/api/recipe/list/baek';
@@ -128,6 +129,14 @@ function SearchRecipe() {
       <Skeleton variant="rectangular" width={255} height={216} />
     </Grid>
   ));
+
+  const recipeIngredient = target => {
+    if (target === 'left') {
+      baekChangeHandler();
+    } else {
+      customChangeHandler();
+    }
+  };
   return (
     <S.RecepiContainer>
       <div className="main">
@@ -141,10 +150,19 @@ function SearchRecipe() {
           onChangePage={onChangePage}
         />
         <br />
-        <hr />
+        <S.UnderLine />
+        <br />
         {/* 레시피 타입 전환 */}
-        <button onClick={baekChangeHandler}>커스텀</button>
-        <button onClick={customChangeHandler}>백종원</button>
+        <S.BtnContainer>
+          <CarouselBtn
+            left="커스텀"
+            right="백종원"
+            recipeIngredient={recipeIngredient}
+            percent={18}
+          />
+        </S.BtnContainer>
+        {/* <button onClick={baekChangeHandler}>커스텀</button>
+        <button onClick={customChangeHandler}>백종원</button> */}
         <RecipeBoxList recepi={recepi} />
         {/* 스켈레톤 */}
         {load && (

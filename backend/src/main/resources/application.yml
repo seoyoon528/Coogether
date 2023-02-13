@@ -25,7 +25,8 @@ server:
 
 
 # openvidu server 설정
-OPENVIDU_URL: https://coogether.shop:8443
+#OPENVIDU_URL: https://coogether.shop:8443
+OPENVIDU_URL: https://i8b206.p.ssafy.io:8443
 OPENVIDU_SECRET: MY_SECRET
 #openvidu:
 #  url: https://coogether.shop:8443
