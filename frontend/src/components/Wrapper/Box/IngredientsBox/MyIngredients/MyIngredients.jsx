@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
+import KitchenIcon from '@mui/icons-material/Kitchen';
 import {
-  AppWrap,
   Button,
   Contents,
   Circle,
   FridgeButton,
+  Container,
 } from './MyIngredientsStyle';
 import AllMyIrngredientsModal from '../../../../Modal/AllMyIngredientsModal/AllMyIngredientsModal';
 
@@ -40,21 +41,21 @@ function MyIngredients({
         >
           <img src={f.ingredient.ingredientIcon} alt="icon" />
         </Circle>
-        {f.ingredient.ingredientName}
+        <div>{f.ingredient.ingredientName}</div>
         {selectIngredientId === f.ingredient.ingredientId && visible && (
           <>
             <Button
               onClick={() => {
-                console.log(f.ingredient);
                 favIngredient(f.ingredient);
+                setVisible(!visible);
               }}
             >
               <BookmarkAddRoundedIcon />
             </Button>
             <Button
               onClick={() => {
-                console.log(f.ingredient);
                 sumbitIngredient(f.ingredient);
+                setVisible(!visible);
               }}
             >
               <KitchenRoundedIcon />
@@ -76,21 +77,21 @@ function MyIngredients({
         >
           <img src={f?.ingredient.ingredientIcon} alt="icon" />
         </Circle>
-        {f?.ingredient.ingredientName}
+        <div>{f?.ingredient.ingredientName}</div>
         {selectIngredientId === f?.ingredient.ingredientId && visible && (
           <>
             <Button
               onClick={() => {
-                console.log(f.ingredient);
                 favIngredient(f.ingredient);
+                setVisible(!visible);
               }}
             >
               <BookmarkAddRoundedIcon />
             </Button>
             <Button
               onClick={() => {
-                console.log(f.ingredient);
                 sumbitIngredient(f.ingredient);
+                setVisible(!visible);
               }}
             >
               <KitchenRoundedIcon />
@@ -112,7 +113,7 @@ function MyIngredients({
         >
           <img src={i.ingredient?.ingredientIcon} alt="icon" />
         </Circle>
-        {i.ingredient?.ingredientName}
+        <div>{i.ingredient?.ingredientName}</div>
         {selectIngredientId === i.ingredient?.ingredientId && visible && (
           <>
             <Button
@@ -140,20 +141,22 @@ function MyIngredients({
       <Contents>
         <h4>
           내 냉장고에 있는 재료
-          <KitchenRoundedIcon style={{ fontSize: '20px' }} />
+          <KitchenIcon style={{ fontSize: '20px' }} />
           <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
           {isOpen && (
             <AllMyIrngredientsModal
               fridge={fridge}
-              open={isOpen}
+              myFridge={myFridge}
+              isopen={isOpen}
               onClose={() => {
                 setIsOpen(false);
               }}
             />
           )}
         </h4>
-
-        {myFridge.length > 0 ? afterPatch : fridgeIngredient}
+        <Container>
+          {myFridge.length > 0 ? afterPatch : fridgeIngredient}
+        </Container>
       </Contents>
     </div>
   );

@@ -36,6 +36,6 @@ export const Contents = styled.div`
 `;
 
 export const H4 = styled.div`
-  font-weight: 550;
+  font-weight: 500;
   font-size: 18px;
 `;

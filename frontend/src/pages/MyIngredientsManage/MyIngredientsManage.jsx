@@ -43,7 +43,6 @@ function MyIngredientsManage() {
     }
   };
   useEffect(() => {
-    console.log(enterdItme);
     if (enterdItme !== '') {
       getData();
     }
@@ -57,7 +56,6 @@ function MyIngredientsManage() {
         // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
         {}
       );
-      console.log(sendIngredient.data);
       setFavIngre([...sendIngredient.data.map(v => v)]);
     };
     inorOutIngredient(i.ingredientId);
@@ -93,7 +91,6 @@ function MyIngredientsManage() {
         // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
         {}
       );
-      console.log(sendIngredient);
       setMyFridge([...sendIngredient.data.map(v => v)]);
     };
     inorOutIngredient(f.ingredientId);
@@ -108,7 +105,6 @@ function MyIngredientsManage() {
           // `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/${isLogin}`
         );
         setFridge([...response.data.map((v, a) => v)]);
-        console.log(fridge);
       } catch (e) {
         console.log(e);
       }
@@ -195,14 +191,6 @@ function MyIngredientsManage() {
     />,
   ];
 
-  // HTTP 요청 보내야 함
-  // 비동기 요청 보내기
-  // enterdItme 이 비어있으면 전체 (/room/list)
-  // enterdItme 값이 있으면 검색어 기반 (/room/search/{recipeName})
-  // useEffect(() => {
-  //   console.log(enterdItme);
-  // }, [enterdItme]);
-
   return (
     <>
       <br />
@@ -235,7 +223,6 @@ function MyIngredientsManage() {
             })}
           </Box>
           <Box gridColumn="span 2" />
-          {/* <Box gridColumn="span 1" /> */}
         </Box>
       </Contents>
     </>

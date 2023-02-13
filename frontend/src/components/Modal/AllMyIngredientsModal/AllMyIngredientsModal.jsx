@@ -1,20 +1,8 @@
 import React, { useState } from 'react';
-// import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-// import {
-//   Overlay,
-//   ModalWrap,
-//   CloseButton,
-//   Contents,
-//   Fridge,
-//   Door,
-//   Bottom,
-//   Shelves,
-//   Button,
-// } from './AllMyIngredientsModalStyle';
 import './AllMyIngredientsModal.scss';
-import { Circle } from './AllMyIngredientsModalStyle';
+import { Circle, Container } from './AllMyIngredientsModalStyle';
 
-function AllMyIngredientsModal({ onClose, fridge }) {
+function AllMyIngredientsModal({ onClose, fridge, myFridge }) {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
@@ -27,12 +15,7 @@ function AllMyIngredientsModal({ onClose, fridge }) {
   const fridgeIngredient = fridge.map(i => {
     return (
       <span>
-        <Circle
-          key={i}
-          onClick={() => {
-            handleClick(i);
-          }}
-        >
+        <Circle key={i}>
           <img src={i?.ingredient.ingredientIcon} alt="icon" />
         </Circle>
         {i?.ingredient.ingredientName}
@@ -40,39 +23,35 @@ function AllMyIngredientsModal({ onClose, fridge }) {
     );
   });
 
+  const afterPatch = myFridge.map(f => {
+    console.log(f);
+    return (
+      <span>
+        <Circle key={f}>
+          <img src={f.ingredient.ingredientIcon} alt="icon" />
+        </Circle>
+        {f.ingredient.ingredientName}
+      </span>
+    );
+  });
+
   return (
-    // <Overlay onClick={handleClose}>
-    //   <ModalWrap oEnClick={e => e.stopPropagation()}>
-    //     <CloseButton onClick={handleClose}>
-    //       <CancelOutlinedIcon />
-    //     </CloseButton>
-    //     <Contents>
-    //       <h2>랜선 냉장고</h2>
-    //       <Fridge>
-    //         <Door>
-    //           <Bottom />
-    //         </Door>
-    //         <Shelves />
-    //       </Fridge>
-    //     </Contents>
-    //     <Button>확인</Button>
-    //   </ModalWrap>
-    // </Overlay>
-    <div className="Overlay">
+    <button className="Overlay" onClick={handleClose}>
       <div className="wrapper">
-        <div className="fridge">
-          <div className="door top" />
+        <button className="fridge" onClick={e => e.stopPropagation()}>
+          <div className={`door top ${isActive ? 'active' : ''}`} />
           <button
             aria-label="Mute volume"
             className={`door bottom ${isActive ? 'active' : ''}`}
             onClick={handleClick}
           />
-          <div className="shelves" />
-          {fridgeIngredient}
-          {/* <div className="fly" /> */}
-        </div>
+          <Container>
+            <div className="shelves" />
+            {myFridge.length > 0 ? afterPatch : fridgeIngredient}
+          </Container>
+        </button>
       </div>
-    </div>
+    </button>
   );
 }
 

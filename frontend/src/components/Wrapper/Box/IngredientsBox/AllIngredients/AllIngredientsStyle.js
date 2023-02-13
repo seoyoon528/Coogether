@@ -53,10 +53,8 @@ export const Circle = styled.button`
   z-index: 1;
   position: relative;
 
-  p {
+  div {
     position: absolute;
-    left: 11.1%;
-    bottom: 30%;
     text-align: center;
   }
 
@@ -73,10 +71,6 @@ export const Button = styled.button`
   width: 50%;
   width: 50px;
   z-index: 1;
-  /* position: absolute; */
-  /* height: 14px; */
-  /* justify-content: center;
-  text-align: center; */
   margin: 0;
   padding: 0;
   margin-left: 0;
@@ -84,7 +78,6 @@ export const Button = styled.button`
 
   &:hover {
     color: #febd2f;
-    /* background-color: rgb(0, 0, 0, 0.5); */
   }
 `;
 
@@ -112,4 +105,20 @@ export const Span = styled.span`
 export const Name = styled.p`
   text-align: left;
   font-size: 14px;
+`;
+
+export const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 2px;
+  overflow-x: 0;
+  overflow-y: 0;
+
+  @media screen and (max-width: 920px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1px;
+    overflow-x: 0;
+    overflow-y: 0;
+  }
 `;

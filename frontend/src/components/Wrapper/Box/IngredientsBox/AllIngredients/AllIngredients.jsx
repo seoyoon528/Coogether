@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
+import KitchenIcon from '@mui/icons-material/Kitchen';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
-import { useDispatch, useSelector } from 'react-redux';
 import dummy from '../ingredients.json';
-import { Contents, Circle, Button, Span, Name } from './AllIngredientsStyle';
+import { Contents, Circle, Button, Container } from './AllIngredientsStyle';
 
 function AllIngredients({
   category,
@@ -38,12 +37,13 @@ function AllIngredients({
         >
           <img src={i.ingredientIcon} alt="icon" />
         </Circle>
-        {i.ingredientName}
+        <div>{i.ingredientName}</div>
         {selectIngredientId === i.ingredientId && visible && (
           <>
             <Button
               onClick={() => {
                 favIngredient(i);
+                setVisible(!visible);
               }}
             >
               <BookmarkAddRoundedIcon />
@@ -51,9 +51,10 @@ function AllIngredients({
             <Button
               onClick={() => {
                 sumbitIngredient(i);
+                setVisible(!visible);
               }}
             >
-              <KitchenRoundedIcon />
+              <KitchenIcon />
             </Button>
           </>
         )}
@@ -72,12 +73,13 @@ function AllIngredients({
         >
           <img src={e.ingredientIcon} alt="icon" />
         </Circle>
-        {e.ingredientName}
+        <div>{e.ingredientName}</div>
         {selectIngredientId === e.ingredientId && visible && (
           <>
             <Button
               onClick={() => {
                 favIngredient(e);
+                setVisible(!visible);
               }}
             >
               <BookmarkAddRoundedIcon />
@@ -85,13 +87,13 @@ function AllIngredients({
             <Button
               onClick={() => {
                 sumbitIngredient(e);
+                setVisible(!visible);
               }}
             >
-              <KitchenRoundedIcon />
+              <KitchenIcon />
             </Button>
           </>
         )}
-        {/* </Circle> */}
       </span>
     );
   });
@@ -100,8 +102,11 @@ function AllIngredients({
     return (
       <div>
         <Contents>
-          <h4>재료 전체</h4>
-          {AllIngredient}
+          <h4>
+            재료 전체
+            <KitchenRoundedIcon style={{ fontSize: '20px' }} />
+          </h4>
+          <Container>{AllIngredient}</Container>
         </Contents>
       </div>
     );
@@ -110,7 +115,7 @@ function AllIngredients({
     <div>
       <Contents>
         {categoryKorean}
-        {ingredient}
+        <Container>{ingredient}</Container>
       </Contents>
     </div>
   );

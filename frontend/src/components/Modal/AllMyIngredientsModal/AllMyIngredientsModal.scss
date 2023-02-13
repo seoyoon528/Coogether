@@ -50,11 +50,12 @@
   .shelves {
     border-bottom: 2px solid rgba(white, 0.6);
     position: fixed;
-    height: 80%;
+    height: 100%;
 
     &:before,
     &:after {
       content: '';
+      overflow-x: auto;
       width: 100%;
       position: relative;
       border-bottom: 2px solid rgba(white, 0.6);
