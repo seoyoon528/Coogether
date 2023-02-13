@@ -6,7 +6,26 @@ export const RecipeContentStyle = styled.div`
   padding: 6.4rem;
 
   .information__name {
-    margin-bottom: 5.6rem;
+    margin-bottom: 4rem;
+  }
+
+  .information__name .recipe {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .information__name .recipe:hover {
+    width: 100vw;
+    z-index: 1;
+  }
+
+  .information__name .author {
+    margin-top: 1.6rem;
+    font-size: 1.8rem;
+    font-family: 'Pretendard Medium';
+
+    text-align: end;
   }
 
   .information__list {
@@ -28,10 +47,6 @@ export const RecipeContentStyle = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  #recipe-author-nickname:hover {
-    position: absolute;
   }
 
   .information__item__category {

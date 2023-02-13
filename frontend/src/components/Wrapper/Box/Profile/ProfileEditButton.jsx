@@ -38,8 +38,7 @@ export default function ProfileEditButton(props) {
       },
     };
     try {
-      const editResponse = await axios(requestInfo);
-      console.log(editResponse.data);
+      await axios(requestInfo);
     } catch (error) {
       console.log(error);
     }

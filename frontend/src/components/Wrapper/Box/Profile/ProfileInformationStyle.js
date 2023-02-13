@@ -83,7 +83,7 @@ export const ProfileInformationStyle = styled.form`
   }
 
   .item {
-    width: 100%;
+    width: 120%;
 
     text-align: center;
   }
@@ -156,6 +156,14 @@ export const ProfileInformationStyle = styled.form`
     font-size: 1.6rem;
 
     outline: none;
+
+    resize: none;
+
+    ::placeholder {
+      font-family: 'Pretendard Regular';
+      font-size: 1.6rem;
+      color: #505050;
+    }
   }
 
   .message__input.exist {

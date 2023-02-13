@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 // MUI
 import { Stack, Grid } from '@mui/material';
@@ -6,22 +7,21 @@ import { Stack, Grid } from '@mui/material';
 // IMAGE
 import IngredientsImage from '../../../assets/img/handbag.png';
 import StepsImage from '../../../assets/img/list.png';
-import CopyrightImage from '../../../assets/img/copyright.png';
+import CategoryImage from '../../../assets/img/cake-dome.svg';
 
 export default function RecipeInformations(props) {
   // Props
-  const {
-    name,
-    // category,
-    // author,
-    contentCount,
-    ingredientCount,
-    // date,
-    nickname,
-  } = props;
+  const { name, category, contentCount, ingredientCount, nickname } = props;
+
+  // Redux
+  const koreanCategory = useSelector(state => state.prefer);
+
   return (
     <Stack direction="column" spacing={2}>
-      <h2 className="information__name">{name}</h2>
+      <div className="information__name">
+        <h2 className="recipe">{name}</h2>
+        <p className="author">{nickname}</p>
+      </div>
       <ul className="information__list">
         <Grid
           container
@@ -50,10 +50,14 @@ export default function RecipeInformations(props) {
           <Grid item xs={3}>
             <li className="information__item">
               <div className="information__item__category">
-                <img src={CopyrightImage} alt="출처 아이콘" />
-                <p>작성자</p>
+                <img src={CategoryImage} alt="분야 아이콘" />
+                <p>분야</p>
               </div>
-              <p id="recipe-author-nickname">{nickname}</p>
+              <p>
+                {koreanCategory[category] === '베이킹/디저트'
+                  ? '디저트'
+                  : koreanCategory[category]}
+              </p>
             </li>
           </Grid>
         </Grid>
