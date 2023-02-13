@@ -23,7 +23,7 @@ export const NickName = styled.span`
 
   max-height: 120px;
   font-weight: 800;
-  display: inline-block;
+
   font-size: 200%;
   float: right;
   text-align: right;
@@ -51,7 +51,9 @@ export const CamMicIcon = styled.div`
 `;
 
 export const ControlIcon = styled.div`
-  width: 50%;
+  width: 95%;
+  height: 10%;
+  margin-top: 1%;
   max-height: 120px;
   display: inline-block;
 `;
@@ -61,7 +63,7 @@ export const ControlTxt = styled.button`
   max-width: 100px;
   max-height: 20px;
   border-radius: 5px;
-  font-size: 180%;
+  font-size: 150%;
   background-color: #ffaf00;
   display: flex;
   justify-content: center;
