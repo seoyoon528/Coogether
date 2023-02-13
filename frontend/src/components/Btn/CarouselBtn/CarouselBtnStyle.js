@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
   max-width: 1000px;
   text-align: center;
-  z-index: 9999;
+  /* z-index: 9999; */
+  z-index: ${props => (props.idx ? `${props.percent}` : '9999')};
   position: absolute;
   left: ${props => (props.percent ? `${props.percent}%` : '25%')};
   transform: translate(-50%, 0%);

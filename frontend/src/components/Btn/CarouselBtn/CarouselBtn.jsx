@@ -3,10 +3,10 @@ import * as S from './CarouselBtnStyle';
 
 function CarouselBtn(props) {
   const [selectedOption, setSelectedOption] = useState('left');
-  const { left, right, recipeIngredient, percent } = props;
+  const { left, right, recipeIngredient, percent, index } = props;
 
   return (
-    <S.Container percent={percent}>
+    <S.Container percent={percent} idx={index}>
       <S.SwitchWrapper>
         <input
           id="monthly"
