@@ -6,7 +6,6 @@ import Main from './pages/Main/Main';
 import Room from './pages/Room/Room';
 import SearchCookRoom from './pages/Search/SearchCookRoom';
 import SearchRecipe from './pages/Search/SearchRecipe';
-import TemperatureRank from './pages/Rank/TemperatureRank';
 import MyIngredientsManage from './pages/MyIngredientsManage/MyIngredientsManage';
 import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
@@ -49,7 +48,6 @@ function App() {
         <Route path="/SearchCookRoom" component={SearchCookRoom} />
         <Route path="/SearchRecipe" component={SearchRecipe} />
         <Route path="/RecipeRegister" component={RecipeRegister} />
-        <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" exact>
           <Login component={Login} onChangeShow={onChangeShow} />
         </Route>
