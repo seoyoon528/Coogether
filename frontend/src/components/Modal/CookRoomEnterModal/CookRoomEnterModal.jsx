@@ -31,34 +31,35 @@ export default function CookRoomEnterModal(props) {
 
   //   레시피 전체 재료 요청 및 저장
   useEffect(async () => {
-    const requestInfo = {
-      url: `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`,
-      method: 'GET',
-    };
-    try {
-      const recipeIngredientsResponse = await axios(requestInfo);
-      const recipeIngredients = await recipeIngredientsResponse.data;
-
-      requestInfo.url = `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/cooking/${userSeq}/${recipeId}`;
-      requestInfo.headers = {
-        Authorization: `Bearer ${accessToken}`,
+    if (userSeq) {
+      const requestInfo = {
+        url: `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`,
+        method: 'GET',
       };
-      const myIngredientsResponse = await axios(requestInfo);
-      const myIngredients = await myIngredientsResponse.data;
+      try {
+        const recipeIngredientsResponse = await axios(requestInfo);
+        const recipeIngredients = await recipeIngredientsResponse.data;
+        requestInfo.url = `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/cooking/${userSeq}/${recipeId}`;
+        requestInfo.headers = {
+          Authorization: `Bearer ${accessToken}`,
+        };
+        const myIngredientsResponse = await axios(requestInfo);
+        const myIngredients = await myIngredientsResponse.data;
 
-      setNotHavingIngredients(
-        recipeIngredients.filter(
-          ({ ingredient: { ingredientId: recipeIngredientId } }) => {
-            return !myIngredients.some(({ ingredient: { ingredientId } }) => {
-              return ingredientId === recipeIngredientId;
-            });
-          }
-        )
-      );
+        setNotHavingIngredients(
+          recipeIngredients.filter(
+            ({ ingredient: { ingredientId: recipeIngredientId } }) => {
+              return !myIngredients.some(({ ingredient: { ingredientId } }) => {
+                return ingredientId === recipeIngredientId;
+              });
+            }
+          )
+        );
 
-      setRecipeIngredients(recipeIngredients);
-    } catch (error) {
-      console.log(error);
+        setRecipeIngredients(recipeIngredients);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, [recipeId, userSeq]);
 
