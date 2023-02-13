@@ -21,10 +21,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import StreamFinishModal from '../Modal/StreamFinishModal/StreamFinishModal';
-function accessToken() {
-  const getToken = useSelector(state => state.user.accessToken);
-  return getToken;
-}
+
 var localUser = new UserModel();
 // 서버 URL 지정
 // const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
@@ -36,7 +33,7 @@ const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
 class CookRoom extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
+    console.log(this.props.userInfo);
     this.hasBeenUpdated = false;
     let sessionName = this.props.roomId;
 
@@ -397,6 +394,7 @@ class CookRoom extends Component {
       const nickname = event.stream.connection.data.split('%')[0];
       newUser.setNickname(JSON.parse(nickname).clientData);
       newUser.setImg(JSON.parse(nickname).clientPicture);
+      newUser.setUserSeq(this.props.userInfo.userSeq);
       this.remotes.push(newUser);
 
       this.findHost.push([JSON.parse(nickname).clientData, Date.now()]);
@@ -697,7 +695,7 @@ class CookRoom extends Component {
   async DelRoomRequestInfo() {
     const outRoom = axios.delete(
       `https://i8b206.p.ssafy.io:9000/api/room/${this.state.mySessionId}/${this.props.userInfo.userSeq}`,
-      { Authorization: `Bearer ${accessToken()}` }
+      { Authorization: `Bearer ${this.props.userInfo.accessToken()}` }
     );
 
     try {
@@ -742,7 +740,11 @@ class CookRoom extends Component {
                   p: 4,
                 }}
               >
-                <ReportModal subscribers={this.state.subscribers} />
+                <ReportModal
+                  userInfo={this.props.userInfo}
+                  subscribers={this.remotes}
+                  isReport={this.isReport}
+                />
               </Box>
             </Modal>
           </div>

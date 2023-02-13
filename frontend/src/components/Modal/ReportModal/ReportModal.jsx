@@ -2,9 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import { useTheme, StyledEngineProvider } from '@mui/material/styles';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,17 +9,20 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import * as R from './ReportModalStyle';
 
-function ReportModal({ onChangeShow }) {
+function ReportModal({ userInfo, subscribers, isReport }) {
+  // 쿡룸에서 props로 가져오는 거로 바꾸기
   const params = useLocation();
-  const accessToken = useSelector(state => state.user.accessToken);
-  const userInfo = useSelector(state => state.user);
+  const { accessToken } = userInfo;
+
+  console.log(userInfo);
   const history = useHistory();
-  const [nowStep, setNowStep] = useState(0);
-  const [imgURL, setImgURL] = useState('');
+
   const [userImg, setUserImg] = useState('');
-  const [myIng, setMyIng] = useState([]);
+
   const inputRef = useRef(null);
-  const [willDel, setWillDel] = useState([]);
+  const [willDel, setWillDel] = useState('');
+  const [delSort, SetDelSort] = useState('HARMFUL');
+  const [delInfo, setDelInfo] = useState('');
   const reportCategory = [
     ['유해한 게시물', 'HARMFUL'],
     ['비방 • 욕설', 'DISGUST'],
@@ -31,138 +31,22 @@ function ReportModal({ onChangeShow }) {
     ['기타', 'ETC'],
   ];
 
-  // 삭제할 재료 control
-  const delHandler = target => {
-    const newArr = willDel.slice();
-    if (newArr.indexOf(target) !== -1) {
-      newArr.splice(willDel.indexOf(target), 1);
-      setWillDel(newArr);
-    } else {
-      setWillDel([...willDel, target]);
-      console.log(willDel);
-    }
-  };
-
-  // 전체화면 설정
-  function openFullScreenMode() {
-    if (document.documentElement.requestFullscreen)
-      document.documentElement.requestFullscreen();
-    else if (document.documentElement.webkitRequestFullscreen)
-      // Chrome, Safari (webkit)
-      document.documentElement.webkitRequestFullscreen();
-    else if (document.documentElement.mozRequestFullScreen)
-      // Firefox
-      document.documentElement.mozRequestFullScreen();
-    else if (document.documentElement.msRequestFullscreen)
-      // IE or Edge
-      document.documentElement.msRequestFullscreen();
-  }
-
-  // 전체화면 해제
-  function closeFullScreenMode() {
-    if (document.exitFullscreen) document.exitFullscreen();
-    else if (document.webkitExitFullscreen)
-      // Chrome, Safari (webkit)
-      document.webkitExitFullscreen();
-    else if (document.mozCancelFullScreen)
-      // Firefox
-      document.mozCancelFullScreen();
-    else if (document.msExitFullscreen)
-      // IE or Edge
-      document.msExitFullscreen();
-  }
-
-  const userImgHandler = event => {
-    setUserImg(event);
-  };
-
-  // 재료 삭제를 위한 현재 소유한 재료 조회
-  const resIng = async () => {
-    const res = await axios.get(
-      `https://i8b206.p.ssafy.io:9000/api/room/${
-        params.pathname.split('/')[params.pathname.split('/').length - 1]
-      }`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-    const { recipeId } = res.data.recipe;
-    const myIng = await axios.get(
-      `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/cooking/${userInfo.userSeq}/${recipeId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-    console.log(myIng.data.map((v, i) => v.ingredient.ingredientName));
-    setMyIng(
-      myIng.data.map((v, i) => [
-        v.ingredient.ingredientName,
-        v.ingredient.ingredientId,
-      ])
-    );
-  };
-  useEffect(() => {
-    resIng();
-  }, []);
-  // 히스토리 생성
-  // 재료 제거
-  // 방 삭제
-
   const submitRegister = async () => {
-    const formData = new FormData();
-    formData.append('file', userImg);
     // 히스토리 생성
-    const historyRequestInfo = {
-      url: `https://i8b206.p.ssafy.io:9000/api/history/create/${
-        userInfo.userSeq
-      }/${params.pathname.split('/')[params.pathname.split('/').length - 1]}`,
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'multipart/form-data',
+    console.log(
+      `https://i8b206.p.ssafy.io:9000/api/report/${userInfo.userSeq}/${willDel}`
+    );
+    const historyRequestInfo = await axios.post(
+      `https://i8b206.p.ssafy.io:9000/api/report/${userInfo.userSeq}/${willDel}`,
+      {
+        reportCategory: delSort,
+        reportContent: delInfo,
       },
-      data: formData,
-    };
+      { Authorization: `Bearer ${accessToken}` }
+    );
     try {
-      const submitUserHis = await axios(historyRequestInfo);
-      const isSignal = submitUserHis;
-    } catch (err) {
-      console.log(err);
-    }
-    // 재료 제거
-    const deleteIngredientList = willDel.join();
-
-    const IngDelRequestInfo = {
-      url: `https://i8b206.p.ssafy.io:9000/api/myIngredient/delete/${userInfo.userSeq}/${deleteIngredientList}`,
-      method: 'PATCH',
-      data: {},
-      Authorization: `Bearer ${accessToken}`,
-    };
-    try {
-      const IngDelForm = await axios(IngDelRequestInfo);
-      const isSignaled = IngDelForm;
-
-      history.push('/main');
-    } catch (err) {
-      console.log(err);
-    }
-    // 방 삭제
-    const DelRoomRequestInfo = {
-      url: `https://i8b206.p.ssafy.io:9000/api/room/${
-        params.pathname.split('/')[params.pathname.split('/').length - 1]
-      }/${userInfo.userSeq}`,
-      Authorization: `Bearer ${accessToken}`,
-      method: 'DELETE',
-    };
-    try {
-      const DelRoomForm = await axios(DelRoomRequestInfo);
-      const isSignaled = DelRoomForm;
-
-      history.push('/main');
+      const submitUserHis = historyRequestInfo;
+      console.log(userInfo.userSeq, willDel, submitUserHis, delSort, delInfo);
     } catch (err) {
       console.log(err);
     }
@@ -170,6 +54,46 @@ function ReportModal({ onChangeShow }) {
   return (
     <>
       <R.ReportTitle>닉네임을 신고하시겠습니까?</R.ReportTitle>
+      <FormControl sx={{ m: 1, width: 200 }}>
+        <InputLabel id="select-label">신고할 유저</InputLabel>
+        <Select
+          labelId="select-label"
+          id="select"
+          value={willDel}
+          label="신고할 유저"
+          onChange={e => {
+            setWillDel(e.target.value);
+          }}
+        >
+          {subscribers.map((v, a) => {
+            return <MenuItem value={v.userSeq}>{v.nickname}</MenuItem>;
+          })}
+        </Select>
+      </FormControl>
+      <FormControl sx={{ m: 1, width: 200 }}>
+        <InputLabel id="select-label">신고 유형</InputLabel>
+        <Select
+          labelId="select-label"
+          id="select"
+          value={delSort}
+          label="신고할 유저"
+          onChange={e => {
+            SetDelSort(e.target.value);
+          }}
+        >
+          {reportCategory.map((v, a) => {
+            return <MenuItem value={v[1]}>{v[0]}</MenuItem>;
+          })}
+          {delSort}
+        </Select>
+      </FormControl>
+      <input
+        onChange={e => {
+          setDelInfo(e.target.value);
+        }}
+      />
+      <button onClick={isReport}>취소</button>
+      <button onClick={submitRegister}>확인</button>
     </>
   );
 }
