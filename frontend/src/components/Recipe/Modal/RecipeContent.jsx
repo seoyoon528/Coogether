@@ -12,6 +12,7 @@ import RecipeOrders from './RecipeOrders';
 
 // Style
 import { RecipeContentStyle } from './RecipeContentStyle';
+import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 function RecipeDetailModalContent(props) {
   const {
@@ -22,8 +23,6 @@ function RecipeDetailModalContent(props) {
       recipeId,
       recipeImg,
       recipeName,
-      recipeType,
-      recipeCreatedDate,
       recipeHostNickname,
     },
   } = props;
@@ -46,7 +45,7 @@ function RecipeDetailModalContent(props) {
   }, []);
 
   return (
-    <RecipeContentStyle onClick={onClose}>
+    <RecipeContentStyle>
       <Grid
         container
         columnSpacing={2}
@@ -58,10 +57,8 @@ function RecipeDetailModalContent(props) {
           <RecipeInformations
             name={recipeName}
             category={recipeCategory}
-            author={recipeType}
             ingredientCount={ingredients.length}
             contentCount={recipeOrders.length}
-            date={recipeCreatedDate}
             nickname={recipeHostNickname}
           />
         </Grid>
@@ -80,7 +77,19 @@ function RecipeDetailModalContent(props) {
         <Grid item xs={6} className="recipe-detail__information">
           <RecipeOrders orders={recipeOrders} />
         </Grid>
+        <Grid item xs={12}>
+          <hr color="#ffcc5e" />
+        </Grid>
       </Grid>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '3.2rem',
+        }}
+      >
+        <NextBtn size="medium" name="확인" color="yellow" onClick={onClose} />
+      </div>
     </RecipeContentStyle>
   );
 }
