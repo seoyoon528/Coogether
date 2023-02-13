@@ -5,7 +5,7 @@ export const Container = styled.div`
   text-align: center;
   z-index: 9999;
   position: absolute;
-  left: 25%;
+  left: ${props => (props.percent ? `${props.percent}%` : '25%')};
   transform: translate(-50%, 0%);
 `;
 

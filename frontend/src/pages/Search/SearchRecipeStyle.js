@@ -31,3 +31,9 @@ export const SearchSubHeader = styled.p`
   color: #4f4f4f;
   padding: 1.6rem;
 `;
+
+export const BtnContainer = styled.div`
+  display: inline-block;
+
+  height: 30px;
+`;
