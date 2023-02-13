@@ -21,6 +21,7 @@ public class SimpleRecipeDto {
     private String recipeName;
     private LocalDateTime recipeCreatedDate;
     private String recipeImg;
+    private Long recipeHostUserSeq;
     private String recipeHostNickname;
 
     @QueryProjection
@@ -32,17 +33,7 @@ public class SimpleRecipeDto {
         this.recipeName = recipe.getRecipeName();
         this.recipeCreatedDate = recipe.getRecipeCreatedDate();
         this.recipeImg = recipe.getRecipeImg();
+        this.recipeHostUserSeq = recipe.getUser().getUserSeq();
         this.recipeHostNickname = recipe.getUser().getUserNickname();
-    }
-
-    @QueryProjection
-    public SimpleRecipeDto(Long recipeId, EnumRecipeCategory recipeCategory, EnumRecipeType recipeType, String recipeContent, String recipeName, LocalDateTime recipeCreatedDate, String recipeImg) {
-        this.recipeId = recipeId;
-        this.recipeCategory = recipeCategory;
-        this.recipeType = recipeType;
-        this.recipeContent = recipeContent;
-        this.recipeName = recipeName;
-        this.recipeCreatedDate = recipeCreatedDate;
-        this.recipeImg = recipeImg;
     }
 }
