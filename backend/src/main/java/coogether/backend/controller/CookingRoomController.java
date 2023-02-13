@@ -77,6 +77,15 @@ public class CookingRoomController {
         return ResponseEntity.ok().body(false);
     }
 
+    @ApiOperation(value = "요리방 시작")
+    @PatchMapping(value ="/room/start/{cookingRoomId}")
+    public ResponseEntity startCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId) throws IOException {
+
+        CookingRoom cookingRoom = cookingRoomService.startCookingRoom(cookingRoomId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(cookingRoom);
+    }
+
     @ApiOperation(value = "요리방 목록 전체를 반환하는 메소드 (페이징가능 size, page)")
     @GetMapping("/room/list")
     public Page<CookingRoomDto> recipeListByRecipeName(Pageable pageable) {

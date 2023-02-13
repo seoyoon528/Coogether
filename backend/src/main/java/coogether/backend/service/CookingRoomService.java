@@ -94,8 +94,8 @@ public class CookingRoomService {
     }
 
     @Transactional
-    public void deleteCookingRoomByCookingRoomId(Long cookingRoomId,Long userSeq) {
-        userJoinListRepository.deleteByUserSeq(cookingRoomId,userSeq);
+    public void deleteCookingRoomByCookingRoomId(Long cookingRoomId, Long userSeq) {
+        userJoinListRepository.deleteByUserSeq(cookingRoomId, userSeq);
     }
 
     /* 카테고리별 요리방 추천 */
@@ -117,7 +117,7 @@ public class CookingRoomService {
                     if (il.getIngredient().getIngredientId() == mig.getIngredient().getIngredientId() && mig.getMyIngredientManageFlag() == EnumMyIngredientManageFlag.IN) {
                         EnumIngredientCategory ingredientCategory = il.getIngredient().getIngredientCategory();
 
-                        if (ingredientCategory == EnumIngredientCategory.MEAT || ingredientCategory == EnumIngredientCategory.SEAFOOD ||ingredientCategory == EnumIngredientCategory.NOODLE || ingredientCategory == EnumIngredientCategory.KIMCHI) {
+                        if (ingredientCategory == EnumIngredientCategory.MEAT || ingredientCategory == EnumIngredientCategory.SEAFOOD || ingredientCategory == EnumIngredientCategory.NOODLE || ingredientCategory == EnumIngredientCategory.KIMCHI) {
                             count++;
                         }
                     }
@@ -209,5 +209,16 @@ public class CookingRoomService {
             default:
                 return null;
         }
+    }
+
+    public CookingRoom startCookingRoom(Long cookingRoomId) {
+        CookingRoom cookingRoom = cookingRoomRepository.findByCookingRoomId(cookingRoomId);
+
+        if (cookingRoom != null) {
+            cookingRoom.setCookingRoomStatus(EnumCookingRoomStatus.PROGRESS);
+            cookingRoomRepository.save(cookingRoom);
+        }
+
+        return cookingRoom;
     }
 }
