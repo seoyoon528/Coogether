@@ -78,7 +78,11 @@ export default function MyRecipe(props) {
                   <img src={CookCategoryImage} alt="재료 아이콘" />
                   <p>선호</p>
                 </div>
-                <p>{category[recipeCategory]}</p>
+                <p>
+                  {category[recipeCategory] === '베이킹/디저트'
+                    ? '디저트'
+                    : category[recipeCategory]}
+                </p>
               </div>
               <div className="content__item">
                 <div className="category">

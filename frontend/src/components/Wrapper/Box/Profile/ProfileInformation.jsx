@@ -216,14 +216,15 @@ export default function ProfileInformation(props) {
         <Grid item xs={1}>
           <div className="form__nickname">
             <input
-              className={`${isEditActive ? 'active' : ''}`}
+              // className={`${isEditActive ? 'active' : ''}`}
               type="text"
               value={userNickname}
               onChange={event => {
                 const userNickname = event.target.value;
                 dispatch({ type: 'edit', payload: { userNickname } });
               }}
-              readOnly={!isEditActive}
+              // readOnly={!isEditActive}
+              readOnly
               maxLength="10"
             />
             {/* 수정 버튼 */}
