@@ -53,8 +53,8 @@ function MyIngredients({
             </Button>
             <Button
               onClick={() => {
-                console.log(f.ingredient);
-                sumbitIngredient(f.ingredient);
+                console.log(f);
+                sumbitIngredient(f);
               }}
             >
               <KitchenRoundedIcon />

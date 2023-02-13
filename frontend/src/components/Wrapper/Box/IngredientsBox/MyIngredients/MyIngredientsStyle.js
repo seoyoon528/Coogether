@@ -18,6 +18,11 @@ export const FridgeButton = styled.button`
   }
 `;
 
+export const AppWrap = styled.div`
+  text-align: right;
+  margin: auto;
+`;
+
 export const Button = styled.button`
   font-size: xx-small;
   float: left;
@@ -37,11 +42,6 @@ export const Button = styled.button`
     color: #febd2f;
     /* background-color: rgb(0, 0, 0, 0.5); */
   }
-`;
-
-export const AppWrap = styled.div`
-  text-align: right;
-  margin: auto;
 `;
 
 export const Contents = styled.div`
