@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import ChatComponent from './chat/ChatComponent';
 import DialogExtensionComponent from './dialog-extension/DialogExtension';
 import StreamComponent from './stream/StreamComponent';
+import ReportModal from '../Modal/ReportModal/ReportModal';
 import * as C from './CookRoomStyle';
 import CheckUserNum from './models/CheckUserNum';
 import UserModel from './models/user-model';
@@ -24,9 +25,9 @@ var localUser = new UserModel();
 // 서버 URL 지정
 // const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
-// const APPLICATION_SERVER_URL =
-//   'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
+// const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
+const APPLICATION_SERVER_URL =
+  'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
 
 class CookRoom extends Component {
   constructor(props) {
@@ -57,10 +58,11 @@ class CookRoom extends Component {
       nowVideo: '',
       isHost: false,
       carouselIdx: 0,
+      isReport: false,
     };
 
     this.modalOpen = this.modalOpen.bind(this);
-
+    this.isReport = this.isReport.bind(this);
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
@@ -259,6 +261,10 @@ class CookRoom extends Component {
         });
       }
     );
+  }
+  // 신고 모달 창 띄우는 함수
+  isReport() {
+    this.setState({ isReport: !this.state.isReport });
   }
 
   updateSubscribers() {
@@ -694,6 +700,34 @@ class CookRoom extends Component {
           userNum={this.state.subscribers.length + 1}
           thisRoom={this.props.roomId}
         />
+        {this.state.isReport && (
+          <div>
+            <Modal
+              open={this.state.isReport}
+              onClose={this.isReport}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '50%',
+                  height: '60%',
+                  bgcolor: '#FFFFFF',
+                  border: '2px solid #ffffff',
+                  boxShadow: 24,
+                  borderRadius: '16px',
+                  p: 4,
+                }}
+              >
+                <ReportModal subscribers={this.state.subscribers} />
+              </Box>
+            </Modal>
+          </div>
+        )}
         {this.state.chatDisplay === 'none' &&
         this.state.nowStep > this.state.recipe.length - 1 ? (
           <div>
@@ -924,6 +958,7 @@ class CookRoom extends Component {
             </C.RecipeDivideBox>
             <C.ToolbarMargin>
               <ToolbarComponent
+                isReport={this.isReport}
                 recipe={this.state.recipe}
                 nowStep={this.state.nowStep}
                 modalOpen={this.modalOpen}
