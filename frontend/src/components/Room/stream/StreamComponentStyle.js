@@ -4,9 +4,10 @@ import styled from 'styled-components';
 export const StreamBox = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: ${props => (props.isFocused ? '100%' : `50%`)};
   height: ${props =>
-    props.isFocused
+    props.isFocused || props.isOutFocused
       ? '100%'
       : props.subscribeNum <= 2
       ? '50%'
@@ -14,14 +15,15 @@ export const StreamBox = styled.div`
 `;
 export const StreamComponent = styled.div`
   width: 95%;
-  height: 80%;
+  height: 85%;
   position: relative;
 `;
 export const NickName = styled.span`
   width: 50%;
-  height: 20%;
+
+  max-height: 120px;
   font-weight: 800;
-  display: inline-block;
+
   font-size: 200%;
   float: right;
   text-align: right;
@@ -34,6 +36,7 @@ export const StatusIcons = styled.div`
   position: absolute;
   bottom: 0px;
   left: 0px;
+  border-radius: 0 0 4px 4px;
   background: #febd2f;
 
   height: fit-content;
@@ -48,8 +51,10 @@ export const CamMicIcon = styled.div`
 `;
 
 export const ControlIcon = styled.div`
-  width: 50%;
+  width: 95%;
   height: 10%;
+  margin-top: 1%;
+  max-height: 120px;
   display: inline-block;
 `;
 export const ControlTxt = styled.button`
@@ -58,7 +63,7 @@ export const ControlTxt = styled.button`
   max-width: 100px;
   max-height: 20px;
   border-radius: 5px;
-  font-size: 180%;
+  font-size: 150%;
   background-color: #ffaf00;
   display: flex;
   justify-content: center;

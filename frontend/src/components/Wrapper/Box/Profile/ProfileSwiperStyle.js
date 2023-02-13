@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 
+export const ProfileSwiperStyle = styled.div`
+  .swiper {
+    &-button-disabled {
+      visibility: hidden;
+    }
+  }
+`;
+
 export const HistoryStyle = styled.div`
-  /* height: 40rem; */
+  height: 40rem;
 
   border: 0.5px dashed #505050;
   border-radius: 4px;
@@ -56,7 +64,7 @@ export const HistoryStyle = styled.div`
 `;
 
 export const MyRecipeStyle = styled.div`
-  /* height: 36rem; */
+  height: 40rem;
 
   border: 0.5px dashed #505050;
   border-radius: 4px;
@@ -66,7 +74,7 @@ export const MyRecipeStyle = styled.div`
   cursor: pointer;
 
   .my-recipe__image {
-    height: 45%;
+    height: 50%;
   }
 
   .my-recipe__image img {
@@ -78,7 +86,7 @@ export const MyRecipeStyle = styled.div`
 
   .my-recipe__text {
     padding: 2.4rem;
-    height: 55%;
+    height: 50%;
   }
 
   .my-recipe__title {

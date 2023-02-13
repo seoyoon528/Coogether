@@ -100,7 +100,6 @@ function StreamFinishModal({ onChangeShow }) {
   }, []);
   // 히스토리 생성
   // 재료 제거
-  // 방 삭제
 
   const submitRegister = async () => {
     const formData = new FormData();
@@ -135,22 +134,6 @@ function StreamFinishModal({ onChangeShow }) {
     try {
       const IngDelForm = await axios(IngDelRequestInfo);
       const isSignaled = IngDelForm;
-
-      history.push('/main');
-    } catch (err) {
-      console.log(err);
-    }
-    // 방 삭제
-    const DelRoomRequestInfo = {
-      url: `https://i8b206.p.ssafy.io:9000/api/room/${
-        params.pathname.split('/')[params.pathname.split('/').length - 1]
-      }/${userInfo.userSeq}`,
-      Authorization: `Bearer ${accessToken}`,
-      method: 'DELETE',
-    };
-    try {
-      const DelRoomForm = await axios(DelRoomRequestInfo);
-      const isSignaled = DelRoomForm;
 
       history.push('/main');
     } catch (err) {

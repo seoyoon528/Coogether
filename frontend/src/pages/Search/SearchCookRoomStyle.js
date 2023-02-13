@@ -15,6 +15,10 @@ export const CookRoomContainer = styled.section`
   }
 `;
 
+export const UnderLine = styled.hr`
+  border: 0.1rem solid #febd2f;
+`;
+
 export const SearchMainHeader = styled.h2`
   text-align: center;
   vertical-align: middle;

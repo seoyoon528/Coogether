@@ -60,6 +60,9 @@ export default class StreamComponent extends Component {
   render() {
     return (
       <S.StreamBox
+        isOutFocused={
+          this.props.nowFocus !== '' && this.props.nowFocus !== this.props.user
+        }
         isFocused={this.props.nowFocus === this.props.user}
         subscribeNum={this.props.subscribeNum + 1}
       >

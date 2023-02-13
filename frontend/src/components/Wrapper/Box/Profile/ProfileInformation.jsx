@@ -209,21 +209,22 @@ export default function ProfileInformation(props) {
         container
         direction="column"
         justifyContent="space-between"
-        rowSpacing={{ xs: 2, md: 2, lg: 3 }}
+        rowSpacing={{ xs: 2, lg: 3 }}
         columns={1}
       >
         {/* 닉네임 */}
         <Grid item xs={1}>
           <div className="form__nickname">
             <input
-              className={`${isEditActive ? 'active' : ''}`}
+              // className={`${isEditActive ? 'active' : ''}`}
               type="text"
               value={userNickname}
               onChange={event => {
                 const userNickname = event.target.value;
                 dispatch({ type: 'edit', payload: { userNickname } });
               }}
-              readOnly={!isEditActive}
+              // readOnly={!isEditActive}
+              readOnly
               maxLength="10"
             />
             {/* 수정 버튼 */}
@@ -383,9 +384,9 @@ export default function ProfileInformation(props) {
         </Grid>
         <Grid item xs={1}>
           <div className="message">
-            <input
-              className={`message__input ${userIntroduce && 'exist'} ${
-                isEditActive && 'active'
+            <textarea
+              className={`message__input ${userIntroduce ? 'exist' : ''} ${
+                isEditActive ? 'active' : ''
               }`}
               type="text"
               readOnly={!isEditActive}

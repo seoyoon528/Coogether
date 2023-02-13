@@ -1,10 +1,12 @@
 /* eslint-disable */
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { OpenVidu } from 'openvidu-browser';
 import React, { Component } from 'react';
 import ChatComponent from './chat/ChatComponent';
 import DialogExtensionComponent from './dialog-extension/DialogExtension';
 import StreamComponent from './stream/StreamComponent';
+import ReportModal from '../Modal/ReportModal/ReportModal';
 import * as C from './CookRoomStyle';
 import CheckUserNum from './models/CheckUserNum';
 import UserModel from './models/user-model';
@@ -12,12 +14,17 @@ import ToolbarComponent from './toolbar/ToolbarComponent';
 import { thisTypeAnnotation } from '@babel/types';
 import VerticalC, { data } from './verticalCarousel/VerticalC';
 // mui import
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import StreamFinishModal from '../Modal/StreamFinishModal/StreamFinishModal';
-
+function accessToken() {
+  const getToken = useSelector(state => state.user.accessToken);
+  return getToken;
+}
 var localUser = new UserModel();
 // 서버 URL 지정
 // const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
@@ -29,7 +36,7 @@ const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
 class CookRoom extends Component {
   constructor(props) {
     super(props);
-
+    console.log(this.props);
     this.hasBeenUpdated = false;
     let sessionName = this.props.roomId;
 
@@ -53,9 +60,13 @@ class CookRoom extends Component {
       open: false,
       recipeName: '',
       nowVideo: '',
+      isHost: false,
+      carouselIdx: 0,
+      isReport: false,
     };
-
+    this.DelRoomRequestInfo = this.DelRoomRequestInfo.bind(this);
     this.modalOpen = this.modalOpen.bind(this);
+    this.isReport = this.isReport.bind(this);
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
@@ -64,14 +75,23 @@ class CookRoom extends Component {
     this.kickStatusChanged = this.kickStatusChanged.bind(this);
     this.killUser = this.killUser.bind(this);
     this.getRecipe = this.getRecipe.bind(this);
+    // 방장인지 확인
+    this.isHost = this.isHost.bind(this);
 
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
+    // 이전 단계로 넘어가기
+    this.beforeStep = this.beforeStep.bind(this);
     // 전체 화면으로
     this.openFullScreenMode = this.openFullScreenMode.bind(this);
     this.closeFullScreenMode = this.closeFullScreenMode.bind(this);
     // 비디오 클릭 감시
     this.videoClick = this.videoClick.bind(this);
+
+    // 캐러셀 앞
+    this.beforeVideo = this.beforeVideo.bind(this);
+    // 캐러셀 뒤
+    this.afterVideo = this.afterVideo.bind(this);
 
     this.nicknameChanged = this.nicknameChanged.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -140,6 +160,12 @@ class CookRoom extends Component {
         alert('There was an error getting the token:', error.message);
       }
     }
+  }
+
+  // 방장인지 확인
+
+  isHost(checkOutput) {
+    this.setState({ isHost: checkOutput });
   }
 
   // 비디오 클릭
@@ -220,6 +246,7 @@ class CookRoom extends Component {
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
     this.clickNextStep();
+    this.clickBeforeStep();
     this.chattoCook();
     this.subscribeToStreamDestroyed();
     this.killSession();
@@ -238,6 +265,10 @@ class CookRoom extends Component {
         });
       }
     );
+  }
+  // 신고 모달 창 띄우는 함수
+  isReport() {
+    this.setState({ isReport: !this.state.isReport });
   }
 
   updateSubscribers() {
@@ -313,6 +344,14 @@ class CookRoom extends Component {
     const signalOptions = {
       data: Number(this.state.nowStep) + 1,
       type: 'nextStep',
+    };
+
+    this.state.session.signal(signalOptions);
+  }
+  beforeStep() {
+    const signalOptions = {
+      data: Number(this.state.nowStep) - 1,
+      type: 'beforeStep',
     };
 
     this.state.session.signal(signalOptions);
@@ -399,11 +438,16 @@ class CookRoom extends Component {
       }
     });
   }
+  clickBeforeStep() {
+    this.state.session.on('signal:beforeStep', event => {
+      this.setState({ nowStep: event.data });
+    });
+  }
   // 채팅방이 없어지고 다음 단계로 이동
   chattoCook() {
     this.state.session.on('signal:startCook', event => {
       this.setState({ chatDisplay: 'none', messageReceived: false });
-      this.openFullScreenMode();
+      // this.openFullScreenMode();
     });
   }
 
@@ -636,6 +680,33 @@ class CookRoom extends Component {
       // IE or Edge
       document.msExitFullscreen();
   }
+  // 캐러셀 이전 사람들
+  beforeVideo() {
+    if (this.state.carouselIdx > 0) {
+      this.setState({ carouselIdx: this.state.carouselIdx - 1 });
+    }
+  }
+  // 캐러셀 이후 사람들
+  afterVideo() {
+    if (this.state.carouselIdx < (this.state.subscribers.length + 1) / 2 - 1) {
+      this.setState({ carouselIdx: this.state.carouselIdx + 1 });
+    }
+  }
+
+  // 방 나가기
+  async DelRoomRequestInfo() {
+    const outRoom = axios.delete(
+      `https://i8b206.p.ssafy.io:9000/api/room/${this.state.mySessionId}/${this.props.userInfo.userSeq}`,
+      { Authorization: `Bearer ${accessToken()}` }
+    );
+
+    try {
+      const DelRoomForm = await outRoom;
+      history.push('/main');
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   render() {
     const mySessionId = this.state.mySessionId;
@@ -648,6 +719,34 @@ class CookRoom extends Component {
           userNum={this.state.subscribers.length + 1}
           thisRoom={this.props.roomId}
         />
+        {this.state.isReport && (
+          <div>
+            <Modal
+              open={this.state.isReport}
+              onClose={this.isReport}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '50%',
+                  height: '60%',
+                  bgcolor: '#FFFFFF',
+                  border: '2px solid #ffffff',
+                  boxShadow: 24,
+                  borderRadius: '16px',
+                  p: 4,
+                }}
+              >
+                <ReportModal subscribers={this.state.subscribers} />
+              </Box>
+            </Modal>
+          </div>
+        )}
         {this.state.chatDisplay === 'none' &&
         this.state.nowStep > this.state.recipe.length - 1 ? (
           <div>
@@ -692,6 +791,7 @@ class CookRoom extends Component {
               messageReceived={this.checkNotification}
               getRecipe={this.getRecipe}
               onChangeShow={this.props.onChangeShow}
+              isHost={this.isHost}
             />
           )}
         <DialogExtensionComponent
@@ -700,7 +800,7 @@ class CookRoom extends Component {
         />
         {this.state.chatDisplay === 'none' && (
           <C.CookContainer>
-            <C.CookDivideBox>
+            <C.CookVodDivideBox>
               {/* this.state.nowVideo 와 같으면 큰 화면으로 이동 */}
               {this.state.nowVideo !== '' ? (
                 <>
@@ -714,39 +814,53 @@ class CookRoom extends Component {
                     />
                   </C.FocusVideo>
                   <C.CarouselVideo>
-                    {/* 현재 큰화면이 아닌 유저들만 캐러셀에 나옴 */}
-                    {localUser !== undefined &&
-                      this.state.nowVideo !== localUser &&
-                      localUser.getStreamManager() !== undefined && (
-                        <StreamComponent
-                          nowFocus={this.state.nowVideo}
-                          user={localUser}
-                          handleNickname={this.nicknameChanged}
-                          subscribeNum={this.state.subscribers.length}
-                          videoClick={this.videoClick}
-                          style={{
-                            width:
-                              this.state.nowVideo === localUser
-                                ? '100px'
-                                : '10px',
-                          }}
-                        />
-                      )}
-                    {this.state.subscribers
-                      .filter(v => v !== this.state.nowVideo)
-                      .map((sub, i) => (
-                        <StreamComponent
-                          nowFocus={this.state.nowVideo}
-                          key={i}
-                          user={sub}
-                          streamId={sub.streamManager.stream.streamId}
-                          kicktrigger={this.state.kicktrigger}
-                          kickStatusChanged={this.kickStatusChanged}
-                          killUser={this.killUser}
-                          subscribeNum={this.state.subscribers.length}
-                          videoClick={this.videoClick}
-                        />
-                      ))}
+                    <ArrowBackIosNewIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={this.beforeVideo}
+                    />
+                    <C.OutFocusVideo>
+                      {/* 현재 큰화면이 아닌 유저들만 캐러셀에 나옴 */}
+                      {/* {localUser !== undefined &&
+                        this.state.nowVideo !== localUser &&
+                        localUser.getStreamManager() !== undefined && (
+                          <StreamComponent
+                            nowFocus={this.state.nowVideo}
+                            user={localUser}
+                            handleNickname={this.nicknameChanged}
+                            subscribeNum={this.state.subscribers.length}
+                            videoClick={this.videoClick}
+                          />
+                        )} */}
+                      {[localUser, ...this.state.subscribers]
+                        .filter(v => v !== this.state.nowVideo)
+                        .map((sub, i) => {
+                          console.log(i);
+                          return (
+                            (i === this.state.carouselIdx * 2 ||
+                              i === this.state.carouselIdx * 2 + 1) && (
+                              <StreamComponent
+                                nowFocus={this.state.nowVideo}
+                                key={i}
+                                user={sub}
+                                streamId={sub.streamManager.stream.streamId}
+                                kicktrigger={
+                                  sub !== localUser && this.state.kicktrigger
+                                }
+                                kickStatusChanged={
+                                  sub !== localUser && this.kickStatusChanged
+                                }
+                                killUser={sub !== localUser && this.killUser}
+                                subscribeNum={this.state.subscribers.length}
+                                videoClick={this.videoClick}
+                              />
+                            )
+                          );
+                        })}
+                    </C.OutFocusVideo>
+                    <ArrowForwardIosIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={this.afterVideo}
+                    />
                   </C.CarouselVideo>
                 </>
               ) : (
@@ -783,7 +897,7 @@ class CookRoom extends Component {
                   ))}
                 </>
               )}
-            </C.CookDivideBox>
+            </C.CookVodDivideBox>
             <C.RecipeDivideBox>
               {/* <VerticalC data={this.state.recipe} /> */}
               <C.RecipeTitle>{this.state.recipeName}</C.RecipeTitle>
@@ -861,27 +975,32 @@ class CookRoom extends Component {
                 </C.RecipeTxt>
               </C.BeforeRecipe>
             </C.RecipeDivideBox>
-
-            <ToolbarComponent
-              recipe={this.state.recipe}
-              nowStep={this.state.nowStep}
-              modalOpen={this.modalOpen}
-              nextStep={this.nextStep}
-              sessionId={mySessionId}
-              user={localUser}
-              showNotification={this.state.messageReceived}
-              kicktrigger={this.state.kicktrigger}
-              kickStatusChanged={this.kickStatusChanged}
-              camStatusChanged={this.camStatusChanged}
-              micStatusChanged={this.micStatusChanged}
-              screenShare={this.screenShare}
-              stopScreenShare={this.stopScreenShare}
-              toggleFullscreen={this.toggleFullscreen}
-              switchCamera={this.switchCamera}
-              leaveSession={this.leaveSession}
-              toggleChat={this.toggleChat}
-              onChangeShow={this.props.onChangeShow}
-            />
+            <C.ToolbarMargin>
+              <ToolbarComponent
+                DelRoomRequestInfo={this.DelRoomRequestInfo}
+                isReport={this.isReport}
+                recipe={this.state.recipe}
+                nowStep={this.state.nowStep}
+                modalOpen={this.modalOpen}
+                nextStep={this.nextStep}
+                beforeStep={this.beforeStep}
+                sessionId={mySessionId}
+                user={localUser}
+                showNotification={this.state.messageReceived}
+                kicktrigger={this.state.kicktrigger}
+                kickStatusChanged={this.kickStatusChanged}
+                camStatusChanged={this.camStatusChanged}
+                micStatusChanged={this.micStatusChanged}
+                screenShare={this.screenShare}
+                stopScreenShare={this.stopScreenShare}
+                toggleFullscreen={this.toggleFullscreen}
+                switchCamera={this.switchCamera}
+                leaveSession={this.leaveSession}
+                toggleChat={this.toggleChat}
+                onChangeShow={this.props.onChangeShow}
+                isHost={this.state.isHost}
+              />
+            </C.ToolbarMargin>
           </C.CookContainer>
         )}
       </>
