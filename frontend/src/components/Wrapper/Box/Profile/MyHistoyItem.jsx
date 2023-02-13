@@ -66,7 +66,7 @@ export default function MyHistoyItem(props) {
             </p>
           </div>
         </div>
-        <p className="date">{cookingRoomStartTime}</p>
+        <p className="date">{cookingRoomStartTime.slice(0, 10)}</p>
       </div>
     </HistoryStyle>
   );
