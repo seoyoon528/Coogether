@@ -137,7 +137,7 @@ export default class ToolbarComponent extends Component {
               <button onClick={this.nextStep}>다음단계</button>
             )
           )}
-          <button>신고하기</button>
+          <button onClick={this.props.isReport}>신고하기</button>
           {this.props.isHost && !this.props.kicktrigger ? (
             <button onClick={this.kickStatusChanged}>내보내기</button>
           ) : (

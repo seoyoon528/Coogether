@@ -4,14 +4,15 @@ export const ToolContainer = styled.div`
   display: flex;
   height: 6vh;
   width: 100%;
-  marign-top: 4%;
+
   justify-content: center;
   align-items: center;
 `;
 export const ToolBar = styled.div`
-  width: 50%;
+  width: 70%;
   height: 100%;
   padding: 0 5%;
+  font-size: 1vw;
   background: rgba(255, 219, 141, 0.5);
   border-radius: 70px;
   display: flex;
@@ -22,7 +23,7 @@ export const ToolBar = styled.div`
     font-size: 150%;
   }
   & > a > button {
-    font-size: 150%;
+    font-size: 1.5vw;
   }
 `;
 
