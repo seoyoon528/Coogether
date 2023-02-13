@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Nav from './components/Nav/Nav';
 import Main from './pages/Main/Main';
 import Room from './pages/Room/Room';
@@ -24,6 +25,11 @@ function App() {
   const onChangeShow = () => {
     setIsShow(!isShow);
   };
+
+  const userSeq = useSelector(state => {
+    return state.user.userSeq;
+  });
+
   return (
     <div style={{ position: 'relative' }}>
       {isShow && <Nav />}
@@ -60,7 +66,7 @@ function App() {
           <NotFound onChangeShow={onChangeShow} />
         </Route>
       </Switch>
-      {isShow && <FloatBtn />}
+      {isShow && userSeq && <FloatBtn />}
       {isShow && <Footer />}
     </div>
   );
