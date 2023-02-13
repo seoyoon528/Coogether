@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Stack } from '@mui/material';
 import * as S from './StreamSwiperStyle';
 import ChefHat from '../../../Rank/ChefHat';
@@ -7,8 +9,14 @@ import ChefDeco from '../../../../assets/img/chef-deco.png';
 
 function StreamSwiperItem(props) {
   const { room } = props;
+  const history = useHistory();
+
   const [isCookRoomEnterModalOpened, setIsCookRoomEnterModalOpened] =
     useState(false);
+
+  const userSeq = useSelector(state => {
+    return state.user.userSeq;
+  });
 
   let isDto = false;
   if (room.cookingRoomDto) {
@@ -54,12 +62,20 @@ function StreamSwiperItem(props) {
             }
             alt="img"
             onClick={() => {
-              setIsCookRoomEnterModalOpened(true);
+              if (userSeq) {
+                setIsCookRoomEnterModalOpened(true);
+              } else {
+                history.push('/login');
+              }
             }}
           />
           <S.StartUserWrapper
             onClick={() => {
-              setIsCookRoomEnterModalOpened(true);
+              if (userSeq) {
+                setIsCookRoomEnterModalOpened(true);
+              } else {
+                history.push('/login');
+              }
             }}
           >
             <S.JoinUserWrapper>
@@ -83,7 +99,11 @@ function StreamSwiperItem(props) {
           </S.StartUserWrapper>
           <S.roomTitle
             onClick={() => {
-              setIsCookRoomEnterModalOpened(true);
+              if (userSeq) {
+                setIsCookRoomEnterModalOpened(true);
+              } else {
+                history.push('/login');
+              }
             }}
           >
             {isDto ? room.cookingRoomDto.cookingRoomName : room.cookingRoomName}
