@@ -38,7 +38,11 @@ export const Contents = styled.div`
   height: 164px;
   margin-bottom: 20px;
   padding: 12px;
+  overflow-y: auto;
   overflow-x: auto;
+  /* margin-left: 16rem; */
+  margin-right: 0rem;
+
   &::-webkit-scrollbar {
     width: 0.3rem;
   }
@@ -67,15 +71,13 @@ export const Circle = styled.button`
   background-color: #ffffff;
   font-size: smaller;
   text-align: center;
-  line-height: 60px;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-top: 1rem;
+
   z-index: 1;
   position: relative;
 
-  div {
-    position: absolute;
+  & > div {
+    width: 100%;
+    height: 20%;
     text-align: center;
   }
 
@@ -100,4 +102,13 @@ export const Container = styled.div`
     overflow-x: 0;
     overflow-y: 0;
   }
+`;
+
+export const Span = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;

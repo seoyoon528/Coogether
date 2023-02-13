@@ -36,17 +36,12 @@ export const Circle = styled.button`
   background-color: #ffffff;
   font-size: smaller;
   text-align: center;
-  line-height: 56px;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-top: 1rem;
   z-index: 1;
   position: relative;
 
-  p {
-    position: absolute;
-    left: 11.1%;
-    bottom: 30%;
+  & > div {
+    width: 100%;
+    height: 20%;
     text-align: center;
   }
 
@@ -82,6 +77,7 @@ export const H4 = styled.h4`
 `;
 
 export const Container = styled.div`
+  margin-top: 1vh;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-gap: 1px;
@@ -89,10 +85,20 @@ export const Container = styled.div`
   overflow-y: 0;
 
   @media screen and (max-width: 920px) {
+    margin-top: 1vh;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 1px;
     overflow-x: 0;
     overflow-y: 0;
   }
+`;
+
+export const Span = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;

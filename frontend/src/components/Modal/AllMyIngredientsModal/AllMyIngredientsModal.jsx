@@ -24,7 +24,6 @@ function AllMyIngredientsModal({ onClose, fridge, myFridge }) {
   });
 
   const afterPatch = myFridge.map(f => {
-    console.log(f);
     return (
       <span>
         <Circle key={f}>

@@ -3,7 +3,13 @@ import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import dummy from '../ingredients.json';
-import { Contents, Circle, Button, Container } from './AllIngredientsStyle';
+import {
+  Contents,
+  Circle,
+  Button,
+  Container,
+  Span,
+} from './AllIngredientsStyle';
 
 function AllIngredients({
   category,
@@ -28,7 +34,7 @@ function AllIngredients({
 
   const ingredient = ingredients.map(i => {
     return (
-      <span>
+      <Span>
         <Circle
           key={i}
           onClick={() => {
@@ -58,13 +64,13 @@ function AllIngredients({
             </Button>
           </>
         )}
-      </span>
+      </Span>
     );
   });
 
   const AllIngredient = allIngredient.map(e => {
     return (
-      <span>
+      <Span>
         <Circle
           key={e}
           onClick={() => {
@@ -94,7 +100,7 @@ function AllIngredients({
             </Button>
           </>
         )}
-      </span>
+      </Span>
     );
   });
 

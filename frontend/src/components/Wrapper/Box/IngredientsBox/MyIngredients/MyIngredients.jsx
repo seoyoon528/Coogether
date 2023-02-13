@@ -8,6 +8,7 @@ import {
   Circle,
   FridgeButton,
   Container,
+  Span,
 } from './MyIngredientsStyle';
 import AllMyIrngredientsModal from '../../../../Modal/AllMyIngredientsModal/AllMyIngredientsModal';
 
@@ -32,7 +33,7 @@ function MyIngredients({
 
   const afterPatch = myFridge.map(f => {
     return (
-      <span>
+      <Span>
         <Circle
           key={f}
           onClick={() => {
@@ -62,13 +63,13 @@ function MyIngredients({
             </Button>
           </>
         )}
-      </span>
+      </Span>
     );
   });
 
   const fridgeIngredient = fridge.map(f => {
     return (
-      <span>
+      <Span>
         <Circle
           key={f}
           onClick={() => {
@@ -98,7 +99,7 @@ function MyIngredients({
             </Button>
           </>
         )}
-      </span>
+      </Span>
     );
   });
 

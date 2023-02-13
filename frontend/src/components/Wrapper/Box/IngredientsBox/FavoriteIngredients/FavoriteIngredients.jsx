@@ -7,6 +7,7 @@ import {
   Circle,
   Button,
   Container,
+  Span,
 } from './FavoriteIngredientsStyle';
 
 function FavoriteIngredients({
@@ -28,7 +29,7 @@ function FavoriteIngredients({
 
   const afterPatch = favIngre.map(i => {
     return (
-      <span>
+      <Span>
         <Circle
           key={i}
           onClick={() => {
@@ -58,13 +59,13 @@ function FavoriteIngredients({
             </Button>
           </>
         )}
-      </span>
+      </Span>
     );
   });
 
   const favoriteIngredient = favorite.map(i => {
     return (
-      <span>
+      <Span>
         <Circle
           key={i}
           onClick={() => {
@@ -95,7 +96,7 @@ function FavoriteIngredients({
             </Button>
           </>
         )}
-      </span>
+      </Span>
     );
   });
 
