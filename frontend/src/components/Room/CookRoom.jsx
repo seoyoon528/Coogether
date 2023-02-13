@@ -13,7 +13,7 @@ import { thisTypeAnnotation } from '@babel/types';
 import VerticalC, { data } from './verticalCarousel/VerticalC';
 // mui import
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -437,7 +437,7 @@ class CookRoom extends Component {
   chattoCook() {
     this.state.session.on('signal:startCook', event => {
       this.setState({ chatDisplay: 'none', messageReceived: false });
-      this.openFullScreenMode();
+      // this.openFullScreenMode();
     });
   }
 
@@ -747,7 +747,7 @@ class CookRoom extends Component {
         />
         {this.state.chatDisplay === 'none' && (
           <C.CookContainer>
-            <C.CookDivideBox>
+            <C.CookVodDivideBox>
               {/* this.state.nowVideo 와 같으면 큰 화면으로 이동 */}
               {this.state.nowVideo !== '' ? (
                 <>
@@ -761,7 +761,7 @@ class CookRoom extends Component {
                     />
                   </C.FocusVideo>
                   <C.CarouselVideo>
-                    <ArrowBackIosIcon
+                    <ArrowBackIosNewIcon
                       style={{ cursor: 'pointer' }}
                       onClick={this.beforeVideo}
                     />
@@ -844,7 +844,7 @@ class CookRoom extends Component {
                   ))}
                 </>
               )}
-            </C.CookDivideBox>
+            </C.CookVodDivideBox>
             <C.RecipeDivideBox>
               {/* <VerticalC data={this.state.recipe} /> */}
               <C.RecipeTitle>{this.state.recipeName}</C.RecipeTitle>
@@ -922,29 +922,30 @@ class CookRoom extends Component {
                 </C.RecipeTxt>
               </C.BeforeRecipe>
             </C.RecipeDivideBox>
-
-            <ToolbarComponent
-              recipe={this.state.recipe}
-              nowStep={this.state.nowStep}
-              modalOpen={this.modalOpen}
-              nextStep={this.nextStep}
-              beforeStep={this.beforeStep}
-              sessionId={mySessionId}
-              user={localUser}
-              showNotification={this.state.messageReceived}
-              kicktrigger={this.state.kicktrigger}
-              kickStatusChanged={this.kickStatusChanged}
-              camStatusChanged={this.camStatusChanged}
-              micStatusChanged={this.micStatusChanged}
-              screenShare={this.screenShare}
-              stopScreenShare={this.stopScreenShare}
-              toggleFullscreen={this.toggleFullscreen}
-              switchCamera={this.switchCamera}
-              leaveSession={this.leaveSession}
-              toggleChat={this.toggleChat}
-              onChangeShow={this.props.onChangeShow}
-              isHost={this.state.isHost}
-            />
+            <C.ToolbarMargin>
+              <ToolbarComponent
+                recipe={this.state.recipe}
+                nowStep={this.state.nowStep}
+                modalOpen={this.modalOpen}
+                nextStep={this.nextStep}
+                beforeStep={this.beforeStep}
+                sessionId={mySessionId}
+                user={localUser}
+                showNotification={this.state.messageReceived}
+                kicktrigger={this.state.kicktrigger}
+                kickStatusChanged={this.kickStatusChanged}
+                camStatusChanged={this.camStatusChanged}
+                micStatusChanged={this.micStatusChanged}
+                screenShare={this.screenShare}
+                stopScreenShare={this.stopScreenShare}
+                toggleFullscreen={this.toggleFullscreen}
+                switchCamera={this.switchCamera}
+                leaveSession={this.leaveSession}
+                toggleChat={this.toggleChat}
+                onChangeShow={this.props.onChangeShow}
+                isHost={this.state.isHost}
+              />
+            </C.ToolbarMargin>
           </C.CookContainer>
         )}
       </>

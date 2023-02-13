@@ -11,6 +11,16 @@ export const CookContainer = styled.div`
   padding: 2vh 0;
 `;
 
+export const CookVodDivideBox = styled.div`
+  width: 49vw;
+  height: 75vh;
+  float: left;
+  display: flex;
+  align-content: flex-start;
+  justify-content: space-around;
+  flex-flow: row wrap;
+`;
+
 export const CookDivideBox = styled.div`
   width: 49vw;
   height: 80vh;
@@ -21,17 +31,25 @@ export const CookDivideBox = styled.div`
   flex-flow: row wrap;
 `;
 export const FocusVideo = styled.div`
-  width: 100%;
-  height: 80%;
+  width: 90%;
+  height: 70%;
 `;
 export const CarouselVideo = styled.div`
+  width: 90%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const ToolbarMargin = styled.div`
   width: 100%;
   height: 20%;
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
 export const OutFocusVideo = styled.div`
-  width: 90%;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;

@@ -60,7 +60,7 @@ export default class ToolbarComponent extends Component {
     if (this.state.fullscreen) {
       this.closeFullScreenMode();
     } else {
-      this.openFullScreenMode();
+      // this.openFullScreenMode();
     }
     this.setState({ fullscreen: !this.state.fullscreen });
   }
