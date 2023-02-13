@@ -33,7 +33,7 @@ function FloatBtn() {
   const handleClose = () => setOpen(false);
   return (
     <>
-      <Backdrop open={open} sx={{ zIndex: 1 }} />
+      <Backdrop open={open} sx={{ zIndex: 30 }} />
       <SpeedDial
         ariaLabel="SpeedDial"
         sx={{
