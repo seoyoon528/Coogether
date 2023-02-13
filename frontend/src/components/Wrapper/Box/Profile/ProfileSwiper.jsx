@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 
 // Swiper
 import { Navigation } from 'swiper';
