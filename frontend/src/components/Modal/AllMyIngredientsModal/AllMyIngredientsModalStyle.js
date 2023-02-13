@@ -135,13 +135,13 @@ export const Bottom = styled.div`
 `;
 
 export const Circle = styled.button`
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background-color: #ffffff;
   font-size: smaller;
   text-align: center;
-  line-height: 48px;
+  line-height: 44px;
   /* margin-bottom: 1rem; */
   margin-left: 1rem;
   margin-right: 1rem;
@@ -159,5 +159,29 @@ export const Circle = styled.button`
   img {
     width: 80%;
     height: 80%;
+  }
+`;
+
+export const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1px;
+  overflow-x: 0;
+  overflow-y: 0;
+
+  &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1.5px;
+    background: #febd2f;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #febd2f;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
   }
 `;

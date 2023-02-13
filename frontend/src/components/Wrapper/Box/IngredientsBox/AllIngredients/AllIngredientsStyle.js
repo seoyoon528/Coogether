@@ -45,23 +45,16 @@ export const Circle = styled.button`
   background-color: #ffffff;
   font-size: smaller;
   text-align: center;
-  line-height: 60px;
-  /* margin-bottom: 1rem; */
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-top: 1rem;
   z-index: 1;
   position: relative;
 
-  p {
-    position: absolute;
-    left: 11.1%;
-    bottom: 30%;
+  & > div {
+    width: 100%;
+    height: 20%;
     text-align: center;
   }
 
   img {
-    margin-top: 0.6rem;
     width: 80%;
     height: 80%;
   }
@@ -69,22 +62,14 @@ export const Circle = styled.button`
 
 export const Button = styled.button`
   font-size: xx-small;
-  float: left;
   width: 50%;
   width: 50px;
   z-index: 1;
-  /* position: absolute; */
-  /* height: 14px; */
-  /* justify-content: center;
-  text-align: center; */
-  margin: 0;
-  padding: 0;
-  margin-left: 0;
+
   /* position: relative; */
 
   &:hover {
     color: #febd2f;
-    /* background-color: rgb(0, 0, 0, 0.5); */
   }
 `;
 
@@ -105,11 +90,34 @@ export const Text = styled.p`
   color: white;
 `;
 
-export const Span = styled.span`
-  text-align: center;
-`;
-
 export const Name = styled.p`
   text-align: left;
   font-size: 14px;
+`;
+
+export const Container = styled.div`
+  margin-top: 1vh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 2px;
+  overflow-x: 0;
+  overflow-y: 0;
+
+  @media screen and (max-width: 920px) {
+    margin-top: 1vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1px;
+    overflow-x: 0;
+    overflow-y: 0;
+  }
+`;
+
+export const Span = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
