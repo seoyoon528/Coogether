@@ -4,58 +4,14 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 // MUI
-import {
-  Grid,
-  Select,
-  MenuItem,
-  styled,
-  InputBase,
-  Stack,
-} from '@mui/material';
-
-// Component
-import ChefHat from '../../../Rank/ChefHat';
-import ProfileEditButton from './ProfileEditButton';
-import FollowModal from '../../../Modal/Follow/FollowModal';
-import NextBtn from '../../../Btn/NextBtn/NextBtn';
-
-// Image
-import LikeIcon from '../../../../assets/img/dining.png';
-import FireIcon from '../../../../assets/img/fire.png';
+import { Grid } from '@mui/material';
 
 // Style
 import { ProfileInformationStyle } from './ProfileInformationStyle';
-
-// Select input Style
-const CategoryInput = styled(InputBase)(() => ({
-  '& .MuiInputBase-input': {
-    display: 'flex',
-    alignItems: 'center',
-    borderRadius: 4,
-    position: 'relative',
-    backgroundColor: 'white',
-    border: '0.5px solid #505050',
-    fontSize: '1.8rem',
-    marginTop: '1.6rem',
-    justifyContent: 'center',
-    fontFamily: 'Pretendard Regular',
-    padding: 0,
-  },
-  '& #profile-cook-category': {
-    padding: 0,
-  },
-
-  '& #profile-cook-category-inactive': {
-    border: 'none',
-    padding: 0,
-
-    cursor: 'default',
-  },
-
-  svg: {
-    display: 'none',
-  },
-}));
+import ProfileUserMessage from './ProfileUserMessage';
+import ProfileUserNickname from './ProfileUserNickname';
+import ProfileUserFollow from './ProfileUserFollow';
+import ProfileUserIconInfo from './ProfileUserIconInfo';
 
 export default function ProfileInformation(props) {
   // Props
@@ -80,9 +36,6 @@ export default function ProfileInformation(props) {
   } = userInformation;
 
   // Redux
-  const category = useSelector(state => {
-    return state.prefer;
-  });
   const accessToken = useSelector(state => state.user.accessToken);
   const {
     userImg: loginUserImg,
@@ -93,9 +46,7 @@ export default function ProfileInformation(props) {
   });
 
   // useState
-  const [isFollowModalOpened, setIsFollowModalOpened] = useState(false);
   const [isFollowed, setIsFollowed] = useState();
-  const [clickedContentName, setClickedContentName] = useState('follower'); // 팔로워 선택 or 팔로잉 선택
   const [followerCount, setFollowerCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
   const [isInFollowerList, setIsInFollowerList] = useState(false);
@@ -127,19 +78,6 @@ export default function ProfileInformation(props) {
       );
     }
   }, [followerList, followingList, loginUserSeq, profileUserSeq]);
-
-  // select options
-  const cookCategories = [
-    { value: 'KOREAN', label: '한식' },
-    { value: 'CHINESE', label: '중식' },
-    { value: 'WESTERN', label: '양식' },
-    { value: 'JAPANESE', label: '일식' },
-    { value: 'DESSERT', label: '디저트' },
-    { value: 'ASIAN', label: '아시안' },
-    { value: 'BUNSIK', label: '분식' },
-    { value: 'ETC', label: '기타' },
-    { value: 'NONE', label: '없음' },
-  ];
 
   // Function
   // 팔로우 함수
@@ -213,191 +151,46 @@ export default function ProfileInformation(props) {
         columns={1}
       >
         {/* 닉네임 */}
-        <Grid item xs={1}>
-          <div className="form__nickname">
-            <input
-              // className={`${isEditActive ? 'active' : ''}`}
-              type="text"
-              value={userNickname}
-              onChange={event => {
-                const userNickname = event.target.value;
-                dispatch({ type: 'edit', payload: { userNickname } });
-              }}
-              // readOnly={!isEditActive}
-              readOnly
-              maxLength="10"
-            />
-            {/* 수정 버튼 */}
-            {isAuthor && (
-              <ProfileEditButton
-                setIsEditActive={setIsEditActive}
-                isEditActive={isEditActive}
-                editData={{ userNickname, userCookCategory, userIntroduce }}
-                className="form__button"
-              />
-            )}
-          </div>
+        <Grid item xs={12}>
+          <ProfileUserNickname
+            userNickname={userNickname}
+            dispatch={dispatch}
+            isAuthor={isAuthor}
+            setIsEditActive={setIsEditActive}
+            isEditActive={isEditActive}
+            userCookCategory={userCookCategory}
+            userIntroduce={userIntroduce}
+          />
           {/* 팔로우 */}
-          <FollowModal
-            open={isFollowModalOpened}
-            onClose={setIsFollowModalOpened}
+          <ProfileUserFollow
             followerList={followerList}
             followingList={followingList}
-            clickedContentName={clickedContentName}
             isAuthor={isAuthor}
             setFollowingCount={setFollowingCount}
+            followerCount={followerCount}
+            followingCount={followingCount}
+            isFollowed={isFollowed}
+            clickFollowHandler={clickFollowHandler}
+            loginUserSeq={loginUserSeq}
           />
-          <div className="follow">
-            <Stack spacing={2} direction="row">
-              <div
-                className="follow-button-box"
-                onClick={() => {
-                  setClickedContentName('follower');
-                  setIsFollowModalOpened(true);
-                }}
-                aria-hidden
-              >
-                <button type="button">팔로워</button>
-                <span className="follow-value">{followerCount}</span>
-              </div>
-              <div
-                className="follow-button-box"
-                onClick={() => {
-                  setClickedContentName('following');
-                  setIsFollowModalOpened(true);
-                }}
-                aria-hidden
-              >
-                <button type="button">팔로잉</button>
-                <span className="follow-value">{followingCount}</span>
-              </div>
-              {!isAuthor && loginUserSeq && (
-                <div className="follow-click-button">
-                  {!isFollowed && (
-                    <NextBtn
-                      size="small"
-                      onClick={clickFollowHandler}
-                      color="yellow"
-                      name="팔로우"
-                    />
-                  )}
-                  {isFollowed && (
-                    <button
-                      id="unfollow-button"
-                      type="button"
-                      onClick={() => {
-                        clickFollowHandler();
-                      }}
-                    >
-                      팔로우 취소
-                    </button>
-                  )}
-                </div>
-              )}
-            </Stack>
-          </div>
         </Grid>
         {/* 랭크, 온도, 선호 분야 */}
-        <Grid item xs={1}>
-          <Grid container columns={12}>
-            <Grid item xs={6}>
-              <Grid container columns={12} columnSpacing={{ xs: 5 }}>
-                <Grid item xs={3} xl={2}>
-                  <div className="item">
-                    <div className="icon">
-                      <ChefHat color={rank} />
-                      <p>랭크</p>
-                    </div>
-                    <div className="user-information-value-box">
-                      <p>{rank}</p>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={3} xl={2}>
-                  <div className="item">
-                    <div className="icon">
-                      <img src={FireIcon} alt="온도 아이콘" />
-                      <p>온도</p>
-                    </div>
-                    <div className="user-information-value-box">
-                      <p>
-                        {userTemp >= 1000
-                          ? `${Math.floor(userTemp / 1000, -1)}K`
-                          : userTemp}{' '}
-                      </p>
-                    </div>
-                  </div>
-                </Grid>
-                <Grid item xs={3} xl={2}>
-                  <div className="item">
-                    <div className="icon">
-                      <img src={LikeIcon} alt="선호분야 아이콘" />
-                      <p>선호</p>
-                    </div>
-                    <Select
-                      readOnly={!isEditActive}
-                      fullWidth
-                      value={
-                        category[userCookCategory] === '베이킹/디저트'
-                          ? '디저트'
-                          : category[userCookCategory]
-                      }
-                      onChange={event => {
-                        const userCookCategory = cookCategories.filter(
-                          category => {
-                            return event.target.value === category.label;
-                          }
-                        )[0].value;
-                        dispatch({
-                          type: 'edit',
-                          payload: { userCookCategory },
-                        });
-                      }}
-                      id={`profile-cook-category${
-                        !isEditActive ? '-inactive' : ''
-                      }`}
-                      input={<CategoryInput />}
-                    >
-                      {cookCategories.map(category => {
-                        return (
-                          <MenuItem
-                            key={category.label}
-                            value={category.label}
-                            sx={{
-                              padding: '1.6rem',
-                              fontFamily: 'Pretendard Regular',
-                              fontSize: '1.6rem',
-                              opacity: 1,
-                              color: 'black',
-                            }}
-                          >
-                            {category.label}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </div>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+        <Grid item xs={12}>
+          <ProfileUserIconInfo
+            rank={rank}
+            userTemp={userTemp}
+            isEditActive={isEditActive}
+            userCookCategory={userCookCategory}
+            dispatch={dispatch}
+          />
         </Grid>
-        <Grid item xs={1}>
-          <div className="message">
-            <textarea
-              className={`message__input ${userIntroduce ? 'exist' : ''} ${
-                isEditActive ? 'active' : ''
-              }`}
-              type="text"
-              readOnly={!isEditActive}
-              value={userIntroduce}
-              onChange={event => {
-                const userIntroduce = event.target.value;
-                dispatch({ type: 'edit', payload: { userIntroduce } });
-              }}
-              placeholder="상태 메시지를 입력하세요"
-            />
-          </div>
+        {/* 상태 메시지 */}
+        <Grid item xs={12}>
+          <ProfileUserMessage
+            userIntroduce={userIntroduce}
+            dispatch={dispatch}
+            isEditActive={isEditActive}
+          />
         </Grid>
       </Grid>
     </ProfileInformationStyle>
