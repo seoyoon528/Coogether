@@ -2,9 +2,14 @@ import styled from 'styled-components';
 
 export const Contents = styled.div`
   background: #fff8ea;
-  height: 172px;
+  height: 164px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   padding: 12px;
   overflow-y: auto;
+  overflow-x: auto;
+  /* margin-left: 16rem; */
+  margin-right: 0rem;
   &::-webkit-scrollbar {
     width: 0.3rem;
   }
@@ -20,6 +25,7 @@ export const Contents = styled.div`
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
   }
+
   @media screen and (max-width: 1024px) {
     overflow-x: auto;
   }
@@ -32,7 +38,7 @@ export const Icon = styled.div`
   height: 20px;
 `;
 
-export const Circle = styled.div`
+export const Circle = styled.button`
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -55,6 +61,7 @@ export const Circle = styled.div`
   }
 
   img {
+    margin-top: 0.6rem;
     width: 80%;
     height: 80%;
   }
@@ -100,4 +107,9 @@ export const Text = styled.p`
 
 export const Span = styled.span`
   text-align: center;
+`;
+
+export const Name = styled.p`
+  text-align: left;
+  font-size: 14px;
 `;

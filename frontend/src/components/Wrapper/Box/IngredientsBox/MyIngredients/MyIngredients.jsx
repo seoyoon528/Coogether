@@ -141,8 +141,6 @@ function MyIngredients({
         <h4>
           내 냉장고에 있는 재료
           <KitchenRoundedIcon style={{ fontSize: '20px' }} />
-        </h4>
-        <AppWrap>
           <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
           {isOpen && (
             <AllMyIrngredientsModal
@@ -153,7 +151,8 @@ function MyIngredients({
               }}
             />
           )}
-        </AppWrap>
+        </h4>
+
         {myFridge.length > 0 ? afterPatch : fridgeIngredient}
       </Contents>
     </div>

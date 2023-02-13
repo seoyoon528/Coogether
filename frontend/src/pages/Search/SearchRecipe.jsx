@@ -159,6 +159,7 @@ function SearchRecipe() {
             right="백종원"
             recipeIngredient={recipeIngredient}
             percent={18}
+            index={1}
           />
         </S.BtnContainer>
         {/* <button onClick={baekChangeHandler}>커스텀</button>

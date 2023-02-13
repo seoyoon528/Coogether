@@ -35,8 +35,6 @@ export default function ProfileSwiper(props) {
           },
         }}
         slidesPerView={3}
-        // onSwiper={swiper => console.log(swiper)}
-        // onSlideChange={() => console.log('slide change')}
       >
         {cookHistories &&
           cookHistories.length > 0 &&

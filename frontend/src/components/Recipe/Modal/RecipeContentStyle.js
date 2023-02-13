@@ -26,6 +26,8 @@ export const RecipeContentStyle = styled.div`
     font-family: 'Pretendard Medium';
 
     text-align: end;
+
+    cursor: pointer;
   }
 
   .information__list {

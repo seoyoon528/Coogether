@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Nav from './components/Nav/Nav';
 import Main from './pages/Main/Main';
 import Room from './pages/Room/Room';
 import SearchCookRoom from './pages/Search/SearchCookRoom';
 import SearchRecipe from './pages/Search/SearchRecipe';
-import TemperatureRank from './pages/Rank/TemperatureRank';
 import MyIngredientsManage from './pages/MyIngredientsManage/MyIngredientsManage';
 import Login from './pages/User/Login/Login';
 import Signin from './pages/User/SignIn/Signin';
@@ -24,6 +24,11 @@ function App() {
   const onChangeShow = () => {
     setIsShow(!isShow);
   };
+
+  const userSeq = useSelector(state => {
+    return state.user.userSeq;
+  });
+
   return (
     <div style={{ position: 'relative' }}>
       {isShow && <Nav />}
@@ -43,7 +48,6 @@ function App() {
         <Route path="/SearchCookRoom" component={SearchCookRoom} />
         <Route path="/SearchRecipe" component={SearchRecipe} />
         <Route path="/RecipeRegister" component={RecipeRegister} />
-        <Route path="/Rank" component={TemperatureRank} />
         <Route path="/Login" exact>
           <Login component={Login} onChangeShow={onChangeShow} />
         </Route>
@@ -54,13 +58,15 @@ function App() {
           <Signin component={Signin} onChangeShow={onChangeShow} />
         </Route>
         <Route path="/Profile/:userId" component={Profile} />
-        <Route path="/MyIngredients" component={MyIngredientsManage} />
+        <Route path="/MyIngredients" component={MyIngredientsManage}>
+          {userSeq ? <MyIngredientsManage /> : <Redirect to="/Login" />}
+        </Route>
         <Route path="/MakeCookRoom" component={MakeCookRoom} />
         <Route path="*">
           <NotFound onChangeShow={onChangeShow} />
         </Route>
       </Switch>
-      {isShow && <FloatBtn />}
+      {isShow && userSeq && <FloatBtn />}
       {isShow && <Footer />}
     </div>
   );

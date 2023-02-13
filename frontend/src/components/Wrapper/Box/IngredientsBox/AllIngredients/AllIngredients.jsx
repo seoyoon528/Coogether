@@ -4,7 +4,7 @@ import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import { useDispatch, useSelector } from 'react-redux';
 import dummy from '../ingredients.json';
-import { Contents, Circle, Button, Span } from './AllIngredientsStyle';
+import { Contents, Circle, Button, Span, Name } from './AllIngredientsStyle';
 
 function AllIngredients({
   category,
@@ -13,7 +13,6 @@ function AllIngredients({
   sumbitIngredient,
   favIngredient,
 }) {
-  const accessToken = useSelector(state => state.user.accessToken);
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
 
@@ -64,7 +63,7 @@ function AllIngredients({
 
   const AllIngredient = allIngredient.map(e => {
     return (
-      <Span>
+      <span>
         <Circle
           key={e}
           onClick={() => {
@@ -93,7 +92,7 @@ function AllIngredients({
           </>
         )}
         {/* </Circle> */}
-      </Span>
+      </span>
     );
   });
 
@@ -112,15 +111,6 @@ function AllIngredients({
       <Contents>
         {categoryKorean}
         {ingredient}
-        {/* {ingredientName.length === 0
-          ? ingredient
-          : ingredientName
-              .filter(
-                (element, index) => category === ingredientCategory[index]
-              )
-              .map((element, index) => {
-                return <div key={element}>{element}</div>;
-              })} */}
       </Contents>
     </div>
   );

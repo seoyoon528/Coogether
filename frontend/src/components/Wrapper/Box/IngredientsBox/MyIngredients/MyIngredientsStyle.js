@@ -11,11 +11,17 @@ export const FridgeButton = styled.button`
   width: 12rem;
   word-break: keep-all;
   opacity: 0.7;
+  /* margin-left: 12rem; */
   cursor: pointer;
   &:hover {
     background-color: #febd2f;
     color: #ffffff;
   }
+`;
+
+export const AppWrap = styled.div`
+  text-align: right;
+  margin: auto;
 `;
 
 export const Button = styled.button`
@@ -37,11 +43,6 @@ export const Button = styled.button`
     color: #febd2f;
     /* background-color: rgb(0, 0, 0, 0.5); */
   }
-`;
-
-export const AppWrap = styled.div`
-  text-align: right;
-  margin: auto;
 `;
 
 export const Contents = styled.div`
@@ -94,6 +95,7 @@ export const Circle = styled.button`
   }
 
   img {
+    margin-top: 0.6rem;
     width: 80%;
     height: 80%;
   }
