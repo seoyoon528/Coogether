@@ -150,7 +150,8 @@ function SearchRecipe() {
           onChangePage={onChangePage}
         />
         <br />
-        <hr />
+        <S.UnderLine />
+        <br />
         {/* 레시피 타입 전환 */}
         <S.BtnContainer>
           <CarouselBtn

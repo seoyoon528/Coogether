@@ -119,7 +119,8 @@ function SearchCookRoom() {
           TEXT={TEXT}
         />
         <br />
-        <hr />
+        <S.UnderLine />
+        <br />
         <StreamList cookRoom={cookRoom} />
         {load && (
           <Grid
