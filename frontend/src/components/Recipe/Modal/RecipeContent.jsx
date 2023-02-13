@@ -24,6 +24,7 @@ function RecipeDetailModalContent(props) {
       recipeImg,
       recipeName,
       recipeHostNickname,
+      recipeHostUserSeq,
     },
   } = props;
 
@@ -60,6 +61,7 @@ function RecipeDetailModalContent(props) {
             ingredientCount={ingredients.length}
             contentCount={recipeOrders.length}
             nickname={recipeHostNickname}
+            userSeq={recipeHostUserSeq}
           />
         </Grid>
         <Grid item xs={6}>

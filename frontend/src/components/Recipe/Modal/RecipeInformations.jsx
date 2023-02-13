@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // MUI
 import { Stack, Grid } from '@mui/material';
@@ -11,7 +12,11 @@ import CategoryImage from '../../../assets/img/cake-dome.svg';
 
 export default function RecipeInformations(props) {
   // Props
-  const { name, category, contentCount, ingredientCount, nickname } = props;
+  const { name, category, contentCount, ingredientCount, nickname, userSeq } =
+    props;
+
+  // useHistory
+  const history = useHistory();
 
   // Redux
   const koreanCategory = useSelector(state => state.prefer);
@@ -20,7 +25,15 @@ export default function RecipeInformations(props) {
     <Stack direction="column" spacing={2}>
       <div className="information__name">
         <h2 className="recipe">{name}</h2>
-        <p className="author">{nickname}</p>
+        <p
+          className="author"
+          onClick={() => {
+            history.push(`/profile/${userSeq}`);
+          }}
+          aria-hidden
+        >
+          {nickname}
+        </p>
       </div>
       <ul className="information__list">
         <Grid
