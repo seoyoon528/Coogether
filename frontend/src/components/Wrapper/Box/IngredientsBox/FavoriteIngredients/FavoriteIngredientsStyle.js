@@ -6,6 +6,8 @@ export const Contents = styled.div`
   margin-bottom: 20px;
   margin-top: 20px;
   padding: 12px;
+  overflow-y: auto;
+  overflow-x: auto;
   /* margin-left: 16rem; */
   margin-right: 0rem;
   &::-webkit-scrollbar {
@@ -29,7 +31,7 @@ export const Contents = styled.div`
   }
 `;
 
-export const Circle = styled.div`
+export const Circle = styled.button`
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -52,6 +54,7 @@ export const Circle = styled.div`
   }
 
   img {
+    margin-top: 0.6rem;
     width: 80%;
     height: 80%;
   }

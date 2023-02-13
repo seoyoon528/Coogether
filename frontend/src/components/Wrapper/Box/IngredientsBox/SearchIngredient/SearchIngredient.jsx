@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
-import { Contents, Circle, Button, Box } from './SearchIngredientStyle';
+import { Contents, Circle, Button, Box, H4 } from './SearchIngredientStyle';
 
 function SearchIngredient({ searchIngre, favIngredient, sumbitIngredient }) {
   const [visible, setVisible] = useState(false);
@@ -14,9 +14,7 @@ function SearchIngredient({ searchIngre, favIngredient, sumbitIngredient }) {
 
   return (
     <Contents>
-      <Box>
-        <h4>검색결과</h4>
-      </Box>
+      <h4>검색결과</h4>
       {searchIngre.length === 0
         ? ''
         : searchIngre.map(i => {
