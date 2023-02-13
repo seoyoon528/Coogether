@@ -52,8 +52,8 @@ function MyIngredientsManage() {
   const favIngredient = i => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
-        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
+        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
+        `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
         {}
       );
       setFavIngre([...sendIngredient.data.map(v => v)]);
@@ -66,8 +66,8 @@ function MyIngredientsManage() {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/fav/1`,
-          // `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/fav/${isLogin}`,
+          // `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/fav/1`,
+          `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/fav/${isLogin}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -87,8 +87,8 @@ function MyIngredientsManage() {
   const sumbitIngredient = f => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${target}`,
-        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
+        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${target}`,
+        `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
         {}
       );
       setMyFridge([...sendIngredient.data.map(v => v)]);
@@ -101,8 +101,8 @@ function MyIngredientsManage() {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/1`
-          // `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/${isLogin}`
+          // `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/1`
+          `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/${isLogin}`
         );
         setFridge([...response.data.map((v, a) => v)]);
       } catch (e) {
@@ -121,8 +121,8 @@ function MyIngredientsManage() {
           query = '';
         }
         const response = await axios.get(
-          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`
-          // `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/${isLogin}/${query}`
+          // `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`
+          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/${isLogin}/${query}`
         );
         setCategoryFridges([...response.data.map((v, a) => v)]);
       } catch (e) {
