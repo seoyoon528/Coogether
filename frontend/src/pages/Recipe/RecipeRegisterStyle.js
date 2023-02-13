@@ -5,7 +5,21 @@ export const RecipeRegisterStyle = styled.section`
   flex-direction: column;
   align-items: center;
 
-  margin-top: 4.8rem;
+  position: relative;
+
+  padding-top: 4.8rem;
+
+  .background-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 15%;
+  }
 
   label {
     font-size: 2.4rem;
