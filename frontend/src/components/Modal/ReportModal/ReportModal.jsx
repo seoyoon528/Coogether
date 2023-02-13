@@ -7,6 +7,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import * as R from './ReportModalStyle';
 
 function ReportModal({ userInfo, subscribers, isReport }) {
@@ -53,11 +55,12 @@ function ReportModal({ userInfo, subscribers, isReport }) {
     }
   };
   return (
-    <>
-      <R.ReportTitle>닉네임을 신고하시겠습니까?</R.ReportTitle>
-      {willDel}
-      <FormControl sx={{ m: 1, width: 200 }}>
-        <InputLabel id="select-label">신고할 유저</InputLabel>
+    <R.FormBox>
+      <R.ReportTitle>유저를 신고하시겠습니까?</R.ReportTitle>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="select-label" style={{ fontSize: '1.5vh' }}>
+          신고할 유저
+        </InputLabel>
         <Select
           labelId="select-label"
           id="select"
@@ -72,8 +75,10 @@ function ReportModal({ userInfo, subscribers, isReport }) {
           })}
         </Select>
       </FormControl>
-      <FormControl sx={{ m: 1, width: 200 }}>
-        <InputLabel id="select-label">신고 유형</InputLabel>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="select-label" style={{ fontSize: '1.5vh' }}>
+          신고 유형
+        </InputLabel>
         <Select
           labelId="select-label"
           id="select"
@@ -86,17 +91,104 @@ function ReportModal({ userInfo, subscribers, isReport }) {
           {reportCategory.map((v, a) => {
             return <MenuItem value={v[1]}>{v[0]}</MenuItem>;
           })}
-          {delSort}
         </Select>
       </FormControl>
+      <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+        />
+        <TextField
+          id="outlined-textarea"
+          label="Multiline Placeholder"
+          placeholder="Placeholder"
+          multiline
+        />
+        <TextField
+          id="outlined-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+        />
+      </div>
+      <div>
+        <TextField
+          id="filled-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+          variant="filled"
+        />
+        <TextField
+          id="filled-textarea"
+          label="Multiline Placeholder"
+          placeholder="Placeholder"
+          multiline
+          variant="filled"
+        />
+        <TextField
+          id="filled-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+          variant="filled"
+        />
+      </div>
+      <div>
+        <TextField
+          id="standard-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+          variant="standard"
+        />
+        <TextField
+          id="standard-textarea"
+          label="Multiline Placeholder"
+          placeholder="Placeholder"
+          multiline
+          variant="standard"
+        />
+        <TextField
+          id="standard-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+          variant="standard"
+        />
+      </div>
       <input
+        label="신고할 유저"
         onChange={e => {
           setDelInfo(e.target.value);
         }}
       />
-      <button onClick={isReport}>취소</button>
-      <button onClick={submitRegister}>확인</button>
-    </>
+      <button
+        onClick={isReport}
+        style={{ background: ' #ABABAB', borderRadius: '3px', color: 'white' }}
+      >
+        취소
+      </button>
+      <button
+        onClick={submitRegister}
+        style={{ background: '#FEBD2F', borderRadius: '3px' }}
+      >
+        확인
+      </button>
+    </R.FormBox>
   );
 }
 
