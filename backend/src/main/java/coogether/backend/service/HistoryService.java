@@ -45,6 +45,8 @@ public class HistoryService {
         historyRepository.save(history);
 
         User user = userRepository.findByUserSeq(userSeq);
+        user.setUserTemp(user.getUserTemp()+1);
+        userRepository.save(user);
         history.setUser(user);
         history.setCookingRoom(cookingRoom);
 
