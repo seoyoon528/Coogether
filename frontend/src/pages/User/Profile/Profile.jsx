@@ -132,7 +132,7 @@ function Profile() {
     <ProfileStyle>
       {/* {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>} */}
       {state.userTemp !== null && (
-        <Stack spacing={5} className="profile">
+        <Stack spacing={3} className="profile">
           <UserInfoBox className="user-information-box">
             <ProfileImage
               image={state.userImg}

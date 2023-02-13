@@ -209,7 +209,7 @@ export default function ProfileInformation(props) {
         container
         direction="column"
         justifyContent="space-between"
-        rowSpacing={{ xs: 2, md: 2, lg: 3 }}
+        rowSpacing={{ xs: 2, lg: 3 }}
         columns={1}
       >
         {/* 닉네임 */}
@@ -383,9 +383,9 @@ export default function ProfileInformation(props) {
         </Grid>
         <Grid item xs={1}>
           <div className="message">
-            <input
-              className={`message__input ${userIntroduce && 'exist'} ${
-                isEditActive && 'active'
+            <textarea
+              className={`message__input ${userIntroduce ? 'exist' : ''} ${
+                isEditActive ? 'active' : ''
               }`}
               type="text"
               readOnly={!isEditActive}
