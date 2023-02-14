@@ -49,6 +49,7 @@
   background-color: lighten(#febd2f, 35);
 
   .container {
+    height: 98%;
     margin: 1rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);

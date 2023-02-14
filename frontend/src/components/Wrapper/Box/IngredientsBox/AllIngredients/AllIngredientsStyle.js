@@ -6,6 +6,7 @@ export const Contents = styled.div`
   margin-bottom: 20px;
   margin-top: 20px;
   padding: 12px;
+  padding-top: 0;
   overflow-y: auto;
   overflow-x: auto;
   /* margin-left: 16rem; */

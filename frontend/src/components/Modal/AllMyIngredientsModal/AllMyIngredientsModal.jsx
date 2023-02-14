@@ -14,7 +14,7 @@ function AllMyIngredientsModal({ onClose, fridge, myFridge }) {
 
   const fridgeIngredient = fridge.map(i => {
     return (
-      <span>
+      <span key={i.myIngredientManageId} style={{ textAlign: 'center' }}>
         <Circle key={i}>
           <img src={i?.ingredient.ingredientIcon} alt="icon" />
         </Circle>
@@ -25,7 +25,7 @@ function AllMyIngredientsModal({ onClose, fridge, myFridge }) {
 
   const afterPatch = myFridge.map(f => {
     return (
-      <span>
+      <span key={f.myIngredientManageId} style={{ textAlign: 'center' }}>
         <Circle key={f}>
           <img src={f.ingredient.ingredientIcon} alt="icon" />
         </Circle>
@@ -35,7 +35,7 @@ function AllMyIngredientsModal({ onClose, fridge, myFridge }) {
   });
 
   return (
-    <button className="Overlay" onClick={handleClose}>
+    <div className="Overlay" onClick={handleClose} aria-hidden>
       <div aria-hidden className="fridge" onClick={e => e.stopPropagation()}>
         <div className={`door top ${isActive ? 'active' : ''}`} />
         <button
@@ -48,7 +48,7 @@ function AllMyIngredientsModal({ onClose, fridge, myFridge }) {
           {myFridge.length > 0 ? afterPatch : fridgeIngredient}
         </div>
       </div>
-    </button>
+    </div>
   );
 }
 
