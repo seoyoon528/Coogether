@@ -17,7 +17,7 @@ import * as R from './RedirectPageStyle';
 import RedirectImg from './RedirectImg';
 
 function RedirectPage(props) {
-  const [isModalOpen, setisModalOpen] = useState(false);
+  const [isModalOpen, setisModalOpen] = useState('');
   const { onChangeShow } = props;
   useEffect(() => {
     onChangeShow();
