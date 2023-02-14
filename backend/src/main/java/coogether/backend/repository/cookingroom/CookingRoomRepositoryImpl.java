@@ -3,12 +3,14 @@ package coogether.backend.repository.cookingroom;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import coogether.backend.domain.CookingRoom;
+import coogether.backend.domain.status.EnumCookingRoomStatus;
 import coogether.backend.dto.CookingRoomDto;
 import coogether.backend.dto.QCookingRoomDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
+
 import static coogether.backend.domain.QCookingRoom.cookingRoom;
 
 import javax.persistence.EntityManager;
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public class CookingRoomRepositoryImpl implements CookingRoomRepositoryCustom{
+public class CookingRoomRepositoryImpl implements CookingRoomRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
 
@@ -25,11 +27,12 @@ public class CookingRoomRepositoryImpl implements CookingRoomRepositoryCustom{
     }
 
     @Override
-    public Page<CookingRoomDto> getCookingRoomListPaging(Pageable pageable){
+    public Page<CookingRoomDto> getCookingRoomListPaging(Pageable pageable) {
         List<CookingRoomDto> content = queryFactory
                 .select(new QCookingRoomDto(cookingRoom))
                 .from(cookingRoom)
-                .where(cookingRoom.cookingRoomStartTime.gt(LocalDateTime.now()))
+                .where(cookingRoom.cookingRoomStartTime.gt(LocalDateTime.now())
+                        .and(cookingRoom.cookingRoomStatus.eq(EnumCookingRoomStatus.EXPECTED)))
                 .orderBy(cookingRoom.cookingRoomStartTime.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -48,10 +51,12 @@ public class CookingRoomRepositoryImpl implements CookingRoomRepositoryCustom{
         List<CookingRoomDto> content = queryFactory
                 .select(new QCookingRoomDto(cookingRoom))
                 .from(cookingRoom)
-                .where(cookingRoom.cookingRoomStartTime.gt(LocalDateTime.now()).and(cookingRoom.recipe.recipeName.contains(recipeName)))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+                .where(cookingRoom.cookingRoomStartTime.gt(LocalDateTime.now())
+                        .and(cookingRoom.recipe.recipeName.contains(recipeName))
+                        .and(cookingRoom.cookingRoomStatus.eq(EnumCookingRoomStatus.EXPECTED)))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .fetch();
 
 
         JPAQuery<CookingRoom> countQuery = queryFactory
