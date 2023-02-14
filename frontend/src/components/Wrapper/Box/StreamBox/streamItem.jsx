@@ -7,8 +7,17 @@ import ChefDeco from '../../../../assets/img/chef-deco.png';
 
 // Component
 import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
+import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
 
 function StreamItem({ room }) {
+  const [isModalOpened, setIsModalOpened] = useState(false);
+  const openModal = () => {
+    setIsModalOpened(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpened(false);
+  };
   const history = useHistory();
   // CookRoomEnterModal
   const [isCookRoomEnterModalOpened, setIsCookRoomEnterModalOpened] =
@@ -81,7 +90,14 @@ function StreamItem({ room }) {
         <p>{cookingRoomHost}</p>
       </S.KingWrapper>
       <S.TagWrapper>
-        {/* <span>#{recipe.recipeName}</span> */}#{recipe.recipeName}
+        <div onClick={openModal} aria-hidden>
+          {/* <span>#{recipe.recipeName}</span> */}#{recipe.recipeName}
+        </div>
+        <RecipeDetail
+          open={isModalOpened}
+          onClose={closeModal}
+          recipe={recipe}
+        />
       </S.TagWrapper>
       <CookRoomEnterModal
         isCookRoomEnterModalOpened={isCookRoomEnterModalOpened}
