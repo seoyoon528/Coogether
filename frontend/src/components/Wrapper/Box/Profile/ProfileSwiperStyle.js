@@ -9,13 +9,13 @@ export const ProfileSwiperStyle = styled.div`
 `;
 
 export const HistoryStyle = styled.div`
-  height: 40rem;
+  width: 100%;
 
   border: 0.5px dashed #505050;
   border-radius: 4px;
 
   .history__image {
-    height: 55%;
+    height: 30vh;
     cursor: pointer;
   }
 
@@ -27,8 +27,9 @@ export const HistoryStyle = styled.div`
   }
 
   .history__text {
-    height: 45%;
+    min-height: 24vh;
     padding: 2.4rem;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -64,17 +65,16 @@ export const HistoryStyle = styled.div`
 `;
 
 export const MyRecipeStyle = styled.div`
-  height: 40rem;
+  width: 100%;
+  /* height: 50vh; */
 
   border: 0.5px dashed #505050;
   border-radius: 4px;
 
   margin-bottom: 3.2rem;
 
-  cursor: pointer;
-
   .my-recipe__image {
-    height: 50%;
+    height: 25vh;
   }
 
   .my-recipe__image img {
@@ -84,31 +84,40 @@ export const MyRecipeStyle = styled.div`
     border-radius: 4px;
   }
 
-  .my-recipe__text {
-    padding: 2.4rem;
-    height: 50%;
+  .my-recipe__content {
+    margin: 2.4rem;
   }
 
   .my-recipe__title {
     text-align: center;
+    padding-bottom: 2.4rem;
 
-    margin-bottom: 2.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .content__list {
+    display: flex;
+    justify-content: space-between;
+
+    height: 80%;
   }
 
   .content__item {
     text-align: center;
+    width: 30%;
   }
 
   .content__item img {
-    width: 4rem;
-    height: 4rem;
+    max-width: 80%;
   }
   .content__item p {
     font-size: 1.8rem;
   }
 
-  .category {
-    margin-bottom: 2.4rem;
+  .content__item > p {
+    margin-top: 1.6rem;
   }
 
   .category p {
