@@ -87,7 +87,7 @@ public class CookingRoomService {
                 userJoinList.setCookingRoom(cookingRoom);
                 userJoinList.setUser(user);
                 userJoinList.setUserJoinRegTime(LocalDateTime.now());
-                userJoinListRepository.save(userJoinList);
+                userJoinListRepository.saveAndFlush(userJoinList);
                 return true;
             }
         }
