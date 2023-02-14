@@ -85,7 +85,7 @@ export default class ChatComponent extends Component {
         },
       }
     );
-    console.log(res);
+
     this.setState({
       cookingRoomName: res.data.cookingRoomName,
       recipeName: res.data.recipe.recipeName,
@@ -134,6 +134,7 @@ export default class ChatComponent extends Component {
     }
   }
   sendMessage() {
+    console.log(this.props.remoteUsers.map(v => v.nickname));
     if (this.props.user && this.state.message) {
       let message = this.state.message.replace(/ +(?= )/g, '');
       if (message !== '' && message !== ' ') {
@@ -295,11 +296,11 @@ export default class ChatComponent extends Component {
                         />
                       ) : (
                         <img
-                          src={
-                            this.props.remoteUsers.filter(
-                              v => v.nickname === data.nickname
-                            ).img
-                          }
+                          src={this.props.remoteUsers
+                            .filter(v => v.nickname === data.nickname)
+                            .map(k => {
+                              return k.img;
+                            })}
                           alt="채팅이미지"
                           style={{
                             width: '30px',
@@ -317,7 +318,7 @@ export default class ChatComponent extends Component {
                           className="msg-info"
                           style={{ marginTop: '0.5vh' }}
                         >
-                          <p> {data.nickname}</p>
+                          <p style={{ fontSize: '2vh' }}> {data.nickname}</p>
                         </div>
                         <div
                           className="msg-content"

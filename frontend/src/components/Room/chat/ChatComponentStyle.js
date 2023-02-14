@@ -160,7 +160,7 @@ export const StepIngTitle = styled.div`
 export const IngWrap = styled.div`
   width: 100%;
   /* height: 55vh; */
-  height: calc(65vh - 20px);
+  height: calc(62vh - 20px);
   padding-left: 5%;
   padding-right: 5%;
   padding-bottom: 3%;
@@ -288,5 +288,5 @@ export const InputTxt = styled.div`
 export const TextBox = styled.span`
   border-radius: 9px;
   background-color: #c8ffe8;
-  font-size: 1vh;
+  font-size: 2vh;
 `;
