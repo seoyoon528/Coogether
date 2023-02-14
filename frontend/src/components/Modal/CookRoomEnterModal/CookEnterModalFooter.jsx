@@ -1,23 +1,36 @@
 import React from 'react';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import axios from 'axios';
+
+// Component
 import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 export default function CookEnterModalFooter(props) {
+  // Props
   const { setIsCookRoomEnterModalOpened, cookingRoomId } = props;
+
+  // Redux
   const userSeq = useSelector(state => state.user.userSeq);
   const accessToken = useSelector(state => state.user.accessToken);
+
+  // useHistory
   const history = useHistory();
 
+  // function
   const cookRoomEnterHandler = async () => {
-    await axios({
-      url: `https://i8b206.p.ssafy.io:9000/api/room/${cookingRoomId}/${userSeq}`,
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-    history.push(`/Room/${cookingRoomId}`);
+    try {
+      await axios({
+        url: `https://i8b206.p.ssafy.io:9000/api/room/${cookingRoomId}/${userSeq}`,
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      history.push(`/Room/${cookingRoomId}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <footer>
       <div className="submit-button">

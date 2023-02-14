@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import dummy from './ingredients.json';
 import {
   CategoriesBlock,
@@ -8,7 +8,6 @@ import {
 } from './IngredientsBoxStyle';
 
 function IngredientsBox({ onSelect, category }) {
-  const [isactive, setIsActive] = useState(false);
   return (
     <Contents>
       <CategoriesBlock>

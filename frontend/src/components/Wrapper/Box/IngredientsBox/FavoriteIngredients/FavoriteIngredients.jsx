@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';

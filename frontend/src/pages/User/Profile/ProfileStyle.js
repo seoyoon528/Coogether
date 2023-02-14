@@ -10,8 +10,4 @@ export const ProfileStyle = styled.section`
   .profile {
     width: 78vw;
   }
-
-  /* .user-information-box {
-    height: 32vh;
-  } */
 `;

@@ -30,7 +30,6 @@ export const Contents = styled.div`
   height: 540px;
   background: #fff8ea;
   padding: 10px;
-  /* margin-left: 8rem; */
   margin-top: 2rem;
   text-align: center;
 `;
