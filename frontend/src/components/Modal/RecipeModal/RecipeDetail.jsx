@@ -10,8 +10,6 @@ export default function RecipeDetail(props) {
   // Props
   const { open, onClose, recipe } = props;
 
-  console.log(recipe);
-
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
       <RecipeContent onClose={onClose} recipe={recipe} />
