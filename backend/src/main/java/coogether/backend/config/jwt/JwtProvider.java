@@ -14,12 +14,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
+
+import static coogether.backend.config.jwt.JwtAuthenticationFilter.AUTHORIZATION_HEADER;
+import static coogether.backend.config.jwt.JwtAuthenticationFilter.BEARER_PREFIX;
 
 
 //@RequiredArgsConstructor
@@ -118,5 +123,23 @@ public class JwtProvider {
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
+    }
+
+    /* JWT Header에서 Token Parsing */
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+    /* JWT에서 회원 구분 PK(UserId) 추출 */
+    public String getUserPk(String accessToken) {
+        return Jwts.parser()
+                .setSigningKey(key)
+                .parseClaimsJws(accessToken)
+                .getBody()
+                .getSubject();
     }
 }
