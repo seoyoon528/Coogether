@@ -12,7 +12,6 @@ import clock from '../../../assets/icon/clock.svg';
 export default class ChatComponent extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       messageList: [],
       message: '',
@@ -253,7 +252,7 @@ export default class ChatComponent extends Component {
             )}
           </C.ContentWrap>
         </C.WaitDivideBox>
-        <C.WaitDivideBox>
+        <C.ChatDivideBox>
           <C.ChatContentWrap>
             <C.ChatComponent>
               <C.DivBox></C.DivBox>
@@ -291,16 +290,22 @@ export default class ChatComponent extends Component {
                             width: '30px',
                             height: '30px',
                             marignBottom: '1vh',
+                            borderRadius: '40px',
                           }}
                         />
                       ) : (
                         <img
-                          src={this.props.remoteUsers[0].img}
+                          src={
+                            this.props.remoteUsers.filter(
+                              v => v.nickname === data.nickname
+                            ).img
+                          }
                           alt="채팅이미지"
                           style={{
                             width: '30px',
                             height: '30px',
                             marignBottom: '1vh',
+                            borderRadius: '40px',
                           }}
                         />
                       )}
@@ -340,7 +345,7 @@ export default class ChatComponent extends Component {
               </C.ChatBox>
             </C.ChatComponent>
           </C.ChatContentWrap>
-        </C.WaitDivideBox>
+        </C.ChatDivideBox>
         <C.ExitBox>
           <Link
             to="/Main"

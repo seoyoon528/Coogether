@@ -21,6 +21,15 @@ export const WaitDivideBox = styled.div`
   align-items: center;
   justify-content: center;
 `;
+export const ChatDivideBox = styled.div`
+  width: 49vw;
+  height: 80vh;
+  float: left;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+`;
 export const WaitTitle = styled.h1`
   font-family: 'Pretendard Variable';
   font-style: normal;
@@ -48,7 +57,7 @@ export const WrapUserInfo = styled.span`
 `;
 export const WrapUserList = styled.div`
   display: flex;
-  height: 5vh;
+  height: 8vh;
   flex-direction: row;
   align-items: center;
   margin-bottom: 10px;
@@ -95,7 +104,7 @@ export const ExitBox = styled.div`
 export const RecipeWrap = styled.div`
   width: 100%;
   /* height: 55vh; */
-  height: calc(65vh - 20px);
+  height: calc(62vh - 20px);
   padding-left: 5%;
   padding-right: 5%;
   padding-bottom: 3%;
@@ -125,7 +134,7 @@ export const ChatContentWrap = styled.div`
   border-radius: 3px;
   display: flex;
   width: 80%;
-  height: 65vh;
+  height: 79.8vh;
 `;
 export const StepTitle = styled.div`
   text-align: left;
@@ -212,11 +221,11 @@ export const ChatTitle = styled.div`
 export const ChatBox = styled.div`
   display: flex;
   width: 100%;
-  height: 69vh;
+  height: 76.5vh;
   border: 0.5px solid black;
   background-color: #ffffff;
   flex-direction: column;
-  border-radius: 4px;
+  border-radius: 3px;
   padding: 1vh 1vw;
   margin-top: 1vh;
 `;
