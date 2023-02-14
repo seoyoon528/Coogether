@@ -44,7 +44,7 @@ function MyIngredients({
         </Circle>
         <div>{f.ingredient.ingredientName}</div>
         {selectIngredientId === f.ingredient.ingredientId && visible && (
-          <>
+          <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
                 favIngredient(f.ingredient);
@@ -61,7 +61,7 @@ function MyIngredients({
             >
               <KitchenRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
-          </>
+          </div>
         )}
       </Span>
     );
@@ -80,7 +80,7 @@ function MyIngredients({
         </Circle>
         <div>{f?.ingredient.ingredientName}</div>
         {selectIngredientId === f?.ingredient.ingredientId && visible && (
-          <>
+          <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
                 favIngredient(f.ingredient);
@@ -97,7 +97,7 @@ function MyIngredients({
             >
               <KitchenRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
-          </>
+          </div>
         )}
       </Span>
     );

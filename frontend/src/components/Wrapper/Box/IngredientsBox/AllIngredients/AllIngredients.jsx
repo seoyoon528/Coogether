@@ -60,7 +60,7 @@ function AllIngredients({
         </Circle>
         <div>{i.ingredientName}</div>
         {selectIngredientId === i.ingredientId && visible && (
-          <>
+          <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
                 favIngredient(i);
@@ -77,7 +77,7 @@ function AllIngredients({
             >
               <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
-          </>
+          </div>
         )}
       </Span>
     );
