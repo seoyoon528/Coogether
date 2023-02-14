@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { SvgIcon, Box } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import * as R from './RedirectPageStyle';
 
 export default function RedirectImg({ userImgHandler }) {
   const [uploadUserImg, setUploadUserImg] = useState('');
@@ -11,18 +12,20 @@ export default function RedirectImg({ userImgHandler }) {
   }
 
   return (
-    <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
-      <Box gridColumn="span 9">
+    <Box style={{ marginTop: '3vh' }}>
+      <Box>
         <label htmlFor="recipe-cook-image">
           <div id="recipe-cook-image__area">
-            {renderingImage ? (
-              <img src={renderingImage} alt="food" />
-            ) : (
-              <SvgIcon
-                sx={{ fontSize: 100 }}
-                component={AddPhotoAlternateIcon}
-              />
-            )}
+            <R.ImgBox>
+              {renderingImage ? (
+                <img src={renderingImage} alt="food" />
+              ) : (
+                <SvgIcon
+                  sx={{ fontSize: 100 }}
+                  component={AddPhotoAlternateIcon}
+                />
+              )}
+            </R.ImgBox>
           </div>
         </label>
         <input
