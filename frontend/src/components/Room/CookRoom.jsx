@@ -302,6 +302,7 @@ class CookRoom extends Component {
     };
     try {
       const res = await axios(requestInfo);
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -648,9 +649,9 @@ class CookRoom extends Component {
     // console.log(display);
     if (display === undefined) {
       // 방장이 시작하면 신호를 모두에게 보냄
-
-      this.sendStart();
       this.roomStart();
+      this.sendStart();
+
       display = this.state.chatDisplay === 'none' ? 'block' : 'none';
     }
     if (display === 'block') {
