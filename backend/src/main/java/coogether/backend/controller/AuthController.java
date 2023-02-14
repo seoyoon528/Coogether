@@ -41,24 +41,19 @@ public class AuthController {
     @GetMapping("/user/login")
     public ResponseEntity<LoginResponseDto> kakaoLogin(HttpServletRequest request) {
         String code = request.getParameter("code");
-        System.out.println("Authentication 코드 받음 :" + code);
 
         String kakaoAccessToken = authService.getKakaoAccessToken(code).getAccess_token();
-        System.out.println("kakaoAccessToken 코드 받음 :" + kakaoAccessToken);
         return authService.kakaoLogin(kakaoAccessToken);
     }
 
     @ApiOperation(value = "회원가입 위한 메소드", produces = "multipart/form-data")
-    @PostMapping(value = "/user/signup",
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/user/signup", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SignupResponseDto> kakaoSignup(@RequestPart SignupRequestDto requestDto, @RequestPart(value="file",required = false) MultipartFile multipartFile) throws IOException {
-        System.out.println("회원가입 컨트롤러 넘어옴");
 
         String url = null;
         if (multipartFile != null) {
             url = s3Service.uploadFile(multipartFile, "userProfile");
         }
-        System.out.println("url = " + url);
 
         return authService.kakaoSignup(requestDto, url);
     }
