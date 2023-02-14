@@ -28,8 +28,8 @@ export const ReportWrite = styled.div`
   align-items: center;
 `;
 export const ReportBtnWrap = styled.div`
-  width: 40%;
-  height: 30%;
+  width: 30%;
+  height: 10%;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
