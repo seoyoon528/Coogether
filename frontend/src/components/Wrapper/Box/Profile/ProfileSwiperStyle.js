@@ -75,6 +75,8 @@ export const MyRecipeStyle = styled.div`
 
   .my-recipe__image {
     height: 25vh;
+
+    cursor: pointer;
   }
 
   .my-recipe__image img {
@@ -95,6 +97,8 @@ export const MyRecipeStyle = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    cursor: pointer;
   }
 
   .content__list {
