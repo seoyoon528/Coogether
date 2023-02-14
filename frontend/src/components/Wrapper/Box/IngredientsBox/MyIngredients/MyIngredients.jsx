@@ -38,7 +38,6 @@ function MyIngredients({
   };
 
   const afterPatch = myFridge.map(f => {
-    console.log(f);
     return (
       <Span key={f.ingredient.ingredientId}>
         <Circle
