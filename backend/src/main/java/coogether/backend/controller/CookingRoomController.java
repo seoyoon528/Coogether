@@ -69,9 +69,8 @@ public class CookingRoomController {
 
         Boolean check = cookingRoomService.addUserJoin(userSeq, cookingRoomId);
         System.out.println("check = " + check);
-        CookingRoom cookingRoom = new CookingRoom();
         if (check) {
-            cookingRoom = cookingRoomService.getCookingRoomByCookingRoomId(cookingRoomId);
+            CookingRoom cookingRoom = cookingRoomService.getCookingRoomByCookingRoomId(cookingRoomId);
             return ResponseEntity.ok().body(new CookingRoomDto(cookingRoom));
         }
         return ResponseEntity.ok().body(false);
