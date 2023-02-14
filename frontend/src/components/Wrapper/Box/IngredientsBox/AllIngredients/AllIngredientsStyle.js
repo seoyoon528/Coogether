@@ -9,7 +9,6 @@ export const Contents = styled.div`
   padding-top: 0;
   overflow-y: auto;
   overflow-x: auto;
-  /* margin-left: 16rem; */
   margin-right: 0rem;
   &::-webkit-scrollbar {
     width: 0.3rem;
@@ -46,7 +45,6 @@ export const Circle = styled.button`
   background-color: #ffffff;
   font-size: smaller;
   text-align: center;
-  /* z-index: 1; */
   position: relative;
 
   & > div {

@@ -15,6 +15,7 @@ import { RecipeContentStyle } from './RecipeContentStyle';
 import NextBtn from '../../Btn/NextBtn/NextBtn';
 
 function RecipeDetailModalContent(props) {
+  // Prios
   const {
     onClose,
     recipe: {
@@ -28,9 +29,12 @@ function RecipeDetailModalContent(props) {
     },
   } = props;
 
+  // useState
   const [ingredients, setIngredients] = useState([]);
+
   const recipeOrders = recipeContent.split('\n');
 
+  // useEffect
   useEffect(async () => {
     const requestInfo = {
       url: `https://i8b206.p.ssafy.io:9000/api/ingredient/list/${recipeId}`,

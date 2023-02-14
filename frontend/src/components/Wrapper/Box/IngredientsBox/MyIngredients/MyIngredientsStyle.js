@@ -43,7 +43,6 @@ export const Contents = styled.div`
   padding-top: 0;
   overflow-y: auto;
   overflow-x: auto;
-  /* margin-left: 16rem; */
   margin-right: 0rem;
 
   &::-webkit-scrollbar {
@@ -75,7 +74,6 @@ export const Circle = styled.button`
   font-size: smaller;
   text-align: center;
 
-  /* z-index: 1; */
   position: relative;
 
   & > div {

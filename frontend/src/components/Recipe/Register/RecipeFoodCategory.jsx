@@ -4,7 +4,7 @@ import React from 'react';
 import { Box, Select, MenuItem, styled, InputBase } from '@mui/material';
 
 // Select Input 스타일
-const CategoryInput = styled(InputBase)(({ theme }) => ({
+const CategoryInput = styled(InputBase)(() => ({
   '& .MuiInputBase-input': {
     position: 'relative',
 
