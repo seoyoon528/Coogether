@@ -40,17 +40,43 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 200px;
-  height: 350px;
+  width: 400px;
+  height: 560px;
+  padding: 0.3rem;
   border: 5px solid lighten(#febd2f, 15);
   border-radius: 10px;
   @include cross-browser(transform, translate(-50%, -50%));
   background-color: lighten(#febd2f, 35);
 
+  .container {
+    height: 98%;
+    margin: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 0.4rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 1.5px;
+      background: #febd2f;
+      background-clip: padding-box;
+      border: 1px solid transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #febd2f;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px white;
+    }
+  }
   .shelves {
     border-bottom: 2px solid rgba(white, 0.6);
     position: fixed;
     height: 100%;
+    // overflow: hidden;
 
     &:before,
     &:after {
@@ -75,7 +101,7 @@
     background-color: lighten(#febd2f, 15);
     position: absolute;
     right: 0;
-    transition: 0.3s;
+    transition: 0.5s;
     z-index: 99;
 
     &:before {

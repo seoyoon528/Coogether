@@ -43,7 +43,7 @@ function StreamItem({ room }) {
   if (minute < 10) {
     minute = `0${minute}`;
   }
-  console.log(minute);
+  // console.log(minute);
   const START = `${hour}:${minute}`;
   return (
     <S.CookRoomItemWrapper>

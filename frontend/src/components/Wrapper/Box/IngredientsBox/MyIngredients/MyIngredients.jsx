@@ -33,7 +33,7 @@ function MyIngredients({
 
   const afterPatch = myFridge.map(f => {
     return (
-      <Span>
+      <Span key={f.ingredient.ingredientId}>
         <Circle
           key={f}
           onClick={() => {
@@ -44,14 +44,14 @@ function MyIngredients({
         </Circle>
         <div>{f.ingredient.ingredientName}</div>
         {selectIngredientId === f.ingredient.ingredientId && visible && (
-          <>
+          <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
                 favIngredient(f.ingredient);
                 setVisible(!visible);
               }}
             >
-              <BookmarkAddRoundedIcon />
+              <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -59,9 +59,9 @@ function MyIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenRoundedIcon />
+              <KitchenRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
-          </>
+          </div>
         )}
       </Span>
     );
@@ -69,7 +69,7 @@ function MyIngredients({
 
   const fridgeIngredient = fridge.map(f => {
     return (
-      <Span>
+      <Span key={f.ingredient.ingredientId}>
         <Circle
           key={f}
           onClick={() => {
@@ -80,14 +80,14 @@ function MyIngredients({
         </Circle>
         <div>{f?.ingredient.ingredientName}</div>
         {selectIngredientId === f?.ingredient.ingredientId && visible && (
-          <>
+          <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
                 favIngredient(f.ingredient);
                 setVisible(!visible);
               }}
             >
-              <BookmarkAddRoundedIcon />
+              <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -95,70 +95,81 @@ function MyIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenRoundedIcon />
+              <KitchenRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
-          </>
+          </div>
         )}
       </Span>
     );
   });
 
-  const categoryFridge = categoryFridges.map(i => {
-    return (
-      <span>
-        <Circle
-          key={i}
-          onClick={() => {
-            handleClick(i);
-          }}
-        >
-          <img src={i.ingredient?.ingredientIcon} alt="icon" />
-        </Circle>
-        <div>{i.ingredient?.ingredientName}</div>
-        {selectIngredientId === i.ingredient?.ingredientId && visible && (
-          <>
-            <Button
-              onClick={() => {
-                favIngredient(i);
-              }}
-            >
-              <BookmarkAddRoundedIcon />
-            </Button>
-            <Button
-              onClick={() => {
-                sumbitIngredient(i);
-              }}
-            >
-              <KitchenRoundedIcon />
-            </Button>
-          </>
-        )}
-      </span>
-    );
-  });
+  // const categoryFridge = categoryFridges.map(i => {
+  //   console.log(i);
+  //   return (
+  //     <span>
+  //       <Circle
+  //         key={i}
+  //         onClick={() => {
+  //           handleClick(i);
+  //         }}
+  //       >
+  //         <img src={i.ingredient?.ingredientIcon} alt="icon" />
+  //       </Circle>
+  //       <div>{i.ingredient?.ingredientName}</div>
+  //       {selectIngredientId === i.ingredient?.ingredientId && visible && (
+  //         <>
+  //           <Button
+  //             onClick={() => {
+  //               favIngredient(i);
+  //             }}
+  //           >
+  //             <BookmarkAddRoundedIcon />
+  //           </Button>
+  //           <Button
+  //             onClick={() => {
+  //               sumbitIngredient(i);
+  //             }}
+  //           >
+  //             <KitchenRoundedIcon />
+  //           </Button>
+  //         </>
+  //       )}
+  //     </span>
+  //   );
+  // });
 
   return (
     <div>
       <Contents>
-        <h4>
+        <h4
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            position: 'sticky',
+            top: '0',
+            zIndex: '1',
+            backgroundColor: '#FFF8EA',
+            paddingTop: '12px',
+          }}
+        >
           내 냉장고에 있는 재료
-          <KitchenIcon style={{ fontSize: '20px' }} />
+          <KitchenIcon style={{ fontSize: '24px' }} />
           <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
-          {isOpen && (
-            <AllMyIrngredientsModal
-              fridge={fridge}
-              myFridge={myFridge}
-              isopen={isOpen}
-              onClose={() => {
-                setIsOpen(false);
-              }}
-            />
-          )}
         </h4>
         <Container>
           {myFridge.length > 0 ? afterPatch : fridgeIngredient}
         </Container>
       </Contents>
+      {isOpen && (
+        <AllMyIrngredientsModal
+          fridge={fridge}
+          myFridge={myFridge}
+          isopen={isOpen}
+          onClose={() => {
+            setIsOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }

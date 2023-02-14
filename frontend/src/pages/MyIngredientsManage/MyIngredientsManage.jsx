@@ -1,14 +1,20 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { Box } from '@mui/material';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+
+import axios from 'axios';
+
+// MUI
+import { Box, Grid } from '@mui/material';
+
+// Component
 import IngredientsBox from '../../components/Wrapper/Box/IngredientsBox/IngredientsBox';
 import FavoriteIngredients from '../../components/Wrapper/Box/IngredientsBox/FavoriteIngredients/FavoriteIngredients';
 import MyIngredients from '../../components/Wrapper/Box/IngredientsBox/MyIngredients/MyIngredients';
 import AllIngredients from '../../components/Wrapper/Box/IngredientsBox/AllIngredients/AllIngredients';
 import SearchBox from '../../components/Wrapper/Box/SearchBox/SearchBox';
-import { Contents } from './MyIngredientsManageStyle';
 import SearchIngredient from '../../components/Wrapper/Box/IngredientsBox/SearchIngredient/SearchIngredient';
+
+// Style
 
 function MyIngredientsManage() {
   const [category, setCategory] = useState('ALL');
@@ -115,21 +121,20 @@ function MyIngredientsManage() {
   // 유저별 냉장고 카테고리 재료 api
   useEffect(() => {
     const getData = async () => {
-      try {
-        let query = category;
-        if (query === 'ALL') {
-          query = '';
+      if (category !== 'ALL') {
+        try {
+          const query = category;
+          const response = await axios.get(
+            // `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`
+            `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/${isLogin}/${query}`
+          );
+          setCategoryFridges([...response.data.map((v, a) => v)]);
+        } catch (e) {
+          console.log(e);
         }
-        const response = await axios.get(
-          // `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`
-          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/${isLogin}/${query}`
-        );
-        setCategoryFridges([...response.data.map((v, a) => v)]);
-      } catch (e) {
-        console.log(e);
       }
+      getData();
     };
-    getData();
   }, [category]);
 
   // 재료 전체 카테고리 분류 api
@@ -166,66 +171,58 @@ function MyIngredientsManage() {
     getAllData();
   }, [category]);
 
-  const components = [
-    <FavoriteIngredients
-      category={category}
-      favorite={favorite}
-      sumbitIngredient={sumbitIngredient}
-      favIngredient={favIngredient}
-      favIngre={favIngre}
-    />,
-    <MyIngredients
-      category={category}
-      categoryFridges={categoryFridges}
-      fridge={fridge}
-      sumbitIngredient={sumbitIngredient}
-      favIngredient={favIngredient}
-      myFridge={myFridge}
-    />,
-    <AllIngredients
-      ingredients={ingredients}
-      allIngredient={allIngredient}
-      category={category}
-      favIngredient={favIngredient}
-      sumbitIngredient={sumbitIngredient}
-    />,
-  ];
-
   return (
-    <>
-      <br />
-      <br />
-      <br />
-      <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
-      <br />
-
-      <Contents>
-        <Box display="grid" gridTemplateColumns="repeat(16, 1fr)" gap={1}>
-          <Box gridColumn="span 2" />
-          <Box gridColumn="span 12">
-            <SearchIngredient
-              searchIngre={searchIngre}
-              favIngredient={favIngredient}
-              sumbitIngredient={sumbitIngredient}
-            />
-          </Box>
-          <Box gridColumn="span 2" />
-        </Box>
-        <Box display="grid" gridTemplateColumns="repeat(16, 1fr)" gap={1}>
-          <Box gridColumn="span 2" />
-          <Box gridColumn="span 3">
-            <IngredientsBox category={category} onSelect={onSelect} />
-          </Box>
-          <Box gridColumn="span 1" />
-          <Box gridColumn="span 8">
-            {components.map(component => {
-              return component;
-            })}
-          </Box>
-          <Box gridColumn="span 2" />
-        </Box>
-      </Contents>
-    </>
+    <section style={{ margin: '4.8rem' }}>
+      <header style={{ marginBottom: '3.2rem', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '2.8rem', marginBottom: '1.6rem' }}>
+          내 냉장고를 관리하세요
+        </h2>
+        <p style={{ color: '#505050', marginBottom: '1.6rem' }}>
+          재료 아이콘을 클릭해서 쉽게 냉장고를 관리하세요
+        </p>
+        <SearchBox onSaveEnteredItem={onSaveEnteredItem} TEXT={TEXT} />
+      </header>
+      <Grid container spacing={2} columns={12} justifyContent="space-evenly">
+        <Grid item xs={12}>
+          <Grid container spacing={2} columns={12} justifyContent="center">
+            <Grid item xs={12} md={10}>
+              <SearchIngredient
+                searchIngre={searchIngre}
+                favIngredient={favIngredient}
+                sumbitIngredient={sumbitIngredient}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={4} md={3}>
+          <IngredientsBox category={category} onSelect={onSelect} />
+        </Grid>
+        <Grid item xs={8} md={6}>
+          <FavoriteIngredients
+            category={category}
+            favorite={favorite}
+            sumbitIngredient={sumbitIngredient}
+            favIngredient={favIngredient}
+            favIngre={favIngre}
+          />
+          <MyIngredients
+            category={category}
+            categoryFridges={categoryFridges}
+            fridge={fridge}
+            sumbitIngredient={sumbitIngredient}
+            favIngredient={favIngredient}
+            myFridge={myFridge}
+          />
+          <AllIngredients
+            ingredients={ingredients}
+            allIngredient={allIngredient}
+            category={category}
+            favIngredient={favIngredient}
+            sumbitIngredient={sumbitIngredient}
+          />
+        </Grid>
+      </Grid>
+    </section>
   );
 }
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface CookingRoomRepository extends JpaRepository<CookingRoom, Long>, CookingRoomRepositoryCustom{
 
-    @Query("select cr from CookingRoom cr where TIMEDIFF(cr.cookingRoomStartTime ,now()) > 0 order by cr.cookingRoomStartTime asc")
+    @Query("select cr from CookingRoom cr where TIMEDIFF(cr.cookingRoomStartTime ,now()) > 0 and cr.cookingRoomStatus = 'EXPECTED' order by cr.cookingRoomStartTime asc")
     List<CookingRoom> findAll();
 
     @Query("select cr from CookingRoom cr where cr.cookingRoomId = :cookingRoomId ")

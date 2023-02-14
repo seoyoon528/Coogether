@@ -62,7 +62,7 @@ export const StartUserWrapper = styled.div`
 
 export const StartTimeWrapper = styled.div`
   position: absolute;
-  top: 134px;
+  top: 133px;
   right: 0px;
   display: flex;
   justify-content: center;
@@ -88,7 +88,7 @@ export const StartTimeWrapper = styled.div`
 
 export const JoinUserWrapper = styled.div`
   position: absolute;
-  top: 134px;
+  top: 133px;
   left: 0px;
   display: flex;
   justify-content: center;

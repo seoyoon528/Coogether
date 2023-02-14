@@ -13,12 +13,14 @@ function CarouselBtn(props) {
           type="radio"
           name="switch"
           checked={selectedOption === 'left'}
+          readOnly
         />
         <input
           id="yearly"
           type="radio"
           name="switch"
           checked={selectedOption === 'right'}
+          readOnly
         />
         <S.Label
           htmlFor="monthly"
