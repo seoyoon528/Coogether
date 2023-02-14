@@ -6,8 +6,17 @@ import * as S from './StreamSwiperStyle';
 import ChefHat from '../../../Rank/ChefHat';
 import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
 import ChefDeco from '../../../../assets/img/chef-deco.png';
+import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
 
 function StreamSwiperItem(props) {
+  const [isModalOpened, setIsModalOpened] = useState(false);
+  const openModal = () => {
+    setIsModalOpened(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpened(false);
+  };
   const { room } = props;
   const history = useHistory();
 
@@ -117,10 +126,17 @@ function StreamSwiperItem(props) {
             </p>
           </S.KingWrapper>
           <S.TagWrapper>
-            #
-            {isDto
-              ? room.cookingRoomDto.recipe.recipeName
-              : room.recipe.recipeName}
+            <div onClick={openModal} aria-hidden>
+              #
+              {isDto
+                ? room.cookingRoomDto.recipe.recipeName
+                : room.recipe.recipeName}
+            </div>
+            <RecipeDetail
+              open={isModalOpened}
+              onClose={closeModal}
+              recipe={isDto ? room.cookingRoomDto.recipe : room.recipe}
+            />
           </S.TagWrapper>
           <CookRoomEnterModal
             isCookRoomEnterModalOpened={isCookRoomEnterModalOpened}
