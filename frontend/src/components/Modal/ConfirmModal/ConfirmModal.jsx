@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import * as R from './ConfirmModalStyle';
 
-function ConfirmModal({ info }) {
+function ConfirmModal({ info, onChangeShow }) {
   const params = useLocation();
 
   const history = useHistory();
@@ -22,6 +22,7 @@ function ConfirmModal({ info }) {
 
       <R.ReportBtn
         onClick={() => {
+          onChangeShow();
           history.push('/main');
         }}
         style={{ background: '#FEBD2F' }}

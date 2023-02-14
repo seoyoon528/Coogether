@@ -147,7 +147,7 @@ function RedirectPage(props) {
 
   useEffect(() => {
     // useEffect checkregister실행하기
-    // checkRegister();
+    checkRegister();
   }, []);
   return (
     <>
@@ -174,13 +174,16 @@ function RedirectPage(props) {
                 p: 4,
               }}
             >
-              <ConfirmModal info="회원가입이 완료되었습니다" />
+              <ConfirmModal
+                info="회원가입이 완료되었습니다"
+                onChangeShow={onChangeShow}
+              />
             </Box>
           </Modal>
         </div>
       )}
       {/* 나중에 !isRegistered로 바꾸기 , useEffect checkregister실행하기 */}
-      {isRegistered ? (
+      {!isRegistered ? (
         <R.Background>
           <h1>쿠게더에게 더 알려주세요</h1>
           <R.Intro>소셜 로그인으로 쿠게더와 함께할 수 있습니다</R.Intro>
