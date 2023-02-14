@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface HistoryRepository extends JpaRepository<History, Long>, HistoryRepositoryCustom{
 
-    @Query("select h from History h where h.user.userSeq = :userSeq and h.cookingRoom.cookingRoomStatus = 'TERMINATED' ")
+    @Query("select h from History h where h.user.userSeq = :userSeq and h.cookingRoom.cookingRoomStatus = 'TERMINATED' order by h.historyId DESC")
     List<History> findByUserId(@Param("userSeq") Long userSeq);
 }
