@@ -215,11 +215,12 @@ public class CookingRoomService {
     public CookingRoom startCookingRoom(Long cookingRoomId) {
         CookingRoom cookingRoom = cookingRoomRepository.findByCookingRoomId(cookingRoomId);
 
+        System.out.println("쿠킹쿠킹쿠킹룸 cookingRoom = " + cookingRoom);
         if (cookingRoom != null) {
             cookingRoom.setCookingRoomStatus(EnumCookingRoomStatus.PROGRESS);
             cookingRoomRepository.save(cookingRoom);
         }
-
+        System.out.println("진행상태 바뀜???"+ cookingRoom.getCookingRoomStatus());
         return cookingRoom;
     }
 
