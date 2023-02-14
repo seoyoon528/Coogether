@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // MUI 설정
+import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useTheme, StyledEngineProvider } from '@mui/material/styles';
@@ -10,11 +11,18 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import ConfirmModal from '../components/Modal/ConfirmModal/ConfirmModal';
 import { login } from '../store/AuthSlice';
-import { Background } from '../pages/User/SignIn/SigninStyle';
+import * as R from './RedirectPageStyle';
 import RedirectImg from './RedirectImg';
 
-function RedirectPage() {
+function RedirectPage(props) {
+  const [isModalOpen, setisModalOpen] = useState(false);
+  const { onChangeShow } = props;
+  useEffect(() => {
+    onChangeShow();
+    console.log('실행됨');
+  }, []);
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -88,8 +96,9 @@ function RedirectPage() {
       const submitUserForm = await axios(requestInfo);
       console.log(submitUserForm);
 
-      history.push('/main');
+      setisModalOpen('회원가입이 완료되었습니다');
     } catch (err) {
+      setisModalOpen('회원가입 중 오료가니다');
       console.log(err);
     }
   };
@@ -137,44 +146,51 @@ function RedirectPage() {
   };
 
   useEffect(() => {
+    // useEffect checkregister실행하기
     checkRegister();
   }, []);
   return (
     <>
-      {/* 나중에 !isRegistered로 바꾸기 */}
-      {!isRegistered ? (
-        <Background>
-          <h1>쿠게더에게 더 알려주세요</h1>
-          <div style={{ paddingBottom: '10px' }}>
-            소셜 로그인으로 쿠게더와 함께할 수 있습니다
-          </div>
-          <div
-            style={{
-              fontSize: '2vw',
-              paddingBottom: '0px',
-              width: '40vw',
-              margin: 'auto',
-              textAlign: 'left',
-            }}
+      {isModalOpen.length !== 0 && (
+        <div>
+          <Modal
+            open={isModalOpen.length !== 0}
+            onClose={setisModalOpen('')}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            닉네임
-            <span
-              style={{
-                display: 'inline-block',
-                width: '4vw',
-                height: '3vh',
-
-                background: '#FF0000',
-                borderRadius: '9.5px',
-                color: 'white',
-                textAlign: 'center',
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '50%',
+                height: '60%',
+                bgcolor: '#FFFFFF',
+                border: '2px solid #ffffff',
+                boxShadow: 24,
+                borderRadius: '16px',
+                p: 4,
               }}
             >
-              <div style={{ fontSize: '0.5vw', paddingBottom: '10px' }}>
-                필수
-              </div>
-            </span>
-          </div>
+              <ConfirmModal
+                info="회원가입이 완료되었습니다"
+                onChangeShow={onChangeShow}
+              />
+            </Box>
+          </Modal>
+        </div>
+      )}
+      {/* 나중에 !isRegistered로 바꾸기 , useEffect checkregister실행하기 */}
+      {!isRegistered ? (
+        <R.Background>
+          <h1>쿠게더에게 더 알려주세요</h1>
+          <R.Intro>소셜 로그인으로 쿠게더와 함께할 수 있습니다</R.Intro>
+          <R.Name>
+            닉네임
+            <R.TagName>필수</R.TagName>
+          </R.Name>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Box
               component="form"
@@ -187,26 +203,17 @@ function RedirectPage() {
               }}
             >
               <TextField
-                InputLabelProps={{ shrink: false }}
+                InputLabelProps={{ shrink: false, style: { fontSize: '2vh' } }}
                 id="outlined-basic"
                 label={nickName === '' ? '닉네임을 작성해주세요' : ''}
                 variant="outlined"
-                style={{ fontSize: '2vh', width: '40vw' }}
+                inputProps={{ style: { fontSize: '2vh' } }} // font size of input text
+                style={{ fontSize: '3vh', width: '40vw' }}
                 onChange={nickNameHandler}
               />
             </Box>
           </div>
-          <div
-            style={{
-              fontSize: '2vw',
-              paddingBottom: '0px',
-              width: '40vw',
-              margin: 'auto',
-              textAlign: 'left',
-            }}
-          >
-            선호 분야
-          </div>
+          <R.Name>선호 분야</R.Name>
           <FormControl style={{ border: 'transparent' }}>
             <Select
               style={{
@@ -240,14 +247,9 @@ function RedirectPage() {
           </FormControl>
           <RedirectImg userImgHandler={userImgHandler} />
           <div>
-            <button
-              onClick={submitRegister}
-              style={{ background: '#FFDB8D', borderRadius: '4px' }}
-            >
-              확인
-            </button>
+            <R.ConfirmBtn onClick={submitRegister}>확인</R.ConfirmBtn>
           </div>
-        </Background>
+        </R.Background>
       ) : (
         <div>Loading...</div>
       )}
