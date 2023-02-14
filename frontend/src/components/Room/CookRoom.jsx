@@ -59,6 +59,7 @@ class CookRoom extends Component {
       isHost: false,
       carouselIdx: 0,
       isReport: false,
+      enteredNum: -1,
     };
     this.DelRoomRequestInfo = this.DelRoomRequestInfo.bind(this);
     this.modalOpen = this.modalOpen.bind(this);
@@ -272,7 +273,19 @@ class CookRoom extends Component {
 
   updateSubscribers() {
     var subscribers = this.remotes;
-    console.log(subscribers);
+    console.log(
+      subscribers.map(v => {
+        return v.nickname;
+      })
+    );
+    if (this.state.enteredNum === -1 && subscribers.length > 4) {
+      this.leaveSession();
+      alert('방 인원이 초과되어 입장이 불가능합니다. 다른 방을 이용해주세요:)');
+      window.location = '/Main';
+    } else {
+      this.setState({ enteredNum: subscribers.length });
+    }
+    console.log(subscribers.length);
 
     this.setState(
       {
@@ -406,6 +419,7 @@ class CookRoom extends Component {
           'custom-class'
         );
       });
+
       const newUser = new UserModel();
       newUser.setStreamManager(subscriber);
       newUser.setConnectionId(event.stream.connection.connectionId);

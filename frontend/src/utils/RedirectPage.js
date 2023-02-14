@@ -24,7 +24,11 @@ function RedirectPage({ onChangeShow, isShow }) {
     // onChangeShow();
     console.log('실행됨');
     console.log(navShow);
-    setNavShow(isShow);
+    if (isShow) {
+      setNavShow(!isShow);
+    } else {
+      setNavShow(isShow);
+    }
   }, [isShow]);
   const history = useHistory();
 
