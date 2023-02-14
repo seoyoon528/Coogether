@@ -12,7 +12,6 @@ import clock from '../../../assets/icon/clock.svg';
 export default class ChatComponent extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       messageList: [],
       message: '',
@@ -86,7 +85,7 @@ export default class ChatComponent extends Component {
         },
       }
     );
-    console.log(res);
+
     this.setState({
       cookingRoomName: res.data.cookingRoomName,
       recipeName: res.data.recipe.recipeName,
@@ -118,7 +117,10 @@ export default class ChatComponent extends Component {
     this.props.getRecipe([resStep.data, res.data.recipe.recipeName]);
     const targetTime = new Date(res.data.cookingRoomStartTime);
     const targetH = targetTime.getHours();
-    const targetM = targetTime.getMinutes();
+    let targetM = targetTime.getMinutes();
+    if (targetM < 10) {
+      targetM = `0${String(targetM)}`;
+    }
     this.setState({ startTime: `${targetH}:${targetM}` });
     this.setState({ ingredients: resIng.data });
     this.setState({ resStep: resStep.data });
@@ -132,6 +134,7 @@ export default class ChatComponent extends Component {
     }
   }
   sendMessage() {
+    console.log(this.props.remoteUsers.map(v => v.nickname));
     if (this.props.user && this.state.message) {
       let message = this.state.message.replace(/ +(?= )/g, '');
       if (message !== '' && message !== ' ') {
@@ -250,7 +253,7 @@ export default class ChatComponent extends Component {
             )}
           </C.ContentWrap>
         </C.WaitDivideBox>
-        <C.WaitDivideBox>
+        <C.ChatDivideBox>
           <C.ChatContentWrap>
             <C.ChatComponent>
               <C.DivBox></C.DivBox>
@@ -288,16 +291,22 @@ export default class ChatComponent extends Component {
                             width: '30px',
                             height: '30px',
                             marignBottom: '1vh',
+                            borderRadius: '40px',
                           }}
                         />
                       ) : (
                         <img
-                          src={this.props.remoteUsers[0].img}
+                          src={this.props.remoteUsers
+                            .filter(v => v.nickname === data.nickname)
+                            .map(k => {
+                              return k.img;
+                            })}
                           alt="채팅이미지"
                           style={{
                             width: '30px',
                             height: '30px',
                             marignBottom: '1vh',
+                            borderRadius: '40px',
                           }}
                         />
                       )}
@@ -309,7 +318,7 @@ export default class ChatComponent extends Component {
                           className="msg-info"
                           style={{ marginTop: '0.5vh' }}
                         >
-                          <p> {data.nickname}</p>
+                          <p style={{ fontSize: '2vh' }}> {data.nickname}</p>
                         </div>
                         <div
                           className="msg-content"
@@ -337,9 +346,15 @@ export default class ChatComponent extends Component {
               </C.ChatBox>
             </C.ChatComponent>
           </C.ChatContentWrap>
-        </C.WaitDivideBox>
+        </C.ChatDivideBox>
         <C.ExitBox>
-          <Link to="/Main" onClick={() => this.props.onChangeShow()}>
+          <Link
+            to="/Main"
+            onClick={() => {
+              this.props.onChangeShow();
+              this.props.DelRoomRequestInfo();
+            }}
+          >
             나가기
           </Link>
           {this.state.isHost && <button onClick={this.close}>시작하기</button>}

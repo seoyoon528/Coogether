@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const FridgeButton = styled.button`
+  margin-left: auto;
+
   font-size: 14px;
   padding: 5px;
   border: 1px solid #febd2f;
@@ -38,6 +40,7 @@ export const Contents = styled.div`
   height: 164px;
   margin-bottom: 20px;
   padding: 12px;
+  padding-top: 0;
   overflow-y: auto;
   overflow-x: auto;
   /* margin-left: 16rem; */
@@ -72,7 +75,7 @@ export const Circle = styled.button`
   font-size: smaller;
   text-align: center;
 
-  z-index: 1;
+  /* z-index: 1; */
   position: relative;
 
   & > div {

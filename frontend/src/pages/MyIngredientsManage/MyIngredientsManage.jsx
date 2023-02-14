@@ -115,21 +115,20 @@ function MyIngredientsManage() {
   // 유저별 냉장고 카테고리 재료 api
   useEffect(() => {
     const getData = async () => {
-      try {
-        let query = category;
-        if (query === 'ALL') {
-          query = '';
+      if (category !== 'ALL') {
+        try {
+          const query = category;
+          const response = await axios.get(
+            // `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`
+            `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/${isLogin}/${query}`
+          );
+          setCategoryFridges([...response.data.map((v, a) => v)]);
+        } catch (e) {
+          console.log(e);
         }
-        const response = await axios.get(
-          // `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`
-          `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/${isLogin}/${query}`
-        );
-        setCategoryFridges([...response.data.map((v, a) => v)]);
-      } catch (e) {
-        console.log(e);
       }
+      getData();
     };
-    getData();
   }, [category]);
 
   // 재료 전체 카테고리 분류 api
@@ -166,31 +165,6 @@ function MyIngredientsManage() {
     getAllData();
   }, [category]);
 
-  const components = [
-    <FavoriteIngredients
-      category={category}
-      favorite={favorite}
-      sumbitIngredient={sumbitIngredient}
-      favIngredient={favIngredient}
-      favIngre={favIngre}
-    />,
-    <MyIngredients
-      category={category}
-      categoryFridges={categoryFridges}
-      fridge={fridge}
-      sumbitIngredient={sumbitIngredient}
-      favIngredient={favIngredient}
-      myFridge={myFridge}
-    />,
-    <AllIngredients
-      ingredients={ingredients}
-      allIngredient={allIngredient}
-      category={category}
-      favIngredient={favIngredient}
-      sumbitIngredient={sumbitIngredient}
-    />,
-  ];
-
   return (
     <>
       <br />
@@ -218,9 +192,28 @@ function MyIngredientsManage() {
           </Box>
           <Box gridColumn="span 1" />
           <Box gridColumn="span 8">
-            {components.map(component => {
-              return component;
-            })}
+            <FavoriteIngredients
+              category={category}
+              favorite={favorite}
+              sumbitIngredient={sumbitIngredient}
+              favIngredient={favIngredient}
+              favIngre={favIngre}
+            />
+            <MyIngredients
+              category={category}
+              categoryFridges={categoryFridges}
+              fridge={fridge}
+              sumbitIngredient={sumbitIngredient}
+              favIngredient={favIngredient}
+              myFridge={myFridge}
+            />
+            <AllIngredients
+              ingredients={ingredients}
+              allIngredient={allIngredient}
+              category={category}
+              favIngredient={favIngredient}
+              sumbitIngredient={sumbitIngredient}
+            />
           </Box>
           <Box gridColumn="span 2" />
         </Box>

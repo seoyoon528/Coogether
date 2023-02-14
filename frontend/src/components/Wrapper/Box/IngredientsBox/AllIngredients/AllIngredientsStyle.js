@@ -6,6 +6,7 @@ export const Contents = styled.div`
   margin-bottom: 20px;
   margin-top: 20px;
   padding: 12px;
+  padding-top: 0;
   overflow-y: auto;
   overflow-x: auto;
   /* margin-left: 16rem; */
@@ -45,7 +46,7 @@ export const Circle = styled.button`
   background-color: #ffffff;
   font-size: smaller;
   text-align: center;
-  z-index: 1;
+  /* z-index: 1; */
   position: relative;
 
   & > div {
@@ -65,8 +66,6 @@ export const Button = styled.button`
   width: 50%;
   width: 50px;
   z-index: 1;
-
-  /* position: relative; */
 
   &:hover {
     color: #febd2f;

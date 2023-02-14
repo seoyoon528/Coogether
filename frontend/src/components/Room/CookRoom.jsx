@@ -33,10 +33,9 @@ const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
 class CookRoom extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.userInfo);
     this.hasBeenUpdated = false;
     let sessionName = this.props.roomId;
-
+    let userSeq = this.props.userInfo.userSeq;
     // 세션 유저 이름 지정
     let userName = this.props.userInfo.userNickname;
     this.remotes = [];
@@ -74,7 +73,8 @@ class CookRoom extends Component {
     this.getRecipe = this.getRecipe.bind(this);
     // 방장인지 확인
     this.isHost = this.isHost.bind(this);
-
+    // 시작 시 시작 API를 전달하여 다른 사람이 못들어오게 함
+    this.roomStart = this.roomStart.bind(this);
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
     // 이전 단계로 넘어가기
@@ -133,12 +133,12 @@ class CookRoom extends Component {
 
   async connectToSession() {
     if (this.props.token !== undefined) {
-      console.log('token received: ', this.props.token);
+      // console.log('token received: ', this.props.token);
       this.connect(this.props.token);
     } else {
       try {
         var token = await this.getToken();
-        console.log(token);
+        // console.log(token);
         this.connect(token);
       } catch (error) {
         console.error(
@@ -185,6 +185,7 @@ class CookRoom extends Component {
       .connect(token, {
         clientData: this.state.myUserName,
         clientPicture: this.state.myPicture,
+        clientSeq: this.props.userInfo.userSeq,
       })
       .then(() => {
         this.connectWebCam();
@@ -241,6 +242,7 @@ class CookRoom extends Component {
     localUser.setConnectionId(this.state.session.connection.connectionId);
     localUser.setScreenShareActive(false);
     localUser.setStreamManager(publisher);
+    localUser.setUserSeq(this.props.userInfo.userSeq);
     this.subscribeToUserChanged();
     this.clickNextStep();
     this.clickBeforeStep();
@@ -287,6 +289,22 @@ class CookRoom extends Component {
         }
       }
     );
+  }
+
+  // 시작시 API Patch
+  async roomStart() {
+    const requestInfo = {
+      url: `https://i8b206.p.ssafy.io:9000/api/room/start/${this.state.mySessionId}`,
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${this.props.userInfo.accessToken}`,
+      },
+    };
+    try {
+      const res = await axios(requestInfo);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   leaveSession() {
@@ -394,9 +412,10 @@ class CookRoom extends Component {
       const nickname = event.stream.connection.data.split('%')[0];
       newUser.setNickname(JSON.parse(nickname).clientData);
       newUser.setImg(JSON.parse(nickname).clientPicture);
-      newUser.setUserSeq(this.props.userInfo.userSeq);
-      this.remotes.push(newUser);
+      newUser.setUserSeq(JSON.parse(nickname).clientSeq);
 
+      this.remotes.push(newUser);
+      console.log(this.remotes);
       this.findHost.push([JSON.parse(nickname).clientData, Date.now()]);
 
       if (this.localUserAccessAllowed) {
@@ -428,7 +447,7 @@ class CookRoom extends Component {
   }
   clickNextStep() {
     this.state.session.on('signal:nextStep', event => {
-      console.log(event, this.state.recipe.length);
+      // console.log(event, this.state.recipe.length);
       this.setState({ nowStep: event.data });
       // 요리가 완료되면 닫기
       if (this.state.nowStep > this.state.recipe.length - 1) {
@@ -455,7 +474,7 @@ class CookRoom extends Component {
       remoteUsers.forEach(user => {
         if (user.getConnectionId() === event.from.connectionId) {
           const data = JSON.parse(event.data);
-          console.log('EVENTO REMOTE: ', event.data);
+          // console.log('EVENTO REMOTE: ', event.data);
 
           if (data.isAudioActive !== undefined) {
             user.setAudioActive(data.isAudioActive);
@@ -626,12 +645,12 @@ class CookRoom extends Component {
 
   toggleChat(property) {
     let display = property;
-    console.log(display);
+    // console.log(display);
     if (display === undefined) {
       // 방장이 시작하면 신호를 모두에게 보냄
 
       this.sendStart();
-
+      this.roomStart();
       display = this.state.chatDisplay === 'none' ? 'block' : 'none';
     }
     if (display === 'block') {
@@ -695,7 +714,7 @@ class CookRoom extends Component {
   async DelRoomRequestInfo() {
     const outRoom = axios.delete(
       `https://i8b206.p.ssafy.io:9000/api/room/${this.state.mySessionId}/${this.props.userInfo.userSeq}`,
-      { Authorization: `Bearer ${this.props.userInfo.accessToken()}` }
+      { Authorization: `Bearer ${this.props.userInfo.accessToken}` }
     );
 
     try {
@@ -742,7 +761,7 @@ class CookRoom extends Component {
               >
                 <ReportModal
                   userInfo={this.props.userInfo}
-                  subscribers={this.remotes}
+                  subscribers={this.state.subscribers}
                   isReport={this.isReport}
                 />
               </Box>
@@ -785,6 +804,7 @@ class CookRoom extends Component {
           this.state.chatDisplay !== 'none' &&
           localUser.getStreamManager() !== undefined && (
             <ChatComponent
+              DelRoomRequestInfo={this.DelRoomRequestInfo}
               remoteUsers={this.state.subscribers}
               user={localUser}
               userImg={this.state.myPicture}
@@ -836,7 +856,6 @@ class CookRoom extends Component {
                       {[localUser, ...this.state.subscribers]
                         .filter(v => v !== this.state.nowVideo)
                         .map((sub, i) => {
-                          console.log(i);
                           return (
                             (i === this.state.carouselIdx * 2 ||
                               i === this.state.carouselIdx * 2 + 1) && (

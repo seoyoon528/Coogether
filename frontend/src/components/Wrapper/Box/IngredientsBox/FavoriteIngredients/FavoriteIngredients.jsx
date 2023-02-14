@@ -29,7 +29,7 @@ function FavoriteIngredients({
 
   const afterPatch = favIngre.map(i => {
     return (
-      <Span>
+      <Span key={i.ingredient.ingredientId}>
         <Circle
           key={i}
           onClick={() => {
@@ -47,7 +47,7 @@ function FavoriteIngredients({
                 setVisible(!visible);
               }}
             >
-              <BookmarkRemoveIcon />
+              <BookmarkRemoveIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -55,7 +55,7 @@ function FavoriteIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenIcon />
+              <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
           </>
         )}
@@ -65,7 +65,7 @@ function FavoriteIngredients({
 
   const favoriteIngredient = favorite.map(i => {
     return (
-      <Span>
+      <Span key={i.ingredientId}>
         <Circle
           key={i}
           onClick={() => {
@@ -83,7 +83,7 @@ function FavoriteIngredients({
                 setVisible(!visible);
               }}
             >
-              <BookmarkRemoveIcon />
+              <BookmarkRemoveIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -92,7 +92,7 @@ function FavoriteIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenIcon />
+              <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
           </>
         )}
@@ -103,9 +103,19 @@ function FavoriteIngredients({
   return (
     <div>
       <Contents>
-        <h4>
+        <h4
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            position: 'sticky',
+            top: '0',
+            zIndex: '1',
+            backgroundColor: '#FFF8EA',
+            paddingTop: '12px',
+          }}
+        >
           즐겨찾기
-          <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
+          <BookmarkAddRoundedIcon style={{ fontSize: '24px' }} />
         </h4>
         <Container>
           {favIngre.length > 0 ? afterPatch : favoriteIngredient}
