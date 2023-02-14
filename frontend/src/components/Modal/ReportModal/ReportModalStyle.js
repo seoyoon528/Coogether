@@ -18,3 +18,24 @@ export const FormBox = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+export const ReportWrite = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+export const ReportBtnWrap = styled.div`
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+`;
+export const ReportBtn = styled.button`
+  width: 40%;
+  height: 40%;
+  border-radius: 3px;
+`;

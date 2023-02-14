@@ -73,7 +73,8 @@ class CookRoom extends Component {
     this.getRecipe = this.getRecipe.bind(this);
     // 방장인지 확인
     this.isHost = this.isHost.bind(this);
-
+    // 시작 시 시작 API를 전달하여 다른 사람이 못들어오게 함
+    this.roomStart = this.roomStart.bind(this);
     // 다음 단계로 넘어가기
     this.nextStep = this.nextStep.bind(this);
     // 이전 단계로 넘어가기
@@ -288,6 +289,22 @@ class CookRoom extends Component {
         }
       }
     );
+  }
+
+  // 시작시 API Patch
+  async roomStart() {
+    const requestInfo = {
+      url: `https://i8b206.p.ssafy.io:9000/api/room/start/${this.state.mySessionId}`,
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${this.props.userInfo.accessToken}`,
+      },
+    };
+    try {
+      const res = await axios(requestInfo);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   leaveSession() {
@@ -633,7 +650,7 @@ class CookRoom extends Component {
       // 방장이 시작하면 신호를 모두에게 보냄
 
       this.sendStart();
-
+      this.roomStart();
       display = this.state.chatDisplay === 'none' ? 'block' : 'none';
     }
     if (display === 'block') {
@@ -697,7 +714,7 @@ class CookRoom extends Component {
   async DelRoomRequestInfo() {
     const outRoom = axios.delete(
       `https://i8b206.p.ssafy.io:9000/api/room/${this.state.mySessionId}/${this.props.userInfo.userSeq}`,
-      { Authorization: `Bearer ${this.props.userInfo.accessToken()}` }
+      { Authorization: `Bearer ${this.props.userInfo.accessToken}` }
     );
 
     try {
@@ -787,6 +804,7 @@ class CookRoom extends Component {
           this.state.chatDisplay !== 'none' &&
           localUser.getStreamManager() !== undefined && (
             <ChatComponent
+              DelRoomRequestInfo={this.DelRoomRequestInfo}
               remoteUsers={this.state.subscribers}
               user={localUser}
               userImg={this.state.myPicture}

@@ -342,7 +342,13 @@ export default class ChatComponent extends Component {
           </C.ChatContentWrap>
         </C.WaitDivideBox>
         <C.ExitBox>
-          <Link to="/Main" onClick={() => this.props.onChangeShow()}>
+          <Link
+            to="/Main"
+            onClick={() => {
+              this.props.onChangeShow();
+              this.props.DelRoomRequestInfo();
+            }}
+          >
             나가기
           </Link>
           {this.state.isHost && <button onClick={this.close}>시작하기</button>}
