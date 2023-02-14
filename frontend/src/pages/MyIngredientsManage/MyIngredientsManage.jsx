@@ -1,10 +1,10 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import axios from 'axios';
 
 // MUI
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 
 // Component
 import IngredientsBox from '../../components/Wrapper/Box/IngredientsBox/IngredientsBox';
@@ -133,8 +133,8 @@ function MyIngredientsManage() {
           console.log(e);
         }
       }
-      getData();
     };
+    getData();
   }, [category]);
 
   // 재료 전체 카테고리 분류 api

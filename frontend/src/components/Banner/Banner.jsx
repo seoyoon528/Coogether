@@ -1,5 +1,9 @@
 import React from 'react';
+
+// Image
 import BannerIMG from '../../assets/img/BannerIMG.jpg';
+
+// Style
 import * as S from './BannerStyle';
 
 function Banner() {

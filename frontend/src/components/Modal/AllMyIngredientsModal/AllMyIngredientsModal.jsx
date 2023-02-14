@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import './AllMyIngredientsModal.scss';
+import React, { useState } from 'react';
+
+// MUI
 import { Circle } from './AllMyIngredientsModalStyle';
 
+// Style
+import './AllMyIngredientsModal.scss';
+
 function AllMyIngredientsModal({ onClose, fridge, myFridge }) {
+  // useState
   const [isActive, setIsActive] = useState(false);
-  const [open, setOpen] = useState(false);
+
+  // function
   const handleClick = () => {
     setIsActive(!isActive);
   };
@@ -12,6 +18,7 @@ function AllMyIngredientsModal({ onClose, fridge, myFridge }) {
     onClose?.();
   };
 
+  // Component
   const fridgeIngredient = fridge.map(i => {
     return (
       <span key={i.myIngredientManageId} style={{ textAlign: 'center' }}>

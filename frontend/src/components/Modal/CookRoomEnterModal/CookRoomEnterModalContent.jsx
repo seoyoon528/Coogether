@@ -15,7 +15,6 @@ export default function CookRoomEnterModalContent(props) {
     notHavingIngredients,
     setIsCookRoomEnterModalOpened,
     cookingRoomId,
-    onCookRoomModalClose,
   } = props;
 
   return (

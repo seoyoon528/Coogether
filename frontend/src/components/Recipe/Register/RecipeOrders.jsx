@@ -1,7 +1,7 @@
 import React from 'react';
 
 // MUI
-import { Box, Button, IconButton } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
 // Component
