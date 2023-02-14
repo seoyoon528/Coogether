@@ -29,7 +29,7 @@ function FavoriteIngredients({
 
   const afterPatch = favIngre.map(i => {
     return (
-      <Span>
+      <Span key={i.ingredient.ingredientId}>
         <Circle
           key={i}
           onClick={() => {
@@ -65,7 +65,7 @@ function FavoriteIngredients({
 
   const favoriteIngredient = favorite.map(i => {
     return (
-      <Span>
+      <Span key={i.ingredientId}>
         <Circle
           key={i}
           onClick={() => {
@@ -103,7 +103,17 @@ function FavoriteIngredients({
   return (
     <div>
       <Contents>
-        <h4>
+        <h4
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            position: 'sticky',
+            top: '0',
+            zIndex: '1',
+            backgroundColor: '#FFF8EA',
+            paddingTop: '12px',
+          }}
+        >
           즐겨찾기
           <BookmarkAddRoundedIcon style={{ fontSize: '24px' }} />
         </h4>

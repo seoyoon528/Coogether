@@ -29,12 +29,12 @@ function AllIngredients({
   const categoryKorean = dummy.categories
     .filter(name => name.id === category)
     .map(name => {
-      return <h4>{name.text} 전체</h4>;
+      return <h4 key={name.id}>{name.text} 전체</h4>;
     });
 
   const ingredient = ingredients.map(i => {
     return (
-      <Span>
+      <Span key={i.ingredientId}>
         <Circle
           key={i}
           onClick={() => {
@@ -70,7 +70,7 @@ function AllIngredients({
 
   const AllIngredient = allIngredient.map(e => {
     return (
-      <Span>
+      <Span key={e.ingredientId}>
         <Circle
           key={e}
           onClick={() => {
@@ -81,7 +81,7 @@ function AllIngredients({
         </Circle>
         <div>{e.ingredientName}</div>
         {selectIngredientId === e.ingredientId && visible && (
-          <>
+          <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
                 favIngredient(e);
@@ -98,7 +98,7 @@ function AllIngredients({
             >
               <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
-          </>
+          </div>
         )}
       </Span>
     );
@@ -108,7 +108,17 @@ function AllIngredients({
     return (
       <div>
         <Contents>
-          <h4>
+          <h4
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              position: 'sticky',
+              top: '0',
+              zIndex: '1',
+              backgroundColor: '#FFF8EA',
+              paddingTop: '12px',
+            }}
+          >
             재료 전체
             <KitchenRoundedIcon style={{ fontSize: '24px' }} />
           </h4>
