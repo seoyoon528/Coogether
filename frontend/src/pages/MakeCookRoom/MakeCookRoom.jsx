@@ -12,6 +12,7 @@ import StreamModal from '../../components/Modal/StreamModal/StreamModal';
 import MakeImage from '../../components/Wrapper/Box/MakeCookRoomBox/MakeImage';
 import MakeTimeInput from '../../components/Wrapper/Box/MakeCookRoomBox/MakeTimeInput';
 import SearchMakeCookRoom from '../../components/Wrapper/Box/MakeCookRoomBox/SearchMakeCookRoom';
+import NextBtn from '../../components/Btn/NextBtn/NextBtn';
 
 function MakeCoomRoom() {
   const userSeq = useSelector(state => state.user.userSeq);
@@ -33,7 +34,7 @@ function MakeCoomRoom() {
   const onClickButton = () => {
     setIsOpen(true);
   };
-
+  // console.log(new Date());
   const roomSubmitHandler = async () => {
     const sendingData = {
       cookingRoomName: streamName,
@@ -47,7 +48,7 @@ function MakeCoomRoom() {
       new Blob([JSON.stringify(sendingData)], { type: 'application/json' })
     );
     formData.append('file', cookImage);
-    console.log(cookImage.Js);
+    // console.log(cookImage.Js);
     // console.log(streamName, streamTime, cookImage, announce, selectRecipe);
     try {
       const postData = await axios({
@@ -71,14 +72,20 @@ function MakeCoomRoom() {
       <Box display="grid" gridTemplateColumns="repeat(16, 1fr)" gap={1}>
         <Box gridColumn="span 6" />
         <Box gridColumn="span 4">
-          <H3>요리방 만들기</H3>
+          <H3>다른 사람들과 요리를 시작해 보세요</H3>
           <MakeBasicInfo setStreamName={setStreamName} />
           <MakeTimeInput setStreamTime={setStreamTime} />
           <SearchMakeCookRoom setSelectRecipe={setSelectRecipe} />
           <MakeDetailInfo setAnnounce={setAnnounce} />
           <MakeImage cookImage={cookImage} onChange={setCookImage} />
 
-          <Button onClick={onClickButton}>생성 완료</Button>
+          <NextBtn
+            size="large"
+            color="yellow"
+            name="만들기"
+            onClick={onClickButton}
+          />
+          {/* <Button onClick={onClickButton}>생성 완료</Button> */}
           {isOpen && (
             <StreamModal
               open={isOpen}

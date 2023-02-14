@@ -33,6 +33,7 @@ export const Area = styled.div`
   width: 100%;
   height: 16rem;
   margin: 0;
+  margin-bottom: 15px;
 
   border: 0.5px solid #505050;
   border-radius: 4px;
