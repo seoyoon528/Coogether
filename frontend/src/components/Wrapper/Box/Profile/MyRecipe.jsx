@@ -55,52 +55,38 @@ export default function MyRecipe(props) {
   return (
     <MyRecipeStyle>
       <RecipeDetail open={isModalOpened} onClose={closeModal} recipe={recipe} />
-      <div
-        onClick={() => {
-          setIsModalOpened(true);
-        }}
-        aria-hidden
-      >
-        <div className="my-recipe__image">
-          <img src={recipeImg} alt="레시피 사진" />
-        </div>
-        <Stack spacing={3}>
-          <div className="my-recipe__text">
-            <h4 className="my-recipe__title">{recipeName}</h4>
-            <Stack
-              spacing={2}
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <div className="content__item">
-                <div className="category">
-                  <img src={CookCategoryImage} alt="재료 아이콘" />
-                  <p>선호</p>
-                </div>
-                <p>
-                  {category[recipeCategory] === '베이킹/디저트'
-                    ? '디저트'
-                    : category[recipeCategory]}
-                </p>
-              </div>
-              <div className="content__item">
-                <div className="category">
-                  <img src={IngredientCountImage} alt="재료 아이콘" />
-                  <p>재료</p>
-                </div>
-                <p>{ingredientsCount}개</p>
-              </div>
-              <div className="content__item">
-                <div className="category">
-                  <img src={StepCountImage} alt="단계 아이콘" />
-                  <p>과정</p>
-                </div>
-                <p>{recipeSteps}개</p>
-              </div>
-            </Stack>
+      <div className="my-recipe__image">
+        <img src={recipeImg} alt="레시피 사진" />
+      </div>
+      <div className="my-recipe__content">
+        <h4 className="my-recipe__title">{recipeName}</h4>
+        <div className="content__list">
+          <div className="content__item">
+            <div className="category">
+              <img src={CookCategoryImage} alt="재료 아이콘" />
+              <p>선호</p>
+            </div>
+            <p>
+              {category[recipeCategory] === '베이킹/디저트'
+                ? '디저트'
+                : category[recipeCategory]}
+            </p>
           </div>
-        </Stack>
+          <div className="content__item">
+            <div className="category">
+              <img src={IngredientCountImage} alt="재료 아이콘" />
+              <p>재료</p>
+            </div>
+            <p>{ingredientsCount}개</p>
+          </div>
+          <div className="content__item">
+            <div className="category">
+              <img src={StepCountImage} alt="단계 아이콘" />
+              <p>과정</p>
+            </div>
+            <p>{recipeSteps}개</p>
+          </div>
+        </div>
       </div>
     </MyRecipeStyle>
   );
