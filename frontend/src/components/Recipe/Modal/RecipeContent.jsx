@@ -32,7 +32,9 @@ function RecipeDetailModalContent(props) {
   // useState
   const [ingredients, setIngredients] = useState([]);
 
-  const recipeOrders = recipeContent.split('\n');
+  const recipeOrders = recipeContent.split('\n').filter(content => {
+    return content.trim() !== '';
+  });
 
   // useEffect
   useEffect(async () => {
