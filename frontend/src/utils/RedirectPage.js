@@ -98,7 +98,7 @@ function RedirectPage(props) {
 
       setisModalOpen('회원가입이 완료되었습니다');
     } catch (err) {
-      setisModalOpen('회원가입 중 오료가니다');
+      setisModalOpen('회원가입 중 오류가 발생했습니다. 다시 시도해 주세요');
       console.log(err);
     }
   };
@@ -140,7 +140,7 @@ function RedirectPage(props) {
         })
       );
       console.log(res);
-
+      onChangeShow();
       history.push('/main');
     }
   };
