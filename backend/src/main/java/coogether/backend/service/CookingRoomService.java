@@ -45,7 +45,7 @@ public class CookingRoomService {
     }
 
     public Page<CookingRoomDto> roomListByRecipeNamePaging(String recipeName, Pageable pageable) {
-        return cookingRoomRepository.getCookingRoomListByRecipaNamePaging(recipeName, pageable);
+        return cookingRoomRepository.getCookingRoomListByRecipeNamePaging(recipeName, pageable);
     }
 
     @Transactional
@@ -66,7 +66,7 @@ public class CookingRoomService {
         cookingRoom.setRecipe(recipe);
 
 
-        cookingRoomRepository.save(cookingRoom);
+        cookingRoomRepository.saveAndFlush(cookingRoom);
 
         return cookingRoom;
     }
