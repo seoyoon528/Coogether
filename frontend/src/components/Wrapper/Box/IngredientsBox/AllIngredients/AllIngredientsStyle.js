@@ -66,8 +66,6 @@ export const Button = styled.button`
   width: 50px;
   z-index: 1;
 
-  /* position: relative; */
-
   &:hover {
     color: #febd2f;
   }
