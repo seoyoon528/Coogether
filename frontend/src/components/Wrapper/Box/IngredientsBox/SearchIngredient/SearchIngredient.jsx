@@ -23,7 +23,7 @@ function SearchIngredient({ searchIngre, favIngredient, sumbitIngredient }) {
       ? ''
       : searchIngre.map(i => {
           return (
-            <Span>
+            <Span key={i.ingredientId}>
               <Circle
                 key={i.ingredientId}
                 onClick={() => {
@@ -35,7 +35,7 @@ function SearchIngredient({ searchIngre, favIngredient, sumbitIngredient }) {
               <div>{i.ingredientName}</div>
 
               {selectIngredientId === i.ingredientId && visible && (
-                <>
+                <div style={{ display: 'flex' }}>
                   <Button
                     onClick={() => {
                       favIngredient(i);
@@ -52,7 +52,7 @@ function SearchIngredient({ searchIngre, favIngredient, sumbitIngredient }) {
                   >
                     <KitchenIcon />
                   </Button>
-                </>
+                </div>
               )}
             </Span>
           );

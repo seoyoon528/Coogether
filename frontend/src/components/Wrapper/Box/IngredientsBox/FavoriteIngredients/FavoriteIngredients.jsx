@@ -40,7 +40,7 @@ function FavoriteIngredients({
         </Circle>
         <div>{i.ingredient.ingredientName}</div>
         {selectIngredientId === i.ingredient.ingredientId && visible && (
-          <>
+          <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
                 favIngredient(i.ingredient);
@@ -57,7 +57,7 @@ function FavoriteIngredients({
             >
               <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
-          </>
+          </div>
         )}
       </Span>
     );
@@ -76,7 +76,7 @@ function FavoriteIngredients({
         </Circle>
         <div>{i.ingredientName}</div>
         {selectIngredientId === i.ingredientId && visible && (
-          <>
+          <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
                 favIngredient(i);
@@ -94,7 +94,7 @@ function FavoriteIngredients({
             >
               <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
-          </>
+          </div>
         )}
       </Span>
     );

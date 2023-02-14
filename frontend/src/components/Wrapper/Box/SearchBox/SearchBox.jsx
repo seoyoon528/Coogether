@@ -16,7 +16,9 @@ function SearchBox(props) {
       return;
     }
     onSaveEnteredItem(inputItem);
-    onChangePage();
+    if (onChangePage) {
+      onChangePage();
+    }
   };
 
   return (
