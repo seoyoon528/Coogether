@@ -88,7 +88,6 @@ function FavoriteIngredients({
             </Button>
             <Button
               onClick={() => {
-                console.log(i);
                 sumbitIngredient(i);
                 setVisible(!visible);
               }}
