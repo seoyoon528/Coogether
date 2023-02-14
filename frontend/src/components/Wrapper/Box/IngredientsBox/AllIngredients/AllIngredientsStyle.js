@@ -46,7 +46,7 @@ export const Circle = styled.button`
   background-color: #ffffff;
   font-size: smaller;
   text-align: center;
-  z-index: 1;
+  /* z-index: 1; */
   position: relative;
 
   & > div {

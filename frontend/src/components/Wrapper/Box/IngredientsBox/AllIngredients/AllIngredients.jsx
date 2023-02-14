@@ -29,7 +29,22 @@ function AllIngredients({
   const categoryKorean = dummy.categories
     .filter(name => name.id === category)
     .map(name => {
-      return <h4 key={name.id}>{name.text} 전체</h4>;
+      return (
+        <h4
+          key={name.id}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            position: 'sticky',
+            top: '0',
+            zIndex: '1',
+            backgroundColor: '#FFF8EA',
+            paddingTop: '12px',
+          }}
+        >
+          {name.text} 전체
+        </h4>
+      );
     });
 
   const ingredient = ingredients.map(i => {

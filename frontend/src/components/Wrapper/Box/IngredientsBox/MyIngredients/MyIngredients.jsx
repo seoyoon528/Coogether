@@ -155,21 +155,21 @@ function MyIngredients({
           내 냉장고에 있는 재료
           <KitchenIcon style={{ fontSize: '24px' }} />
           <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
-          {isOpen && (
-            <AllMyIrngredientsModal
-              fridge={fridge}
-              myFridge={myFridge}
-              isopen={isOpen}
-              onClose={() => {
-                setIsOpen(false);
-              }}
-            />
-          )}
         </h4>
         <Container>
           {myFridge.length > 0 ? afterPatch : fridgeIngredient}
         </Container>
       </Contents>
+      {isOpen && (
+        <AllMyIrngredientsModal
+          fridge={fridge}
+          myFridge={myFridge}
+          isopen={isOpen}
+          onClose={() => {
+            setIsOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }
