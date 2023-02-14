@@ -73,8 +73,6 @@ public class AuthService {
                 String.class
         );
 
-        System.out.println("accessTokenResponse = " + accessTokenResponse);
-
         // JSON Parsing (-> KakaoTokenDto)
         ObjectMapper objectMapper = new ObjectMapper();
         KakaoTokenDto kakaoTokenDto = null;
@@ -106,7 +104,6 @@ public class AuthService {
                 String.class
         );
 
-        System.out.println("카카오 서버에서 정상적으로 데이터를 수신했습니다.");
         // JSON Parsing (-> kakaoAccountDto)
         ObjectMapper objectMapper = new ObjectMapper();
         KakaoUserDto kakaoAccountDto = null;
@@ -118,9 +115,6 @@ public class AuthService {
         Long id = kakaoAccountDto.getId();
         String email = kakaoAccountDto.getKakao_account().getEmail();
         String kakaoName = kakaoAccountDto.getKakao_account().getProfile().getNickname();
-
-        System.out.println("kakaoName = " + kakaoName);
-        System.out.println("email = " + email);
 
         return User.builder()
                 .userId("KAKAO_"+id.toString())
@@ -184,8 +178,6 @@ public class AuthService {
                 .build();
         userRepository.save(newUser);
 
-        System.out.println("[ 회원가입 완료 ]");
-
         // 회원가입 상황에 대해 토큰을 발급하고 헤더와 쿠키에 배치
         TokenDto tokenDto = securityService.signup(newUser.getUserId());
         saveRefreshToken(newUser, tokenDto);
@@ -205,6 +197,6 @@ public class AuthService {
                 .token(tokenDto.getRefreshToken())
                 .build();
         tokenRepository.save(refreshToken);
-        System.out.println("토큰 저장이 완료되었습니다 : 계정 아이디 - " + user.getUserId() + ", refresh token - " + tokenDto.getRefreshToken());
+//        System.out.println("토큰 저장이 완료되었습니다 : 계정 아이디 - " + user.getUserId() + ", refresh token - " + tokenDto.getRefreshToken());
     }
 }

@@ -30,7 +30,6 @@ public class SecurityService {
 
     /* 로그인 된 사용자에게 토큰 발급 : refresh token 은 DB 에 저장 */
     public TokenDto login(User user) {
-        System.out.println("[ Token 발급 진입 ]");
         User findUser = userRepository.findByUserId(user.getUserId());
 
         // 일치하는 User가 없을 경우 throw Exception
@@ -47,7 +46,6 @@ public class SecurityService {
                 .token(tokenDto.getRefreshToken())
                 .build();
         tokenRepository.save(refreshToken);
-        System.out.println("토큰 발급과 저장을 완료했습니다.");
         return tokenDto;
     }
 
