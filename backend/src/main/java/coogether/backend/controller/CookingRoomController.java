@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,7 +38,20 @@ public class CookingRoomController {
     @PostMapping(value ="/room/create/{userSeq}/{recipeId}",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addCookingRoom(@RequestPart CookingRoomRequest cookingRoomRequest, @RequestPart(value="file",required = false) MultipartFile multipartFile, @PathVariable("userSeq") Long userSeq
-            , @PathVariable("recipeId") Long recipeId) throws IOException {
+            , @PathVariable("recipeId") Long recipeId, HttpServletRequest request) throws IOException {
+
+//        String jwt = jwtProvider.resolveToken(request);
+//
+//        // 토큰 유효 확인 및 유저 정보(UseqSeq) 가져오기
+//        if (!jwtProvider.validateToken(jwt)) {
+//            return ResponseEntity
+//                    .status(HttpStatus.UNAUTHORIZED)
+//                    .body("유효하지 않은 토큰입니다.");
+//        }
+//        System.out.println("유효한 토큰입니다.");
+//
+//        String userId = jwtProvider.getUserPk(jwt);
+//        System.out.println("토큰으로부터 추출한 UserId = " + userId);
 
         String url = null;
         if (multipartFile != null) {
@@ -58,14 +72,7 @@ public class CookingRoomController {
 
     @ApiOperation(value = "요리방 입장 (대기방)")
     @GetMapping("/room/{cookingRoomId}/{userSeq}")
-    public ResponseEntity enterCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq, @RequestHeader(value = "Authorization") String token) {
-
-        // 토큰 유효 확인 및 유저 정보(UseqSeq) 가져오기
-//        if (!jwtProvider.validateToken(token)) {
-//            return ResponseEntity
-//                    .status(HttpStatus.UNAUTHORIZED)
-//                    .body("유효하지 않은 토큰입니다.");
-//        }
+    public ResponseEntity enterCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq) {
 
         Boolean check = cookingRoomService.addUserJoin(userSeq, cookingRoomId);
         System.out.println("check = " + check);
