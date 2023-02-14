@@ -13,6 +13,7 @@ import {
 import AllMyIrngredientsModal from '../../../../Modal/AllMyIngredientsModal/AllMyIngredientsModal';
 
 function MyIngredients({
+  isMyIngrePatched,
   category,
   fridge,
   categoryFridges,
@@ -157,7 +158,7 @@ function MyIngredients({
           <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
         </h4>
         <Container>
-          {myFridge.length > 0 ? afterPatch : fridgeIngredient}
+          {isMyIngrePatched ? afterPatch : fridgeIngredient}
         </Container>
       </Contents>
       {isOpen && (
