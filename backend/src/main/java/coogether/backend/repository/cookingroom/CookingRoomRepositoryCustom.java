@@ -9,5 +9,5 @@ import org.springframework.data.domain.Pageable;
 public interface CookingRoomRepositoryCustom {
     Page<CookingRoomDto> getCookingRoomListPaging(Pageable pageable);
 
-    Page<CookingRoomDto> getCookingRoomListByRecipaNamePaging(String recipeName, Pageable pageable);
+    Page<CookingRoomDto> getCookingRoomListByRecipeNamePaging(String recipeName, Pageable pageable);
 }

@@ -47,7 +47,7 @@ public class CookingRoomRepositoryImpl implements CookingRoomRepositoryCustom {
     }
 
     @Override
-    public Page<CookingRoomDto> getCookingRoomListByRecipaNamePaging(String recipeName, Pageable pageable) {
+    public Page<CookingRoomDto> getCookingRoomListByRecipeNamePaging(String recipeName, Pageable pageable) {
         List<CookingRoomDto> content = queryFactory
                 .select(new QCookingRoomDto(cookingRoom))
                 .from(cookingRoom)
