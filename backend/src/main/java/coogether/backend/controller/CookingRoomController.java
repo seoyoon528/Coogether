@@ -77,8 +77,8 @@ public class CookingRoomController {
     }
 
     @ApiOperation(value = "요리방 시작")
-    @PatchMapping(value ="/room/start/{cookingRoomId}")
-    public ResponseEntity startCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId) throws IOException {
+    @PutMapping(value ="/room/start/{cookingRoomId}")
+    public ResponseEntity startCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId) {
 
         CookingRoom cookingRoom = cookingRoomService.startCookingRoom(cookingRoomId);
 
