@@ -52,7 +52,11 @@ function App() {
           <Login component={Login} onChangeShow={onChangeShow} />
         </Route>
         <Route path="/Login/oauth2/code/kakao">
-          <RedirectPage component={RedirectPage} onChangeShow={onChangeShow} />
+          <RedirectPage
+            component={RedirectPage}
+            onChangeShow={onChangeShow}
+            isShow={isShow}
+          />
         </Route>
         <Route path="/Signin">
           <Signin component={Signin} onChangeShow={onChangeShow} />

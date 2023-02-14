@@ -16,13 +16,16 @@ import { login } from '../store/AuthSlice';
 import * as R from './RedirectPageStyle';
 import RedirectImg from './RedirectImg';
 
-function RedirectPage(props) {
+function RedirectPage({ onChangeShow, isShow }) {
+  const [navShow, setNavShow] = useState(isShow);
   const [isModalOpen, setisModalOpen] = useState('');
-  const { onChangeShow } = props;
+
   useEffect(() => {
     // onChangeShow();
     console.log('실행됨');
-  }, []);
+    console.log(navShow);
+    setNavShow(isShow);
+  }, [isShow]);
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -118,7 +121,10 @@ function RedirectPage(props) {
       setUserInfo(res);
       // 이미 회원인 경우 추후수정
     } else {
-      onChangeShow();
+      if (!navShow) {
+        onChangeShow();
+      }
+
       console.log(`회원가입 된 사람입니다`);
       dispatch(
         login({
@@ -178,6 +184,7 @@ function RedirectPage(props) {
               <ConfirmModal
                 info="회원가입이 완료되었습니다"
                 onChangeShow={onChangeShow}
+                navShow={navShow}
               />
             </Box>
           </Modal>
