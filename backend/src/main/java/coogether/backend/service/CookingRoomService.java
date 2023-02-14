@@ -17,6 +17,7 @@ import coogether.backend.repository.userjoinlist.UserJoinListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -220,5 +221,18 @@ public class CookingRoomService {
         }
 
         return cookingRoom;
+    }
+
+
+    // 1분마다 요리방 시간 체크해서 시작 시간 지나면 진행중으로 업데이트
+    @Scheduled(cron = "0 * * * * *")
+    public void updateTime(){
+        List<CookingRoom> cookingRoomList = cookingRoomRepository.findAll();
+        for (CookingRoom cookingRoom : cookingRoomList) {
+            if(LocalDateTime.now().isAfter(cookingRoom.getCookingRoomStartTime())){
+                cookingRoom.setCookingRoomStatus(EnumCookingRoomStatus.PROGRESS);
+            }
+            cookingRoomRepository.save(cookingRoom);
+        }
     }
 }

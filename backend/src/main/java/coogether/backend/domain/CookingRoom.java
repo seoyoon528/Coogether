@@ -51,6 +51,7 @@ public class CookingRoom {
     @Column(name = "cooking_room_img", length = 1000, nullable = false)
     private String cookingRoomImg;
 
+    @JsonFormat(timezone = "Asia/Seoul")
     @Column(name = "cooking_room_start_time", updatable = false, nullable = false)
     private LocalDateTime cookingRoomStartTime;
 
