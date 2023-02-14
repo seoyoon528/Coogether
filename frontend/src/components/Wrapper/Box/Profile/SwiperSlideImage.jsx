@@ -5,7 +5,14 @@ export default function SwiperSlideImage(props) {
   const { historyImg, recipeName, setIsModalOpened } = props;
 
   // useState
-  const [isImageError, setIsImageError] = useState(false);
+  const [isImageError, setIsImageError] = useState(
+    (() => {
+      if (historyImg) {
+        return false;
+      }
+      return true;
+    })()
+  );
 
   return (
     <div
@@ -20,6 +27,7 @@ export default function SwiperSlideImage(props) {
           src={historyImg}
           alt={`${recipeName} 이미지`}
           onError={() => {
+            console.log(5555555);
             setIsImageError(true);
           }}
         />
@@ -32,6 +40,8 @@ export default function SwiperSlideImage(props) {
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: '#FBE3B3',
+            paddingLeft: '1.6rem',
+            paddingRight: '1.6rem',
           }}
         >
           <h2>{recipeName}</h2>
