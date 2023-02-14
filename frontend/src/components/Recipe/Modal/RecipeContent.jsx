@@ -65,7 +65,11 @@ function RecipeDetailModalContent(props) {
             name={recipeName}
             category={recipeCategory}
             ingredientCount={ingredients.length}
-            contentCount={recipeOrders.length}
+            contentCount={
+              recipeOrders.filter(content => {
+                return content[0] >= '0' && content[0] <= '9';
+              }).length
+            }
             nickname={recipeHostNickname}
             userSeq={recipeHostUserSeq}
           />

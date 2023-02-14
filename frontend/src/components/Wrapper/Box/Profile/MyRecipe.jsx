@@ -43,7 +43,7 @@ export default function MyRecipe(props) {
   }, [recipeId]);
 
   const recipeSteps = recipeContent.split('\n').filter(content => {
-    return content.trim() !== '';
+    return content.trim() !== '' && content[0] >= '1' && content[0] <= '9';
   }).length;
 
   // function
