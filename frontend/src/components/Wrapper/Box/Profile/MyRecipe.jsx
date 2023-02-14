@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-// MUI
-import { Stack } from '@mui/material';
-
 // Style
 import { MyRecipeStyle } from './ProfileSwiperStyle';
 
