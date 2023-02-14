@@ -212,6 +212,7 @@ public class CookingRoomService {
         }
     }
 
+    @Transactional
     public CookingRoom startCookingRoom(Long cookingRoomId) {
         CookingRoom cookingRoom = cookingRoomRepository.findByCookingRoomId(cookingRoomId);
 
@@ -232,8 +233,8 @@ public class CookingRoomService {
         for (CookingRoom cookingRoom : cookingRoomList) {
             if(LocalDateTime.now().isAfter(cookingRoom.getCookingRoomStartTime())){
                 cookingRoom.setCookingRoomStatus(EnumCookingRoomStatus.PROGRESS);
+                cookingRoomRepository.save(cookingRoom);
             }
-            cookingRoomRepository.save(cookingRoom);
         }
     }
 }
