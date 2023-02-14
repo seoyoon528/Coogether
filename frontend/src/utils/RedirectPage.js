@@ -20,7 +20,7 @@ function RedirectPage(props) {
   const [isModalOpen, setisModalOpen] = useState('');
   const { onChangeShow } = props;
   useEffect(() => {
-    onChangeShow();
+    // onChangeShow();
     console.log('실행됨');
   }, []);
   const history = useHistory();
@@ -118,6 +118,7 @@ function RedirectPage(props) {
       setUserInfo(res);
       // 이미 회원인 경우 추후수정
     } else {
+      onChangeShow();
       console.log(`회원가입 된 사람입니다`);
       dispatch(
         login({
@@ -140,7 +141,7 @@ function RedirectPage(props) {
         })
       );
       console.log(res);
-      onChangeShow();
+
       history.push('/main');
     }
   };

@@ -36,7 +36,7 @@ export const ReportBtnWrap = styled.div`
   align-items: center;
 `;
 export const ReportBtn = styled.button`
-  width: 20%;
+  width: 25%;
   height: 15%;
   border-radius: 3px;
 `;

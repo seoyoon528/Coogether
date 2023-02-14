@@ -67,7 +67,7 @@ function Main({ onChangeShow }, isShow) {
     if (!isShow) {
       onChangeShow();
     }
-  }, []);
+  }, [isShow]);
   return (
     <>
       <Banner />
