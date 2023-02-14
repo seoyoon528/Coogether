@@ -52,11 +52,25 @@ export default function MyRecipe(props) {
   return (
     <MyRecipeStyle>
       <RecipeDetail open={isModalOpened} onClose={closeModal} recipe={recipe} />
-      <div className="my-recipe__image">
+      <div
+        className="my-recipe__image"
+        onClick={() => {
+          setIsModalOpened(true);
+        }}
+        aria-hidden
+      >
         <img src={recipeImg} alt="레시피 사진" />
       </div>
       <div className="my-recipe__content">
-        <h4 className="my-recipe__title">{recipeName}</h4>
+        <h4
+          className="my-recipe__title"
+          onClick={() => {
+            setIsModalOpened(true);
+          }}
+          aria-hidden
+        >
+          {recipeName}
+        </h4>
         <div className="content__list">
           <div className="content__item">
             <div className="category">
