@@ -47,9 +47,14 @@ function RecipeRegisterForm() {
         return { ingredientId, ingredientAmount };
       }
     );
-    const recipeStepRequest = recipeOrders.map(({ content }, idx) => {
-      return { recipeStepNum: idx + 1, recipeStepContent: content };
-    });
+    const recipeStepRequest = recipeOrders
+      .filter(({ content }) => {
+        return content.trim() !== '';
+      })
+      .map(({ content }, idx) => {
+        return { recipeStepNum: idx + 1, recipeStepContent: content };
+      });
+    console.log(recipeStepRequest);
     const recipeType = 'CUSTOM';
 
     // 이미지를 제외한 전송 데이터 객체로 묶기
