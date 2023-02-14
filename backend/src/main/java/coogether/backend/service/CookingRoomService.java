@@ -45,7 +45,7 @@ public class CookingRoomService {
     }
 
     public Page<CookingRoomDto> roomListByRecipeNamePaging(String recipeName, Pageable pageable) {
-        return cookingRoomRepository.getCookingRoomListByRecipaNamePaging(recipeName, pageable);
+        return cookingRoomRepository.getCookingRoomListByRecipeNamePaging(recipeName, pageable);
     }
 
     @Transactional
@@ -66,7 +66,7 @@ public class CookingRoomService {
         cookingRoom.setRecipe(recipe);
 
 
-        cookingRoomRepository.save(cookingRoom);
+        cookingRoomRepository.saveAndFlush(cookingRoom);
 
         return cookingRoom;
     }
@@ -87,7 +87,7 @@ public class CookingRoomService {
                 userJoinList.setCookingRoom(cookingRoom);
                 userJoinList.setUser(user);
                 userJoinList.setUserJoinRegTime(LocalDateTime.now());
-                userJoinListRepository.save(userJoinList);
+                userJoinListRepository.saveAndFlush(userJoinList);
                 return true;
             }
         }
@@ -215,11 +215,12 @@ public class CookingRoomService {
     public CookingRoom startCookingRoom(Long cookingRoomId) {
         CookingRoom cookingRoom = cookingRoomRepository.findByCookingRoomId(cookingRoomId);
 
+        System.out.println("쿠킹쿠킹쿠킹룸 cookingRoom = " + cookingRoom);
         if (cookingRoom != null) {
             cookingRoom.setCookingRoomStatus(EnumCookingRoomStatus.PROGRESS);
             cookingRoomRepository.save(cookingRoom);
         }
-
+        System.out.println("진행상태 바뀜???"+ cookingRoom.getCookingRoomStatus());
         return cookingRoom;
     }
 

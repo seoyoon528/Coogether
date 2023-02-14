@@ -58,7 +58,7 @@ public class CookingRoomController {
 
     @ApiOperation(value = "요리방 입장 (대기방)")
     @GetMapping("/room/{cookingRoomId}/{userSeq}")
-    public ResponseEntity addCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq, @RequestHeader(value = "Authorization") String token) {
+    public ResponseEntity enterCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq, @RequestHeader(value = "Authorization") String token) {
 
         // 토큰 유효 확인 및 유저 정보(UseqSeq) 가져오기
 //        if (!jwtProvider.validateToken(token)) {
@@ -69,9 +69,8 @@ public class CookingRoomController {
 
         Boolean check = cookingRoomService.addUserJoin(userSeq, cookingRoomId);
         System.out.println("check = " + check);
-        CookingRoom cookingRoom = new CookingRoom();
         if (check) {
-            cookingRoom = cookingRoomService.getCookingRoomByCookingRoomId(cookingRoomId);
+            CookingRoom cookingRoom = cookingRoomService.getCookingRoomByCookingRoomId(cookingRoomId);
             return ResponseEntity.ok().body(new CookingRoomDto(cookingRoom));
         }
         return ResponseEntity.ok().body(false);

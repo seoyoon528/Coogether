@@ -17,8 +17,8 @@ import SearchIngredient from '../../components/Wrapper/Box/IngredientsBox/Search
 // Style
 
 function MyIngredientsManage() {
+  // useState
   const [category, setCategory] = useState('ALL');
-  const onSelect = useCallback(Category => setCategory(Category), []);
   const [ingredients, setIngredients] = useState([]);
   const [allIngredient, setAllIngredient] = useState([]);
   const [enterdItme, setEnterdItme] = useState('');
@@ -28,8 +28,14 @@ function MyIngredientsManage() {
   const [searchIngre, setSearchIngre] = useState([]);
   const [favIngre, setFavIngre] = useState([]);
   const [myFridge, setMyFridge] = useState([]);
+  const [isFavPatched, setIsFavPatched] = useState(false);
+  const [isMyIngrePatched, setIsMyIngrePatched] = useState(false);
+
+  // Redux
   const accessToken = useSelector(state => state.user.accessToken);
   const isLogin = useSelector(state => state.user.userSeq);
+
+  const onSelect = useCallback(Category => setCategory(Category), []);
 
   const TEXT = <p>원하는 재료를 입력해주세요</p>;
 
@@ -62,6 +68,9 @@ function MyIngredientsManage() {
         `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
         {}
       );
+      if (!isFavPatched) {
+        setIsFavPatched(true);
+      }
       setFavIngre([...sendIngredient.data.map(v => v)]);
     };
     inorOutIngredient(i.ingredientId);
@@ -97,6 +106,9 @@ function MyIngredientsManage() {
         `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
         {}
       );
+      if (!isMyIngrePatched) {
+        setIsMyIngrePatched(true);
+      }
       setMyFridge([...sendIngredient.data.map(v => v)]);
     };
     inorOutIngredient(f.ingredientId);
@@ -199,6 +211,7 @@ function MyIngredientsManage() {
         </Grid>
         <Grid item xs={8} md={6}>
           <FavoriteIngredients
+            isFavPatched={isFavPatched}
             category={category}
             favorite={favorite}
             sumbitIngredient={sumbitIngredient}
@@ -206,6 +219,7 @@ function MyIngredientsManage() {
             favIngre={favIngre}
           />
           <MyIngredients
+            isMyIngrePatched={isMyIngrePatched}
             category={category}
             categoryFridges={categoryFridges}
             fridge={fridge}

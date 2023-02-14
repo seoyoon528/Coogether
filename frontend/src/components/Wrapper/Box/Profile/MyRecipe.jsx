@@ -42,7 +42,9 @@ export default function MyRecipe(props) {
     }
   }, [recipeId]);
 
-  const recipeSteps = recipeContent.split('\n').length;
+  const recipeSteps = recipeContent.split('\n').filter(content => {
+    return content.trim() !== '';
+  }).length;
 
   // function
   const closeModal = () => {
