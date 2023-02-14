@@ -58,7 +58,7 @@ public class CookingRoomController {
 
     @ApiOperation(value = "요리방 입장 (대기방)")
     @GetMapping("/room/{cookingRoomId}/{userSeq}")
-    public ResponseEntity addCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq, @RequestHeader(value = "Authorization") String token) {
+    public ResponseEntity enterCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq, @RequestHeader(value = "Authorization") String token) {
 
         // 토큰 유효 확인 및 유저 정보(UseqSeq) 가져오기
 //        if (!jwtProvider.validateToken(token)) {
