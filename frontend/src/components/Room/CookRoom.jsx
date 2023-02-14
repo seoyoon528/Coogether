@@ -308,7 +308,7 @@ class CookRoom extends Component {
   async roomStart() {
     const requestInfo = {
       url: `https://i8b206.p.ssafy.io:9000/api/room/start/${this.state.mySessionId}`,
-      method: 'PATCH',
+      method: 'PUT',
       headers: {
         Authorization: `Bearer ${this.props.userInfo.accessToken}`,
       },
