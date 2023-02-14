@@ -155,7 +155,7 @@ function RedirectPage(props) {
         <div>
           <Modal
             open={isModalOpen.length !== 0}
-            onClose={setisModalOpen('')}
+            onClose={() => setisModalOpen('')}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
