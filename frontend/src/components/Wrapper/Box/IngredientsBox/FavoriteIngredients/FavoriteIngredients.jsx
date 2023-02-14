@@ -15,6 +15,7 @@ function FavoriteIngredients({
   sumbitIngredient,
   favIngredient,
   favIngre,
+  isFavPatched,
 }) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
@@ -117,9 +118,7 @@ function FavoriteIngredients({
           즐겨찾기
           <BookmarkAddRoundedIcon style={{ fontSize: '24px' }} />
         </h4>
-        <Container>
-          {favIngre.length > 0 ? afterPatch : favoriteIngredient}
-        </Container>
+        <Container>{isFavPatched ? afterPatch : favoriteIngredient}</Container>
       </Contents>
     </div>
   );
