@@ -118,7 +118,10 @@ export default class ChatComponent extends Component {
     this.props.getRecipe([resStep.data, res.data.recipe.recipeName]);
     const targetTime = new Date(res.data.cookingRoomStartTime);
     const targetH = targetTime.getHours();
-    const targetM = targetTime.getMinutes();
+    let targetM = targetTime.getMinutes();
+    if (targetM < 10) {
+      targetM = `0${String(targetM)}`;
+    }
     this.setState({ startTime: `${targetH}:${targetM}` });
     this.setState({ ingredients: resIng.data });
     this.setState({ resStep: resStep.data });
