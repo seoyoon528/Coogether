@@ -47,7 +47,7 @@ function FavoriteIngredients({
                 setVisible(!visible);
               }}
             >
-              <BookmarkRemoveIcon />
+              <BookmarkRemoveIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -55,7 +55,7 @@ function FavoriteIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenIcon />
+              <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
           </>
         )}
@@ -83,7 +83,7 @@ function FavoriteIngredients({
                 setVisible(!visible);
               }}
             >
-              <BookmarkRemoveIcon />
+              <BookmarkRemoveIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -92,7 +92,7 @@ function FavoriteIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenIcon />
+              <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
           </>
         )}
@@ -105,7 +105,7 @@ function FavoriteIngredients({
       <Contents>
         <h4>
           즐겨찾기
-          <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
+          <BookmarkAddRoundedIcon style={{ fontSize: '24px' }} />
         </h4>
         <Container>
           {favIngre.length > 0 ? afterPatch : favoriteIngredient}

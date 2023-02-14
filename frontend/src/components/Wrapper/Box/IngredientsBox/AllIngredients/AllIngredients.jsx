@@ -52,7 +52,7 @@ function AllIngredients({
                 setVisible(!visible);
               }}
             >
-              <BookmarkAddRoundedIcon />
+              <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -60,7 +60,7 @@ function AllIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenIcon />
+              <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
           </>
         )}
@@ -88,7 +88,7 @@ function AllIngredients({
                 setVisible(!visible);
               }}
             >
-              <BookmarkAddRoundedIcon />
+              <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -96,7 +96,7 @@ function AllIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenIcon />
+              <KitchenIcon style={{ fontSize: '20px' }} />
             </Button>
           </>
         )}
@@ -110,7 +110,7 @@ function AllIngredients({
         <Contents>
           <h4>
             재료 전체
-            <KitchenRoundedIcon style={{ fontSize: '20px' }} />
+            <KitchenRoundedIcon style={{ fontSize: '24px' }} />
           </h4>
           <Container>{AllIngredient}</Container>
         </Contents>

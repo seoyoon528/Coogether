@@ -51,7 +51,7 @@ function MyIngredients({
                 setVisible(!visible);
               }}
             >
-              <BookmarkAddRoundedIcon />
+              <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -59,7 +59,7 @@ function MyIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenRoundedIcon />
+              <KitchenRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
           </>
         )}
@@ -87,7 +87,7 @@ function MyIngredients({
                 setVisible(!visible);
               }}
             >
-              <BookmarkAddRoundedIcon />
+              <BookmarkAddRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
             <Button
               onClick={() => {
@@ -95,7 +95,7 @@ function MyIngredients({
                 setVisible(!visible);
               }}
             >
-              <KitchenRoundedIcon />
+              <KitchenRoundedIcon style={{ fontSize: '20px' }} />
             </Button>
           </>
         )}
@@ -142,7 +142,7 @@ function MyIngredients({
       <Contents>
         <h4>
           내 냉장고에 있는 재료
-          <KitchenIcon style={{ fontSize: '20px' }} />
+          <KitchenIcon style={{ fontSize: '24px' }} />
           <FridgeButton onClick={onClickButton}>냉장고 전체보기</FridgeButton>
           {isOpen && (
             <AllMyIrngredientsModal
