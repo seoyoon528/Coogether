@@ -7,9 +7,9 @@ const initialStateValue = {
   JAPANESE: '일식',
   DESSERT: '베이킹/디저트',
   ASIAN: '아시안',
-  BUNSIK: '분식 ',
+  BUNSIK: '분식',
   ETC: '기타',
-  NONE: '없음 ',
+  NONE: '없음',
 };
 
 // slice 이름을 PreferCook으로 함
