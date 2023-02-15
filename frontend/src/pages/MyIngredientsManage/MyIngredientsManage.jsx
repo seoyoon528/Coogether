@@ -81,6 +81,29 @@ function MyIngredientsManage() {
     inorOutIngredient(i.ingredientId);
   };
 
+  const onFavFridge = useCallback(
+    i => {
+      const inorOutIngredient = async target => {
+        const sendIngredient = await axios.patch(
+          // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
+          `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        if (!isFavPatched) {
+          setIsFavPatched(true);
+        }
+        setFavIngre([...sendIngredient.data.map(v => v)]);
+      };
+      inorOutIngredient(i.ingredientId);
+    },
+    [isLogin]
+  );
+
   // 즐겨찾기 api
   useEffect(() => {
     const getData = async () => {
@@ -123,6 +146,26 @@ function MyIngredientsManage() {
     };
     inorOutIngredient(f.ingredientId);
   };
+
+  const onFridge = useCallback(
+    async ({ ingredientId }) => {
+      const sendIngredient = await axios.patch(
+        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${ingredientId}`,
+        `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${ingredientId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (!isMyIngrePatched) {
+        setIsMyIngrePatched(true);
+      }
+      setMyFridge([...sendIngredient.data.map(v => v)]);
+    },
+    [accessToken, isLogin]
+  );
 
   // 유저별 냉장고 재료 api
   useEffect(() => {
@@ -255,6 +298,8 @@ function MyIngredientsManage() {
             fridge={fridge}
             sumbitIngredient={sumbitIngredient}
             favIngredient={favIngredient}
+            onFavFridge={onFavFridge}
+            onFridge={onFridge}
             myFridge={myFridge}
           />
           <AllIngredients

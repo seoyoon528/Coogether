@@ -21,6 +21,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -29,6 +30,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class CookingRoomService {
 
+    private final EntityManager em;
     private final CookingRoomRepository cookingRoomRepository;
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
@@ -75,19 +77,23 @@ public class CookingRoomService {
     public Boolean addUserJoin(Long userSeq, Long cookingRoomId) {
         UserJoinList userJoinList = new UserJoinList();
         List<UserJoinList> userJoinLists = userJoinListRepository.findByCookingRoomCookingRoomId(cookingRoomId);
-        for (UserJoinList joinList : userJoinLists) {
-            if (joinList.getUser().getUserSeq().equals(userSeq))
-                return false;
-        }
 
         if (userJoinLists.size() < 6) {
+            for (UserJoinList joinList : userJoinLists) {
+                if (joinList.getUser().getUserSeq().equals(userSeq)){
+                    System.out.println("joinList.getUser().getUserSeq() = " + joinList.getUser().getUserSeq());
+                    System.out.println("userSeq = " + userSeq);
+                    System.out.println("같음");
+                    return false;
+                }
+            }
             CookingRoom cookingRoom = cookingRoomRepository.findByCookingRoomId(cookingRoomId);
             User user = userRepository.findByUserSeq(userSeq);
             if (user != null) {
                 userJoinList.setCookingRoom(cookingRoom);
                 userJoinList.setUser(user);
                 userJoinList.setUserJoinRegTime(LocalDateTime.now());
-                userJoinListRepository.saveAndFlush(userJoinList);
+                userJoinListRepository.save(userJoinList);
                 return true;
             }
         }
@@ -218,17 +224,17 @@ public class CookingRoomService {
             cookingRoom.setCookingRoomStatus(EnumCookingRoomStatus.PROGRESS);
             cookingRoomRepository.save(cookingRoom);
         }
-        System.out.println("진행상태 바뀜???"+ cookingRoom.getCookingRoomStatus());
+        System.out.println("진행상태 바뀜???" + cookingRoom.getCookingRoomStatus());
         return cookingRoom;
     }
 
 
     // 1분마다 요리방 시간 체크해서 시작 시간 지나면 진행중으로 업데이트
     @Scheduled(cron = "0 * * * * *")
-    public void updateTime(){
+    public void updateTime() {
         List<CookingRoom> cookingRoomList = cookingRoomRepository.findAll();
         for (CookingRoom cookingRoom : cookingRoomList) {
-            if(LocalDateTime.now().isAfter(cookingRoom.getCookingRoomStartTime())){
+            if (LocalDateTime.now().isAfter(cookingRoom.getCookingRoomStartTime())) {
                 cookingRoom.setCookingRoomStatus(EnumCookingRoomStatus.PROGRESS);
                 cookingRoomRepository.save(cookingRoom);
             }

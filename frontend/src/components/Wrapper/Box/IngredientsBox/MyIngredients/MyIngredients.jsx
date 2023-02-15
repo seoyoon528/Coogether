@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import KitchenIcon from '@mui/icons-material/Kitchen';
@@ -20,6 +20,8 @@ function MyIngredients({
   sumbitIngredient,
   favIngredient,
   myFridge,
+  onFavFridge,
+  onFridge,
 }) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
@@ -208,9 +210,11 @@ function MyIngredients({
         </Contents>
         {isOpen && (
           <AllMyIrngredientsModal
-            fridge={fridge}
+            fridge={myFridge}
             myFridge={myFridge}
             isopen={isOpen}
+            onFavFridge={onFavFridge}
+            onFridge={onFridge}
             onClose={() => {
               setIsOpen(false);
             }}
@@ -245,6 +249,8 @@ function MyIngredients({
         <AllMyIrngredientsModal
           fridge={fridge}
           myFridge={myFridge}
+          onFavFridge={onFavFridge}
+          onFridge={onFridge}
           isopen={isOpen}
           onClose={() => {
             setIsOpen(false);

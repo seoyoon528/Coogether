@@ -107,7 +107,11 @@ function SearchRecipe() {
             : `${LIST_URL}?page=${page}&size=15`
         }`,
       });
-      // console.log(allRecepi);
+      console.log(allRecepi);
+      if (allRecepi.data.content.length === 0) {
+        setLoad(false);
+        return;
+      }
       if (page === allRecepi.data.totalPages - 1) {
         endRef.current = true;
       }

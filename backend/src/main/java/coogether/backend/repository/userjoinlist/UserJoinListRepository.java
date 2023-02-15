@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface UserJoinListRepository extends JpaRepository<UserJoinList, Long> {
 
-    List<UserJoinList> findByCookingRoomCookingRoomId(Long cookingRoomId);
+    @Query("select ul from UserJoinList ul where ul.cookingRoom.cookingRoomId = :cookingRoomId ")
+    List<UserJoinList> findByCookingRoomCookingRoomId(@Param("cookingRoomId") Long cookingRoomId);
 
     @Modifying
     @Query("delete from UserJoinList uj where uj.cookingRoom.cookingRoomId = :cookingRoomId and uj.user.userSeq = :userSeq")
