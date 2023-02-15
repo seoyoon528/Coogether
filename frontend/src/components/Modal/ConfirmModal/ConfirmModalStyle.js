@@ -5,7 +5,7 @@ export const ReportTitle = styled.div`
   font-family: 'Pretendard Variable';
   font-style: normal;
   font-weight: 700;
-  font-size: 3vw;
+  font-size: 2.4vw;
   width: 100%;
 
   text-align: center;
@@ -37,6 +37,6 @@ export const ReportBtnWrap = styled.div`
 `;
 export const ReportBtn = styled.button`
   width: 25%;
-  height: 15%;
+  height: 25%;
   border-radius: 3px;
 `;
