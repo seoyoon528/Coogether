@@ -199,7 +199,7 @@ function RedirectPage({ onChangeShow, isShow }) {
               }}
             >
               <ConfirmModal
-                info={`${res.data.user.userNickname} 님과 함께하게 되어 영광입니다!`}
+                info={`${nickName} 님과 함께하게 되어 영광입니다!`}
                 onChangeShow={onChangeShow}
                 navShow={navShow}
               />
