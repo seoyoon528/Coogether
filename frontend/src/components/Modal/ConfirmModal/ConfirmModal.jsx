@@ -26,7 +26,7 @@ function ConfirmModal({ info, onChangeShow, navShow, isReport, killPopup }) {
             isReport(false);
           } else if (info[info.length - 4] === '냈') {
             killPopup();
-          } else if (!navShow) {
+          } else if (info === '회원가입이 완료되었습니다') {
             onChangeShow();
             history.push('/main');
           }

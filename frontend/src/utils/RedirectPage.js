@@ -158,6 +158,8 @@ function RedirectPage({ onChangeShow, isShow }) {
     if (!res.data.loginSuccess) {
       setIsregisterd(false);
       setUserInfo(res);
+      // 회원가입 때 navbar가 보여서 넣음
+      onChangeShow();
       // 이미 회원인 경우 추후수정
     } else {
       setRes(res);
