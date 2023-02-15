@@ -19,21 +19,55 @@ import RedirectImg from './RedirectImg';
 function RedirectPage({ onChangeShow, isShow }) {
   const [navShow, setNavShow] = useState(isShow);
   const [isModalOpen, setisModalOpen] = useState('');
+  const [ischangeTogo, setIschangeTogo] = useState(false);
+  const [res, setRes] = useState(null);
 
-  useEffect(() => {
-    // onChangeShow();
-    console.log('실행됨');
-    console.log(navShow);
-    if (isShow) {
-      onChangeShow();
-      setNavShow(!isShow);
-    } else {
-      setNavShow(isShow);
-    }
-  }, [isShow]);
   const history = useHistory();
 
   const dispatch = useDispatch();
+  const changeTogoHandler = () => {
+    onChangeShow();
+    setIschangeTogo(true);
+  };
+  // useEffect(() => {
+  //   // onChangeShow();
+  //   console.log('실행됨');
+  //   console.log(navShow);
+  //   if (isShow) {
+  //     onChangeShow();
+  //     setNavShow(!isShow);
+  //   } else {
+  //     setNavShow(isShow);
+  //   }
+  // }, [isShow]);
+  useEffect(() => {
+    if (ischangeTogo) {
+      dispatch(
+        login({
+          authenticated: true,
+          userSeq: res.data.user.userSeq,
+          userAccountStatus: res.data.user.userAccountStatus,
+          userCookCategory: res.data.user.userCookCategory,
+          userCreateDate: res.data.user.userCreateDate,
+          userEmail: res.data.user.userEmail,
+          userId: res.data.user.userId,
+          userImg: res.data.user.userImg,
+          userIntroduce: res.data.user.userIntroduce,
+          userLastLoginDate: res.data.user.userLastLoginDate,
+          userName: res.data.user.userName,
+          userNickname: res.data.user.userNickname,
+          userRoleType: res.data.user.userRoleType,
+          userSnsType: res.data.user.userSnsType,
+          userTemp: res.data.user.userTemp,
+          accessToken: res.headers.authorization,
+        })
+      );
+      console.log(res);
+
+      history.push('/main');
+    }
+  }, [ischangeTogo]);
+
   // 쿼리스트링을 백엔드에 송신
   const [isRegistered, setIsregisterd] = useState(true);
   const [userInfo, setUserInfo] = useState({
@@ -126,33 +160,10 @@ function RedirectPage({ onChangeShow, isShow }) {
       setUserInfo(res);
       // 이미 회원인 경우 추후수정
     } else {
-      onChangeShow();
-
+      setRes(res);
+      changeTogoHandler();
       console.log(navShow);
       console.log(`회원가입 된 사람입니다`);
-      dispatch(
-        login({
-          authenticated: true,
-          userSeq: res.data.user.userSeq,
-          userAccountStatus: res.data.user.userAccountStatus,
-          userCookCategory: res.data.user.userCookCategory,
-          userCreateDate: res.data.user.userCreateDate,
-          userEmail: res.data.user.userEmail,
-          userId: res.data.user.userId,
-          userImg: res.data.user.userImg,
-          userIntroduce: res.data.user.userIntroduce,
-          userLastLoginDate: res.data.user.userLastLoginDate,
-          userName: res.data.user.userName,
-          userNickname: res.data.user.userNickname,
-          userRoleType: res.data.user.userRoleType,
-          userSnsType: res.data.user.userSnsType,
-          userTemp: res.data.user.userTemp,
-          accessToken: res.headers.authorization,
-        })
-      );
-      console.log(res);
-
-      history.push('/main');
     }
   };
 
