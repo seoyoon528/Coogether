@@ -80,8 +80,12 @@ public class CookingRoomService {
 
         if (userJoinLists.size() < 6) {
             for (UserJoinList joinList : userJoinLists) {
-                if (joinList.getUser().getUserSeq() == userSeq)
+                if (joinList.getUser().getUserSeq().equals(userSeq)){
+                    System.out.println("joinList.getUser().getUserSeq() = " + joinList.getUser().getUserSeq());
+                    System.out.println("userSeq = " + userSeq);
+                    System.out.println("같음");
                     return false;
+                }
             }
             CookingRoom cookingRoom = cookingRoomRepository.findByCookingRoomId(cookingRoomId);
             User user = userRepository.findByUserSeq(userSeq);
