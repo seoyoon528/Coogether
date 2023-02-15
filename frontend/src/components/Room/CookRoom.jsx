@@ -763,10 +763,10 @@ class CookRoom extends Component {
 
     return (
       <>
-        <CheckUserNum
+        {/* <CheckUserNum
           userNum={this.state.subscribers.length + 1}
           thisRoom={this.props.roomId}
-        />
+        /> */}
         {this.state.killPopup && (
           <div>
             <Modal
