@@ -20,6 +20,8 @@ function MyIngredients({
   sumbitIngredient,
   favIngredient,
   myFridge,
+  onFavFridge,
+  onFridge,
 }) {
   const [visible, setVisible] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
@@ -245,6 +247,8 @@ function MyIngredients({
         <AllMyIrngredientsModal
           fridge={fridge}
           myFridge={myFridge}
+          onFavFridge={onFavFridge}
+          onFridge={onFridge}
           isopen={isOpen}
           onClose={() => {
             setIsOpen(false);
