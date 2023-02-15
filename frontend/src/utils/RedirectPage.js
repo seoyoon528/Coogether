@@ -26,7 +26,7 @@ function RedirectPage({ onChangeShow, isShow }) {
 
   const dispatch = useDispatch();
   const changeTogoHandler = () => {
-    onChangeShow();
+    // onChangeShow();
     setIschangeTogo(true);
   };
   // useEffect(() => {
@@ -66,7 +66,7 @@ function RedirectPage({ onChangeShow, isShow }) {
 
       history.push('/main');
     }
-  }, [ischangeTogo, isShow]);
+  }, [ischangeTogo]);
 
   // 쿼리스트링을 백엔드에 송신
   const [isRegistered, setIsregisterd] = useState(true);
