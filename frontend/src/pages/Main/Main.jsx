@@ -64,6 +64,7 @@ function Main({ onChangeShow }, isShow) {
   useEffect(() => {
     getData();
     // nav와 bottom 이 없을 시, 다시 생성함
+    console.log(isShow);
     if (!isShow) {
       onChangeShow();
     }
