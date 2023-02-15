@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // MUI 설정
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { useTheme, StyledEngineProvider } from '@mui/material/styles';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -26,23 +24,13 @@ function RedirectPage({ onChangeShow, isShow }) {
 
   const dispatch = useDispatch();
   const changeTogoHandler = () => {
-    // onChangeShow();
     setIschangeTogo(true);
   };
-  // useEffect(() => {
-  //   // onChangeShow();
-  //   console.log('실행됨');
-  //   console.log(navShow);
-  //   if (isShow) {
-  //     onChangeShow();
-  //     setNavShow(!isShow);
-  //   } else {
-  //     setNavShow(isShow);
-  //   }
-  // }, [isShow]);
+
   useEffect(() => {
     if (ischangeTogo) {
       dispatch(
+        // 로그인 정보 입력
         login({
           authenticated: true,
           userSeq: res.data.user.userSeq,
@@ -62,7 +50,6 @@ function RedirectPage({ onChangeShow, isShow }) {
           accessToken: res.headers.authorization,
         })
       );
-      console.log(res);
 
       history.push('/main');
     }
@@ -71,9 +58,9 @@ function RedirectPage({ onChangeShow, isShow }) {
   // 쿼리스트링을 백엔드에 송신
   const [isRegistered, setIsregisterd] = useState(true);
   const [userInfo, setUserInfo] = useState({
-    id: '', // /user/login의 response로 넘어온 "user" : {"userId": "KAKAO_2309429382o348"}
-    name: '', // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
-    email: '', // /user/login의 response로 넘어온 "user" : {"userEmail": "5120a@naver.com"}
+    id: '', // /user/login의 response로 넘어온 "user" : {"userId": ""}
+    name: '', // /user/login의 response로 넘어온 "user" : {"userName": ""}
+    email: '', // /user/login의 response로 넘어온 "user" : {"userEmail": ""}
     nickname: '',
     profileImg: '',
     userIntroduce: '안녕하세요 000입니다.',
@@ -81,6 +68,7 @@ function RedirectPage({ onChangeShow, isShow }) {
   });
   const [userImg, setUserImg] = useState('');
   const [nickName, setNickName] = useState('');
+  const [rep, setRep] = useState(null);
   const [prefer, setPrefer] = useState([]);
   const preferCookArr = [
     ['한식', 'KOREAN'],
@@ -98,7 +86,6 @@ function RedirectPage({ onChangeShow, isShow }) {
   };
   const nickNameHandler = e => {
     setNickName(e.target.value);
-    console.log(userImg);
   };
   const preferHandler = e => {
     setPrefer(
@@ -107,16 +94,15 @@ function RedirectPage({ onChangeShow, isShow }) {
   };
   const submitRegister = async () => {
     const userFormPayload = {
-      id: userInfo.data.user.userId, // /user/login의 response로 넘어온 "user" : {"userId": "KAKAO_2309429382o348"}
-      name: userInfo.data.user.userName, // /user/login의 response로 넘어온 "user" : {"userName": "박서윤"}
-      email: userInfo.data.user.userEmail, // /user/login의 response로 넘어온 "user" : {"userEmail": "5120a@naver.com"}
+      id: userInfo.data.user.userId, // /user/login의 response로 넘어온 "user" : {"userId": ""}
+      name: userInfo.data.user.userName, // /user/login의 response로 넘어온 "user" : {"userName": ""}
+      email: userInfo.data.user.userEmail, // /user/login의 response로 넘어온 "user" : {"userEmail": ""}
       nickname: nickName,
       profileImg: '',
       userIntroduce: `안녕하세요 ${userInfo.data.user.userName}입니다.`,
       userCookCategory: prefer[1],
     };
-    console.log(userFormPayload);
-    // 이석훈 - 로컬 작업으로만 진행하기 때문에 merge때 배포 주소로 바꿀것
+
     // formdata에 전송할 데이터 담기
     const formData = new FormData();
     formData.append(
@@ -135,25 +121,19 @@ function RedirectPage({ onChangeShow, isShow }) {
       data: formData,
     };
     try {
-      const submitUserForm = await axios(requestInfo);
-      console.log(submitUserForm);
-
+      const req = await axios(requestInfo);
+      setRep(req);
       setisModalOpen('회원가입이 완료되었습니다');
     } catch (err) {
       setisModalOpen('회원가입 중 오류가 발생했습니다. 다시 시도해 주세요');
-      console.log(err);
     }
   };
-
-  const theme = useTheme();
 
   const checkRegister = async () => {
     const code = new URL(window.location.href).searchParams.get('code');
     const res = await axios.get(
-      // `http://localhost:9000/user/login?code=${code}`
       `https://i8b206.p.ssafy.io:9000/api/user/login?code=${code}`
     );
-    console.log(res.data.user.userNickname);
     // loginsuccess false이면
     if (!res.data.loginSuccess) {
       setIsregisterd(false);
@@ -164,8 +144,6 @@ function RedirectPage({ onChangeShow, isShow }) {
     } else {
       setRes(res);
       changeTogoHandler();
-      console.log(navShow);
-      console.log(`회원가입 된 사람입니다`);
     }
   };
 
@@ -253,7 +231,6 @@ function RedirectPage({ onChangeShow, isShow }) {
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
               renderValue={selected => {
-                console.log(selected);
                 if (selected === undefined) {
                   return <em>선호 분야를 선택해주세요</em>;
                 }
