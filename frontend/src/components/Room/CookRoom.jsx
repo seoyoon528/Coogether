@@ -292,8 +292,7 @@ class CookRoom extends Component {
       this.leaveSession();
       alert('로그인이 필요합니다. 로그인 이후 이용해주세요');
       window.location = '/Main';
-    }
-    if (this.state.enteredNum === -1 && subscribers.length > 5) {
+    } else if (this.state.enteredNum === -1 && subscribers.length > 5) {
       this.leaveSession();
       alert('방 인원이 초과되어 입장이 불가능합니다. 다른 방을 이용해주세요:)');
       window.location = '/Main';
@@ -736,7 +735,8 @@ class CookRoom extends Component {
   }
   // 캐러셀 이후 사람들
   afterVideo() {
-    if (this.state.carouselIdx < (this.state.subscribers.length + 1) / 2 - 1) {
+    // this.state.subscribers.length+1에서 +1을 뺌. 오류시 다시 복구
+    if (this.state.carouselIdx < this.state.subscribers.length / 2 - 1) {
       this.setState({ carouselIdx: this.state.carouselIdx + 1 });
     }
   }
