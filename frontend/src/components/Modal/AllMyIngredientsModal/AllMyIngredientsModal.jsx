@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 // MUI
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
@@ -11,15 +11,21 @@ import { Circle, Button } from './AllMyIngredientsModalStyle';
 // Style
 import './AllMyIngredientsModal.scss';
 
-function AllMyIngredientsModal({ onClose, fridge }) {
+function AllMyIngredientsModal({
+  onClose,
+  fridge,
+  myFridge,
+  onFavFridge,
+  onFridge,
+}) {
   // useState
   const [visible, setVisible] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
-  const [favIngre, setFavIngre] = useState([]);
-  const [myFridge, setMyFridge] = useState([]);
-  const [isFavPatched, setIsFavPatched] = useState(false);
-  const [isMyIngrePatched, setIsMyIngrePatched] = useState(false);
+  const [isPatched, setIsPatched] = useState(false);
+  // const [favIngre, setFavIngre] = useState([]);
+  // const [isFavPatched, setIsFavPatched] = useState(false);
+  // const [isMyIngrePatched, setIsMyIngrePatched] = useState(false);
 
   // function
   const handleClick = () => {
@@ -34,51 +40,51 @@ function AllMyIngredientsModal({ onClose, fridge }) {
   };
 
   // Redux
-  const accessToken = useSelector(state => state.user.accessToken);
-  const isLogin = useSelector(state => state.user.userSeq);
+  // const accessToken = useSelector(state => state.user.accessToken);
+  // const isLogin = useSelector(state => state.user.userSeq);
 
-  // 즐겨찾기 patch
-  const favIngredient = i => {
-    const inorOutIngredient = async target => {
-      const sendIngredient = await axios.patch(
-        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
-        `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      if (!isFavPatched) {
-        setIsFavPatched(true);
-      }
-      setFavIngre([...sendIngredient.data.map(v => v)]);
-    };
-    inorOutIngredient(i.ingredientId);
-  };
+  // // 즐겨찾기 patch
+  // const favIngredient = i => {
+  //   const inorOutIngredient = async target => {
+  //     const sendIngredient = await axios.patch(
+  //       // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
+  //       `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       }
+  //     );
+  //     if (!isFavPatched) {
+  //       setIsFavPatched(true);
+  //     }
+  //     setFavIngre([...sendIngredient.data.map(v => v)]);
+  //   };
+  //   inorOutIngredient(i.ingredientId);
+  // };
 
-  // 내 냉장고 patch
-  const sumbitIngredient = f => {
-    const inorOutIngredient = async target => {
-      console.log(target);
-      const sendIngredient = await axios.patch(
-        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${target}`,
-        `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      if (!isMyIngrePatched) {
-        setIsMyIngrePatched(true);
-      }
-      setMyFridge([...sendIngredient.data.map(v => v)]);
-    };
-    inorOutIngredient(f.ingredientId);
-  };
+  // // 내 냉장고 patch
+  // const sumbitIngredient = f => {
+  //   const inorOutIngredient = async target => {
+  //     console.log(target);
+  //     const sendIngredient = await axios.patch(
+  //       // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${target}`,
+  //       `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       }
+  //     );
+  //     if (!isMyIngrePatched) {
+  //       setIsMyIngrePatched(true);
+  //     }
+  //     setMyFridge([...sendIngredient.data.map(v => v)]);
+  //   };
+  //   inorOutIngredient(f.ingredientId);
+  // };
 
   // Component
   const afterPatch = myFridge.map(f => {
@@ -97,7 +103,7 @@ function AllMyIngredientsModal({ onClose, fridge }) {
           <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
-                favIngredient(f.ingredient);
+                onFavFridge(f.ingredient);
                 setVisible(!visible);
               }}
             >
@@ -105,8 +111,9 @@ function AllMyIngredientsModal({ onClose, fridge }) {
             </Button>
             <Button
               onClick={() => {
-                sumbitIngredient(f.ingredient);
+                onFridge(f.ingredient);
                 setVisible(!visible);
+                setIsPatched(true);
               }}
             >
               <KitchenRoundedIcon style={{ fontSize: '20px' }} />
@@ -133,7 +140,7 @@ function AllMyIngredientsModal({ onClose, fridge }) {
           <div style={{ display: 'flex' }}>
             <Button
               onClick={() => {
-                favIngredient(i.ingredient);
+                onFavFridge(i.ingredient);
                 setVisible(!visible);
               }}
             >
@@ -141,8 +148,9 @@ function AllMyIngredientsModal({ onClose, fridge }) {
             </Button>
             <Button
               onClick={() => {
-                sumbitIngredient(i.ingredient);
+                onFridge(i.ingredient);
                 setVisible(!visible);
+                setIsPatched(true);
               }}
             >
               <KitchenRoundedIcon style={{ fontSize: '20px' }} />
@@ -164,7 +172,7 @@ function AllMyIngredientsModal({ onClose, fridge }) {
         />
         <div className="container">
           <div className="shelves" />
-          {myFridge.length > 0 ? afterPatch : fridgeIngredient}
+          {isPatched ? afterPatch : fridgeIngredient}
         </div>
       </div>
     </div>
