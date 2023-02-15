@@ -19,6 +19,10 @@ function Login({ onChangeShow }) {
   useEffect(() => {
     onChangeShow();
   }, []);
+  if (isLogin) {
+    history.push('/Main');
+    onChangeShow();
+  }
 
   return (
     <L.loginBackground>

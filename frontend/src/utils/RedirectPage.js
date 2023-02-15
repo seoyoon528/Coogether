@@ -25,6 +25,7 @@ function RedirectPage({ onChangeShow, isShow }) {
     console.log('실행됨');
     console.log(navShow);
     if (isShow) {
+      onChangeShow();
       setNavShow(!isShow);
     } else {
       setNavShow(isShow);
