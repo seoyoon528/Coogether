@@ -18,13 +18,11 @@ function AllMyIngredientsModal({
   onFavFridge,
   onFridge,
 }) {
-  console.log(onFavFridge);
-  console.log(onFridge);
-
   // useState
   const [visible, setVisible] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
+  const [isPatched, setIsPatched] = useState(false);
   // const [favIngre, setFavIngre] = useState([]);
   // const [isFavPatched, setIsFavPatched] = useState(false);
   // const [isMyIngrePatched, setIsMyIngrePatched] = useState(false);
@@ -115,6 +113,7 @@ function AllMyIngredientsModal({
               onClick={() => {
                 onFridge(f.ingredient);
                 setVisible(!visible);
+                setIsPatched(true);
               }}
             >
               <KitchenRoundedIcon style={{ fontSize: '20px' }} />
@@ -151,6 +150,7 @@ function AllMyIngredientsModal({
               onClick={() => {
                 onFridge(i.ingredient);
                 setVisible(!visible);
+                setIsPatched(true);
               }}
             >
               <KitchenRoundedIcon style={{ fontSize: '20px' }} />
@@ -172,7 +172,7 @@ function AllMyIngredientsModal({
         />
         <div className="container">
           <div className="shelves" />
-          {myFridge.length > 0 ? afterPatch : fridgeIngredient}
+          {isPatched ? afterPatch : fridgeIngredient}
         </div>
       </div>
     </div>

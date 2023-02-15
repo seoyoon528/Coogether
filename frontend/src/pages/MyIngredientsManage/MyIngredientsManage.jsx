@@ -81,25 +81,28 @@ function MyIngredientsManage() {
     inorOutIngredient(i.ingredientId);
   };
 
-  const onFavFridge = useCallback(i => {
-    const inorOutIngredient = async target => {
-      const sendIngredient = await axios.patch(
-        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
-        `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+  const onFavFridge = useCallback(
+    i => {
+      const inorOutIngredient = async target => {
+        const sendIngredient = await axios.patch(
+          // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
+          `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        if (!isFavPatched) {
+          setIsFavPatched(true);
         }
-      );
-      if (!isFavPatched) {
-        setIsFavPatched(true);
-      }
-      setFavIngre([...sendIngredient.data.map(v => v)]);
-    };
-    inorOutIngredient(i.ingredientId);
-  }, []);
+        setFavIngre([...sendIngredient.data.map(v => v)]);
+      };
+      inorOutIngredient(i.ingredientId);
+    },
+    [isLogin]
+  );
 
   // 즐겨찾기 api
   useEffect(() => {
@@ -160,20 +163,6 @@ function MyIngredientsManage() {
         setIsMyIngrePatched(true);
       }
       setMyFridge([...sendIngredient.data.map(v => v)]);
-
-      // const inorOutIngredient = async target => {
-      //   const sendIngredient = await axios.patch(
-      //     `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${target}`,
-      //     // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
-      //     {},
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ${accessToken}`,
-      //       },
-      //     }
-      //   );
-      // };
-      // inorOutIngredient(f.ingredientId);
     },
     [accessToken, isLogin]
   );
