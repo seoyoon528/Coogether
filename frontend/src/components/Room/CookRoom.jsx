@@ -293,7 +293,7 @@ class CookRoom extends Component {
       alert('로그인이 필요합니다. 로그인 이후 이용해주세요');
       window.location = '/Main';
     }
-    if (this.state.enteredNum === -1 && subscribers.length > 4) {
+    if (this.state.enteredNum === -1 && subscribers.length > 5) {
       this.leaveSession();
       alert('방 인원이 초과되어 입장이 불가능합니다. 다른 방을 이용해주세요:)');
       window.location = '/Main';
