@@ -76,7 +76,7 @@ public class CookingRoomService {
         UserJoinList userJoinList = new UserJoinList();
         List<UserJoinList> userJoinLists = userJoinListRepository.findByCookingRoomCookingRoomId(cookingRoomId);
         for (UserJoinList joinList : userJoinLists) {
-            if (joinList.getUser().getUserSeq() == userSeq)
+            if (joinList.getUser().getUserSeq().equals(userSeq))
                 return false;
         }
 
@@ -115,7 +115,7 @@ public class CookingRoomService {
             int count = 0;
             for (IngredientList il : ingredientLists) {
                 for (MyIngredientManage mig : myIngredientManageList) {
-                    if (il.getIngredient().getIngredientId() == mig.getIngredient().getIngredientId() && mig.getMyIngredientManageFlag() == EnumMyIngredientManageFlag.IN) {
+                    if (il.getIngredient().getIngredientId().equals(mig.getIngredient().getIngredientId()) && mig.getMyIngredientManageFlag() == EnumMyIngredientManageFlag.IN) {
                         EnumIngredientCategory ingredientCategory = il.getIngredient().getIngredientCategory();
 
                         if (ingredientCategory == EnumIngredientCategory.MEAT || ingredientCategory == EnumIngredientCategory.SEAFOOD || ingredientCategory == EnumIngredientCategory.NOODLE || ingredientCategory == EnumIngredientCategory.KIMCHI) {
@@ -136,8 +136,7 @@ public class CookingRoomService {
         Collections.sort(cookingRoomCountDtos);
         System.out.println(cookingRoomCountDtos.size());
         if (cookingRoomCountDtos.size() > 10) {
-            List<CookingRoomCountDto> cookingRoomCountDtosSubTen = cookingRoomCountDtos.subList(0, 10);
-            return cookingRoomCountDtosSubTen;
+            return cookingRoomCountDtos.subList(0, 10);
         }
         return cookingRoomCountDtos;
     }
@@ -152,8 +151,7 @@ public class CookingRoomService {
         }
 
         if (cookingRoomDtoList.size() > 10) {
-            List<CookingRoomDto> cookingRoomsTop10 = cookingRoomDtoList.subList(0, 10);
-            return cookingRoomsTop10;
+            return cookingRoomDtoList.subList(0, 10);
         }
 
         return cookingRoomDtoList;
@@ -175,8 +173,7 @@ public class CookingRoomService {
         }
 
         if (cookingRoomList.size() > 10) {
-            List<CookingRoomDto> cookingRoomListTop10 = cookingRoomDtoList.subList(0, 10);
-            return cookingRoomListTop10;
+            return cookingRoomDtoList.subList(0, 10);
         }
 
         return cookingRoomDtoList;
