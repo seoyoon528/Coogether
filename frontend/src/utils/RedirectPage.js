@@ -66,7 +66,7 @@ function RedirectPage({ onChangeShow, isShow }) {
 
       history.push('/main');
     }
-  }, [ischangeTogo]);
+  }, [ischangeTogo, isShow]);
 
   // 쿼리스트링을 백엔드에 송신
   const [isRegistered, setIsregisterd] = useState(true);
