@@ -71,7 +71,7 @@ public class CookingRoomController {
     }
 
     @ApiOperation(value = "요리방 입장 (대기방)")
-    @GetMapping("/room/{cookingRoomId}/{userSeq}")
+    @PostMapping("/room/{cookingRoomId}/{userSeq}")
     public ResponseEntity enterCookingRoom(@PathVariable("cookingRoomId") Long cookingRoomId, @PathVariable("userSeq") Long userSeq) {
 
         Boolean check = cookingRoomService.addUserJoin(userSeq, cookingRoomId);
