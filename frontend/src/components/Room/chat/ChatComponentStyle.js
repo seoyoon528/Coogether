@@ -240,6 +240,20 @@ export const UserLen = styled.div`
   /* or 110% */
   text-align: center;
 `;
+export const Notice = styled.div`
+  margin: 0 0 2vh 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2vh;
+  line-height: 2vh;
+  color: #000000;
+  /* or 110% */
+  text-align: center;
+  padding: 0.6vh 0.6vw;
+  background: rgba(254, 189, 47, 0.5);
+  border-radius: 3px;
+`;
 export const MsgWrap = styled.div`
   width: 100%;
   height: 65%;

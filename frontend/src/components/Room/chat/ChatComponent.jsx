@@ -23,6 +23,7 @@ export default class ChatComponent extends Component {
       recipeName: '',
       isHost: false,
       accessToken: '',
+      cookingRoomNotice: ',',
     };
     this.chatScroll = React.createRef();
 
@@ -87,6 +88,7 @@ export default class ChatComponent extends Component {
     );
 
     this.setState({
+      cookingRoomNotice: res.data.cookingRoomNotice,
       cookingRoomName: res.data.cookingRoomName,
       recipeName: res.data.recipe.recipeName,
       // 방 생성 유저와 현재 유저를 비교하여, 방장인지 파악
@@ -271,6 +273,7 @@ export default class ChatComponent extends Component {
                 <C.UserLen>
                   참가자 ({this.props.remoteUsers.length + 1})
                 </C.UserLen>
+                <C.Notice>{this.state.cookingRoomNotice}</C.Notice>
                 <C.MsgWrap ref={this.chatScroll}>
                   {this.state.messageList.map((data, i) => (
                     <div

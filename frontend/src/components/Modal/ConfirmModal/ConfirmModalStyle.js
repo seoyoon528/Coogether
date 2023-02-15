@@ -11,6 +11,16 @@ export const ReportTitle = styled.div`
   text-align: center;
   margin-bottom: 4vh;
 `;
+export const ReportSub = styled.div`
+  font-family: 'Pretendard Variable';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4vw;
+  width: 100%;
+  color: #505050;
+  text-align: center;
+  margin-bottom: 4vh;
+`;
 export const FormBox = styled.div`
   width: 100%;
   height: 100%;
