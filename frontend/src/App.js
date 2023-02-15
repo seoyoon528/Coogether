@@ -17,7 +17,6 @@ import RedirectPage from './utils/RedirectPage';
 import Footer from './components/Nav/Footer';
 import FloatBtn from './components/Btn/FloatBtn/FloatBtn';
 import NotFound from './pages/NotFound/NotFound';
-import Baby from './pages/DUMMY/Baby';
 
 function App() {
   const [isShow, setIsShow] = useState(true);
@@ -33,11 +32,8 @@ function App() {
     <div style={{ position: 'relative' }}>
       {isShow && <Nav />}
       <Switch>
-        {/* <Route path="/" exact>
-          <Redirect to="/Main" />
-        </Route> */}
         <Route path="/" exact>
-          <Baby onChangeShow={onChangeShow} />
+          <Redirect to="/Main" />
         </Route>
         <Route path="/Main" exact>
           <Route component={Main} onChangeShow={onChangeShow} isShow={isShow} />
