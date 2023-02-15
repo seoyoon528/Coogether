@@ -28,6 +28,7 @@ export default class StreamComponent extends Component {
 
   killUser() {
     this.props.killUser(this.state.nickname);
+    this.props.killPopup();
   }
   handleChange(event) {
     this.setState({ nickname: event.target.value });

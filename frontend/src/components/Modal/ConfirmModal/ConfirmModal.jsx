@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import * as R from './ConfirmModalStyle';
 
-function ConfirmModal({ info, onChangeShow, navShow }) {
+function ConfirmModal({ info, onChangeShow, navShow, isReport, killPopup }) {
   const params = useLocation();
 
   const history = useHistory();
@@ -22,14 +22,22 @@ function ConfirmModal({ info, onChangeShow, navShow }) {
 
       <R.ReportBtn
         onClick={() => {
-          if (!navShow) {
+          if (info === '신고가 정상적으로 접수되었습니다') {
+            isReport(false);
+          } else if (info[info.length - 4] === '냈') {
+            killPopup();
+          } else if (!navShow) {
             onChangeShow();
+            history.push('/main');
           }
-          history.push('/main');
         }}
         style={{ background: '#FEBD2F' }}
       >
-        홈으로 가기
+        {info === '신고가 정상적으로 접수되었습니다'
+          ? '나가기'
+          : info[info.length - 4] === '냈'
+          ? '확인'
+          : '홈으로 가기'}
       </R.ReportBtn>
     </R.FormBox>
   );
