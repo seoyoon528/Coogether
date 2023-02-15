@@ -50,7 +50,7 @@ function MyIngredients({
         >
           <img src={f.ingredient.ingredientIcon} alt="icon" />
         </Circle>
-        <div>{f.ingredient.ingredientName}</div>
+        <div style={{ fontSize: '1.6rem' }}>{f.ingredient.ingredientName}</div>
         {selectIngredientId === f.ingredient.ingredientId && visible && (
           <div style={{ display: 'flex' }}>
             <Button
@@ -88,7 +88,9 @@ function MyIngredients({
           >
             <img src={f.ingredient.ingredientIcon} alt="icon" />
           </Circle>
-          <div>{f.ingredient.ingredientName}</div>
+          <div style={{ fontSize: '1.6rem' }}>
+            {f.ingredient.ingredientName}
+          </div>
           {selectIngredientId === f.ingredient.ingredientId && visible && (
             <div style={{ display: 'flex' }}>
               <Button
@@ -124,7 +126,7 @@ function MyIngredients({
         >
           <img src={f?.ingredient.ingredientIcon} alt="icon" />
         </Circle>
-        <div>{f?.ingredient.ingredientName}</div>
+        <div style={{ fontSize: '1.6rem' }}>{f?.ingredient.ingredientName}</div>
         {selectIngredientId === f?.ingredient.ingredientId && visible && (
           <div style={{ display: 'flex' }}>
             <Button

@@ -39,7 +39,7 @@ function FavoriteIngredients({
         >
           <img src={i.ingredient.ingredientIcon} alt="icon" />
         </Circle>
-        <div>{i.ingredient.ingredientName}</div>
+        <div style={{ fontSize: '1.6rem' }}>{i.ingredient.ingredientName}</div>
         {selectIngredientId === i.ingredient.ingredientId && visible && (
           <div style={{ display: 'flex' }}>
             <Button
@@ -75,7 +75,7 @@ function FavoriteIngredients({
         >
           <img src={i.ingredientIcon} alt="icon" />
         </Circle>
-        <div>{i.ingredientName}</div>
+        <div style={{ fontSize: '1.6rem' }}>{i.ingredientName}</div>
         {selectIngredientId === i.ingredientId && visible && (
           <div style={{ display: 'flex' }}>
             <Button

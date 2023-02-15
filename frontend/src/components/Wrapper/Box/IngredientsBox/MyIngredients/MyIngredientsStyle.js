@@ -76,6 +76,9 @@ export const Circle = styled.button`
 
   position: relative;
 
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+
   & > div {
     width: 100%;
     height: 20%;

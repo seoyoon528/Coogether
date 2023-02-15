@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Contents = styled.div`
   background: #fff8ea;
-  height: 164px;
+  height: 240px;
   margin-bottom: 20px;
   margin-top: 20px;
   padding: 12px;
@@ -46,6 +46,8 @@ export const Circle = styled.button`
   font-size: smaller;
   text-align: center;
   position: relative;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
 
   & > div {
     width: 100%;

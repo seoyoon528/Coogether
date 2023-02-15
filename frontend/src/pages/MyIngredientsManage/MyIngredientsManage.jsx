@@ -279,10 +279,10 @@ function MyIngredientsManage() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={4} md={3}>
+        <Grid item xs={4} md={3} lg={2}>
           <IngredientsBox category={category} onSelect={onSelect} />
         </Grid>
-        <Grid item xs={8} md={6}>
+        <Grid item xs={8} md={6} lg={7}>
           <FavoriteIngredients
             isFavPatched={isFavPatched}
             category={category}
