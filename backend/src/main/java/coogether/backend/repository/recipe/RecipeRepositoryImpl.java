@@ -28,6 +28,7 @@ public class RecipeRepositoryImpl implements  RecipeRepositoryCustom{
         List<SimpleRecipeDto> content = queryFactory
                 .select(new QSimpleRecipeDto(recipe))
                 .from(recipe)
+                .orderBy(recipe.recipeId.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -50,6 +51,7 @@ public class RecipeRepositoryImpl implements  RecipeRepositoryCustom{
                 .select(new QSimpleRecipeDto(recipe))
                 .from(recipe)
                 .where(recipe.recipeName.contains(recipeName))
+                .orderBy(recipe.recipeId.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -68,6 +70,7 @@ public class RecipeRepositoryImpl implements  RecipeRepositoryCustom{
                 .select(new QSimpleRecipeDto(recipe))
                 .from(recipe)
                 .where(recipe.recipeType.eq(EnumRecipeType.CUSTOM))
+                .orderBy(recipe.recipeId.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -85,6 +88,7 @@ public class RecipeRepositoryImpl implements  RecipeRepositoryCustom{
                 .select(new QSimpleRecipeDto(recipe))
                 .from(recipe)
                 .where(recipe.recipeType.eq(EnumRecipeType.BAEK))
+                .orderBy(recipe.recipeId.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -102,6 +106,7 @@ public class RecipeRepositoryImpl implements  RecipeRepositoryCustom{
                 .select(new QSimpleRecipeDto(recipe))
                 .from(recipe)
                 .where(recipe.recipeName.contains(recipeName).and(recipe.recipeType.eq(EnumRecipeType.CUSTOM)))
+                .orderBy(recipe.recipeId.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -120,6 +125,7 @@ public class RecipeRepositoryImpl implements  RecipeRepositoryCustom{
                 .select(new QSimpleRecipeDto(recipe))
                 .from(recipe)
                 .where(recipe.recipeName.contains(recipeName).and(recipe.recipeType.eq(EnumRecipeType.BAEK)))
+                .orderBy(recipe.recipeId.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
