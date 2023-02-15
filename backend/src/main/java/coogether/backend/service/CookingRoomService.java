@@ -79,7 +79,7 @@ public class CookingRoomService {
         List<UserJoinList> userJoinLists = userJoinListRepository.findByCookingRoomCookingRoomId(cookingRoomId);
         System.out.println("유저조인리스트 사이즈 = " + userJoinLists.size());
         // 6명 이하일 때만 참여자 정보 추가하기
-//        if (userJoinLists.size() < 6) {
+        if (userJoinLists.size() < 6) {
             // 이미 동일한 유저가 들어가 있으면 넣지 않는다.
             for (UserJoinList joinList : userJoinLists) {
                 if (joinList.getUser().getUserSeq().equals(userSeq)){
@@ -95,7 +95,7 @@ public class CookingRoomService {
                 userJoinListRepository.save(userJoinList);
                 return true;
             }
-//        }
+        }
         return false;
     }
 
