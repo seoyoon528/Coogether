@@ -129,7 +129,7 @@ function RedirectPage({ onChangeShow, isShow }) {
       if (!navShow) {
         onChangeShow();
       }
-
+      console.log(navShow);
       console.log(`회원가입 된 사람입니다`);
       dispatch(
         login({
