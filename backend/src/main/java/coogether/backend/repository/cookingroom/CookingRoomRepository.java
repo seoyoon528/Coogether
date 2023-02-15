@@ -18,6 +18,6 @@ public interface CookingRoomRepository extends JpaRepository<CookingRoom, Long>,
 
     CookingRoom findByCookingRoomId(Long cookingRoomId);
 
-    @Query("select cr from CookingRoom cr where cr.recipe.recipeCategory = :enumRecipeCategory and cr.cookingRoomStatus = 'EXPECTED' order by cr.cookingRoomStartTime asc")
+    @Query("select cr from CookingRoom cr where TIMEDIFF(cr.cookingRoomStartTime ,now()) > 0 and cr.recipe.recipeCategory = :enumRecipeCategory and cr.cookingRoomStatus = 'EXPECTED' order by cr.cookingRoomStartTime asc")
     List<CookingRoom> findByCookingRoomByUserCook(@Param("enumRecipeCategory") EnumRecipeCategory enumRecipeCategory);
 }
