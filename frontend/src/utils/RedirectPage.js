@@ -77,7 +77,7 @@ function RedirectPage({ onChangeShow, isShow }) {
     nickname: '',
     profileImg: '',
     userIntroduce: '안녕하세요 000입니다.',
-    userCookCategory: '',
+    userCookCategory: 'NONE',
   });
   const [userImg, setUserImg] = useState('');
   const [nickName, setNickName] = useState('');
