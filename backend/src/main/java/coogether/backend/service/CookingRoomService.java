@@ -21,6 +21,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -29,6 +30,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class CookingRoomService {
 
+    private final EntityManager em;
     private final CookingRoomRepository cookingRoomRepository;
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
@@ -88,6 +90,7 @@ public class CookingRoomService {
                 userJoinList.setUser(user);
                 userJoinList.setUserJoinRegTime(LocalDateTime.now());
                 userJoinListRepository.saveAndFlush(userJoinList);
+                em.clear();
                 return true;
             }
         }
