@@ -19,6 +19,11 @@ function ConfirmModal({ info, onChangeShow, navShow, isReport, killPopup }) {
   return (
     <R.FormBox>
       <R.ReportTitle>{info}</R.ReportTitle>
+      {info[info.length - 5] === '광' ? (
+        <R.ReportSub>로그인 후 다양한 요리를 경험해 보세요</R.ReportSub>
+      ) : (
+        ''
+      )}
 
       <R.ReportBtn
         onClick={() => {
@@ -26,9 +31,9 @@ function ConfirmModal({ info, onChangeShow, navShow, isReport, killPopup }) {
             isReport(false);
           } else if (info[info.length - 4] === '냈') {
             killPopup();
-          } else if (info === '회원가입이 완료되었습니다') {
+          } else if (info[info.length - 5] === '광') {
             onChangeShow();
-            history.push('/main');
+            history.push('/Login');
           }
         }}
         style={{ background: '#FEBD2F' }}
@@ -37,7 +42,7 @@ function ConfirmModal({ info, onChangeShow, navShow, isReport, killPopup }) {
           ? '나가기'
           : info[info.length - 4] === '냈'
           ? '확인'
-          : '홈으로 가기'}
+          : '확인'}
       </R.ReportBtn>
     </R.FormBox>
   );

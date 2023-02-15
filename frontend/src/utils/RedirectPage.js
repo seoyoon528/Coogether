@@ -153,7 +153,7 @@ function RedirectPage({ onChangeShow, isShow }) {
       // `http://localhost:9000/user/login?code=${code}`
       `https://i8b206.p.ssafy.io:9000/api/user/login?code=${code}`
     );
-    console.log(res);
+    console.log(res.data.user.userNickname);
     // loginsuccess false이면
     if (!res.data.loginSuccess) {
       setIsregisterd(false);
@@ -199,7 +199,7 @@ function RedirectPage({ onChangeShow, isShow }) {
               }}
             >
               <ConfirmModal
-                info="회원가입이 완료되었습니다"
+                info={`${res.data.user.userNickname} 님과 함께하게 되어 영광입니다!`}
                 onChangeShow={onChangeShow}
                 navShow={navShow}
               />
