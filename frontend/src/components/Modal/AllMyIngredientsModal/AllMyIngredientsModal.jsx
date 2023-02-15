@@ -98,7 +98,7 @@ function AllMyIngredientsModal({
         >
           <img src={f.ingredient.ingredientIcon} alt="icon" />
         </Circle>
-        <div>{f.ingredient.ingredientName}</div>
+        <div style={{ fontSize: '1.6rem' }}>{f.ingredient.ingredientName}</div>
         {selectIngredientId === f.ingredient.ingredientId && visible && (
           <div style={{ display: 'flex' }}>
             <Button
@@ -135,7 +135,7 @@ function AllMyIngredientsModal({
         >
           <img src={i?.ingredient.ingredientIcon} alt="icon" />
         </Circle>
-        <div>{i?.ingredient.ingredientName}</div>
+        <div style={{ fontSize: '1.6rem' }}>{i?.ingredient.ingredientName}</div>
         {selectIngredientId === i?.ingredient.ingredientId && visible && (
           <div style={{ display: 'flex' }}>
             <Button

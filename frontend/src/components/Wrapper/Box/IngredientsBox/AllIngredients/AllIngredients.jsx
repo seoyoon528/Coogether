@@ -58,7 +58,7 @@ function AllIngredients({
         >
           <img src={i.ingredientIcon} alt="icon" />
         </Circle>
-        <div>{i.ingredientName}</div>
+        <div style={{ fontSize: '1.6rem' }}>{i.ingredientName}</div>
         {selectIngredientId === i.ingredientId && visible && (
           <div style={{ display: 'flex' }}>
             <Button
@@ -94,7 +94,7 @@ function AllIngredients({
         >
           <img src={e.ingredientIcon} alt="icon" />
         </Circle>
-        <div>{e.ingredientName}</div>
+        <div style={{ fontSize: '1.6rem' }}>{e.ingredientName}</div>
         {selectIngredientId === e.ingredientId && visible && (
           <div style={{ display: 'flex' }}>
             <Button

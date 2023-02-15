@@ -40,6 +40,8 @@ export const Circle = styled.button`
   font-size: smaller;
   text-align: center;
   position: relative;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
 
   & > div {
     width: 100%;

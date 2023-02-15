@@ -5,6 +5,10 @@ export const CategoriesBlock = styled.div`
   padding: 0.8rem;
   margin: 0 auto;
   display: inline-block;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -18,7 +22,7 @@ export const Categories = styled.div`
   white-space: pre;
   text-decoration: none;
   color: inherit;
-  padding-bottom: 1.7rem;
+  /* padding-bottom: 1.7rem; */
   text-align: center;
 
   &:hover {
@@ -27,7 +31,7 @@ export const Categories = styled.div`
 `;
 
 export const Contents = styled.div`
-  height: 540px;
+  height: 616px;
   background: #fff8ea;
   padding: 10px;
   margin-top: 2rem;

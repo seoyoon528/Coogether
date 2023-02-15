@@ -32,7 +32,7 @@ function SearchIngredient({ searchIngre, favIngredient, sumbitIngredient }) {
               >
                 <img src={i.ingredientIcon} alt="검색아이콘" />
               </Circle>
-              <div>{i.ingredientName}</div>
+              <div style={{ fontSize: '1.6rem' }}>{i.ingredientName}</div>
 
               {selectIngredientId === i.ingredientId && visible && (
                 <div style={{ display: 'flex' }}>
