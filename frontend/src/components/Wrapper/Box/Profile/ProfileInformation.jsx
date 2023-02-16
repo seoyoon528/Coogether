@@ -52,32 +52,37 @@ export default function ProfileInformation(props) {
   const [isInFollowerList, setIsInFollowerList] = useState(false);
 
   // useEffect
+  // 팔로워 수 카운트 및 로그인 유저의 팔로우 여부
   useEffect(() => {
+    let followerCount = 0;
+    let isFollowed = false;
+    let isInfollowerList = false;
     if (followerList.length > 0) {
-      let followerCount = 0;
       followerList.forEach(({ followFlag, followerUser: { userSeq } }) => {
-        // 팔로워 수 카운트
         if (followFlag === 'CONNECT') {
           followerCount += 1;
           if (userSeq === loginUserSeq) {
-            setIsFollowed(true); // 팔로워 여부 저장
+            isFollowed = true;
           }
         }
         if (userSeq === loginUserSeq) {
-          setIsInFollowerList(true); // 팔로워 리스트에 현재 로그인 유저가 있는지 저장
+          isInfollowerList = true;
         }
       });
-      setFollowerCount(followerCount);
     }
-    // following 수 체크
-    if (followingList.length > 0) {
-      setFollowingCount(
-        followingList.filter(({ followFlag }) => {
-          return followFlag === 'CONNECT';
-        }).length
-      );
-    }
-  }, [followerList, followingList, loginUserSeq, profileUserSeq]);
+    setIsFollowed(isFollowed); // 팔로워 여부 저장
+    setIsInFollowerList(isInfollowerList); // 팔로워 리스트에 현재 로그인 유저가 있는지 저장
+    setFollowerCount(followerCount);
+  }, [followerList, loginUserSeq]);
+
+  // following 수 체크
+  useEffect(() => {
+    setFollowingCount(
+      followingList.filter(({ followFlag }) => {
+        return followFlag === 'CONNECT';
+      }).length
+    );
+  }, [followingList]);
 
   // Function
   // 팔로우 함수
