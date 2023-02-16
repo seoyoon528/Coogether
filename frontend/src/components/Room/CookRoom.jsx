@@ -794,7 +794,7 @@ class CookRoom extends Component {
                 }}
               >
                 <ConfirmModal
-                  info={`${this.state.killedUser}를 내보냈습니다`}
+                  info={`${this.state.killedUser}을(를) 내보냈습니다`}
                   killPopup={this.killPopup}
                 />
               </Box>
