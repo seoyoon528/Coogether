@@ -131,7 +131,6 @@ function Profile() {
 
   return (
     <ProfileStyle>
-      {/* {Object.keys(userData).length === 0 && <p>로딩 중!!!!!</p>} */}
       {state.userTemp !== null && (
         <Stack spacing={3} className="profile">
           <UserInfoBox className="user-information-box">

@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Stack } from '@mui/material';
 import * as S from './StreamSwiperStyle';
-import ChefHat from '../../../Rank/ChefHat';
 import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
 import ChefDeco from '../../../../assets/img/chef-deco.png';
 import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
