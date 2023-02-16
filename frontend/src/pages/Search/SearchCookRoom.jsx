@@ -32,7 +32,6 @@ function SearchCookRoom() {
   // entries(배열) => 감지한 DOM 요소들의 인터섹션 상태 정보가 담긴다
   // entries = IntersectionObserverEntry
   const observerHandler = entries => {
-    // console.log(entries);
     const target = entries[0];
     if (
       !endRef.current &&
@@ -65,7 +64,6 @@ function SearchCookRoom() {
     setCookRoom([]);
     setPage(0);
   };
-  // console.log(page);
 
   const getData = useCallback(async () => {
     setLoad(true);
@@ -77,7 +75,6 @@ function SearchCookRoom() {
             : `${SEARCH_URL}/${enterdItme}?page=${page}&size=15`
         }`,
       });
-      // console.log(allCookRoom.data);
       if (page === allCookRoom.data.totalPages) {
         endRef.current = true;
       }
@@ -94,14 +91,12 @@ function SearchCookRoom() {
   useEffect(() => {
     getData();
   }, [enterdItme, page]);
-  // console.log(cookRoom);
 
   const SK = Array.from({ length: 15 }, (_, index) => (
     <Grid item xs={6} md={4} lg={3} key={index}>
       <Skeleton variant="rectangular" width={255} height={216} />
     </Grid>
   ));
-  // console.log(SK);
 
   return (
     <S.CookRoomContainer>

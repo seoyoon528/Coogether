@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-
-import * as S from './streamItemStyle';
-import ChefDeco from '../../../../assets/img/chef-deco.png';
+import { useHistory } from 'react-router-dom';
 
 // Component
 import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
 import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
+
+// Style
+import * as S from './streamItemStyle';
+
+// Image
+import ChefDeco from '../../../../assets/img/chef-deco.png';
 
 function StreamItem({ room }) {
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -19,7 +22,6 @@ function StreamItem({ room }) {
     setIsModalOpened(false);
   };
   const history = useHistory();
-  // CookRoomEnterModal
   const [isCookRoomEnterModalOpened, setIsCookRoomEnterModalOpened] =
     useState(false);
   const userSeq = useSelector(state => {
@@ -43,7 +45,6 @@ function StreamItem({ room }) {
   if (minute < 10) {
     minute = `0${minute}`;
   }
-  // console.log(minute);
   const START = `${hour}:${minute}`;
   return (
     <S.CookRoomItemWrapper>
@@ -91,7 +92,7 @@ function StreamItem({ room }) {
       </S.KingWrapper>
       <S.TagWrapper>
         <div onClick={openModal} aria-hidden>
-          {/* <span>#{recipe.recipeName}</span> */}#{recipe.recipeName}
+          #{recipe.recipeName}
         </div>
         <RecipeDetail
           open={isModalOpened}

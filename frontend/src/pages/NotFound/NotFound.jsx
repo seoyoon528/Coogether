@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+
+// Style
 import * as S from './NotFoundStyle';
 
+// Image
 import egg from '../../assets/img/egg-unscreen.gif';
 import sublogo from '../../assets/img/sublogo.png';
 

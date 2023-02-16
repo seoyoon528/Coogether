@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+
+// Style
 import { StreamContents, StreamContentsInput } from './MakeBasicInfoStyle';
 
 function MakeBasicInfo(props) {

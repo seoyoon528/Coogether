@@ -1,5 +1,9 @@
 import React from 'react';
+
+// Data
 import dummy from './ingredients.json';
+
+// Style
 import {
   CategoriesBlock,
   Categories,

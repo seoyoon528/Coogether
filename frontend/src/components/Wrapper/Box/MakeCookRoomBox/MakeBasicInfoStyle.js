@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 export const StreamContents = styled.div`
   display: flex;
-  /* flex-direction: row; */
   text-align: center;
-  /* margin-bottom: 4rem; */
   margin-bottom: 1rem;
   align-items: center;
   p {
@@ -25,14 +23,6 @@ export const StreamContents = styled.div`
     color: #ffffff;
     font-size: medium;
   }
-
-  /* input {
-    width: 100%;
-    height: 40px;
-    color: inherit;
-    margin-bottom: 1rem;
-    border: 1px solid;
-  } */
 `;
 
 export const StreamContentsInput = styled.input`

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   max-width: 1000px;
   text-align: center;
-  /* z-index: 9999; */
   z-index: ${props => (props.idx ? `${props.percent}` : '9999')};
   position: absolute;
   left: ${props => (props.percent ? `${props.percent}%` : '25%')};
@@ -68,9 +67,5 @@ export const Highlighter = styled.span`
   width: calc(50% - 4px);
   height: calc(100% - 8px);
   border-radius: 30px;
-  /* background: #febd2f; */
   transition: transform 0.25s ease-in-out;
 `;
-
-// 옅은색 fbe3b3
-// 진한색 febd2f
