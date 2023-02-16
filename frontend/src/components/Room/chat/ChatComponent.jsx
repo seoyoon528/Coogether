@@ -2,7 +2,6 @@
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CarouselBtn from '../../Btn/CarouselBtn/CarouselBtn';
-import { useSelector } from 'react-redux';
 import * as C from './ChatComponentStyle';
 
 import axios from 'axios';
@@ -38,10 +37,6 @@ export default class ChatComponent extends Component {
   }
   componentWillMount() {
     this.ingredient();
-    const mapStateToProps = state =>
-      // accessToken: state.user.accessToken,
-      console.log(state);
-    mapStateToProps();
   }
   componentDidMount() {
     this.props.user
@@ -136,7 +131,6 @@ export default class ChatComponent extends Component {
     }
   }
   sendMessage() {
-    console.log(this.props.remoteUsers.map(v => v.nickname));
     if (this.props.user && this.state.message) {
       let message = this.state.message.replace(/ +(?= )/g, '');
       if (message !== '' && message !== ' ') {
@@ -262,13 +256,7 @@ export default class ChatComponent extends Component {
               <C.ChatBox>
                 <C.ChatTitle>
                   {/* 방 이름+ 채팅 */}
-                  <span>
-                    {/* {
-                      this.props.user.getStreamManager().stream.session
-                        .sessionId
-                    } */}
-                    채팅
-                  </span>
+                  <span>채팅</span>
                 </C.ChatTitle>
                 <C.UserLen>
                   참가자 ({this.props.remoteUsers.length + 1})

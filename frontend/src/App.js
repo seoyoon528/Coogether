@@ -19,6 +19,7 @@ import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   const [isShow, setIsShow] = useState(true);
+
   const onChangeShow = () => {
     setIsShow(!isShow);
   };
@@ -35,7 +36,7 @@ function App() {
           <Redirect to="/Main" />
         </Route>
         <Route path="/Main" exact>
-          <Route component={Main} onChangeShow={onChangeShow} isShow={isShow} />
+          <Main component={Main} onChangeShow={onChangeShow} isShow={isShow} />
         </Route>
         <Route path="/Room/:roomId">
           <Room component={Room} onChangeShow={onChangeShow} />
