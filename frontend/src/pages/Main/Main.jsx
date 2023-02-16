@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
+import { useHistory } from 'react-router-dom';
 // 라이브러리
 import axios from 'axios';
 import { Stack } from '@mui/material';
@@ -9,23 +9,21 @@ import Banner from '../../components/Banner/Banner';
 import StreamSwiper from '../../components/Wrapper/Box/StreamBox/StreamSwiper';
 import * as S from './MainStyle';
 
-function Main({ onChangeShow }, isShow) {
+function Main({ onChangeShow, isShow }) {
   const [first, setFirst] = useState([]);
   const [second, setSecond] = useState([]);
   const [third, setThird] = useState([]);
   const [isInFirst, setIsInFirst] = useState(false);
   const [isInSecond, setIsInSecond] = useState(false);
   const [isInThird, setIsInThird] = useState(false);
-
+  const history = useHistory();
   const userSeq = useSelector(state => state.user.userSeq);
   const accessToken = useSelector(state => state.user.accessToken);
 
   const getData = async () => {
     try {
       const secondData = await axios({
-        // 추후 수정
         url: 'https://i8b206.p.ssafy.io:9000/api/room/recommend/starttime',
-        // url: 'https://i8b206.p.ssafy.io:9000/api/room/list?size=5',
       });
       if (secondData.data.length > 0) {
         setIsInSecond(true);
@@ -34,10 +32,8 @@ function Main({ onChangeShow }, isShow) {
       if (userSeq) {
         // 첫번째 데이터
         const firstData = await axios({
-          // 추후 수정
           url: `https://i8b206.p.ssafy.io:9000/api/room/recommend/myingredient/${userSeq}`,
           headers: { Authorization: `Bearer ${accessToken}` },
-          // url: 'https://i8b206.p.ssafy.io:9000/api/room/list?size=5',
         });
         if (firstData.data.length > 0) {
           setIsInFirst(true);
@@ -46,12 +42,9 @@ function Main({ onChangeShow }, isShow) {
 
         // 세번째 데이터
         const thirdData = await axios({
-          // 추후 수정
           url: `https://i8b206.p.ssafy.io:9000/api/room/recommend/usercook/${userSeq}`,
           headers: { Authorization: `Bearer ${accessToken}` },
-          // url: 'https://i8b206.p.ssafy.io:9000/api/room/list?size=5',
         });
-        // console.log(thirdData);
         if (thirdData.data.length > 0) {
           setIsInThird(true);
           setThird(thirdData.data);
@@ -64,11 +57,11 @@ function Main({ onChangeShow }, isShow) {
   useEffect(() => {
     getData();
     // nav와 bottom 이 없을 시, 다시 생성함
-    console.log(isShow);
     if (!isShow) {
       onChangeShow();
     }
   }, [isShow]);
+
   return (
     <>
       <Banner />
