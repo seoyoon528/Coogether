@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import * as S from './StreamComponentStyle';
+import './StreamComponent.css';
+
 import OvVideoComponent from './OvVideo';
 
 export default class StreamComponent extends Component {
@@ -86,6 +88,13 @@ export default class StreamComponent extends Component {
                 <S.CamMicIcon>음소거</S.CamMicIcon>
               ) : null}
             </S.StatusIcons>
+            {/* 음소거 선택 */}
+            {/* {!this.props.user.isLocal() && (
+              <S.ControlIcon onClick={this.toggleSound}>
+                {this.state.mutedSound ? 'Mute' : 'Sound On'}
+              </S.ControlIcon>
+            )} */}
+            {/* 강퇴 */}
 
             <S.NickName>{this.props.user.getNickname()}</S.NickName>
           </S.StreamComponent>

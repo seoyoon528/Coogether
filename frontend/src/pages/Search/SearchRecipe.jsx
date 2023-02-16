@@ -38,6 +38,7 @@ function SearchRecipe() {
   // entries(배열) => 감지한 DOM 요소들의 인터섹션 상태 정보가 담긴다
   // entries = IntersectionObserverEntry
   const observerHandler = entries => {
+    // console.log(entries);
     const target = entries[0];
     if (
       !endRef.current &&
@@ -48,7 +49,8 @@ function SearchRecipe() {
       setPage(prev => prev + 1);
     }
   };
-
+  // console.log(preventObserverRef.current);
+  // console.log(endRef.current);
   // threshold 대상 요소 (observer) 가 지정된 위치에서 0.5 %만 보여도 콜백이 호출됨
   useEffect(() => {
     const observer = new IntersectionObserver(observerHandler, {
@@ -84,6 +86,7 @@ function SearchRecipe() {
     setPage(0);
     endRef.current = false;
   };
+  // console.log(page);
 
   // HTTP 요청 보내야 함
   // 비동기 요청 보내기
@@ -104,6 +107,7 @@ function SearchRecipe() {
             : `${LIST_URL}?page=${page}&size=15`
         }`,
       });
+      console.log(allRecepi);
       if (allRecepi.data.content.length === 0) {
         setLoad(false);
         return;
@@ -162,6 +166,8 @@ function SearchRecipe() {
             index={1}
           />
         </S.BtnContainer>
+        {/* <button onClick={baekChangeHandler}>커스텀</button>
+        <button onClick={customChangeHandler}>백종원</button> */}
         <RecipeBoxList recepi={recepi} />
         {/* 스켈레톤 */}
         {load && (

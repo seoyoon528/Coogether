@@ -4,6 +4,7 @@ import { StreamContents, StreamContentsInput } from './MakeTimeInputStyle';
 function MakeBasicInfo(props) {
   const { setStreamTime } = props;
 
+  const [inputTime, setInputTime] = useState('');
   const time = new Date();
   const YEAR = time.getFullYear();
   let MONTH = time.getMonth() + 1;
@@ -26,7 +27,13 @@ function MakeBasicInfo(props) {
     const T = `${YEAR}-${MONTH}-${DAY}T${hour}:${minute}:00`;
     setStreamTime(T);
   }, [hour, minute]);
+  const setTimeHandler = () => {};
+  // console.log(hour);
+  // console.log(minute);
 
+  // const HOUR = time.getHours();
+  // const MINUTE = time.getMinutes();
+  // console.log(T);
   return (
     <>
       <StreamContents>

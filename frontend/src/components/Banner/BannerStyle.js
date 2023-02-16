@@ -25,12 +25,10 @@ export const TitleContainer = styled.div`
 
   .mainTitle {
     font-family: 'GmarketSans Bold';
-    margin-bottom: 0.8rem;
   }
 
   .subTitle {
     font-family: 'GmarketSans Bold';
-    margin-bottom: 2rem;
   }
 
   & p {

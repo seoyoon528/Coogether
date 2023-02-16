@@ -14,6 +14,9 @@ export const FotterBlock = styled.div`
 `;
 
 export const FotterPlace = styled.div`
+  /* position: fixed; */
+  /* bottom: 0;
+  left: 0; */
   width: 100%;
   height: 50px;
   margin: 0;

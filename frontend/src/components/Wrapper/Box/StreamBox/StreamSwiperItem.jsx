@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
-// MUI
 import { Stack } from '@mui/material';
-
-// Component
-import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
-import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
-
-// Image
-import ChefDeco from '../../../../assets/img/chef-deco.png';
-
-// Style
 import * as S from './StreamSwiperStyle';
+import ChefHat from '../../../Rank/ChefHat';
+import CookRoomEnterModal from '../../../Modal/CookRoomEnterModal/CookRoomEnterModal';
+import ChefDeco from '../../../../assets/img/chef-deco.png';
+import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
 
 function StreamSwiperItem(props) {
   const [isModalOpened, setIsModalOpened] = useState(false);

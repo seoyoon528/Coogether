@@ -22,6 +22,7 @@ export const Categories = styled.div`
   white-space: pre;
   text-decoration: none;
   color: inherit;
+  /* padding-bottom: 1.7rem; */
   text-align: center;
 
   &:hover {

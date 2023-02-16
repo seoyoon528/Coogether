@@ -1,9 +1,6 @@
 import React, { useRef } from 'react';
-
-// MUI
 import SearchIcon from '@mui/icons-material/Search';
 
-// Style
 import * as S from './SearchBoxStyle';
 
 // 레시피랑 요리방을 검색하는 네모난 박스만 만들 예정

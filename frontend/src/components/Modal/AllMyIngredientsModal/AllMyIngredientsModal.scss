@@ -5,6 +5,12 @@
   #{$mixin}: $i;
 }
 
+// body {
+//   font-family: 'Open Sans', sans-serif;
+//   font-size: 13px;
+//   //   background-color: lighten($cyan, 5);
+// }
+
 /* END DEFAULTS */
 .Overlay {
   position: fixed;
@@ -22,6 +28,7 @@
   width: 500px;
   height: 500px;
   border-radius: 50%;
+  //   background-color: $cyan;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -69,6 +76,7 @@
     border-bottom: 2px solid rgba(white, 0.6);
     position: fixed;
     height: 100%;
+    // overflow: hidden;
 
     &:before,
     &:after {

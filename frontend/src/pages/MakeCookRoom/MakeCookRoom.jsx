@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Box } from '@mui/material';
 
-import { Background, H3 } from './MakeCookRoomStyle';
+import { Background, H3, Button } from './MakeCookRoomStyle';
 
 import MakeBasicInfo from '../../components/Wrapper/Box/MakeCookRoomBox/MakeBasicInfo';
 import MakeDetailInfo from '../../components/Wrapper/Box/MakeCookRoomBox/MakeDetailInfo';
@@ -34,6 +34,7 @@ function MakeCoomRoom() {
   const onClickButton = () => {
     setIsOpen(true);
   };
+  // console.log(new Date());
   const roomSubmitHandler = async () => {
     const sendingData = {
       cookingRoomName: streamName,
@@ -47,6 +48,8 @@ function MakeCoomRoom() {
       new Blob([JSON.stringify(sendingData)], { type: 'application/json' })
     );
     formData.append('file', cookImage);
+    // console.log(cookImage.Js);
+    // console.log(streamName, streamTime, cookImage, announce, selectRecipe);
     try {
       const postData = await axios({
         url: `https://i8b206.p.ssafy.io:9000/api/room/create/${userSeq}/${selectRecipe.recipeId}`,
@@ -57,6 +60,7 @@ function MakeCoomRoom() {
         },
         data: formData,
       });
+      // console.log(postData.data);
       history.push(`/Room/${postData.data}`);
     } catch (error) {
       console.log(error);
@@ -81,6 +85,7 @@ function MakeCoomRoom() {
             name="만들기"
             onClick={onClickButton}
           />
+          {/* <Button onClick={onClickButton}>생성 완료</Button> */}
           {isOpen && (
             <StreamModal
               open={isOpen}

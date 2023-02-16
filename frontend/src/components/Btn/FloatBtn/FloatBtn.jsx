@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
-// MUI
 import { SpeedDial, SpeedDialAction } from '@mui/material';
 import VideoCameraBackTwoToneIcon from '@mui/icons-material/VideoCameraBackTwoTone';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import Backdrop from '@mui/material/Backdrop';
+import { Link } from 'react-router-dom';
 
 function FloatBtn() {
   // 플로팅
@@ -42,12 +40,15 @@ function FloatBtn() {
           position: 'fixed',
           bottom: 48,
           right: 48,
-
+          // '.MuiButtonBase-root': { backgroundColor: '#FEBD2F' },
           '.MuiFab-root': { backgroundColor: '#FEBD2F' },
           '.MuiSpeedDialAction-staticTooltipLabel': {
             fontFamily: 'Pretendard ExtraBold',
           },
-
+          // '.MuiFab-sizeLarge': {
+          //   backgroundColor: `${open ? '#FFFFFF' : '#FEBD2F'}`,
+          //   color: `${open ? 'black' : 'white'}`,
+          // },
           '.MuiSpeedDial-fab ': { backgroundColor: '#FEBD2F' },
           '.css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab:hover': {
             backgroundColor: `${open ? '#FFFFFF' : '#FEBD2F'}`,

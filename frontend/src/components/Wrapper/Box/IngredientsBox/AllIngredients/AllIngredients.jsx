@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-
-// MUI
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
-
-// Data
 import dummy from '../ingredients.json';
-
-// Style
 import {
   Contents,
   Circle,

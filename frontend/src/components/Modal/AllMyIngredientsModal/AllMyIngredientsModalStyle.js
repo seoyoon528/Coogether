@@ -9,6 +9,7 @@ export const Circle = styled.button`
   text-align: center;
   line-height: 64px;
   margin-top: 0.5rem;
+  /* margin-bottom: 1rem; */
   z-index: 1;
   position: relative;
 

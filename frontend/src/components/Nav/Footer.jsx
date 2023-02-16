@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 import { Line, FotterBlock, FotterPlace } from './FooterStyle';

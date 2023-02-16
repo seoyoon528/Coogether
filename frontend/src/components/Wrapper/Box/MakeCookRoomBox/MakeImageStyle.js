@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 export const StreamContents = styled.div`
   display: flex;
+  /* flex-direction: row; */
   text-align: center;
+  /* margin-bottom: 4rem; */
   margin-bottom: 1rem;
   align-items: center;
   p {
