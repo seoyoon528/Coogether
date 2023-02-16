@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import './ToolbarComponent.css';
 import * as T from './ToolbarComponentStyle';
 import { Link } from 'react-router-dom';
+
 export default class ToolbarComponent extends Component {
   constructor(props) {
     super(props);
@@ -60,7 +60,6 @@ export default class ToolbarComponent extends Component {
     if (this.state.fullscreen) {
       this.closeFullScreenMode();
     } else {
-      // this.openFullScreenMode();
     }
     this.setState({ fullscreen: !this.state.fullscreen });
   }
@@ -146,43 +145,6 @@ export default class ToolbarComponent extends Component {
               <button onClick={this.kickStatusChanged}>취소</button>
             )
           )}
-
-          {/* <span
-              color="inherit"
-              className="navButton"
-              onClick={this.screenShare}
-            >
-              {localUser !== undefined && localUser.isScreenShareActive() ? (
-                <span>화면공유</span>
-              ) : (
-                <span>화면공유</span>
-              )}
-            </span>
-
-            {localUser !== undefined && localUser.isScreenShareActive() && (
-              <span onClick={this.stopScreenShare} id="navScreenButton">
-                화면공유 멈추기
-              </span>
-            )}
-
-            <span
-              color="inherit"
-              className="navButton"
-              onClick={this.switchCamera}
-            >
-              카메라 바꾸기
-            </span> */}
-          {/* <span
-              color="inherit"
-              className="navButton"
-              onClick={this.toggleFullscreen}
-            >
-              {localUser !== undefined && this.state.fullscreen ? (
-                <span>전체화면끄기</span>
-              ) : (
-                <span>전체화면</span>
-              )}
-            </span> */}
 
           <Link to="/Main" onClick={this.leaveSession}>
             <button>나가기</button>
