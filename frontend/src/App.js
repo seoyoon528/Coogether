@@ -8,19 +8,18 @@ import SearchCookRoom from './pages/Search/SearchCookRoom';
 import SearchRecipe from './pages/Search/SearchRecipe';
 import MyIngredientsManage from './pages/MyIngredientsManage/MyIngredientsManage';
 import Login from './pages/User/Login/Login';
-import Signin from './pages/User/SignIn/Signin';
 import Profile from './pages/User/Profile/Profile';
 import RecipeRegister from './pages/Recipe/RecipeRegister';
 import MakeCookRoom from './pages/MakeCookRoom/MakeCookRoom';
 
-import RedirectPage from './utils/RedirectPage';
+import Signin from './pages/User/SignIn/Signin';
 import Footer from './components/Nav/Footer';
 import FloatBtn from './components/Btn/FloatBtn/FloatBtn';
 import NotFound from './pages/NotFound/NotFound';
-import Baby from './pages/DUMMY/Baby';
 
 function App() {
   const [isShow, setIsShow] = useState(true);
+
   const onChangeShow = () => {
     setIsShow(!isShow);
   };
@@ -33,14 +32,11 @@ function App() {
     <div style={{ position: 'relative' }}>
       {isShow && <Nav />}
       <Switch>
-        {/* <Route path="/" exact>
-          <Redirect to="/Main" />
-        </Route> */}
         <Route path="/" exact>
-          <Baby onChangeShow={onChangeShow} />
+          <Redirect to="/Main" />
         </Route>
         <Route path="/Main" exact>
-          <Route component={Main} onChangeShow={onChangeShow} isShow={isShow} />
+          <Main component={Main} onChangeShow={onChangeShow} isShow={isShow} />
         </Route>
         <Route path="/Room/:roomId">
           <Room component={Room} onChangeShow={onChangeShow} />
@@ -52,8 +48,8 @@ function App() {
           <Login component={Login} onChangeShow={onChangeShow} />
         </Route>
         <Route path="/Login/oauth2/code/kakao">
-          <RedirectPage
-            component={RedirectPage}
+          <Signin
+            component={Signin}
             onChangeShow={onChangeShow}
             isShow={isShow}
           />
