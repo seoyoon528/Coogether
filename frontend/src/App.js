@@ -12,7 +12,7 @@ import Profile from './pages/User/Profile/Profile';
 import RecipeRegister from './pages/Recipe/RecipeRegister';
 import MakeCookRoom from './pages/MakeCookRoom/MakeCookRoom';
 
-import Signin from './pages/User/SignIn/Signin';
+import RedirectPage from './utils/RedirectPage';
 import Footer from './components/Nav/Footer';
 import FloatBtn from './components/Btn/FloatBtn/FloatBtn';
 import NotFound from './pages/NotFound/NotFound';
@@ -48,14 +48,7 @@ function App() {
           <Login component={Login} onChangeShow={onChangeShow} />
         </Route>
         <Route path="/Login/oauth2/code/kakao">
-          <Signin
-            component={Signin}
-            onChangeShow={onChangeShow}
-            isShow={isShow}
-          />
-        </Route>
-        <Route path="/Signin">
-          <Signin component={Signin} onChangeShow={onChangeShow} />
+          <RedirectPage component={RedirectPage} onChangeShow={onChangeShow} />
         </Route>
         <Route path="/Profile/:userId" component={Profile} />
         <Route path="/MyIngredients" component={MyIngredientsManage}>
