@@ -474,6 +474,8 @@ class CookRoom extends Component {
     this.state.session.on('signal:kickout', event => {
       let remoteUsers = this.state.subscribers;
       if (event.data === this.state.myUserName) {
+        localUser.setAudioActive(false);
+        localUser.setVideoActive(false);
         this.state.session.disconnect();
         alert('강퇴당했습니다');
         window.location = '/Main';
