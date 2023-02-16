@@ -1,7 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
+
+// MUI
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
 import KitchenRoundedIcon from '@mui/icons-material/KitchenRounded';
 import KitchenIcon from '@mui/icons-material/Kitchen';
+
+// Component
+import AllMyIrngredientsModal from '../../../../Modal/AllMyIngredientsModal/AllMyIngredientsModal';
+
+// Style
 import {
   Button,
   Contents,
@@ -10,7 +17,6 @@ import {
   Container,
   Span,
 } from './MyIngredientsStyle';
-import AllMyIrngredientsModal from '../../../../Modal/AllMyIngredientsModal/AllMyIngredientsModal';
 
 function MyIngredients({
   isMyIngrePatched,
