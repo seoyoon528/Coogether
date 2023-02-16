@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import './StreamComponent.css';
 
 export default class OvVideoComponent extends Component {
   constructor(props) {
@@ -10,7 +9,6 @@ export default class OvVideoComponent extends Component {
 
   componentDidMount() {
     if (this.props && this.props.user.streamManager && !!this.videoRef) {
-      console.log('PROPS: ', this.props);
       this.props.user.getStreamManager().addVideoElement(this.videoRef.current);
     }
 
