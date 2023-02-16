@@ -56,8 +56,6 @@ class CookRoom extends Component {
       killPopup: false,
       // 강퇴한 유저
       killedUser: '',
-      // axios 연결 시 res
-      connectRes: null,
     };
     this.DelRoomRequestInfo = this.DelRoomRequestInfo.bind(this);
     this.modalOpen = this.modalOpen.bind(this);
@@ -133,14 +131,16 @@ class CookRoom extends Component {
 
   async connectToSession() {
     if (this.props.token !== undefined) {
+      // console.log('token received: ', this.props.token);
       this.connect(this.props.token);
     } else {
       try {
         var token = await this.getToken();
+        // console.log(token);
         this.connect(token);
       } catch (error) {
         console.error(
-          '접속 중 오류가 발생했습니다 :',
+          'There was an error getting the token:',
           error.code,
           error.message
         );
@@ -152,7 +152,7 @@ class CookRoom extends Component {
             status: error.status,
           });
         }
-        alert('접속 중 오류가 발생했습니다:', error.message);
+        alert('There was an error getting the token:', error.message);
       }
     }
   }
@@ -202,7 +202,12 @@ class CookRoom extends Component {
             status: error.status,
           });
         }
-        alert('접속 중 오류가 발생했습니다. 다시 시도해 주세요');
+        alert('There was an error connecting to the session:', error.message);
+        console.log(
+          'There was an error connecting to the session:',
+          error.code,
+          error.message
+        );
       });
   }
 
@@ -270,6 +275,11 @@ class CookRoom extends Component {
 
   updateSubscribers() {
     var subscribers = this.remotes;
+    console.log(
+      subscribers.map(v => {
+        return v.nickname;
+      })
+    );
     if (this.props.userInfo.userSeq === null) {
       this.leaveSession();
       alert('로그인이 필요합니다. 로그인 이후 이용해주세요');
@@ -281,6 +291,7 @@ class CookRoom extends Component {
     } else {
       this.setState({ enteredNum: subscribers.length });
     }
+    console.log(subscribers.length);
 
     this.setState(
       {
@@ -310,9 +321,9 @@ class CookRoom extends Component {
     };
     try {
       const res = await axios(requestInfo);
-      this.setState({ connectRes: res });
+      console.log(res);
     } catch (error) {
-      this.setState({ connectRes: error });
+      console.log(error);
     }
   }
 
@@ -323,7 +334,7 @@ class CookRoom extends Component {
       mySession.disconnect();
     }
 
-    // 속성 모두 초기화
+    // Empty all properties...
     this.OV = null;
     this.setState({
       session: undefined,
@@ -408,6 +419,7 @@ class CookRoom extends Component {
   subscribeToStreamCreated() {
     this.state.session.on('streamCreated', event => {
       const subscriber = this.state.session.subscribe(event.stream, undefined);
+      // var subscribers = this.state.subscribers;
       subscriber.on('streamPlaying', e => {
         this.checkSomeoneShareScreen();
         subscriber.videos[0].video.parentElement.classList.remove(
@@ -425,6 +437,7 @@ class CookRoom extends Component {
       newUser.setUserSeq(JSON.parse(nickname).clientSeq);
 
       this.remotes.push(newUser);
+      console.log(this.remotes);
       this.findHost.push([JSON.parse(nickname).clientData, Date.now()]);
 
       if (this.localUserAccessAllowed) {
@@ -434,7 +447,9 @@ class CookRoom extends Component {
   }
 
   subscribeToStreamDestroyed() {
+    // On every Stream destroyed...
     this.state.session.on('streamDestroyed', event => {
+      // Remove the stream from 'subscribers' array
       this.deleteSubscriber(event.stream);
       setTimeout(() => {
         this.checkSomeoneShareScreen();
@@ -454,6 +469,7 @@ class CookRoom extends Component {
   }
   clickNextStep() {
     this.state.session.on('signal:nextStep', event => {
+      // console.log(event, this.state.recipe.length);
       this.setState({ nowStep: event.data });
       // 요리가 완료되면 닫기
       if (this.state.nowStep > this.state.recipe.length - 1) {
@@ -470,6 +486,7 @@ class CookRoom extends Component {
   chattoCook() {
     this.state.session.on('signal:startCook', event => {
       this.setState({ chatDisplay: 'none', messageReceived: false });
+      // this.openFullScreenMode();
     });
   }
 
@@ -479,6 +496,7 @@ class CookRoom extends Component {
       remoteUsers.forEach(user => {
         if (user.getConnectionId() === event.from.connectionId) {
           const data = JSON.parse(event.data);
+          // console.log('EVENTO REMOTE: ', event.data);
 
           if (data.isAudioActive !== undefined) {
             user.setAudioActive(data.isAudioActive);
@@ -562,6 +580,8 @@ class CookRoom extends Component {
         );
 
         if (newVideoDevice.length > 0) {
+          // Creating a new publisher with specific videoSource
+          // In mobile devices the default and first camera is the front one
           var newPublisher = this.OV.initPublisher(undefined, {
             audioSource: undefined,
             videoSource: newVideoDevice[0].deviceId,
@@ -570,6 +590,7 @@ class CookRoom extends Component {
             mirror: true,
           });
 
+          //newPublisher.once("accessAllowed", () => {
           await this.state.session.unpublish(
             this.state.localUser.getStreamManager()
           );
@@ -582,7 +603,7 @@ class CookRoom extends Component {
         }
       }
     } catch (e) {
-      this.setState({ connectRes: e });
+      console.error(e);
     }
   }
 
@@ -638,6 +659,7 @@ class CookRoom extends Component {
 
   checkSomeoneShareScreen() {
     let isScreenShared;
+    // return true if at least one passes the test
     isScreenShared =
       this.state.subscribers.some(user => user.isScreenShareActive()) ||
       localUser.isScreenShareActive();
@@ -645,6 +667,7 @@ class CookRoom extends Component {
 
   toggleChat(property) {
     let display = property;
+    // console.log(display);
     if (display === undefined) {
       // 방장이 시작하면 신호를 모두에게 보냄
       this.roomStart();
@@ -655,6 +678,7 @@ class CookRoom extends Component {
     if (display === 'block') {
       this.setState({ chatDisplay: display, messageReceived: false });
     } else {
+      console.log('chat', display);
       this.setState({ chatDisplay: display });
 
       //세션 보내기
@@ -868,6 +892,18 @@ class CookRoom extends Component {
                       onClick={this.beforeVideo}
                     />
                     <C.OutFocusVideo>
+                      {/* 현재 큰화면이 아닌 유저들만 캐러셀에 나옴 */}
+                      {/* {localUser !== undefined &&
+                        this.state.nowVideo !== localUser &&
+                        localUser.getStreamManager() !== undefined && (
+                          <StreamComponent
+                            nowFocus={this.state.nowVideo}
+                            user={localUser}
+                            handleNickname={this.nicknameChanged}
+                            subscribeNum={this.state.subscribers.length}
+                            videoClick={this.videoClick}
+                          />
+                        )} */}
                       {[localUser, ...this.state.subscribers]
                         .filter(v => v !== this.state.nowVideo)
                         .map((sub, i) => {
@@ -936,6 +972,7 @@ class CookRoom extends Component {
               )}
             </C.CookVodDivideBox>
             <C.RecipeDivideBox>
+              {/* <VerticalC data={this.state.recipe} /> */}
               <C.RecipeTitle>{this.state.recipeName}</C.RecipeTitle>
               <C.BeforeRecipe>
                 <C.RecipeTxt>
@@ -1043,6 +1080,21 @@ class CookRoom extends Component {
     );
   }
 
+  /**
+   * --------------------------------------------
+   * GETTING A TOKEN FROM YOUR APPLICATION SERVER
+   * --------------------------------------------
+   * The methods below request the creation of a Session and a Token to
+   * your application server. This keeps your OpenVidu deployment secure.
+   *
+   * In this sample code, there is no user control at all. Anybody could
+   * access your application server endpoints! In a real production
+   * environment, your application server must identify the user to allow
+   * access to the endpoints.
+   *
+   * Visit https://docs.openvidu.io/en/stable/application-server to learn
+   * more about the integration of OpenVidu in your application server.
+   */
   async getToken() {
     const sessionId = await this.createSession(this.state.mySessionId);
     return await this.createToken(sessionId);
@@ -1056,7 +1108,7 @@ class CookRoom extends Component {
         headers: { 'Content-Type': 'application/json' },
       }
     );
-    return response.data;
+    return response.data; // The sessionId
   }
 
   async createToken(sessionId) {
@@ -1067,7 +1119,7 @@ class CookRoom extends Component {
         headers: { 'Content-Type': 'application/json' },
       }
     );
-    return response.data;
+    return response.data; // The token
   }
 }
 export default CookRoom;
