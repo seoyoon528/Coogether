@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useTheme, StyledEngineProvider } from '@mui/material/styles';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -12,9 +15,17 @@ import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 function ReportModal({ userInfo, subscribers, isReport }) {
   const [isModalOpen, setisModalOpen] = useState('');
+  console.log(subscribers);
   // 쿡룸에서 props로 가져오는 거로 바꾸기
+  const params = useLocation();
   const { accessToken } = userInfo;
 
+  console.log(userInfo);
+  const history = useHistory();
+
+  const [userImg, setUserImg] = useState('');
+
+  const inputRef = useRef(null);
   const [willDel, setWillDel] = useState('');
   const [delSort, SetDelSort] = useState('HARMFUL');
   const [delInfo, setDelInfo] = useState('');
@@ -28,7 +39,9 @@ function ReportModal({ userInfo, subscribers, isReport }) {
 
   const submitRegister = async () => {
     // 히스토리 생성
-
+    console.log(
+      `https://i8b206.p.ssafy.io:9000/api/report/${userInfo.userSeq}/${willDel}`
+    );
     const historyRequestInfo = await axios.post(
       `https://i8b206.p.ssafy.io:9000/api/report/${userInfo.userSeq}/${willDel}`,
       {
