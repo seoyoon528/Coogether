@@ -8,7 +8,6 @@ import DialogExtensionComponent from './dialog-extension/DialogExtension';
 import StreamComponent from './stream/StreamComponent';
 import ReportModal from '../Modal/ReportModal/ReportModal';
 import * as C from './CookRoomStyle';
-import CheckUserNum from './models/CheckUserNum';
 import UserModel from './models/user-model';
 import ToolbarComponent from './toolbar/ToolbarComponent';
 import { thisTypeAnnotation } from '@babel/types';
@@ -226,13 +225,19 @@ class CookRoom extends Component {
     });
     var devices = await this.OV.getDevices();
     var videoDevices = devices.filter(device => device.kind === 'videoinput');
-
+    if (localUser.isVideoActive()) {
+      localUser.setAudioActive(false);
+    }
+    if (localUser.isVideoActive()) {
+      localUser.setVideoActive(false);
+    }
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
       videoSource: videoDevices[0].deviceId,
 
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
+
       resolution: '640x480',
       frameRate: 30,
       insertMode: 'APPEND',
@@ -469,6 +474,8 @@ class CookRoom extends Component {
     this.state.session.on('signal:kickout', event => {
       let remoteUsers = this.state.subscribers;
       if (event.data === this.state.myUserName) {
+        localUser.setAudioActive(false);
+        localUser.setVideoActive(false);
         this.state.session.disconnect();
         alert('강퇴당했습니다');
         window.location = '/Main';
@@ -763,10 +770,6 @@ class CookRoom extends Component {
 
     return (
       <>
-        {/* <CheckUserNum
-          userNum={this.state.subscribers.length + 1}
-          thisRoom={this.props.roomId}
-        /> */}
         {this.state.killPopup && (
           <div>
             <Modal
