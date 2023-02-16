@@ -4,8 +4,6 @@
 
 ## [🍳지금 요리하러 가기 !](http://i8b206.p.ssafy.io)
 
-[쿠게더](https://i8b206.p.ssafy.io/)
-
 ## 📺 소개 영상 (UCC)
 
 ---
