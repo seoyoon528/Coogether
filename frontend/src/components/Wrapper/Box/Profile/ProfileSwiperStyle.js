@@ -66,7 +66,6 @@ export const HistoryStyle = styled.div`
 
 export const MyRecipeStyle = styled.div`
   width: 100%;
-  /* height: 50vh; */
 
   border: 0.5px dashed #505050;
   border-radius: 4px;

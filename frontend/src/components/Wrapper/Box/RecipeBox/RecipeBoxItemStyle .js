@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const RecipeBoxItemStyle = styled.div`
   margin-top: 25px;
-  /* width: 27.2rem; */
   height: 21rem;
   background-color: #fff8ea;
 

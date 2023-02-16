@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
+// MUI
 import { Grid } from '@mui/material';
 
+// Component
 import RecipeBoxItem from './RecipeBoxItem ';
 
 function RecipeBoxList(props) {
@@ -13,9 +14,6 @@ function RecipeBoxList(props) {
       container
       columns={12}
       columnSpacing={{ xs: 2, md: 5, lg: 8 }}
-      // columnSpacing={5}
-      // rowSpacing={{ xs: 2, md: 5, lg: 8 }}
-      // rowGap={3}
       justifyContent="space-evenly"
     >
       {recepi.map(recipe => {

@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
-
-// import axios from 'axios';
 
 // MUI
 import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
@@ -23,9 +20,6 @@ function AllMyIngredientsModal({
   const [isActive, setIsActive] = useState(false);
   const [selectIngredientId, setselectIngredientId] = useState('');
   const [isPatched, setIsPatched] = useState(false);
-  // const [favIngre, setFavIngre] = useState([]);
-  // const [isFavPatched, setIsFavPatched] = useState(false);
-  // const [isMyIngrePatched, setIsMyIngrePatched] = useState(false);
 
   // function
   const handleClick = () => {
@@ -38,53 +32,6 @@ function AllMyIngredientsModal({
   const handleClose = () => {
     onClose?.();
   };
-
-  // Redux
-  // const accessToken = useSelector(state => state.user.accessToken);
-  // const isLogin = useSelector(state => state.user.userSeq);
-
-  // // 즐겨찾기 patch
-  // const favIngredient = i => {
-  //   const inorOutIngredient = async target => {
-  //     const sendIngredient = await axios.patch(
-  //       // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
-  //       `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
-  //       {},
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //       }
-  //     );
-  //     if (!isFavPatched) {
-  //       setIsFavPatched(true);
-  //     }
-  //     setFavIngre([...sendIngredient.data.map(v => v)]);
-  //   };
-  //   inorOutIngredient(i.ingredientId);
-  // };
-
-  // // 내 냉장고 patch
-  // const sumbitIngredient = f => {
-  //   const inorOutIngredient = async target => {
-  //     console.log(target);
-  //     const sendIngredient = await axios.patch(
-  //       // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${target}`,
-  //       `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
-  //       {},
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //       }
-  //     );
-  //     if (!isMyIngrePatched) {
-  //       setIsMyIngrePatched(true);
-  //     }
-  //     setMyFridge([...sendIngredient.data.map(v => v)]);
-  //   };
-  //   inorOutIngredient(f.ingredientId);
-  // };
 
   // Component
   const afterPatch = myFridge.map(f => {

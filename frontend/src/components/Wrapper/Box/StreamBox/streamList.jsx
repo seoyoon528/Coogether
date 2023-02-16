@@ -1,5 +1,9 @@
 import React from 'react';
+
+// MUI
 import { Grid } from '@mui/material';
+
+// Component
 import StreamItem from './streamItem';
 
 function StreamList(props) {

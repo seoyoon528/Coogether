@@ -21,7 +21,6 @@ export const SearchFormLabel = styled.label`
     color: #4f4f4f;
   }
   input::placeholder {
-    /* padding-left: 10px; */
     text-align: center;
   }
   button {
