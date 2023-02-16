@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import * as R from './ConfirmModalStyle';
 
-function ConfirmModal({ info, onChangeShow, isReport, killPopup }) {
+function ConfirmModal({ info, onChangeShow, navShow, isReport, killPopup }) {
   const history = useHistory();
 
   return (
