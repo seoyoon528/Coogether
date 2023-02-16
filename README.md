@@ -17,7 +17,7 @@
 
 ---
 
-포팅 매뉴얼 링크 걸기
+[포팅 매뉴얼](https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B206/-/blob/dev/exec/%EC%BF%A0%EA%B2%8C%EB%8D%94_%ED%8F%AC%ED%8C%85%EB%A7%A4%EB%89%B4%EC%96%BC.pdf)
 
 ### ✔️ **프로젝트 일정**
 
