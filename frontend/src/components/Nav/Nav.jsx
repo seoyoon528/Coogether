@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { Box, Avatar } from '@mui/material';
 import Mainlogo from '../../assets/img/mainlogo.png';
 import {
@@ -22,6 +23,8 @@ function Nav() {
     <>
       <NavbarBlock>
         <Box display="grid" gridTemplateColumns="repeat(16, 1fr)" gap={1}>
+          {/* <NavbarBlock> */}
+
           <Box gridColumn="span 1" />
           <Box gridColumn="span 2">
             <Imgstyle to="/Main">
@@ -64,6 +67,7 @@ function Nav() {
               </LoginStatus>
             )}
           </Box>
+          {/* </NavbarBlock> */}
         </Box>
       </NavbarBlock>
       <Line />

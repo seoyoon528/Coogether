@@ -49,6 +49,8 @@ export const Line = styled.hr`
 export const Imgstyle = styled(NavLink)`
   margin-top: 0px;
   margin-bottom: 0px;
+  /* padding-right: 1rem;
+  padding-left: 1rem; */
   margin-left: 2rem;
   margin-right: 2rem;
 `;
@@ -73,6 +75,10 @@ export const Loginstyle = styled(NavLink)`
 
 export const LoginAvatar = styled(NavLink)`
   cursor: pointer;
+  /* margin-top: 1.5rem;
+  margin-left: 3.5rem;
+  margin-right: 2rem;
+  padding-bottom: 1.5rem; */
 
   display: flex;
 

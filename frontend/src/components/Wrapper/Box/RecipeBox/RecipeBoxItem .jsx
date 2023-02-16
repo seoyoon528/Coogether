@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 // Component
 import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
@@ -7,7 +8,7 @@ import RecipeDetail from '../../../Modal/RecipeModal/RecipeDetail';
 import { RecipeBoxItemStyle, UnderLine } from './RecipeBoxItemStyle ';
 
 function RecipeBoxItem({ recipe }) {
-  const { recipeName, recipeImg } = recipe;
+  const { recipeName, recipeImg, recipeId } = recipe;
 
   // Modal 상태
   const [isModalOpened, setIsModalOpened] = useState(false);

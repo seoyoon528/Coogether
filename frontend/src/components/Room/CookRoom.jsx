@@ -1,5 +1,6 @@
 /* eslint-disable */
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { OpenVidu } from 'openvidu-browser';
 import React, { Component } from 'react';
 import ChatComponent from './chat/ChatComponent';
@@ -7,21 +8,28 @@ import DialogExtensionComponent from './dialog-extension/DialogExtension';
 import StreamComponent from './stream/StreamComponent';
 import ReportModal from '../Modal/ReportModal/ReportModal';
 import * as C from './CookRoomStyle';
+import CheckUserNum from './models/CheckUserNum';
 import UserModel from './models/user-model';
 import ToolbarComponent from './toolbar/ToolbarComponent';
+import { thisTypeAnnotation } from '@babel/types';
+import VerticalC, { data } from './verticalCarousel/VerticalC';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 // mui import
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Box from '@mui/material/Box';
-
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import StreamFinishModal from '../Modal/StreamFinishModal/StreamFinishModal';
 
 var localUser = new UserModel();
 // 서버 URL 지정
-
+// const APPLICATION_SERVER_URL = "https://demos.openvidu.io/";
+// const APPLICATION_SERVER_URL = "http://localhost:5000/";
 const APPLICATION_SERVER_URL = 'https://i8b206.p.ssafy.io:9000/api/';
+// const APPLICATION_SERVER_URL =
+//   'https://port-0-https---github-com-lsh9955-loginopenvidu-1jx7m2gld1c88au.gksl2.cloudtype.app/';
 
 class CookRoom extends Component {
   constructor(props) {
@@ -755,6 +763,10 @@ class CookRoom extends Component {
 
     return (
       <>
+        {/* <CheckUserNum
+          userNum={this.state.subscribers.length + 1}
+          thisRoom={this.props.roomId}
+        /> */}
         {this.state.killPopup && (
           <div>
             <Modal

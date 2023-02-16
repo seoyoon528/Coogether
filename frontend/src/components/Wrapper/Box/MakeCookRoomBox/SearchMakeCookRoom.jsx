@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// MUI
 import { Autocomplete, TextField } from '@mui/material';
-
-// Style
 import { StreamContents } from './SearchMakeCookRoomStyle';
+// MUI
 
 function SearchMakeCookRoom(props) {
   const { setSelectRecipe } = props;
@@ -92,6 +90,7 @@ function SearchMakeCookRoom(props) {
           />
         )}
       />
+      {/* <input type="text" placeholder="요리 이름을 검색하세요." /> */}
     </>
   );
 }

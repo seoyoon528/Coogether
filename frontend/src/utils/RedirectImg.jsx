@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+
 import { SvgIcon, Box } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import * as R from './SigninStyle';
+import * as R from './RedirectPageStyle';
 
-export default function SigninImg({ userImgHandler }) {
+export default function RedirectImg({ userImgHandler }) {
   const [uploadUserImg, setUploadUserImg] = useState('');
   let renderingImage;
   if (uploadUserImg) {

@@ -60,7 +60,7 @@ function RecipeRegisterForm() {
     // 이미지를 제외한 전송 데이터 객체로 묶기
     const sendingData = {
       recipeName,
-      recipeCategory: recipeCategory === 'no-select' ? 'NONE' : recipeCategory,
+      recipeCategory,
       ingredientListRequest,
       recipeStepRequest,
       recipeType,
