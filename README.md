@@ -101,31 +101,26 @@ DevOps : Docker(20.10.23), Jenkins(2.375.3), nginx(1.18.0), AWS ec2
 
 ## 🔔 서비스 플로우
 
----
 
 ![flow](/uploads/23079ef87406e2a7534e3a7b4a80a036/flow.png)
 
 ## 📙 [기능 명세](https://www.notion.so/413d4eca2d46491c83f0c4543bee066c)
 
----
 
 ![function](/uploads/9c35c5824932f798f9be143b86e19aa5/function.png)
 
 ## 💾 [ERD](https://www.notion.so/ERD-b3acd3fae0124044b38b357ee4d9c99c)
 
----
 
 ![Coogether_ERD](/uploads/5675f7fd87006c8cb956c178096426a1/Coogether_ERD.png)
 
 ## 📜  [API Docs](https://www.notion.so/API-Docs-a933fc057ec446b5bf9c2ceb738b0809)
 
----
 
 ![api](/uploads/8b41cc7b2485d85bc32c051b5b3082a2/api.png)
 
 ## 📁 디렉토리 구조
 
----
 
 ```jsx
 📦frontend
@@ -240,13 +235,11 @@ DevOps : Docker(20.10.23), Jenkins(2.375.3), nginx(1.18.0), AWS ec2
 
 ## 📢 화면 구성
 
----
 
 내일 찍기
 
 ## ✨ EC2 포트
 
----
 
 | PORT | 이름 |
 | --- | --- |
