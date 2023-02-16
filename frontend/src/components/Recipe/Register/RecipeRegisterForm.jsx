@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 // MUI
-import { Stack, Box, Snackbar } from '@mui/material';
-import MuiAlert from '@mui/material/Alert';
+import { Stack, Box } from '@mui/material';
 
 // Component
 import RecipeCookName from './RecipeCookName';
@@ -15,10 +14,6 @@ import RecipeCookImage from './RecipeCookImage';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeOrders from './RecipeOrders';
 import NextBtn from '../../Btn/NextBtn/NextBtn';
-
-const Alert = React.forwardRef((props, ref) => {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 function RecipeRegisterForm() {
   // useHistory
@@ -39,47 +34,10 @@ function RecipeRegisterForm() {
     { id: 'order-1' },
     { id: 'order-2' },
   ]);
-  const [isAlertOpened, setIsAlertOpened] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
 
   // function
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setIsAlertOpened(false);
-  };
-
   // form 제출
   const recipeSubmitHandler = async () => {
-    if (!cookNameRef.current.value) {
-      setAlertMessage('레시피 이름을 입력해주세요');
-      setIsAlertOpened(true);
-      return;
-    }
-    if (!cookImage) {
-      setAlertMessage('레시피 사진을 등록해주세요');
-      setIsAlertOpened(true);
-      return;
-    }
-    if (recipeIngredients.length === 0) {
-      setAlertMessage('필요한 재료를 입력해주세요.');
-      setIsAlertOpened(true);
-      return;
-    }
-    if (
-      recipeOrders.length === 0 ||
-      recipeOrders.some(order => {
-        return !order.content;
-      })
-    ) {
-      setAlertMessage('레시피 요리 순서를 입력해주세요');
-      setIsAlertOpened(true);
-      return;
-    }
-
     // 전송하는 데이터 가공 및 변수명 변경
     const recipeName = cookNameRef.current.value;
     const recipeCategory = selectedCategory;
@@ -96,6 +54,7 @@ function RecipeRegisterForm() {
       .map(({ content }, idx) => {
         return { recipeStepNum: idx + 1, recipeStepContent: content };
       });
+    console.log(recipeStepRequest);
     const recipeType = 'CUSTOM';
 
     // 이미지를 제외한 전송 데이터 객체로 묶기
@@ -138,20 +97,6 @@ function RecipeRegisterForm() {
 
   return (
     <form className="recipe-register__form" onSubmit={recipeSubmitHandler}>
-      <Snackbar
-        open={isAlertOpened}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        sx={{ width: '40%', fontSize: '1.4rem' }}
-      >
-        <Alert
-          onClose={handleClose}
-          severity="error"
-          sx={{ width: '100%', '& .MuiAlert-message': { fontSize: '1.6rem' } }}
-        >
-          {alertMessage}
-        </Alert>
-      </Snackbar>
       <Stack spacing={5}>
         <RecipeCookName cookNameRef={cookNameRef} />
         <RecipeFoodCategory
