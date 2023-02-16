@@ -90,7 +90,6 @@ function SearchMakeCookRoom(props) {
           />
         )}
       />
-      {/* <input type="text" placeholder="요리 이름을 검색하세요." /> */}
     </>
   );
 }

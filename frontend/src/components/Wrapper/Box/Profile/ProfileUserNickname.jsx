@@ -17,14 +17,12 @@ export default function ProfileUserNickname(props) {
   return (
     <div className="form__nickname">
       <input
-        // className={`${isEditActive ? 'active' : ''}`}
         type="text"
         value={userNickname}
         onChange={event => {
           const userNickname = event.target.value;
           dispatch({ type: 'edit', payload: { userNickname } });
         }}
-        // readOnly={!isEditActive}
         readOnly
         maxLength="10"
       />

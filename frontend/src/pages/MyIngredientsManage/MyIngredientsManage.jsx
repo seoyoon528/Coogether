@@ -64,7 +64,6 @@ function MyIngredientsManage() {
   const favIngredient = i => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
         `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
         {},
         {
@@ -85,7 +84,6 @@ function MyIngredientsManage() {
     i => {
       const inorOutIngredient = async target => {
         const sendIngredient = await axios.patch(
-          // `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/1/${target}`,
           `https://i8b206.p.ssafy.io:9000/api/myIngredient/create/fav/${isLogin}/${target}`,
           {},
           {
@@ -109,7 +107,6 @@ function MyIngredientsManage() {
     const getData = async () => {
       try {
         const response = await axios.get(
-          // `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/fav/1`,
           `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/fav/${isLogin}`,
           {
             headers: {
@@ -130,7 +127,6 @@ function MyIngredientsManage() {
   const sumbitIngredient = f => {
     const inorOutIngredient = async target => {
       const sendIngredient = await axios.patch(
-        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${target}`,
         `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${target}`,
         {},
         {
@@ -150,7 +146,6 @@ function MyIngredientsManage() {
   const onFridge = useCallback(
     async ({ ingredientId }) => {
       const sendIngredient = await axios.patch(
-        // `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/1/${ingredientId}`,
         `https://i8b206.p.ssafy.io:9000/api/myIngredient/update/${isLogin}/${ingredientId}`,
         {},
         {
@@ -172,7 +167,6 @@ function MyIngredientsManage() {
     const getData = async () => {
       try {
         const response = await axios.get(
-          // `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/1`,
           `https://i8b206.p.ssafy.io:9000/api/myIngredient/list/total/${isLogin}`,
           {
             headers: {
@@ -195,7 +189,6 @@ function MyIngredientsManage() {
         try {
           const query = category;
           const response = await axios.get(
-            // `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/1/${query}`,
             `https://i8b206.p.ssafy.io:9000/api/ingredient/list/my/${isLogin}/${query}`,
             {
               headers: {

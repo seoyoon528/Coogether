@@ -16,7 +16,6 @@ function Main({ onChangeShow, isShow }) {
   const [isInFirst, setIsInFirst] = useState(false);
   const [isInSecond, setIsInSecond] = useState(false);
   const [isInThird, setIsInThird] = useState(false);
-  const history = useHistory();
   const userSeq = useSelector(state => state.user.userSeq);
   const accessToken = useSelector(state => state.user.accessToken);
 

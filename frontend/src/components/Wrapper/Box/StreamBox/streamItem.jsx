@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import * as S from './streamItemStyle';
 import ChefDeco from '../../../../assets/img/chef-deco.png';
@@ -43,7 +43,7 @@ function StreamItem({ room }) {
   if (minute < 10) {
     minute = `0${minute}`;
   }
-  // console.log(minute);
+
   const START = `${hour}:${minute}`;
   return (
     <S.CookRoomItemWrapper>
@@ -91,7 +91,7 @@ function StreamItem({ room }) {
       </S.KingWrapper>
       <S.TagWrapper>
         <div onClick={openModal} aria-hidden>
-          {/* <span>#{recipe.recipeName}</span> */}#{recipe.recipeName}
+          #{recipe.recipeName}
         </div>
         <RecipeDetail
           open={isModalOpened}

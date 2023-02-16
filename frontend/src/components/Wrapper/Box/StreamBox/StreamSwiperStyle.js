@@ -3,14 +3,9 @@ import styled from 'styled-components';
 export const CookRoomItemWrapper = styled.div`
   width: 21.6rem;
   position: relative;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: space-between; */
+
   margin-top: 25px;
   height: 25.5rem;
-  /* width: 21.6rem; */
-  /* background-color: rgba(255, 248, 234, 0.5); */
-  /* background-color: #fff8ea; */
 `;
 
 export const CookRoomItemImg = styled.img`
@@ -36,7 +31,6 @@ export const KingWrapper = styled.div`
     font-weight: 500;
   }
   .chefhat {
-    /* padding-right: 5px; */
     margin-right: 5px;
     width: 15px;
     height: 15px;
@@ -72,7 +66,6 @@ export const StartTimeWrapper = styled.div`
   align-items: center;
   border-radius: 0.2rem;
   height: 20px;
-  /* width: 68px; */
   width: max-content;
   min-width: 5rem;
   background-color: rgba(0, 0, 0, 0.5);
@@ -100,7 +93,6 @@ export const JoinUserWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 2rem;
-  /* width: 8rem; */
   border-radius: 0.2rem;
   background-color: rgba(0, 0, 0, 0.5);
   width: max-content;

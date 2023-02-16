@@ -21,8 +21,6 @@ export default function StreamSwiper(props) {
   return (
     <Swiper
       modules={[Navigation]}
-      // spaceBetween={20}
-      // slidesPerView={3}
       navigation
       grabCursor
       breakpoints={{

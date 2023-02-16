@@ -16,7 +16,6 @@ export const Background = styled.div`
 `;
 
 export const H3 = styled.h3`
-  /* margin: 4rem; */
   padding-top: 4rem;
   margin-bottom: 2rem;
   text-align: center;

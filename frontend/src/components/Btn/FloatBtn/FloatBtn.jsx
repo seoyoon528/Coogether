@@ -40,15 +40,10 @@ function FloatBtn() {
           position: 'fixed',
           bottom: 48,
           right: 48,
-          // '.MuiButtonBase-root': { backgroundColor: '#FEBD2F' },
           '.MuiFab-root': { backgroundColor: '#FEBD2F' },
           '.MuiSpeedDialAction-staticTooltipLabel': {
             fontFamily: 'Pretendard ExtraBold',
           },
-          // '.MuiFab-sizeLarge': {
-          //   backgroundColor: `${open ? '#FFFFFF' : '#FEBD2F'}`,
-          //   color: `${open ? 'black' : 'white'}`,
-          // },
           '.MuiSpeedDial-fab ': { backgroundColor: '#FEBD2F' },
           '.css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab:hover': {
             backgroundColor: `${open ? '#FFFFFF' : '#FEBD2F'}`,
