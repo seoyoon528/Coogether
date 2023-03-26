@@ -9,7 +9,7 @@ function Login({ onChangeShow }) {
   const history = useHistory();
   const isLogin = useSelector(state => state.user.authenticated);
   const REDIRECT_URI = 'https://i8b206.p.ssafy.io/login/oauth2/code/kakao';
-  const REST_API_KEY = 'b674e8f9c243d9c4425264edb0f647a9';
+  const REST_API_KEY = 'REST_API_KEY';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   useEffect(() => {
